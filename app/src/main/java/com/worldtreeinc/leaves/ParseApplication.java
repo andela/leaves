@@ -6,9 +6,12 @@ import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseCrashReporting;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import com.parse.ParseObject;
 >>>>>>> Initial folder structure
+=======
+>>>>>>> Added library for material UI design
 import com.parse.ParseUser;
 
 public class ParseApplication extends Application {
@@ -20,6 +23,7 @@ public class ParseApplication extends Application {
         ParseCrashReporting.enable(this);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Enable Local Data store.
         Parse.enableLocalDatastore(this);
 
@@ -30,6 +34,12 @@ public class ParseApplication extends Application {
 
         // Add your initialization code heree
 >>>>>>> Initial folder structure
+=======
+        // Enable Local Data store.
+        Parse.enableLocalDatastore(this);
+
+        // Add your initialization code here
+>>>>>>> Added library for material UI design
         Parse.initialize(this);
 
         ParseUser.enableAutomaticUser();
