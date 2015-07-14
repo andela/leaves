@@ -23,9 +23,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.main_activity);
-        relativeLayout.getBackground().setAlpha(180);
-
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
         Handler handler = new Handler();

@@ -10,4 +10,5 @@
     <string name="loginBtn">Login</string>
     <string name="registerBtn">Register</string>
     <string name="welcome_activity_label">Welcome Activity</string>
+    <string name="title_activity_login">Sign In</string>
 </resources>
