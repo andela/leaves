@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
     // method to move to RoleOption Activity
     public void changeToRoleOption(View view) {
         // change to the RoleOptionActivity
-        Intent intent = new Intent(getApplicationContext(), RoleOptionActivity.class);
+        Intent intent = new Intent(this, RoleOptionActivity.class);
         startActivity(intent);
     }
 
