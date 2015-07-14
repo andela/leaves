@@ -13,16 +13,28 @@
 
 
     <com.rey.material.widget.ProgressView
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:pv_autostart="true"
         app:pv_circular="true"
         app:pv_progressStyle="@style/Material.Drawable.CircularProgress"
         app:pv_progressMode="indeterminate"
+        android:layout_marginBottom="115dp"
+        android:id="@+id/splashLoader"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/splash_text"
+        android:id="@+id/splashText"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="29dp"
-        android:id="@+id/view" />
+        android:layout_marginTop="77dp"
+        android:textColor="#FFFFFF"
+        android:textSize="50dp" />
 
 
 </RelativeLayout>

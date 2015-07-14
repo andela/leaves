@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.parse.GetCallback;
@@ -16,6 +17,8 @@ import com.parse.ParseQuery;
 
 
 public class MainActivity extends Activity {
+
+    View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,27 +36,20 @@ public class MainActivity extends Activity {
 
             @Override
             public void run() {
-                // code to run after the time delay
-
                 // retrieve from database
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
                 query.fromLocalDatastore();
                 query.getInBackground("leaves", new GetCallback<ParseObject>() {
                     public void done(ParseObject object, ParseException e) {
                         if (e == null) {
-                            // change to the RoleOptionActivity
-                            Intent intent = new Intent(this, RoleOptionActivity.class);
-                            startActivity(intent);
+                            changeToRoleOption(view);
                         } else {
-                            // user is not logged in yet, change to GetStartedActivity
-                            Intent intent = new Intent(this, RoleOptionActivity.class);
-                            startActivity(intent);
+                            changeToGetStarted(view);
                         }
                     }
                 });
-
             }
-        }, 2000);
+        }, 3000);
     }
 
     @Override
@@ -76,6 +72,20 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // method to move to the GetStarted Activity
+    public void changeToGetStarted(View view) {
+        // user is not logged in yet, change to GetStartedActivity
+        Intent intent = new Intent(this, GetStartedActivity.class);
+        startActivity(intent);
+    }
+
+    // method to move to RoleOption Activity
+    public void changeToRoleOption(View view) {
+        // change to the RoleOptionActivity
+        Intent intent = new Intent(getApplicationContext(), RoleOptionActivity.class);
+        startActivity(intent);
     }
 
 }
