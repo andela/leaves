@@ -1,21 +1,48 @@
 package com.worldtreeinc.leaves;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 
+import com.parse.GetCallback;
 import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.main_activity);
+        relativeLayout.getBackground().setAlpha(180);
+
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
+
+        // retrieve from database
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
+        query.fromLocalDatastore();
+        query.getInBackground("leaves", new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    // change to the RoleOptionActivity
+                    // Intent intent = new Intent(this, RoleOptionActivity.class);
+                    // startActivity(intent);
+                } else {
+                    // user is not logged in yet, change to GetStartedActivity
+                    // Intent intent = new Intent(this, RoleOptionActivity.class);
+                    // startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
