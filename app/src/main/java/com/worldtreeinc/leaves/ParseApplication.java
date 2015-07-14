@@ -5,7 +5,6 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseCrashReporting;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class ParseApplication extends Application {
@@ -16,10 +15,10 @@ public class ParseApplication extends Application {
         // Initialize Crash Reporting.
         ParseCrashReporting.enable(this);
 
-        // Enable Local Datastore.
+        // Enable Local Data store.
         Parse.enableLocalDatastore(this);
 
-        // Add your initialization code heree
+        // Add your initialization code here
         Parse.initialize(this);
 
         ParseUser.enableAutomaticUser();
