@@ -1,7 +1,9 @@
 package com.worldtreeinc.leaves;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
@@ -15,7 +17,6 @@ import com.parse.ParseQuery;
 
 public class MainActivity extends Activity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -27,22 +28,32 @@ public class MainActivity extends Activity {
 
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
-        // retrieve from database
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
-        query.fromLocalDatastore();
-        query.getInBackground("leaves", new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (e == null) {
-                    // change to the RoleOptionActivity
-                    // Intent intent = new Intent(this, RoleOptionActivity.class);
-                    // startActivity(intent);
-                } else {
-                    // user is not logged in yet, change to GetStartedActivity
-                    // Intent intent = new Intent(this, RoleOptionActivity.class);
-                    // startActivity(intent);
-                }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                // code to run after the time delay
+
+                // retrieve from database
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
+                query.fromLocalDatastore();
+                query.getInBackground("leaves", new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (e == null) {
+                            // change to the RoleOptionActivity
+                            Intent intent = new Intent(this, RoleOptionActivity.class);
+                            startActivity(intent);
+                        } else {
+                            // user is not logged in yet, change to GetStartedActivity
+                            Intent intent = new Intent(this, RoleOptionActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                });
+
             }
-        });
+        }, 2000);
     }
 
     @Override
@@ -66,4 +77,5 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
