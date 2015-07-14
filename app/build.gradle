@@ -22,5 +22,13 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.0'
+<<<<<<< HEAD
     // compile files('libs/Parse-1.9.3.jar')
+=======
+}
+
+dependencies {
+    compile 'com.android.support:cardview-v7:21.0.3'
+    compile 'com.github.rey5137:material:1.1.1'
+>>>>>>> eb7e4877bcea50a337c7c80c6227d6c8476cf982
 }
