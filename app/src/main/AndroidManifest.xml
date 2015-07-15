@@ -49,7 +49,15 @@
         </activity>
         <activity
             android:name=".PlannerDashActivity"
-            android:label="@string/title_activity_planner_dash" >
+            android:label="@string/title_activity_planner_dash"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.worldtreeinc.leaves.MainActivity" />
+        </activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/title_activity_register" >
         </activity>
     </application>
 

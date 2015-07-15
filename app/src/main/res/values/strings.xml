@@ -18,4 +18,13 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_planner_dash">PlannerDashActivity</string>
+    <string name="title_activity_register">Register</string>
+
+    <string name="register_username">Username</string>
+    <string name="register_email">Email</string>
+    <string name="register_password">Password</string>
+    <string name="register_confirm_password">Confirm Password</string>
+    <string name="register_button">Sign Up</string>
+    <string name="register_question">Have an account?</string>
+    <string name="register_login">Login</string>
 </resources>
