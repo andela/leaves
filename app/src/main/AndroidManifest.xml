@@ -31,6 +31,10 @@
             android:name=".GetStartedActivity"
             android:label="@string/title_activity_get_started" >
         </activity>
+        <activity
+            android:name=".WelcomeActivity"
+            android:label="@string/welcome_activity_label">
+        </activity>
     </application>
 
 </manifest>
