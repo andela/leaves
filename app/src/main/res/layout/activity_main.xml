@@ -34,7 +34,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="77dp"
         android:textColor="#FFFFFF"
-        android:textSize="50dp" />
+        android:textSize="50sp" />
 
 
 </RelativeLayout>

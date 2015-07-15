@@ -9,11 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.parse.GetCallback;
 import com.parse.ParseAnalytics;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 
 public class MainActivity extends Activity {
@@ -36,18 +33,15 @@ public class MainActivity extends Activity {
 
             @Override
             public void run() {
-                // retrieve from database
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
-                query.fromLocalDatastore();
-                query.getInBackground("leaves", new GetCallback<ParseObject>() {
-                    public void done(ParseObject object, ParseException e) {
-                        if (e == null) {
-                            changeToRoleOption(view);
-                        } else {
-                            changeToGetStarted(view);
-                        }
-                    }
-                });
+                // check if user is logged in
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                if (currentUser != null) {
+                    // call method to change activity to RoleOptionActivity
+                    changeToRoleOption(view);
+                } else {
+                    // call method to change activity to GetStartedActivity
+                    changeToGetStarted(view);
+                }
             }
         }, 3000);
     }
