@@ -19,7 +19,7 @@
         app:pv_circular="true"
         app:pv_progressStyle="@style/Material.Drawable.CircularProgress"
         app:pv_progressMode="indeterminate"
-        android:layout_marginBottom="115dp"
+        android:layout_marginBottom="83dp"
         android:id="@+id/splashLoader"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
@@ -30,11 +30,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/splash_text"
         android:id="@+id/splashText"
+        android:textColor="#FFFFFF"
+        android:textSize="55sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="77dp"
-        android:textColor="#FFFFFF"
-        android:textSize="50sp" />
-
+        android:layout_marginTop="104dp" />
 
 </RelativeLayout>
