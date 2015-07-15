@@ -13,13 +13,23 @@
         android:background="#8000838F"
         android:id="@+id/linearLayout">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PROJECT NAME"
+            android:layout_marginTop="100dp"
+            android:textColor="#fff"
+            android:textSize="@dimen/abc_text_size_display_1_material"
+            android:layout_gravity="center_horizontal" />
+
         <Button
             android:id ="@+id/loginBtn"
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:textColor="#fff"
-            android:layout_marginTop="250dp"
+            android:layout_marginTop="200dp"
             android:text="@string/loginBtn"
+            android:onClick="onClick"
             android:textSize="20sp"
             android:background="@drawable/button_transparent_white_border"
             android:padding="15dp"
@@ -33,6 +43,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/registerBtn"
             android:textSize="20sp"
+            android:onClick="onClick"
             android:background="@drawable/button_transparent_white_border"
             android:padding="15dp"
             android:layout_gravity="center_horizontal" />
