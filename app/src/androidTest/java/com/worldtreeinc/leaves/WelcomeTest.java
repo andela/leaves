@@ -20,7 +20,7 @@ public class WelcomeTest extends ActivityInstrumentationTestCase2<WelcomeActivit
     }
 
     public void testLoginBtn() {
-        Instrumentation.ActivityMonitor mainActivityMonitor = getInstrumentation().addMonitor(MainActivity.class.getName(), null, false);
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(LoginActivity.class.getName(), null, false);
         WelcomeActivity activity = getActivity();
 
         final Button loginBtn = (Button) activity.findViewById(R.id.loginBtn);
@@ -31,7 +31,7 @@ public class WelcomeTest extends ActivityInstrumentationTestCase2<WelcomeActivit
             }
         });
 
-        MainActivity nextActivity = (MainActivity) getInstrumentation().waitForMonitor(mainActivityMonitor);
+        LoginActivity nextActivity = (LoginActivity) getInstrumentation().waitForMonitor(activityMonitor);
         assertNotNull(nextActivity);
         nextActivity.finish();
     }
