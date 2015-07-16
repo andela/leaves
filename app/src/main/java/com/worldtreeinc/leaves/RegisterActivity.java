@@ -1,11 +1,15 @@
 package com.worldtreeinc.leaves;
 
+import android.content.Intent;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
+import com.rey.material.widget.ProgressView;
 
 
 public class RegisterActivity extends ActionBarActivity {
@@ -58,7 +62,7 @@ public class RegisterActivity extends ActionBarActivity {
         String stringConfirmPassword = confirmPassword.getText().toString();
 
         // access the user registration class and call the register method
-        UserRegistration registerObject = new UserRegistration(getApplicationContext(), stringUsername, stringEmail, stringPassword, stringConfirmPassword);
+        UserRegistration registerObject = new UserRegistration(getApplicationContext(), this, stringUsername, stringEmail, stringPassword, stringConfirmPassword);
         registerObject.register();
 
     }
