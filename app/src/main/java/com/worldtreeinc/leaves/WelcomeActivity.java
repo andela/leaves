@@ -1,14 +1,12 @@
 package com.worldtreeinc.leaves;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 
-public class WelcomeActivity extends ActionBarActivity {
+public class WelcomeActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,15 +15,13 @@ public class WelcomeActivity extends ActionBarActivity {
     }
 
     public void onClick(View view) {
-        Intent register = new Intent(this, WelcomeActivity.class);
-        Intent login = new Intent(this, WelcomeActivity.class);
-        /*Intent register = new Intent(this, RegisterActivity.class);
-        Intent login = new Intent(this, LoginActivity.class);*/
         switch (view.getId()) {
             case R.id.registerBtn:
+                Intent register = new Intent(this, RegisterActivity.class);
                 startActivity(register);
                 break;
             case R.id.loginBtn:
+                Intent login = new Intent(this, LoginActivity.class);
                 startActivity(login);
                 break;
         }
