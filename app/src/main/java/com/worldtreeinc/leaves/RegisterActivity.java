@@ -61,8 +61,25 @@ public class RegisterActivity extends ActionBarActivity {
         String stringPassword = password.getText().toString();
         String stringConfirmPassword = confirmPassword.getText().toString();
 
-        // access the user registration class and call the register method
-        UserRegistration registerObject = new UserRegistration(getApplicationContext(), this, stringUsername, stringEmail, stringPassword, stringConfirmPassword);
+
+        /** access the user registration class and call the register method
+         * Create the register object
+         * and set the input strings with the constructor
+         */
+        UserRegistration registerObject = new UserRegistration(stringUsername, stringEmail, stringPassword, stringConfirmPassword);
+
+        // set Context for the registration object
+        registerObject.setContext(getApplicationContext());
+
+        // set Activity for the registration object
+        Boolean activitySet = registerObject.setActivity(this);
+
+        // set loading bar
+        if (activitySet) {
+            registerObject.setLoader();
+        }
+
+        // after all is done, register the user with parse
         registerObject.register();
 
     }
