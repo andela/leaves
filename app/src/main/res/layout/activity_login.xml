@@ -85,7 +85,8 @@
         android:layout_below="@+id/passwordLoginTextBox"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="#00838F"/>
+        android:background="#00838F"
+        android:textColor="#ffffff"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -102,9 +103,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Sign Up"
         android:id="@+id/registerUser"
-        android:layout_alignBottom="@+id/textView4"
+        android:textColor="#00838F"
+        android:layout_alignTop="@+id/textView4"
         android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:textColor="#00838F"/>
+        android:layout_alignEnd="@+id/textView"/>
 
 </RelativeLayout>
