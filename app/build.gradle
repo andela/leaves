@@ -27,3 +27,4 @@ dependencies {
     // Unit testing dependencies
     testCompile 'junit:junit:4.12'
 }
+
