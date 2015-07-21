@@ -1,38 +1,45 @@
 package com.worldtreeinc.leaves;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 
+import com.parse.ParseUser;
 
-public class RoleOptionActivity extends ActionBarActivity {
+public class RoleOptionActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // check if user is logged in
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser == null) {
+            //redirect to get started page
+            Intent getStartedIntent = new Intent(this, GetStartedActivity.class);
+            startActivity(getStartedIntent);
+        }
+
         setContentView(R.layout.activity_role_option);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_role_option, menu);
-        return true;
-    }
+    public void onClick(View view) {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (view.getId()) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            case R.id.bidderBtn:
+                //redirect to bidder dashboard
+                Intent bidderDash = new Intent(this, BidderDashActivity.class);
+                startActivity(bidderDash);
+                break;
+
+            case R.id.plannerBtn:
+                //redirect to planner dashboard
+                Intent plannerDash = new Intent(this, PlannerDashActivity.class);
+                startActivity(plannerDash);
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
 }
