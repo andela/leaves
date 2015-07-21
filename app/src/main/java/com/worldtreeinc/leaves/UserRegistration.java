@@ -83,29 +83,45 @@ public class UserRegistration {
 
 
 
-    public boolean isValid() {
+    public int isValid() {
         // for password, only check for equality in order to protext password
-        String message;
 
         if (this.email.equals("")) {
-            message = "Email field must not be empty or blank";
-            setToastMessage(message);
-            return false;
+            return 1;
         }
 
         if (this.password.equals("")) {
-            message = "Password field must not be empty or blank";
-            setToastMessage(message);
-            return false;
+            return 2;
         }
 
         if (!this.password.equals(this.confirmPassword)) {
-            message = "Password field does not match confirm password";
-            setToastMessage(message);
-            return false;
+            return 3;
         }
 
-        return true;
+        return 0;
+    }
+
+    public void toastNotification(int error_code) {
+        String message;
+        switch (error_code) {
+            case 1:
+                message = "Email field must not be empty or blank";
+                setToastMessage(message);
+                break;
+            case 2:
+                message = "Password field must not be empty or blank";
+                setToastMessage(message);
+                break;
+            case 3:
+                message = "Password field does not match confirm password";
+                setToastMessage(message);
+                break;
+            default:
+                message = "Unknown error occured. Please fill the form properly and try again";
+                setToastMessage(message);
+        }
+
+        return;
     }
 
     //set toast message function as it is used repeatedly

@@ -80,11 +80,14 @@ public class RegisterActivity extends ActionBarActivity {
         }
 
         // run initial localised validations
-        Boolean localValidation = registerObject.isValid();
+        int localValidation = registerObject.isValid();
 
         // after all is done, register the user with parse
-        if (localValidation) {
+        if (localValidation == 0) {
             registerObject.register();
+        }
+        else {
+            registerObject.toastNotification(localValidation);
         }
 
     }
