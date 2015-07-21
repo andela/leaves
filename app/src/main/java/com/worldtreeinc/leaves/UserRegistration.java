@@ -148,12 +148,12 @@ public class UserRegistration {
                             public void done(ParseUser user, ParseException e) {
                                 if (user != null) {
                                     // start new activity when login is successful
-                                    Intent intent = new Intent(UserRegistration.context, RoleActivity.class); // RoleOptionActivity.class - the real class name
+                                    Intent intent = new Intent(UserRegistration.context, RoleOptionActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     UserRegistration.context.startActivity(intent);
                                 } else {
                                     // change activity to login if sign up was successful but login failed
-                                    Intent intent = new Intent(UserRegistration.context, MainActivity.class); // LoginActivity.class - from kingsley
+                                    Intent intent = new Intent(UserRegistration.context, LoginActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     UserRegistration.context.startActivity(intent);
                                 }

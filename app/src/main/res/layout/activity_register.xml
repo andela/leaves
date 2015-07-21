@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/white"
     tools:context="com.worldtreeinc.leaves.RegisterActivity">
 
     <com.rey.material.widget.ProgressView
@@ -48,61 +49,51 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/register_username" />
-
         <EditText
+            android:layout_marginBottom="15dp"
             android:id="@+id/register_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:hint="@string/register_username" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/register_email" />
-
         <EditText
+            android:layout_marginBottom="15dp"
             android:id="@+id/register_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/register_email"
             android:inputType="textEmailAddress" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/register_password" />
-
         <EditText
+            android:layout_marginBottom="15dp"
             android:id="@+id/register_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/register_password"
             android:inputType="textPassword" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/register_confirm_password" />
-
         <EditText
+            android:layout_marginBottom="15dp"
             android:id="@+id/register_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/register_password"
+            android:hint="@string/register_confirm_password"
             android:inputType="textPassword" />
 
-        <Button
+        <com.rey.material.widget.Button
             android:id="@+id/register_signup_button"
+            style="@style/Material.Drawable.Ripple.Touch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/register_button"
             android:textAllCaps="true"
-            android:onClick="register"/>
+            android:onClick="register"
+            android:background="#00838F"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="10dp"
+            android:textSize="20sp"
+            app:rd_enable="true"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -110,15 +101,20 @@
             android:orientation="horizontal">
 
             <TextView
+                android:layout_marginRight="20dp"
+                android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/register_question" />
 
             <TextView
+                android:textColor="#00838F"
+                android:textSize="20sp"
                 android:id="@+id/register_login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/register_login" />
+                android:text="@string/register_login"
+                android:onClick="switchToLogin"/>
 
         </LinearLayout>
 

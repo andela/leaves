@@ -83,4 +83,10 @@ public class RegisterActivity extends ActionBarActivity {
         registerObject.register();
 
     }
+
+    public void switchToLogin(View view) {
+        // switch to the login activity if the login button is clicked
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
+    }
 }
