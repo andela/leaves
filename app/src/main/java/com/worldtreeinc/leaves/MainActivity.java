@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,9 +24,6 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.main_activity);
-        relativeLayout.getBackground().setAlpha(180);
 
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
