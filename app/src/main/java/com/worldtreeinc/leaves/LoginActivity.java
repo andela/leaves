@@ -13,7 +13,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     private EditText mUsername;
     private EditText mPassword;
     private Button loginButton;
-    //private TextView registerUser;
+    //private TextView regiActionBarActivitysterUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
