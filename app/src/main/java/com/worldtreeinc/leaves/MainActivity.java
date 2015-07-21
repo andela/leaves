@@ -1,21 +1,49 @@
 package com.worldtreeinc.leaves;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.parse.ParseAnalytics;
+import com.parse.ParseUser;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
+
+    View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.main_activity);
+        relativeLayout.getBackground().setAlpha(180);
+
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                // check if user is logged in
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                if (currentUser != null) {
+                    // call method to change activity to RoleOptionActivity
+                    changeToRoleOption(view);
+                } else {
+                    // call method to change activity to GetStartedActivity
+                    changeToGetStarted(view);
+                }
+            }
+        }, 3000);
     }
 
     @Override
@@ -39,4 +67,19 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    // method to move to the GetStarted Activity
+    public void changeToGetStarted(View view) {
+        // user is not logged in yet, change to GetStartedActivity
+        Intent intent = new Intent(this, GetStartedActivity.class);
+        startActivity(intent);
+    }
+
+    // method to move to RoleOption Activity
+    public void changeToRoleOption(View view) {
+        // change to the RoleOptionActivity
+        Intent intent = new Intent(this, RoleOptionActivity.class);
+        startActivity(intent);
+    }
+
 }
