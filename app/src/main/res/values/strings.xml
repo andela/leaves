@@ -11,4 +11,11 @@
     <string name="registerBtn">Register</string>
     <string name="welcome_activity_label">Welcome Activity</string>
     <string name="title_activity_login">Sign In</string>
+    <string name="title_activity_role_option">RoleOptionActivity</string>
+    <string name="bidderBtn">I am a Bidder</string>
+    <string name="plannerBtn">I am a Planner</string>
+    <string name="title_activity_bidder_dash">BidderDashActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_planner_dash">PlannerDashActivity</string>
 </resources>

@@ -22,7 +22,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        initailise();
+        initialise();
     }
 
     @Override
@@ -68,7 +68,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
 
         return super.onOptionsItemSelected(item);
     }
-    private void initailise() {
+    private void initialise() {
         mUsername = (EditText) findViewById(R.id.usernameLoginTextBox);
         mPassword = (EditText) findViewById(R.id.passwordLoginTextBox);
         loginButton = (Button) findViewById(R.id.loginButton);
