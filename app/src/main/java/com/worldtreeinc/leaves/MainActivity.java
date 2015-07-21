@@ -1,7 +1,6 @@
 package com.worldtreeinc.leaves;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -71,15 +70,15 @@ public class MainActivity extends Activity {
     // method to move to the GetStarted Activity
     public void changeToGetStarted(View view) {
         // user is not logged in yet, change to GetStartedActivity
-        Intent intent = new Intent(this, GetStartedActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, GetStartedActivity.class);
+        //startActivity(intent);
     }
 
     // method to move to RoleOption Activity
     public void changeToRoleOption(View view) {
         // change to the RoleOptionActivity
-        Intent intent = new Intent(this, RoleOptionActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, RoleOptionActivity.class);
+        //startActivity(intent);
     }
 
 }
