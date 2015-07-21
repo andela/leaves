@@ -81,9 +81,23 @@ public class UserRegistration {
         return this.email;
     }
 
-    // for password, only check for equality in order to protext password
-    public boolean checkPasswordEquality() {
-        return (this.password.equals(this.confirmPassword));
+
+
+    public boolean isValid() {
+        // for password, only check for equality in order to protext password
+        if (!this.password.equals(this.confirmPassword)) {
+            return false;
+        }
+
+        if (this.email.equals("")) {
+            return false;
+        }
+
+        if (!this.password.equals("")) {
+            return false;
+        }
+
+        return true;
     }
 
     //set toast message function as it is used repeatedly
@@ -94,16 +108,6 @@ public class UserRegistration {
     /**
      * Run local validity checks before moving over to parse
      */
-
-    // verify email
-    public boolean verifyEmail() {
-        return  (!this.email.equals(""));
-    }
-
-    // check of password field is empty
-    public boolean checkEmptyPassword() {
-        return  (!this.password.equals(""));
-    }
 
 
     public void register() {
@@ -119,18 +123,8 @@ public class UserRegistration {
         // define message variable
         String message;
 
-        // check if email field is not empty
-        if (!verifyEmail()) {
-            message = "Email cannot be missing or blank";
-            setToastMessage(message);
-        }
-        else if (!checkEmptyPassword()) {
-            message = "Password cannot be missing or blank";
-            setToastMessage(message);
-        }
-        // check if password fields do not match
-        else if (!checkPasswordEquality()) {
-            message = "Password does not match the confirm password!";
+        if (!isValid()) {
+            message = "Please fix the error(s) in your input";
             setToastMessage(message);
         }
         // let parse handle the remaining validation and register user
@@ -142,7 +136,6 @@ public class UserRegistration {
                         // Hooray! Let them use the app now.
                         String message = "Sign Up Successful";
                         UserRegistration.loader.stop();
-                        setToastMessage(message);
 
                         ParseUser.logInInBackground(username, password, new LogInCallback() {
                             public void done(ParseUser user, ParseException e) {
