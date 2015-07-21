@@ -85,15 +85,23 @@ public class UserRegistration {
 
     public boolean isValid() {
         // for password, only check for equality in order to protext password
-        if (!this.password.equals(this.confirmPassword)) {
-            return false;
-        }
+        String message;
 
         if (this.email.equals("")) {
+            message = "Email field must not be empty or blank";
+            setToastMessage(message);
             return false;
         }
 
-        if (!this.password.equals("")) {
+        if (this.password.equals("")) {
+            message = "Password field must not be empty or blank";
+            setToastMessage(message);
+            return false;
+        }
+
+        if (!this.password.equals(this.confirmPassword)) {
+            message = "Password field does not match confirm password";
+            setToastMessage(message);
             return false;
         }
 
@@ -120,53 +128,44 @@ public class UserRegistration {
         user.setPassword(this.password);
         user.setEmail(this.email);
 
-        // define message variable
-        String message;
-
-        if (!isValid()) {
-            message = "Please fix the error(s) in your input";
-            setToastMessage(message);
-        }
         // let parse handle the remaining validation and register user
-        else {
-            UserRegistration.loader.start();
-            user.signUpInBackground(new SignUpCallback() {
-                public void done(ParseException e) {
-                    if (e == null) {
-                        // Hooray! Let them use the app now.
-                        String message = "Sign Up Successful";
-                        UserRegistration.loader.stop();
+        UserRegistration.loader.start();
+        user.signUpInBackground(new SignUpCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                    // Hooray! Let them use the app now.
+                    String message = "Sign Up Successful";
+                    UserRegistration.loader.stop();
 
-                        ParseUser.logInInBackground(username, password, new LogInCallback() {
-                            public void done(ParseUser user, ParseException e) {
-                                if (user != null) {
-                                    // start new activity when login is successful
-                                    Intent intent = new Intent(UserRegistration.context, RoleOptionActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    UserRegistration.context.startActivity(intent);
-                                } else {
-                                    // change activity to login if sign up was successful but login failed
-                                    Intent intent = new Intent(UserRegistration.context, LoginActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    UserRegistration.context.startActivity(intent);
-                                }
+                    ParseUser.logInInBackground(username, password, new LogInCallback() {
+                        public void done(ParseUser user, ParseException e) {
+                            if (user != null) {
+                                // start new activity when login is successful
+                                Intent intent = new Intent(UserRegistration.context, RoleOptionActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                UserRegistration.context.startActivity(intent);
+                            } else {
+                                // change activity to login if sign up was successful but login failed
+                                Intent intent = new Intent(UserRegistration.context, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                UserRegistration.context.startActivity(intent);
                             }
-                        });
-
-                    } else {
-                        String message;
-                        // get error message from parse
-                        if (e.getCause() != null) {
-                            message = e.getCause().getMessage();
-                        } else {
-                            message = e.getMessage();
                         }
-                        UserRegistration.loader.stop();
-                        setToastMessage(message);
+                    });
+
+                } else {
+                    String message;
+                    // get error message from parse
+                    if (e.getCause() != null) {
+                        message = e.getCause().getMessage();
+                    } else {
+                        message = e.getMessage();
                     }
+                    UserRegistration.loader.stop();
+                    setToastMessage(message);
                 }
-            });
-        }
+            }
+        });
 
     }
 }
