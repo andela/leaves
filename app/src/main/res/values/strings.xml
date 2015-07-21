@@ -7,4 +7,7 @@
     <string name="title_activity_get_started">GetStartedActivity</string>
     <string name="project_name">PROJECT NAME</string>
     <string name="get_started_btn">Get Started</string>
+    <string name="loginBtn">Login</string>
+    <string name="registerBtn">Register</string>
+    <string name="welcome_activity_label">Welcome Activity</string>
 </resources>
