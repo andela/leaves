@@ -16,7 +16,7 @@ public class RoleOptionTest extends ActivityInstrumentationTestCase2<RoleOptionA
         assertNotNull(activity);
     }
 
-    //test role button
+    //test bidder role button
     public void testBidderBtn() {
         //Initialize activity monitor on BidderDashActivity
         Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(BidderDashActivity.class.getName(), null, false);
@@ -32,6 +32,26 @@ public class RoleOptionTest extends ActivityInstrumentationTestCase2<RoleOptionA
         });
         //next activity after button click
         BidderDashActivity nextActivity = (BidderDashActivity) getInstrumentation().waitForMonitor(activityMonitor);
+        assertNotNull(nextActivity);
+        nextActivity.finish();
+    }
+
+    //test planner role button
+    public void testPlannerBtn() {
+        //Initialize activity monitor on BidderDashActivity
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(PlannerDashActivity.class.getName(), null, false);
+        //current activity
+        RoleOptionActivity activity = getActivity();
+
+        final Button plannerBtn = (Button) activity.findViewById(R.id.plannerBtn);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                plannerBtn.performClick();
+            }
+        });
+        //next activity after button click
+        PlannerDashActivity nextActivity = (PlannerDashActivity) getInstrumentation().waitForMonitor(activityMonitor);
         assertNotNull(nextActivity);
         nextActivity.finish();
     }
