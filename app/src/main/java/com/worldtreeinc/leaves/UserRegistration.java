@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -26,11 +27,24 @@ public class UserRegistration {
     private String password;
     private String confirmPassword;
 
-    public UserRegistration(String username, String email, String password, String confirmPassword) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
+    // Error constants
+    public static final int NO_ERROR = 0;
+    public static final int NO_EMAIL = 1;
+    public static final int NO_PASSWORD = 2;
+    public static final int UNMATCHED_PASSWORD = 3;
+
+    // set parameters from the edit text field
+    public void setParameters() {
+        // assign user inputs to variables
+        EditText username = (EditText) UserRegistration.activity.findViewById(R.id.register_username);
+        EditText email = (EditText) UserRegistration.activity.findViewById(R.id.register_email);
+        EditText password = (EditText) UserRegistration.activity.findViewById(R.id.register_password);
+        EditText confirmPassword = (EditText) UserRegistration.activity.findViewById(R.id.register_confirm_password);
+        // convert variables to strings
+        this.username = username.getText().toString();
+        this.email = email.getText().toString();
+        this.password = password.getText().toString();
+        this.confirmPassword = confirmPassword.getText().toString();
     }
 
     // different method to add context and activity
@@ -81,47 +95,40 @@ public class UserRegistration {
         return this.email;
     }
 
-
-
     public int isValid() {
         // for password, only check for equality in order to protext password
 
         if (this.email.equals("")) {
-            return 1;
+            return NO_EMAIL;
         }
 
         if (this.password.equals("")) {
-            return 2;
+            return NO_PASSWORD;
+        }
+        else if (!this.password.equals(this.confirmPassword)) {
+            return UNMATCHED_PASSWORD;
         }
 
-        if (!this.password.equals(this.confirmPassword)) {
-            return 3;
-        }
-
-        return 0;
+        return NO_ERROR;
     }
 
     public void toastNotification(int error_code) {
-        String message;
+        String message = "";
         switch (error_code) {
-            case 1:
-                message = "Email field must not be empty or blank";
-                setToastMessage(message);
+            case NO_EMAIL:
+                message += "Email field must not be empty or blank";
                 break;
-            case 2:
-                message = "Password field must not be empty or blank";
-                setToastMessage(message);
+            case NO_PASSWORD:
+                message += "Password field must not be empty or blank";
                 break;
-            case 3:
-                message = "Password field does not match confirm password";
-                setToastMessage(message);
+            case UNMATCHED_PASSWORD:
+                message += "Password field does not match confirm password";
                 break;
             default:
-                message = "Unknown error occured. Please fill the form properly and try again";
-                setToastMessage(message);
+                message += "Unknown error occured. Please fill the form properly and try again";
         }
 
-        return;
+        setToastMessage(message);
     }
 
     //set toast message function as it is used repeatedly
@@ -155,17 +162,16 @@ public class UserRegistration {
 
                     ParseUser.logInInBackground(username, password, new LogInCallback() {
                         public void done(ParseUser user, ParseException e) {
+                            Class activitySwitch;
                             if (user != null) {
-                                // start new activity when login is successful
-                                Intent intent = new Intent(UserRegistration.context, RoleOptionActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                UserRegistration.context.startActivity(intent);
+                                activitySwitch = RoleOptionActivity.class;
                             } else {
-                                // change activity to login if sign up was successful but login failed
-                                Intent intent = new Intent(UserRegistration.context, LoginActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                UserRegistration.context.startActivity(intent);
+                                activitySwitch = LoginActivity.class;
                             }
+                            // start new activity
+                            Intent intent = new Intent(UserRegistration.context, activitySwitch);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            UserRegistration.context.startActivity(intent);
                         }
                     });
 

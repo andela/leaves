@@ -49,30 +49,22 @@ public class RegisterActivity extends ActionBarActivity {
      */
     public void register(View view) {
 
-        // assign user inputs to variables
-        EditText username = (EditText) findViewById(R.id.register_username);
-        EditText email = (EditText) findViewById(R.id.register_email);
-        EditText password = (EditText) findViewById(R.id.register_password);
-        EditText confirmPassword = (EditText) findViewById(R.id.register_confirm_password);
-
-        // convert variables to strings
-        String stringUsername = username.getText().toString();
-        String stringEmail = email.getText().toString();
-        String stringPassword = password.getText().toString();
-        String stringConfirmPassword = confirmPassword.getText().toString();
-
-
-        /** access the user registration class and call the register method
-         * Create the register object
-         * and set the input strings with the constructor
-         */
-        UserRegistration registerObject = new UserRegistration(stringUsername, stringEmail, stringPassword, stringConfirmPassword);
+        // instantiate register object
+        UserRegistration registerObject = new UserRegistration();
 
         // set Context for the registration object
         registerObject.setContext(getApplicationContext());
 
         // set Activity for the registration object
         Boolean activitySet = registerObject.setActivity(this);
+
+        // set edit text paramters fetched from the activity
+        registerObject.setParameters();
+
+        /** access the user registration class and call the register method
+         * Create the register object
+         * and set the input strings with the constructor
+         */
 
         // set loading bar
         if (activitySet) {
