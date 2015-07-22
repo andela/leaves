@@ -50,37 +50,10 @@ public class RegisterActivity extends ActionBarActivity {
     public void register(View view) {
 
         // instantiate register object
-        UserRegistration registerObject = new UserRegistration();
+        UserRegistration registerObject = new UserRegistration(this);
 
-        // set Context for the registration object
-        registerObject.setContext(getApplicationContext());
-
-        // set Activity for the registration object
-        Boolean activitySet = registerObject.setActivity(this);
-
-        // set edit text paramters fetched from the activity
-        registerObject.setParameters();
-
-        /** access the user registration class and call the register method
-         * Create the register object
-         * and set the input strings with the constructor
-         */
-
-        // set loading bar
-        if (activitySet) {
-            registerObject.setLoader();
-        }
-
-        // run initial localised validations
-        int localValidation = registerObject.isValid();
-
-        // after all is done, register the user with parse
-        if (localValidation == 0) {
-            registerObject.register();
-        }
-        else {
-            registerObject.toastNotification(localValidation);
-        }
+        // call register method
+        registerObject.register();
 
     }
 

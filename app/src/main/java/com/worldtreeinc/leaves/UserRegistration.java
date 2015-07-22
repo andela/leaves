@@ -19,9 +19,8 @@ import com.rey.material.widget.ProgressView;
  */
 public class UserRegistration {
 
-    static ProgressView loader;
-    private static Activity activity;
-    private static Context context;
+    private ProgressView loader;
+    private Activity activity;
     private String username;
     private String email;
     private String password;
@@ -33,13 +32,21 @@ public class UserRegistration {
     public static final int NO_PASSWORD = 2;
     public static final int UNMATCHED_PASSWORD = 3;
 
+    UserRegistration (Activity activity) {
+        if (activity != null) {
+            this.activity = activity;
+            setParameters();
+            setLoader();
+        }
+    }
+
     // set parameters from the edit text field
-    public void setParameters() {
+    private void setParameters() {
         // assign user inputs to variables
-        EditText username = (EditText) UserRegistration.activity.findViewById(R.id.register_username);
-        EditText email = (EditText) UserRegistration.activity.findViewById(R.id.register_email);
-        EditText password = (EditText) UserRegistration.activity.findViewById(R.id.register_password);
-        EditText confirmPassword = (EditText) UserRegistration.activity.findViewById(R.id.register_confirm_password);
+        EditText username = (EditText) activity.findViewById(R.id.register_username);
+        EditText email = (EditText) activity.findViewById(R.id.register_email);
+        EditText password = (EditText) activity.findViewById(R.id.register_password);
+        EditText confirmPassword = (EditText) activity.findViewById(R.id.register_confirm_password);
         // convert variables to strings
         this.username = username.getText().toString();
         this.email = email.getText().toString();
@@ -47,33 +54,11 @@ public class UserRegistration {
         this.confirmPassword = confirmPassword.getText().toString();
     }
 
-    // different method to add context and activity
-    // for testing capability
-    public boolean setContext (Context context) {
-        if (context != null) {
-            UserRegistration.context = context;
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    public boolean setActivity (Activity activity) {
-        if (activity != null) {
-            UserRegistration.activity = activity;
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     // set loader method
     // activity must be set to be able to use this method
-    public boolean setLoader() {
-        if (UserRegistration.activity != null) {
-            loader = (ProgressView) UserRegistration.activity.findViewById(R.id.loading);
+    private boolean setLoader() {
+        if (this.activity != null) {
+            loader = (ProgressView) activity.findViewById(R.id.loading);
             return true;
         }
         else {
@@ -95,7 +80,7 @@ public class UserRegistration {
         return this.email;
     }
 
-    public int isValid() {
+    private int isValid() {
         // for password, only check for equality in order to protext password
 
         if (this.email.equals("")) {
@@ -112,7 +97,7 @@ public class UserRegistration {
         return NO_ERROR;
     }
 
-    public void toastNotification(int error_code) {
+    private void toastNotification(int error_code) {
         String message = "";
         switch (error_code) {
             case NO_EMAIL:
@@ -132,8 +117,8 @@ public class UserRegistration {
     }
 
     //set toast message function as it is used repeatedly
-    public void setToastMessage (String message) {
-        Toast.makeText(UserRegistration.context, message, Toast.LENGTH_LONG).show();
+    private void setToastMessage (String message) {
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -141,7 +126,8 @@ public class UserRegistration {
      */
 
 
-    public void register() {
+
+    private void parseRegister() {
 
         // define new parse user object
         ParseUser user = new ParseUser();
@@ -152,14 +138,14 @@ public class UserRegistration {
         user.setEmail(this.email);
 
         // let parse handle the remaining validation and register user
-        UserRegistration.loader.start();
+        loader.start();
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {
                     // Hooray! Let them use the app now.
                     String message = "Sign Up Successful";
-                    UserRegistration.loader.stop();
-
+                    loader.stop();
+                    setToastMessage(message);
                     ParseUser.logInInBackground(username, password, new LogInCallback() {
                         public void done(ParseUser user, ParseException e) {
                             Class activitySwitch;
@@ -169,9 +155,9 @@ public class UserRegistration {
                                 activitySwitch = LoginActivity.class;
                             }
                             // start new activity
-                            Intent intent = new Intent(UserRegistration.context, activitySwitch);
+                            Intent intent = new Intent(activity, activitySwitch);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            UserRegistration.context.startActivity(intent);
+                            activity.startActivity(intent);
                         }
                     });
 
@@ -183,11 +169,24 @@ public class UserRegistration {
                     } else {
                         message = e.getMessage();
                     }
-                    UserRegistration.loader.stop();
+                    loader.stop();
                     setToastMessage(message);
                 }
             }
         });
 
+    }
+
+    public void register() {
+        // run initial local validation
+        int localValidation = isValid();
+
+        // after all is done, register the user with parse
+        if (localValidation == NO_ERROR) {
+            register();
+        }
+        else {
+            toastNotification(localValidation);
+        }
     }
 }
