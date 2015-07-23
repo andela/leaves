@@ -60,6 +60,7 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
         //signup button test
         signUpBtn = (Button) mActivity.findViewById(R.id.register_signup_button);
 
-        TouchUtils.clickView(this, signUpBtn);
+        String actual = signUpBtn.getText().toString();
+        assertEquals("Error in Button", "Sign Up", actual);
     }
 }
