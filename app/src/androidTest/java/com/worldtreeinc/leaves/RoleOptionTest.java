@@ -3,6 +3,7 @@ package com.worldtreeinc.leaves;
 
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
 import android.widget.Button;
 
 public class RoleOptionTest extends ActivityInstrumentationTestCase2<RoleOptionActivity> {
@@ -21,7 +22,7 @@ public class RoleOptionTest extends ActivityInstrumentationTestCase2<RoleOptionA
         //Initialize activity monitor on BidderDashActivity
         Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(BidderDashActivity.class.getName(), null, false);
         //current activity
-        RoleOptionActivity activity = getActivity();
+        final RoleOptionActivity activity = getActivity();
 
         final Button bidderBtn = (Button) activity.findViewById(R.id.bidderBtn);
         activity.runOnUiThread(new Runnable() {

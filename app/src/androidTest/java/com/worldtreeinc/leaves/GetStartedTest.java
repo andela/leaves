@@ -26,7 +26,7 @@ public class GetStartedTest extends ActivityInstrumentationTestCase2<GetStartedA
             }
         });
 
-        WelcomeActivity welcome = (MainActivity) getInstrumentation().waitForMonitor(nextActivity);
+        WelcomeActivity welcome = (WelcomeActivity) getInstrumentation().waitForMonitor(nextActivity);
         assertNotNull(welcome);
     }
 }
