@@ -32,7 +32,7 @@ public class UserRegistration {
     public static final int NO_PASSWORD = 2;
     public static final int UNMATCHED_PASSWORD = 3;
 
-    UserRegistration (Activity activity) {
+    public UserRegistration (Activity activity) {
         if (activity != null) {
             this.activity = activity;
             setParameters();
@@ -42,16 +42,36 @@ public class UserRegistration {
 
     // set parameters from the edit text field
     private void setParameters() {
-        // assign user inputs to variables
-        EditText username = (EditText) activity.findViewById(R.id.register_username);
-        EditText email = (EditText) activity.findViewById(R.id.register_email);
-        EditText password = (EditText) activity.findViewById(R.id.register_password);
-        EditText confirmPassword = (EditText) activity.findViewById(R.id.register_confirm_password);
-        // convert variables to strings
-        this.username = username.getText().toString();
-        this.email = email.getText().toString();
-        this.password = password.getText().toString();
-        this.confirmPassword = confirmPassword.getText().toString();
+        // check if activity is null
+        if (this.activity != null) {
+            // assign user inputs to variables
+            EditText username = (EditText) activity.findViewById(R.id.register_username);
+            EditText email = (EditText) activity.findViewById(R.id.register_email);
+            EditText password = (EditText) activity.findViewById(R.id.register_password);
+            EditText confirmPassword = (EditText) activity.findViewById(R.id.register_confirm_password);
+            // convert variables to strings
+            this.username = username.getText().toString();
+            this.email = email.getText().toString();
+            this.password = password.getText().toString();
+            this.confirmPassword = confirmPassword.getText().toString();
+        }
+        else {
+            // set parameters to empty strings if activity is null
+            this.username = "";
+            this.email = "";
+            this.password = "";
+            this.confirmPassword = "";
+        }
+
+    }
+
+    // create external setter method for all parameters
+    public void editParameters(String username, String email, String password, String confirmPassword) {
+        // set parameters if method is called manually
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
     }
 
     // set loader method
@@ -80,7 +100,7 @@ public class UserRegistration {
         return this.email;
     }
 
-    private int isValid() {
+    public int isValid() {
         // for password, only check for equality in order to protext password
 
         if (this.email.equals("")) {
@@ -183,7 +203,7 @@ public class UserRegistration {
 
         // after all is done, register the user with parse
         if (localValidation == NO_ERROR) {
-            register();
+            parseRegister();
         }
         else {
             toastNotification(localValidation);

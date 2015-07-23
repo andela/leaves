@@ -1,82 +1,72 @@
 package com.worldtreeinc.leaves.test;
 
+
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.After;
 import org.junit.Before;
+
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import com.worldtreeinc.leaves.UserRegistration;
+
 /**
- * Created by kamiye on 7/21/15.
+ * Created by kamiye on 7/22/15.
  */
 public class UserRegistrationTest {
-    // set initial configurations
+
+    // set initial conditions
     String username = "username";
     String email = "email@mail.com";
     String password = "password";
     String passwordAgain = "password";
 
-    UserRegistration registerObject = new UserRegistration(username, email, password, passwordAgain);
+    UserRegistration registerObject = mock(UserRegistration.class);
 
-    // test getter methods
-    @Test
-    public void testGetUsername() {
-        String expected = username;
-        String actual = registerObject.getUsername();
+    @Mock
+    UserRegistration getRegisterObject;
 
-        assertEquals("Username getter failed", expected, actual);
+    @Before
+    public void setInitialConditions() {
+        Mockito.doCallRealMethod().when(registerObject).editParameters(username, email, password, passwordAgain);
     }
 
     @Test
-    public void testGetEmail() {
-        String expected = email;
-        String actual = registerObject.getEmail();
-        assertEquals("Username getter failed", expected, actual);
-    }
-
-    // text localised validations
-
-    @Test
-    public void testCorrectInputs() {
-        int expected = 0;
-        int result = registerObject.isValid();
-
-        assertEquals("Correct input result failed", expected, result);
+    public void verifyEditParameters() {
+        registerObject.editParameters(username, email, password, passwordAgain);
+        verify(registerObject).editParameters(username, email, password, passwordAgain);
     }
 
     @Test
-    public void testEmptyEmail() {
-        email = "";
-        UserRegistration registerObject = new UserRegistration(username, email, password, passwordAgain);
+    public void verifyGetUsername() {
+        String expected = "username";
+        when(registerObject.getUsername()).thenReturn(username);
 
-        int expected = 1;
+        assertEquals("Username getter not functioning", expected, username);
+    }
+    @Test
+    public void verifyGetEmail() {
+        String expected = "email@mail.com";
+        when(registerObject.getEmail()).thenReturn(email);
 
-        int result = registerObject.isValid();
-
-        assertEquals("Equal password check not functional", expected, result);
+        assertEquals("Email getter not functioning", expected, email);
     }
 
     @Test
-    public void testEmptyPassword() {
-        password = "";
-        UserRegistration registerObject = new UserRegistration(username, email, password, passwordAgain);
-
-        int expected = 2;
-
-        int result = registerObject.isValid();
-
-        assertEquals("Equal password check not functional", expected, result);
+    public void verifyIsValid() {
+        registerObject.isValid();
+        verify(registerObject).isValid();
     }
 
     @Test
-    public void testNoneEqualPassword() {
-        passwordAgain = "passwordAgain";
-        UserRegistration registerObject = new UserRegistration(username, email, password, passwordAgain);
-        int expected = 3;
-
-        int result = registerObject.isValid();
-
-        assertEquals("Equal password check not functional", expected, result);
+    public void verifyRegister() {
+        registerObject.register();
+        verify(registerObject).register();
     }
+
 }
