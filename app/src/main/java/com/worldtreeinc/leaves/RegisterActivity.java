@@ -1,16 +1,11 @@
 package com.worldtreeinc.leaves;
 
 import android.content.Intent;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-
-import com.rey.material.widget.ProgressView;
-
 
 public class RegisterActivity extends ActionBarActivity {
 

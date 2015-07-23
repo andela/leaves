@@ -6,9 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-/**
- * Created by andela on 7/18/15.
- */
+
 public class LoginActivityTest extends ActivityInstrumentationTestCase2<LoginActivity> {
     public LoginActivityTest() {
         super(LoginActivity.class);

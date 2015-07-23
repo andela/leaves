@@ -4,8 +4,9 @@ package com.worldtreeinc.leaves;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.widget.EditText;
-import android.widget.Button;
 import android.widget.TextView;
+
+import com.rey.material.widget.Button;
 
 /**
  * Created by kamiye on 7/22/15.
@@ -33,6 +34,47 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
         mEditTextEmail = (EditText) mActivity.findViewById(R.id.register_email);
         mEditTextPassword = (EditText) mActivity.findViewById(R.id.register_password);
         mEditTextConfirmPassword = (EditText) mActivity.findViewById(R.id.register_confirm_password);
+
+        //username editTest test
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                mEditTextUsername.requestFocus();
+            }
+        });
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("username");
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                mEditTextEmail.requestFocus();
+            }
+        });
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("email@mail.com");
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                mEditTextPassword.requestFocus();
+            }
+        });
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("password");
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                mEditTextConfirmPassword.requestFocus();
+            }
+        });
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("password");
+
+        signUpBtn = (Button) mActivity.findViewById(R.id.register_signup_button);
+        TouchUtils.clickView(this, signUpBtn);
+
     }
 
     // preconditions
@@ -42,24 +84,28 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
     }
 
     // test all four EditText views
-    public void testEditTexts() {
-        testText("Username", "Username", mEditTextUsername);
-        testText("Email", "Email", mEditTextEmail);
-        testText("password", "password", mEditTextPassword);
-        testText("confirmpassword", "confirmpassword", mEditTextConfirmPassword);
+    public void testEditUsername() {
+        String actual = mEditTextUsername.getText().toString();
+        assertEquals("Error in EditText", "username", actual);
     }
 
-    public void testText (String setText, String expected, EditText editText ) {
-        editText.setText(setText, TextView.BufferType.EDITABLE);
+    public void testEditEmail() {
+        String actual = mEditTextEmail.getText().toString();
+        assertEquals("Error in EditText", "email@mail.com", actual);
+    }
 
-        String actual = editText.getText().toString();
-        assertEquals("Error in EditText", expected, actual);
+    public void testEditPassword() {
+        String actual = mEditTextPassword.getText().toString();
+        assertEquals("Error in EditText", "password", actual);
+    }
+
+    public void testEditConfirmPassword() {
+        String actual = mEditTextConfirmPassword.getText().toString();
+        assertEquals("Error in EditText", "password", actual);
     }
 
     public void testSignUpButton() {
         //signup button test
-        signUpBtn = (Button) mActivity.findViewById(R.id.register_signup_button);
-
         String actual = signUpBtn.getText().toString();
         assertEquals("Error in Button", "Sign Up", actual);
     }

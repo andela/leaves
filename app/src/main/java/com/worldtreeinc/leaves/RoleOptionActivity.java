@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.parse.ParseUser;
 
@@ -22,24 +23,23 @@ public class RoleOptionActivity extends Activity {
         }
 
         setContentView(R.layout.activity_role_option);
-    }
-
-    public void onClick(View view) {
-
-        switch (view.getId()) {
-
-            case R.id.bidderBtn:
+        Button bidderBtn = (Button) findViewById(R.id.bidderBtn);
+        bidderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 //redirect to bidder dashboard
-                Intent bidderDash = new Intent(this, BidderDashActivity.class);
+                Intent bidderDash = new Intent(RoleOptionActivity.this, BidderDashActivity.class);
                 startActivity(bidderDash);
-                break;
-
-            case R.id.plannerBtn:
-                //redirect to planner dashboard
-                Intent plannerDash = new Intent(this, PlannerDashActivity.class);
+            }
+        });
+        Button plannerBtn = (Button) findViewById(R.id.plannerBtn);
+        plannerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //redirect to bidder dashboard
+                Intent plannerDash = new Intent(RoleOptionActivity.this, PlannerDashActivity.class);
                 startActivity(plannerDash);
-                break;
-        }
+            }
+        });
     }
-
 }
