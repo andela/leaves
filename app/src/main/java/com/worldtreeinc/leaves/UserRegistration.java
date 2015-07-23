@@ -17,7 +17,7 @@ import com.rey.material.widget.ProgressView;
 /**
  * Created by kamiye on 7/15/15.
  */
-public class  UserRegistration {
+public class UserRegistration {
 
     private ProgressView loader;
     private Activity activity;
@@ -25,11 +25,15 @@ public class  UserRegistration {
     private String email;
     private String password;
     private String confirmPassword;
-    // Error constants
-    public static final int NO_ERROR = 0;
-    public static final int NO_EMAIL = 1;
-    public static final int NO_PASSWORD = 2;
-    public static final int UNMATCHED_PASSWORD = 3;
+
+
+    // ERROR CONSTANT ENUMS DECLARATION
+    public enum UserError {
+        NO_ERROR,
+        NO_EMAIL,
+        NO_PASSWORD,
+        UNMATCHED_PASSWORD
+    }
 
     public UserRegistration (Activity activity) {
         if (activity != null) {
@@ -97,23 +101,25 @@ public class  UserRegistration {
         return this.email;
     }
 
-    public int isValid() {
+    public UserError isValid() {
         // for password, only check for equality in order to protext password
         if (this.email.equals("")) {
-            return NO_EMAIL;
+            return UserError.NO_EMAIL;
         }
         if (this.password.equals("")) {
-            return NO_PASSWORD;
+            return UserError.NO_PASSWORD;
         }
         else if (!this.password.equals(this.confirmPassword)) {
-            return UNMATCHED_PASSWORD;
+            return UserError.UNMATCHED_PASSWORD;
         }
-        return NO_ERROR;
+
+        return UserError.NO_ERROR;
+
     }
 
-    private void toastNotification(int error_code) {
+    private void toastNotification(UserError error) {
         String message = "";
-        switch (error_code) {
+        switch (error) {
             case NO_EMAIL:
                 message += "Email field must not be empty or blank";
                 break;
@@ -189,9 +195,10 @@ public class  UserRegistration {
 
     public void register() {
         // run initial local validation
-        int localValidation = isValid();
+        UserError localValidation = isValid();
+
         // after all is done, register the user with parse
-        if (localValidation == NO_ERROR) {
+        if (localValidation == UserError.NO_ERROR) {
             parseRegister();
         }
         else {
