@@ -44,5 +44,7 @@
 
     //dashboard
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_role">Select Role</string>
+    <string name="title_activity_planner_event">PlannerEventActivity</string>
 
 </resources>

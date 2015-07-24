@@ -69,6 +69,12 @@
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register" >
         </activity>
+
+        <activity
+            android:name=".PlannerEventActivity"
+            android:label="@string/title_activity_planner_event" >
+        </activity>
+
     </application>
 
 </manifest>
