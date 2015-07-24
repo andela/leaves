@@ -3,9 +3,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" android:background="#F7F2F5">
 
-
-
-
     <com.pkmmte.view.CircularImageView
         android:id="@+id/eventBanner"
         android:layout_width="100dp"
@@ -109,6 +106,5 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="5dp"/>
-
 
 </RelativeLayout>

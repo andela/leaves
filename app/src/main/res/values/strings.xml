@@ -50,6 +50,7 @@
     <string name="Event_Date_Text">Date:</string>
     <string name="Event_Category_Text">Category:</string>
 
+
     // create event Activity
     <string name="title_activity_create_event">Create Event</string>
     <string name="create_event_name">Event Name</string>
@@ -69,5 +70,9 @@
 
     // event details activity
     <string name="title_activity_event_details">Event Details</string>
+
+    //planner event list activity
+    <string name="title_activity_planner_event">PlannerEventActivity</string>
+
 </resources>
 

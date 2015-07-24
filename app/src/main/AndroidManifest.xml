@@ -86,6 +86,12 @@
             android:parentActivityName=".PlannerEventActivity">
 
         </activity>
+
+        <activity
+            android:name=".PlannerEventActivity"
+            android:label="@string/title_activity_planner_event" >
+        </activity>
+
     </application>
 
 </manifest>
