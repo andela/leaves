@@ -66,4 +66,8 @@
         <item>Technology</item>
     </string-array>
     <string name="create_event_description">Event Description</string>
+
+    // event details activity
+    <string name="title_activity_event_details">Event Details</string>
 </resources>
+

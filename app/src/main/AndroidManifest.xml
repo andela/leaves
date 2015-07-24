@@ -78,6 +78,9 @@
         <activity
             android:name=".CreateEventActivity"
             android:label="@string/title_activity_create_event" >
+        <activity
+            android:name=".EventDetailsActivity"
+            android:label="@string/title_activity_event_details" >
         </activity>
     </application>
 
