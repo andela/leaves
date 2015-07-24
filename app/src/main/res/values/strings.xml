@@ -50,4 +50,17 @@
     <string name="Event_Date_Text">Date:</string>
     <string name="Event_Category_Text">Category:</string>
 
+    // create event Activity
+    <string name="title_activity_create_event">Create Event</string>
+    <string name="create_event_name">Event Name</string>
+    <string name="create_event_date">Event Date</string>
+    <string name="create_event_venue">Venue</string>
+    <string name="create_event_image">Select Image</string>
+    <string name="create_event_button_text">Create Event</string>
+    <string-array name="events_categories">
+        <item>Select Category</item>
+        <item>Art</item>
+        <item>Music</item>
+        <item>Technology</item>
+    </string-array>
 </resources>

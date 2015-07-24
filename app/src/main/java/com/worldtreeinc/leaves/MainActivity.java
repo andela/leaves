@@ -4,12 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
@@ -34,6 +31,7 @@ public class MainActivity extends Activity {
             public void run() {
                 // check if user is logged in
                 ParseUser currentUser = ParseUser.getCurrentUser();
+
                 if (currentUser != null) {
                     // call method to change activity to RoleOptionActivity
                     changeToRoleOption(view);
@@ -70,14 +68,14 @@ public class MainActivity extends Activity {
     // method to move to the GetStarted Activity
     public void changeToGetStarted(View view) {
         // user is not logged in yet, change to GetStartedActivity
-        Intent intent = new Intent(this, GetStartedActivity.class);
+        Intent intent = new Intent(this, CreateEventActivity.class);
         startActivity(intent);
     }
 
     // method to move to RoleOption Activity
     public void changeToRoleOption(View view) {
         // change to the RoleOptionActivity
-        Intent intent = new Intent(this, RoleOptionActivity.class);
+        Intent intent = new Intent(this, CreateEventActivity.class);
         startActivity(intent);
     }
 
