@@ -5,8 +5,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="10dp"
-            android:background="#FFF"
-            android:fillViewport="false">
+            android:background="#FFF" >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -29,7 +28,6 @@
                 android:id="@+id/create_event_name"
                 android:hint="@string/create_event_name"
                 android:layout_marginTop="60dp" />
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,7 +56,6 @@
                 android:layout_height="wrap_content"
                 android:cropToPadding="true"
                 android:src="@drawable/cat_icon" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -177,9 +174,7 @@
                 android:textColor="#FFFFFF"
                 android:textStyle="normal|bold"
                 android:textSize="20sp"
-                android:layout_marginBottom="15dp"
-                app:rd_enable="true"
-                app:rd_backgroundColor="#2196F3" />
+                android:layout_marginBottom="15dp" />
 
         </LinearLayout>
 
