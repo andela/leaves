@@ -46,6 +46,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_role">Select Role</string>
 
+
     // create event Activity
     <string name="title_activity_create_event">Create Event</string>
     <string name="create_event_name">Event Name</string>
@@ -61,5 +62,8 @@
         <item>Music</item>
         <item>Technology</item>
     </string-array>
+
+    <string name="title_activity_planner_event">PlannerEventActivity</string>
+
 
 </resources>

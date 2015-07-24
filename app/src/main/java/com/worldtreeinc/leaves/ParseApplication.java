@@ -23,6 +23,7 @@ public class ParseApplication extends Application {
         // Add your initialization code here
         Parse.initialize(this);
 
+
         ParseACL defaultACL = new ParseACL();
         // Optionally enable public read access.
         defaultACL.setPublicReadAccess(true);
