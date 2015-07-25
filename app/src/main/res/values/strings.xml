@@ -59,6 +59,7 @@
         <item>Music</item>
         <item>Technology</item>
     </string-array>
+    <string name="create_event_description">Event Description</string>
 
 
 </resources>
