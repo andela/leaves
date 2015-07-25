@@ -30,4 +30,6 @@
     <string name="password">Password</string>
     <string name="facebook_app_id">478302712341221</string>
     <string name="facebookLogin">Facebook Login</string>
+    <string name="or">OR</string>
+    <string name="login_with_facebook">Login with Facebook</string>
 </resources>
