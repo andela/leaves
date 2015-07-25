@@ -2,7 +2,7 @@ package com.worldtreeinc.leaves;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +16,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
-public class LoginActivity extends ActionBarActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText mUsername;
     private EditText mPassword;
     private Button loginButton;
