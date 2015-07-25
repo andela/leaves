@@ -11,6 +11,7 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
+import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +23,31 @@ public class UserAuth {
     private String Username;
     private String UserPassword;
     private Activity activity;
+    private ProgressView loader;
 
     public UserAuth(Activity activity, String username, String userPassword) {
         this.Username = username;
         this.UserPassword = userPassword;
         this.activity = activity;
+        setLoader();
     }
 
+    // set loader method
+    // activity must be set to be able to use this method
+    private boolean setLoader() {
+        if (this.activity != null) {
+            loader = (ProgressView) activity.findViewById(R.id.loading);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     public void login(){
+        loader.start();
         ParseUser.logInInBackground(this.Username, this.UserPassword, new LogInCallback() {
             public void done(ParseUser user, ParseException e) {
+                loader.stop();
                 if (user != null) {
                     // Hooray! The user is logged in.
                     setToastMessage("You are logged in");
@@ -49,10 +65,12 @@ public class UserAuth {
     public void FacebookLogin(){
         List<String> permissions = new ArrayList<>();
         permissions.add("public_profile");
+        loader.start();
         ParseFacebookUtils.logInWithReadPermissionsInBackground(activity, permissions, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException err) {
                 Class activitySwitch;
+                loader.stop();
                 if (user == null) {
                     Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                     setToastMessage("Login failed");
