@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp"
-            android:background="#FFFFFF"
             android:fillViewport="false">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -67,7 +65,6 @@
                 android:id="@+id/date_picker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="selectDate"
                 android:cropToPadding="true"
                 android:src="@drawable/calendar_icon" />
 
@@ -76,7 +73,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp" >
 
             <EditText
                 android:layout_width="0dp"
@@ -87,9 +85,23 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="selectDate"
                 android:cropToPadding="true"
                 android:src="@drawable/location_icon"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp" >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:hint="@string/create_event_description"
+                android:ems="10"
+                android:id="@+id/event_description"/>
 
         </LinearLayout>
 
@@ -101,30 +113,47 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
+                android:scaleType="fitXY"
+                android:id="@+id/event_banner"
                 android:src="@drawable/default_image"/>
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/banner_select_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/gallery_icon"
-                android:layout_gravity="right|bottom"
-                android:clickable="true"/>
+                android:layout_gravity="right|bottom" />
 
         </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.rey.material.widget.ProgressView
+                android:id="@+id/progress_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                app:pv_autostart="false"
+                app:pv_circular="true"
+                app:pv_progressStyle="@style/Material.Drawable.CircularProgress"
+                app:pv_progressMode="indeterminate"
+                android:layout_gravity="center_horizontal"/>
 
             <com.rey.material.widget.Button
                 style="@style/Material.Drawable.Ripple.Wave"
+                android:id="@+id/createEventButton"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/create_event_button_text"
                 android:background="#00838F"
+                android:padding="10dp"
                 android:textColor="#FFFFFF"
                 android:textStyle="normal|bold"
-                android:textSize="20dp"
+                android:textSize="20sp"
+                android:layout_marginBottom="15dp"
                 app:rd_enable="true"
                 app:rd_backgroundColor="#2196F3" />
 

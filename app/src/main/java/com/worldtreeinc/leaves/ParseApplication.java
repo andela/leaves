@@ -5,6 +5,7 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseCrashReporting;
+import com.parse.ParseObject;
 
 public class ParseApplication extends Application {
     @Override
@@ -16,6 +17,8 @@ public class ParseApplication extends Application {
 
         // Enable Local Data store.
         Parse.enableLocalDatastore(this);
+
+        ParseObject.registerSubclass(Event.class);
 
         // Add your initialization code here
         Parse.initialize(this);
