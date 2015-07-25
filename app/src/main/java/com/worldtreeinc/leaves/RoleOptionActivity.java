@@ -37,7 +37,7 @@ public class RoleOptionActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //redirect to bidder dashboard
-                Intent plannerDash = new Intent(RoleOptionActivity.this, PlannerDashActivity.class);
+                Intent plannerDash = new Intent(RoleOptionActivity.this, CreateEventActivity.class);
                 startActivity(plannerDash);
             }
         });
