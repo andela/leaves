@@ -41,12 +41,11 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        try{
-            String username =mUsername.getText().toString().trim();
-            String password =mPassword.getText().toString().trim();
+        try {
+            String username = mUsername.getText().toString().trim();
+            String password = mPassword.getText().toString().trim();
             UserAuth userAuthentication = new UserAuth(LoginActivity.this, username, password);
             switch (v.getId()){
-
                 case R.id.loginButton:
                     userAuthentication.login();
                     break;
@@ -83,7 +82,6 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         mPassword = (EditText) findViewById(R.id.passwordLoginTextBox);
         loginButton = (Button) findViewById(R.id.loginButton);
         registerUser = (TextView) findViewById(R.id.registerUser);
-        registerUser.setOnClickListener(this);
         FacebookLoginButton = (Button) findViewById(R.id.FacebookLoginButton);
         registerUser = (TextView) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
