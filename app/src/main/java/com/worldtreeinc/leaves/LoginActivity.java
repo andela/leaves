@@ -3,6 +3,7 @@ package com.worldtreeinc.leaves;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,18 +11,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.parse.ParseFacebookUtils;
+import com.parse.ParseUser;
 
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener{
     private EditText mUsername;
     private EditText mPassword;
     private Button loginButton;
     private TextView registerUser;
+    private Button FacebookLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initialise();
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        ParseFacebookUtils.initialize(this.getApplicationContext());
     }
 
     @Override
@@ -34,22 +42,25 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         try{
+            String username =mUsername.getText().toString().trim();
+            String password =mPassword.getText().toString().trim();
+            UserAuth userAuthentication = new UserAuth(LoginActivity.this, username, password);
             switch (v.getId()){
 
                 case R.id.loginButton:
-                    String username =mUsername.getText().toString().trim();
-                    String password =mPassword.getText().toString().trim();
-                    UserAuth userAuthentication = new UserAuth(LoginActivity.this, username, password);
                     userAuthentication.login();
                     break;
                 case R.id.registerUser:
                     Intent register = new Intent(this, RegisterActivity.class);
                     startActivity(register);
                     break;
+                case R.id.FacebookLoginButton:
+                    userAuthentication.FacebookLogin();
+                    break;
             }
 
-        }catch(Exception e){
-
+        } catch(Exception e){
+            Log.v("button click", e.getMessage());
         }
     }
 
@@ -73,6 +84,32 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         loginButton = (Button) findViewById(R.id.loginButton);
         registerUser = (TextView) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
+        FacebookLoginButton = (Button) findViewById(R.id.FacebookLoginButton);
+        registerUser = (TextView) findViewById(R.id.registerUser);
+        registerUser.setOnClickListener(this);
         loginButton.setOnClickListener(this);
+        FacebookLoginButton.setOnClickListener(this);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Logs 'install' and 'app activate' App Events.
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Logs 'app deactivate' App Event.
+        AppEventsLogger.deactivateApp(this);
+    }
+
 }
