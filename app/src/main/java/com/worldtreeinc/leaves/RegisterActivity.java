@@ -1,18 +1,28 @@
 package com.worldtreeinc.leaves;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
-public class RegisterActivity extends ActionBarActivity {
+public class RegisterActivity extends AppCompatActivity {
+    private TextView register_login_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        register_login_button = (TextView) findViewById(R.id.register_login_button);
+        register_login_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToLogin();
+            }
+        });
     }
 
     @Override
@@ -43,18 +53,15 @@ public class RegisterActivity extends ActionBarActivity {
      *             and registers the user
      */
     public void register(View view) {
-
         // instantiate register object
         UserRegistration registerObject = new UserRegistration(this);
-
         // call register method
         registerObject.register();
-
     }
 
-    public void switchToLogin(View view) {
+    public void switchToLogin() {
         // switch to the login activity if the login button is clicked
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 }

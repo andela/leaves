@@ -17,7 +17,7 @@ import com.rey.material.widget.ProgressView;
 /**
  * Created by kamiye on 7/15/15.
  */
-public class UserRegistration {
+public class  UserRegistration {
 
     private ProgressView loader;
     private Activity activity;
@@ -25,7 +25,6 @@ public class UserRegistration {
     private String email;
     private String password;
     private String confirmPassword;
-
     // Error constants
     public static final int NO_ERROR = 0;
     public static final int NO_EMAIL = 1;
@@ -62,7 +61,6 @@ public class UserRegistration {
             this.password = "";
             this.confirmPassword = "";
         }
-
     }
 
     // create external setter method for all parameters
@@ -89,7 +87,6 @@ public class UserRegistration {
     /**
      * set getter methods to check for the class functionality and constructors
      */
-
     // for username
     public String getUsername() {
         return this.username;
@@ -102,18 +99,15 @@ public class UserRegistration {
 
     public int isValid() {
         // for password, only check for equality in order to protext password
-
         if (this.email.equals("")) {
             return NO_EMAIL;
         }
-
         if (this.password.equals("")) {
             return NO_PASSWORD;
         }
         else if (!this.password.equals(this.confirmPassword)) {
             return UNMATCHED_PASSWORD;
         }
-
         return NO_ERROR;
     }
 
@@ -132,7 +126,6 @@ public class UserRegistration {
             default:
                 message += "Unknown error occured. Please fill the form properly and try again";
         }
-
         setToastMessage(message);
     }
 
@@ -144,9 +137,6 @@ public class UserRegistration {
     /**
      * Run local validity checks before moving over to parse
      */
-
-
-
     private void parseRegister() {
 
         // define new parse user object
@@ -180,8 +170,8 @@ public class UserRegistration {
                             activity.startActivity(intent);
                         }
                     });
-
-                } else {
+                }
+                else {
                     String message;
                     // get error message from parse
                     if (e.getCause() != null) {
@@ -200,7 +190,6 @@ public class UserRegistration {
     public void register() {
         // run initial local validation
         int localValidation = isValid();
-
         // after all is done, register the user with parse
         if (localValidation == NO_ERROR) {
             parseRegister();

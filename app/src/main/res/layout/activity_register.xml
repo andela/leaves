@@ -17,37 +17,30 @@
         app:pv_circular="true"
         app:pv_progressStyle="@style/Material.Drawable.CircularProgress"
         app:pv_progressMode="indeterminate"
-        android:layout_marginBottom="83dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/loading"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/project_name"
+        android:id="@+id/textView"
+        android:textSize="@dimen/abc_text_size_display_1_material"
+        android:layout_gravity="center"
+        android:textColor="#00838F"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/textView"
+        android:layout_marginTop="15dp"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </LinearLayout>
 
         <EditText
             android:layout_marginBottom="15dp"
@@ -117,7 +110,6 @@
                 android:onClick="switchToLogin"/>
 
         </LinearLayout>
-
 
     </LinearLayout>
 
