@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -286,15 +287,11 @@ public class CreateEventActivity extends AppCompatActivity {
                 imgView.setImageBitmap(BitmapFactory
                         .decodeFile(img_Decodable_Str));
 
-                // prepare the image to be sent to parse server
-                Bitmap bmp = BitmapFactory.decodeFile(img_Decodable_Str);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] parseFile = stream.toByteArray();
-                file = new ParseFile("banner.jpg", parseFile);
+                // call method to get byte array from selected image file
+                getByteArray(img_Decodable_Str);
 
             } else {
-                Toast.makeText(this, "Hey pick your image first",
+                Toast.makeText(this, "Pick an image first",
                         Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
@@ -302,6 +299,16 @@ public class CreateEventActivity extends AppCompatActivity {
                     .show();
         }
 
+    }
+
+    // method to get byte array of selected image
+    public void getByteArray(String filePath) {
+        // prepare the image to be sent to parse server
+        Bitmap bmp = BitmapFactory.decodeFile(filePath);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] parseFile = stream.toByteArray();
+        file = new ParseFile("banner.jpg", parseFile);
     }
 
 
