@@ -80,12 +80,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void initialise() {
         mUsername = (EditText) findViewById(R.id.usernameLoginTextBox);
         mPassword = (EditText) findViewById(R.id.passwordLoginTextBox);
-        loginButton = (Button) findViewById(R.id.loginButton);
-        registerUser = (TextView) findViewById(R.id.registerUser);
-        FacebookLoginButton = (Button) findViewById(R.id.FacebookLoginButton);
+
         registerUser = (TextView) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
+
+        loginButton = (Button) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(this);
+
+        FacebookLoginButton = (Button) findViewById(R.id.FacebookLoginButton);
         FacebookLoginButton.setOnClickListener(this);
     }
 

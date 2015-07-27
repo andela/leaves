@@ -72,15 +72,12 @@ public class UserAuth {
                 Class activitySwitch;
                 loader.stop();
                 if (user == null) {
-                    Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                     setToastMessage("Login failed");
                     return;
                 } else if (user.isNew()) {
-                    Log.d("MyApp", "User signed up and logged in through Facebook!");
                     setToastMessage("Your account has been created!");
                     activitySwitch = RoleOptionActivity.class;
                 } else {
-                    Log.d("MyApp", "User logged in through Facebook!");
                     setToastMessage("You are logged in");
                     activitySwitch = RoleOptionActivity.class;
                 }
