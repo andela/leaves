@@ -14,14 +14,14 @@
     <string name="welcome_activity_label">Welcome Activity</string>
 
     //login activity
-    <string name="loginBtn">Login</string>
+    <string name="login_btn">Login</string>
     <string name="facebook_app_id">478302712341221</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="or">OR</string>
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="title_activity_login">Sign In</string>
-    <string name="facebookLogin">Facebook Login</string>
+    <string name="facebook_login">Facebook Login</string>
     <string name="dont_have_account">Don\'t have an Account?</string>
 
     //registration activity
@@ -33,12 +33,12 @@
     <string name="register_button">Sign Up</string>
     <string name="register_question">Have an account?</string>
     <string name="register_login">Login</string>
-    <string name="registerBtn">Register</string>
+    <string name="register_btn">Register</string>
 
     //role option activity
     <string name="title_activity_role_option">RoleOptionActivity</string>
-    <string name="bidderBtn">I am a Bidder</string>
-    <string name="plannerBtn">I am a Planner</string>
+    <string name="bidder_btn">I am a Bidder</string>
+    <string name="planner_btn">I am a Planner</string>
     <string name="title_activity_bidder_dash">BidderDashActivity</string>
     <string name="title_activity_planner_dash">PlannerDashActivity</string>
 
