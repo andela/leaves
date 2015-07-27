@@ -21,7 +21,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -162,6 +161,7 @@ public class CreateEventActivity extends AppCompatActivity {
         // start the progress view
         progressView = (ProgressView) findViewById(R.id.progress_view);
         progressView.start();
+
 
         // after all validation has passed, send the image to the server
         file.saveInBackground(new SaveCallback() {
