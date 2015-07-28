@@ -1,7 +1,6 @@
 package com.worldtreeinc.leaves;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -9,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +33,8 @@ import java.util.Calendar;
 
 
 public class CreateEventActivity extends AppCompatActivity {
+
+    private int mYear, mMonth, mDay;
 
     // global variables to be used in multiple methods.
     private static int RESULT_LOAD = 1;
@@ -176,6 +176,7 @@ public class CreateEventActivity extends AppCompatActivity {
         }, new ProgressCallback() {
             public void done(Integer percentDone) {
                 // Update your progress spinner here. percentDone will be between 0 and 100.
+
             }
         });
     }
@@ -254,7 +255,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
     // method to open gallery
     public void openGallery() {
-        /// Create intent to Open Image applications like Gallery, Google Photos
+        // Create intent to Open Image applications like Gallery, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         // Start the Intent
@@ -282,6 +283,8 @@ public class CreateEventActivity extends AppCompatActivity {
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 String img_Decodable_Str = cursor.getString(columnIndex);
                 cursor.close();
+
+
                 ImageView imgView = (ImageView) findViewById(R.id.event_banner);
                 // Set the Image in ImageView after decoding the String
                 imgView.setImageBitmap(BitmapFactory
@@ -331,25 +334,20 @@ public class CreateEventActivity extends AppCompatActivity {
         Date picker section
      */
     public void selectDate() {
-        DialogFragment newFragment = new SelectDateFragment();
-        newFragment.show(getSupportFragmentManager(), "DatePicker");
-    }
-    public void populateSetDate(int year, int month, int day) {
-        eventDateEditText.setText(month + "/" + day + "/" + year);
-    }
-    public class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
+        // Process to get Current Date
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            populateSetDate(year, month + 1, day);
-        }
+        // Launch Date Picker Dialog
+        DatePickerDialog dpd = new DatePickerDialog(CreateEventActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // Display Selected date in text box
+                eventDateEditText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+            }
+        }, mYear, mMonth, mDay);
+        dpd.show();
     }
-
 }
