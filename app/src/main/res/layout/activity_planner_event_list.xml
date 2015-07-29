@@ -107,4 +107,15 @@
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="5dp"/>
 
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:id="@+id/editButton"
+        android:src="@drawable/edit"
+        android:scaleType="fitXY"
+        android:layout_alignTop="@+id/deleteButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="5dp"/>
+
 </RelativeLayout>
