@@ -34,7 +34,6 @@ import java.util.Calendar;
 
 public class CreateEventActivity extends AppCompatActivity {
 
-    private int mYear, mMonth, mDay;
 
     // global variables to be used in multiple methods.
     private static int RESULT_LOAD = 1;
@@ -334,6 +333,7 @@ public class CreateEventActivity extends AppCompatActivity {
         Date picker section
      */
     public void selectDate() {
+        int mYear, mMonth, mDay;
         // Process to get Current Date
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
