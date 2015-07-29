@@ -12,7 +12,6 @@ public class FileCache {
 
     private File cacheDir;
 
-
     public FileCache(Context context) {
         // Find the dir to save cached images
         if (android.os.Environment.getExternalStorageState().equals(
@@ -29,8 +28,8 @@ public class FileCache {
     public File getFile(String url) {
         String filename = String.valueOf(url.hashCode());
 
+        // String filename = URLEncoder.encode(url);
         File f = new File(cacheDir, filename);
-
         return f;
 
     }
