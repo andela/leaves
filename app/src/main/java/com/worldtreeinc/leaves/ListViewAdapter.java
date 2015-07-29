@@ -84,8 +84,6 @@ public class ListViewAdapter extends BaseAdapter {
 
         imageLoader.DisplayImage(userEventList.get(position).getEventBanner(),
                 holder.eventBanner);
-
-
         return view;
     }
 
