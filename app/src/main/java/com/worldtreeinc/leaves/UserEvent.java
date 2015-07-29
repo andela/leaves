@@ -5,32 +5,50 @@ package com.worldtreeinc.leaves;
  */
 public class UserEvent {
 
-    private String description;
-    private String date;
-    private String category;
-    private String eventImage;
+    private String eventDescription;
+    private String eventDate;
+    private String eventCategory;
+    private String eventBanner;
+    private String eventName;
+    private String eventVenue;
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
     }
-    public  String getDescription() { return description; }
+    public  String getEventDescription() { return eventDescription; }
 
-    public String getDate() {
-        return date;
+    public String getEventDate() {
+        return eventDate;
     }
-    public void setDate(String date) {
-        this.date = date;
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
     }
 
-    public String getCategory() {
-        return category;
+    public String getEventCategory() {
+        return eventCategory;
     }
-    public void setCategory(String category) {this.category = category;}
+    public void setEventCategory(String eventCategory) {
+        this.eventCategory = eventCategory;}
 
-    public String getEventImage() {
-        return eventImage;
+    public String getEventBanner() {
+        return eventBanner;
     }
-    public void setEventImage(String eventImage) {
-        this.eventImage = eventImage;
+    public void setEventBanner(String eventBanner) {
+        this.eventBanner = eventBanner;
+    }
+
+    public  String getEventName() {
+        return eventName;
+    }
+    public void setEventName(String eventName){
+        this.eventName = eventName;
+    }
+
+
+    public String getEventVenue(){
+        return eventVenue;
+    }
+    public void setEventVenue(String eventVenue){
+        this.eventVenue = eventVenue;
     }
 }
