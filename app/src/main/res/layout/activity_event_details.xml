@@ -106,7 +106,6 @@
             app:fab_backgroundColor="#00E4FE"
             app:fab_iconSrc="@drawable/plus"
             android:layout_marginBottom="-38dp"
-            android:src="@drawable/plus_blue"
             android:layout_marginLeft="16dp"
             android:layout_alignBottom="@+id/event_details_banner" />
     </RelativeLayout>
