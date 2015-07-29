@@ -1,8 +1,9 @@
 package com.worldtreeinc.leaves;
 
-<<<<<<< HEAD
+
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -21,35 +22,23 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
-=======
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
->>>>>>> event UI
 
 
 public class PlannerEventActivity extends ActionBarActivity {
 
-<<<<<<< HEAD
     String id;
-
     ListView listview;
     List<ParseObject> ob;
     ProgressDialog mProgressDialog;
     ListViewAdapter adapter;
     private List<UserEvent> userEventList = null;
 
-=======
->>>>>>> event UI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planner_event);
-<<<<<<< HEAD
+
         new EventAsyncTask().execute();
-=======
->>>>>>> event UI
     }
 
     @Override
@@ -59,7 +48,6 @@ public class PlannerEventActivity extends ActionBarActivity {
         return true;
     }
 
-<<<<<<< HEAD
     private ListView.OnItemClickListener mMessageClickedHandler = new ListView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id)
         {
@@ -74,7 +62,6 @@ public class PlannerEventActivity extends ActionBarActivity {
     };
 
     private class EventAsyncTask extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected Void doInBackground(Void... params) {
             userEventList = new ArrayList<UserEvent>();
@@ -137,10 +124,7 @@ public class PlannerEventActivity extends ActionBarActivity {
     }
 
 
-        @Override
-=======
     @Override
->>>>>>> event UI
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
