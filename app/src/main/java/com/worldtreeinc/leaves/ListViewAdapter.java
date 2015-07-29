@@ -1,12 +1,10 @@
 package com.worldtreeinc.leaves;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,20 +22,23 @@ public class ListViewAdapter extends BaseAdapter {
     private List<UserEvent> userEventList = null;
     private ArrayList<UserEvent> arraylist;
 
-    public ListViewAdapter(Context context, List<UserEvent> worldpopulationlist) {
+    public ListViewAdapter(Context context, List<UserEvent> userEventList) {
         this.context = context;
-        this.userEventList = worldpopulationlist;
+        this.userEventList = userEventList;
         inflater = LayoutInflater.from(context);
         this.arraylist = new ArrayList<UserEvent>();
-        this.arraylist.addAll(worldpopulationlist);
+        this.arraylist.addAll(userEventList);
         imageLoader = new ImageLoader(context);
     }
 
     public class ViewHolder {
-        TextView description;
-        TextView date;
-        TextView category;
-        ImageView eventImage;
+        TextView eventDescription;
+        TextView eventDate;
+        TextView eventCategory;
+        com.pkmmte.view.CircularImageView eventBanner;
+        TextView eventName;
+        TextView eventVenue;
+
     }
 
     @Override
@@ -61,24 +62,31 @@ public class ListViewAdapter extends BaseAdapter {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.activity_planner_event_list, null);
             // Locate the TextViews in listview_item.xml
-            holder.description = (TextView) view.findViewById(R.id.description);
-            holder.date = (TextView) view.findViewById(R.id.date);
-            holder.category = (TextView) view.findViewById(R.id.category);
+            holder.eventDescription = (TextView) view.findViewById(R.id.eventDescription);
+            holder.eventDate = (TextView) view.findViewById(R.id.eventDate);
+            holder.eventCategory = (TextView) view.findViewById(R.id.eventCategory);
+            holder.eventName = (TextView) view.findViewById(R.id.eventName);
+            holder.eventVenue = (TextView) view.findViewById(R.id.eventVenue);
+
             // Locate the ImageView in listview_item.xml
-            holder.eventImage = (ImageView) view.findViewById(R.id.eventImage);
+            holder.eventBanner = (com.pkmmte.view.CircularImageView) view.findViewById(R.id.eventBanner);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
-        // Set the results into TextViews
-        holder.description.setText(userEventList.get(position).getDescription());
-        holder.date.setText(userEventList.get(position).getDate());
-        holder.category.setText(userEventList.get(position)
-                .getCategory());
-        // Set the results into ImageView
-        imageLoader.DisplayImage(userEventList.get(position).getEventImage(),
-                holder.eventImage);
-        // Listen for ListView Item Click
+
+        holder.eventDescription.setText(userEventList.get(position).getEventDescription());
+        holder.eventDate.setText(userEventList.get(position).getEventDate());
+        holder.eventCategory.setText(userEventList.get(position).getEventCategory());
+        holder.eventVenue.setText(userEventList.get(position).getEventVenue() + " ");
+        holder.eventName.setText(userEventList.get(position).getEventName());
+
+
+        imageLoader.DisplayImage(userEventList.get(position).getEventBanner(),
+                holder.eventBanner);
+
+
+
 
         return view;
     }
