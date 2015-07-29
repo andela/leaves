@@ -1,10 +1,121 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.worldtreeinc.leaves.EventDetailsActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:background="#00838F">
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/event_details_banner"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:src="@drawable/banner_placeholder"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="#6600838F">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ed_location_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/ic_place_white_24dp"
+                    android:layout_marginRight="5dp"/>
+                <TextView
+                    android:id="@+id/ed_location_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edinburg tower"
+                    style="@style/event_details_icon_texts"
+                    android:layout_toRightOf="@id/ed_location_icon"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ed_category_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/ic_swap_vert_white_24dp"
+                    android:layout_marginRight="5dp"/>
+                <TextView
+                    android:id="@+id/ed_category_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/event_details_icon_texts"
+                    android:text="Arts"
+                    android:layout_toRightOf="@id/ed_category_icon"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ed_date_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/ic_event_white_24dp"
+                    android:layout_marginRight="5dp"/>
+                <TextView
+                    android:id="@+id/ed_date_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/event_details_icon_texts"
+                    android:text="12/6/2016"
+                    android:layout_toRightOf="@id/ed_date_icon"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <com.rey.material.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_backgroundColor="#00E4FE"
+            app:fab_iconSrc="@drawable/plus"
+            android:layout_marginBottom="-38dp"
+            android:src="@drawable/plus_blue"
+            android:layout_marginLeft="16dp"
+            android:layout_alignBottom="@+id/event_details_banner" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/items_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+</LinearLayout>
