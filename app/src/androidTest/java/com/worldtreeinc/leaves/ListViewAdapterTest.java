@@ -10,8 +10,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 /**
  * Created by andela on 7/29/15.
  */
@@ -66,8 +64,6 @@ public class ListViewAdapterTest extends AndroidTestCase {
     }
 
     public void testGetView() {
-
-
         View view = mAdapter.getView(0, null, null);
 
         if (view == null) {
@@ -93,11 +89,9 @@ public class ListViewAdapterTest extends AndroidTestCase {
             assertNull("Name TextView is null. ", eventName);
             assertNull("Venue TextView is null. ", eventVenue);
             assertNull("Venue ImageView is null. ", eventBanner);
-
             assertEquals("Description doesn't match.", mDescription.getEventDescription(), eventDescription.getText());
             assertEquals("Date doesn't match.", mDate.getEventDate(),
                     eventDate.getText());
-
 
             final ViewGroup.LayoutParams DescriptionlayoutParams =
                     eventDescription.getLayoutParams();
@@ -144,19 +138,12 @@ public class ListViewAdapterTest extends AndroidTestCase {
             assertEquals(BannerlayoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
 
 
-
             assertEquals("Category doesn't match.", mCategory.getEventCategory(), eventCategory.getText());
             assertEquals("Name doesn't match.", mName.getEventName(),
                     eventName.getText());
 
             assertEquals("Venue doesn't match.", mVenue.getEventVenue(),
                     eventVenue.getText());
-
-
-
-
-
-
         }
 
     }
