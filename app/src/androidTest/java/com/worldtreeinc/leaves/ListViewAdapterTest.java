@@ -65,6 +65,7 @@ public class ListViewAdapterTest extends AndroidTestCase {
 
     public void testGetView() {
 
+
         View view = mAdapter.getView(0, null, null);
 
         if (view == null) {
@@ -83,13 +84,13 @@ public class ListViewAdapterTest extends AndroidTestCase {
                     .findViewById(R.id.eventBanner);
 
 
-            assertNotNull("View is null. ", view);
-            assertNotNull("Description TextView is null. ", eventDescription);
-            assertNotNull("Date TextView is null. ", eventDate);
-            assertNotNull("Category TextView is null. ", eventCategory);
-            assertNotNull("Name TextView is null. ", eventName);
-            assertNotNull("Venue TextView is null. ", eventVenue);
-            assertNotNull("Venue ImageView is null. ", eventBanner);
+            assertNull("View is null. ", view);
+            assertNull("Description TextView is null. ", eventDescription);
+            assertNull("Date TextView is null. ", eventDate);
+            assertNull("Category TextView is null. ", eventCategory);
+            assertNull("Name TextView is null. ", eventName);
+            assertNull("Venue TextView is null. ", eventVenue);
+            assertNull("Venue ImageView is null. ", eventBanner);
 
             assertEquals("Description doesn't match.", mDescription.getEventDescription(), eventDescription.getText());
             assertEquals("Date doesn't match.", mDate.getEventDate(),

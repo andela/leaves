@@ -1,6 +1,7 @@
 package com.worldtreeinc.leaves;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.File;
 
@@ -11,6 +12,7 @@ import java.io.File;
 public class FileCache {
 
     private File cacheDir;
+
 
     public FileCache(Context context) {
         // Find the dir to save cached images
@@ -29,6 +31,7 @@ public class FileCache {
         String filename = String.valueOf(url.hashCode());
         // String filename = URLEncoder.encode(url);
         File f = new File(cacheDir, filename);
+        Log.v("TAG", String.valueOf(url.hashCode()));
         return f;
 
     }
