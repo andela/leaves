@@ -86,8 +86,6 @@ public class ListViewAdapter extends BaseAdapter {
                 holder.eventBanner);
 
 
-
-
         return view;
     }
 
