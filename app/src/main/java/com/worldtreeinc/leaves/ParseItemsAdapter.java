@@ -26,18 +26,44 @@ import java.util.ArrayList;
 
 public class ParseItemsAdapter extends ParseQueryAdapter {
 
+    // set private property to hold userId
+    private String userId;
+
     /*
     * here we must override the constructor for ParseQueryAdapter
 	*/
-    public ParseItemsAdapter(Context context) {
+    // NOTE THAT USER ID IN THE CONSTRUCTOR SHOULD BE EVENTID
+    public ParseItemsAdapter(Context context, final String userId) {
+
         // Use the QueryFactory to construct a PQA that will only show
         // Todos marked as high-pri
         super(context, new ParseQueryAdapter.QueryFactory<ParseObject>() {
             public ParseQuery create() {
                 ParseQuery query = ParseQuery.getQuery("Events");
-                query.whereEqualTo("userId", "zNQS9XB8G5");
+                query.whereEqualTo("userId", userId);
                 query.orderByDescending("eventDate");
                 return query;
+            }
+        });
+
+    }
+
+    /*
+     * Create setImage method to handle individual items image setting
+     */
+    public void setImage(final com.worldtreeinc.leaves.CircularImageView imageView, ParseObject object) {
+
+        ParseFile eventBanner = (ParseFile) object.get("eventBanner");
+        eventBanner.getDataInBackground(new GetDataCallback() {
+            public void done(byte[] data, ParseException e) {
+                // check change default image for the item only if no Exception was thrown
+                if (e == null) {
+                    // data has the bytes for the resume
+                    // set the image file
+                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    Bitmap songImage = Bitmap.createScaledBitmap(bmp, 80, 80, true);
+                    imageView.setImageBitmap(songImage);
+                }
             }
         });
     }
@@ -68,7 +94,7 @@ public class ParseItemsAdapter extends ParseQueryAdapter {
             // This is how you obtain a reference to the TextViews.
             // These TextViews are created in the XML files we defined.
 
-            final com.worldtreeinc.leaves.CircularImageView itemImage = (com.worldtreeinc.leaves.CircularImageView) v.findViewById(R.id.ed_item_image);
+            com.worldtreeinc.leaves.CircularImageView itemImage = (com.worldtreeinc.leaves.CircularImageView) v.findViewById(R.id.ed_item_image);
             TextView itemName = (TextView) v.findViewById(R.id.ed_item_name);
             TextView itemDescription = (TextView) v.findViewById(R.id.ed_item_description);
             TextView startingBid = (TextView) v.findViewById(R.id.ed_starting_bid);
@@ -79,21 +105,7 @@ public class ParseItemsAdapter extends ParseQueryAdapter {
             // check to see if each individual textview is null.
             // if not, assign some text!
             if (itemImage != null) {
-                ParseFile eventBanner = (ParseFile) object.get("eventBanner");
-                eventBanner.getDataInBackground(new GetDataCallback() {
-                    public void done(byte[] data, ParseException e) {
-                        if (e == null) {
-                            // data has the bytes for the resume
-                            // set the image file
-                            Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                            Bitmap songImage = Bitmap.createScaledBitmap(bmp, 80, 80, true);
-                            itemImage.setImageBitmap(songImage);
-                        } else {
-                            // something went wrong
-
-                        }
-                    }
-                });
+                setImage(itemImage, object);
             }
             if (itemName != null) {
                 itemName.setText(object.getString("eventName"));
