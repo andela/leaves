@@ -37,8 +37,8 @@ public class EventDetailsActivity extends AppCompatActivity {
         ParseImageLoader imageLoader = new ParseImageLoader(banner, "Events", "a5NzJWEExy");
         imageLoader.setImage();
 
-        // instantiate m_adapter
-        m_adapter = new ParseItemsAdapter(this);
+        // instantiate m_adapter and pass in object ID
+        m_adapter = new ParseItemsAdapter(this, "zNQS9XB8G5");
 
         ListView listView = (ListView) findViewById(R.id.items_list);
         listView.setAdapter(m_adapter);
