@@ -28,35 +28,16 @@ public class EventDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
-        query.whereEqualTo("objectId", "U5pHVj7Z4E");
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (object == null) {
-                    //Log.d("score", "The getFirst request failed.");
-                } else {
-                    //Log.d("score", "Retrieved the object.");
-                    final ImageView banner = (ImageView) findViewById(R.id.event_details_banner);
+        // get ImageView of event banner to change
+        ImageView banner = (ImageView) findViewById(R.id.event_details_banner);
 
-                    ParseFile eventBanner = (ParseFile) object.get("eventBanner");
-                    eventBanner.getDataInBackground(new GetDataCallback() {
-                        public void done(byte[] data, ParseException e) {
-                            if (e == null) {
-                                // data has the bytes for the resume
-                                // set the image file
-                                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                //Bitmap songImage = Bitmap.createScaledBitmap(bmp, 100, 100, true);
-                                banner.setImageBitmap(bmp);
-                            } else {
-                                // something went wrong
 
-                            }
-                        }
-                    });
-                }
-            }
-        });
+        // create new ParseImageLoader passing in banner to it and eventId
+        // and call setImage() method on it
+        ParseImageLoader imageLoader = new ParseImageLoader(banner, "Events", "a5NzJWEExy");
+        imageLoader.setImage();
 
+        // instantiate m_adapter
         m_adapter = new ParseItemsAdapter(this);
 
         ListView listView = (ListView) findViewById(R.id.items_list);
