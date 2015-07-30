@@ -28,8 +28,5 @@ public class FileCacheTest extends AndroidTestCase {
         }finally {
             assertEquals(tString == "test", true);
         }
-
-
-
     }
 }
