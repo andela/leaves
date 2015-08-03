@@ -64,6 +64,9 @@
     </string-array>
 
     <string name="title_activity_planner_event">PlannerEventActivity</string>
+    <string name="Event_Description_Text">Description:</string>
+    <string name="Event_Date_Text">Date:</string>
+    <string name="Event_Category_Text">Category:</string>
 
 
 </resources>
