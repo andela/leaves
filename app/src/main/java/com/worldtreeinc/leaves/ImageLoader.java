@@ -31,6 +31,7 @@ public class ImageLoader {
     ExecutorService executorService;
     // Handler to display images in UI thread
     Handler handler = new Handler();
+    public ImageLoader(){}
 
     public ImageLoader(Context context) {
         fileCache = new FileCache(context);
@@ -48,6 +49,7 @@ public class ImageLoader {
             queuePhoto(url, imageView);
             imageView.setImageResource(stub_id);
         }
+        imageView.setImageBitmap(bitmap);
     }
 
     private void queuePhoto(String url, ImageView imageView) {
