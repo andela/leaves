@@ -1,7 +1,6 @@
 package com.worldtreeinc.leaves;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.io.File;
 
@@ -30,9 +29,8 @@ public class FileCache {
     public File getFile(String url) {
         String filename = String.valueOf(url.hashCode());
 
-        // String filename = URLEncoder.encode(url);
         File f = new File(cacheDir, filename);
-        Log.v("TAG", String.valueOf(url.hashCode()));
+
         return f;
 
     }
