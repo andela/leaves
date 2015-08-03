@@ -30,7 +30,7 @@ public class PlannerEventActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planner_event);
-        new RemoteDataTask().execute();
+        new EventAsyncTask().execute();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class PlannerEventActivity extends ActionBarActivity {
         return true;
     }
 
-    private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
+    private class EventAsyncTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... params) {
