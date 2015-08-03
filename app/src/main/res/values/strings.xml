@@ -53,12 +53,13 @@
     <string name="create_event_venue">Venue</string>
     <string name="create_event_image">Select Image</string>
     <string name="create_event_button_text">Create Event</string>
+    <string name="create_event_description">Event Description</string>
+    <string name="create_event_entry_fee">Entry Fee</string>
     <string-array name="events_categories">
-        <item>Select Category</item>
+        <item>General</item>
         <item>Art</item>
         <item>Music</item>
         <item>Technology</item>
     </string-array>
-    <string name="create_event_description">Event Description</string>
 
 </resources>

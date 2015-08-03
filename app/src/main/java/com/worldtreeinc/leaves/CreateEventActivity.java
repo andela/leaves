@@ -1,14 +1,20 @@
 package com.worldtreeinc.leaves;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +51,7 @@ public class CreateEventActivity extends AppCompatActivity {
     EditText eventNameEditText;
     Spinner eventCategorySpinner;
     EditText eventDateEditText;
+    EditText eventEntryFeeEditText;
     EditText eventVenueEditText;
     EditText eventDescriptionEditText;
     ImageView eventBannerImageView;
@@ -52,6 +59,7 @@ public class CreateEventActivity extends AppCompatActivity {
     // Values from the form
     String eventName;
     String eventCategory;
+    String eventEntryFee;
     String eventDate;
     String eventVenue;
     String eventDescription;
@@ -66,6 +74,7 @@ public class CreateEventActivity extends AppCompatActivity {
         eventNameEditText = (EditText) findViewById(R.id.create_event_name);
         eventDateEditText = (EditText) findViewById(R.id.create_event_date);
         eventVenueEditText = (EditText) findViewById(R.id.create_event_venue);
+        eventEntryFeeEditText = (EditText) findViewById(R.id.create_event_entry_fee);
         eventDescriptionEditText = (EditText) findViewById(R.id.event_description);
         eventBannerImageView = (ImageView) findViewById(R.id.event_banner);
 
@@ -99,7 +108,7 @@ public class CreateEventActivity extends AppCompatActivity {
         });
 
         // create onClick listener for the createEvent button
-        Button createEventButton = (Button) findViewById(R.id.createEventButton);
+        Button createEventButton = (Button) findViewById(R.id.create_event_button);
         createEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,8 +132,42 @@ public class CreateEventActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.create_event_cancel) {
+
+            // check if user has entered any data into the form
+            getFormData();
+
+            if (
+                    eventName.equals("") &&
+                    eventEntryFee.equals("") &&
+                    eventDate.equals("") &&
+                    eventVenue.equals("") &&
+                    eventDescription.equals("")
+                    ) {
+                // close the form and return to the dashboard
+                Intent intent = new Intent(this, PlannerDashActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                // build up the dialog
+                new AlertDialog.Builder(this)
+                        .setTitle("Cancel Event")
+                        .setMessage("Are you sure you want to cancel event? You will lose all data entered.")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                                // close the form and return to the dashboard
+                                backToDash();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -145,16 +188,32 @@ public class CreateEventActivity extends AppCompatActivity {
     // method to handle event creation
     public void createEvent() {
 
-        // clear toast message
-        toastErrorMessage = "";
-
         getFormData();
 
         // do form validation.
         if (!formValid()) {
-            // show toast
-            Toast.makeText(this, toastErrorMessage, Toast.LENGTH_LONG).show();
             return; // break out of the method
+        }
+
+        // check for spinner value
+        if (eventCategory == null) {
+            eventCategory = "General";
+        }
+
+        // check if user did not select an event banner.
+        if (file == null) {
+            // set default banner for event
+            Drawable drawable;
+            if (android.os.Build.VERSION.SDK_INT < 21) {
+                drawable = getResources().getDrawable(R.drawable.default_image);
+            } else {
+                drawable = this.getDrawable(R.drawable.default_image);
+            }
+            Bitmap bitmap = drawableToBitmap(drawable);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] parseFile = stream.toByteArray();
+            file = new ParseFile("banner.jpg", parseFile);
         }
 
         // start the progress view
@@ -167,7 +226,7 @@ public class CreateEventActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 // Handle success or failure here ...
                 if (e == null) {
-                    buildEventObject();
+                    saveEvent();
                 } else {
                     // display error message
                 }
@@ -180,9 +239,10 @@ public class CreateEventActivity extends AppCompatActivity {
         });
     }
 
-    public void buildEventObject() {
+    public void saveEvent() {
         event.setEventName(eventName);
         event.setEventCategory(eventCategory);
+        event.setEventEntryFee(Integer.parseInt(eventEntryFee));
         event.setEventDate(eventDate);
         event.setEventVenue(eventVenue);
         event.setEventDescription(eventDescription);
@@ -209,38 +269,37 @@ public class CreateEventActivity extends AppCompatActivity {
     // method to perform form validation
     public boolean formValid() {
 
+        boolean validate = true;
+
         if (eventName.equals("")) {
-            toastErrorMessage = "Event name must be provided.";
-            return false;
+            eventNameEditText.setError("Event name is required!");
+            validate = false;
         }
-        if (eventCategory == null || eventCategory.equals("Select Category")) {
-            toastErrorMessage = "Event Category must be provided.";
-            return false;
+        if (eventEntryFee.equals("")) {
+            eventEntryFeeEditText.setError("Event entry fee is required. Min: 0");
+            validate = false;
         }
         if (eventDate.equals("")) {
-            toastErrorMessage = "Event Date must be provided.";
-            return false;
+            eventDateEditText.setError("Event date is required!");
+            validate = false;
         }
         if (eventVenue.equals("")) {
-            toastErrorMessage = "Event Venue must be provided.";
-            return false;
+            eventVenueEditText.setError("Event venue is required!");
+            validate = false;
         }
         if (eventDescription.equals("")) {
-            toastErrorMessage = "Event Description must be provided.";
-            return false;
-        }
-        if (file == null) {
-            toastErrorMessage = "Please select an event banner.";
-            return false;
+            eventDescriptionEditText.setError("Event description is required!");
+            validate = false;
         }
 
-        return true;
+        return validate;
     }
 
     // method to get all form data.
     public void getFormData() {
         eventName = eventNameEditText.getText().toString();
         eventDate = eventDateEditText.getText().toString();
+        eventEntryFee = eventEntryFeeEditText.getText().toString();
         eventVenue = eventVenueEditText.getText().toString();
         eventDescription = eventDescriptionEditText.getText().toString();
     }
@@ -248,8 +307,31 @@ public class CreateEventActivity extends AppCompatActivity {
 
     // method to switch activity
     public void backToDash() {
-        Intent intent = new Intent(this, BidderDashActivity.class);
+        Intent intent = new Intent(this, PlannerDashActivity.class);
         startActivity(intent);
+        finish();
+    }
+
+    public Bitmap drawableToBitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+
+        final int width = !drawable.getBounds().isEmpty() ? drawable
+                .getBounds().width() : drawable.getIntrinsicWidth();
+
+        final int height = !drawable.getBounds().isEmpty() ? drawable
+                .getBounds().height() : drawable.getIntrinsicHeight();
+
+        final Bitmap bitmap = Bitmap.createBitmap(width <= 0 ? 1 : width,
+                height <= 0 ? 1 : height, Bitmap.Config.ARGB_8888);
+
+        Log.v("Bitmap width - Height :", width + " : " + height);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 
     // method to open gallery
