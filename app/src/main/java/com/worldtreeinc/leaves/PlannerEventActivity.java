@@ -55,9 +55,6 @@ public class PlannerEventActivity extends ActionBarActivity {
             Intent intent = new Intent(getApplicationContext(), EventDetailsActivity.class);
             intent.putExtra("OBJECT_ID", objectId);
             startActivity(intent);
-
-            // Display a messagebox.
-            //Toast.makeText(getApplicationContext(), "You've got an event\n"+ Sid, Toast.LENGTH_SHORT).show();
         }
     };
 
