@@ -1,19 +1,17 @@
 package com.worldtreeinc.leaves.test;
 
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.worldtreeinc.leaves.UserRegistration;
 
-import org.junit.After;
 import org.junit.Before;
-
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import com.worldtreeinc.leaves.UserRegistration;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by kamiye on 7/22/15.
@@ -68,5 +66,7 @@ public class UserRegistrationTest {
         registerObject.register();
         verify(registerObject).register();
     }
+
+
 
 }

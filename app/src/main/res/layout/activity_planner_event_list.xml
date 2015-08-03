@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:background="#F7F2F5">
+
+
+
+
+    <com.pkmmte.view.CircularImageView
+        android:id="@+id/eventBanner"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_alignParentLeft="true"
+        android:padding="1dp"
+        android:scaleType="fitXY"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:id="@+id/eventDescriptionlabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Event_Description_Text"
+        android:layout_toRightOf="@+id/eventBanner"
+        android:layout_toEndOf="@+id/eventBanner"
+        android:layout_below="@+id/eventVenue"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/eventDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/eventDescriptionlabel"
+        android:layout_below="@+id/eventVenue"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/eventDatelabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Event_Date_Text"
+        android:layout_below="@+id/eventDescription"
+        android:layout_alignLeft="@+id/eventDescriptionlabel"
+        android:layout_alignStart="@+id/eventDescriptionlabel"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/eventDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eventDescription"
+        android:layout_toRightOf="@+id/eventDatelabel"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/eventCategorylabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Event_Category_Text"
+        android:layout_below="@+id/eventDate"
+        android:layout_alignLeft="@+id/eventDatelabel"
+        android:layout_alignStart="@+id/eventDatelabel"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/eventCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eventDate"
+        android:layout_toRightOf="@+id/eventCategorylabel"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/eventVenue"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/eventDescriptionlabel"
+        android:layout_alignStart="@+id/eventDescriptionlabel"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/eventName"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/eventVenue"
+        android:layout_toEndOf="@+id/eventVenue"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:id="@+id/deleteButton"
+        android:src="@drawable/del"
+        android:scaleType="fitXY"
+        android:layout_alignBottom="@+id/eventBanner"
+        android:layout_toLeftOf="@+id/editButton"
+        android:layout_toStartOf="@+id/editButton"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:id="@+id/editButton"
+        android:src="@drawable/edit"
+        android:scaleType="fitXY"
+        android:layout_alignTop="@+id/deleteButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="5dp"/>
+
+
+</RelativeLayout>
