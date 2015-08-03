@@ -3,6 +3,8 @@ package com.worldtreeinc.leaves;
 import android.content.Context;
 import android.test.AndroidTestCase;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -96,12 +98,63 @@ public class ListViewAdapterTest extends AndroidTestCase {
             assertEquals("Date doesn't match.", mDate.getEventDate(),
                     eventDate.getText());
 
+
+            final ViewGroup.LayoutParams DescriptionlayoutParams =
+                    eventDescription.getLayoutParams();
+            assertNotNull(DescriptionlayoutParams);
+            assertEquals(DescriptionlayoutParams.width, WindowManager.LayoutParams.WRAP_CONTENT);
+            assertEquals(DescriptionlayoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
+
+
+
+            final ViewGroup.LayoutParams DatelayoutParams =
+                    eventDate.getLayoutParams();
+            assertNotNull(DatelayoutParams);
+            assertEquals(DatelayoutParams.width, WindowManager.LayoutParams.WRAP_CONTENT);
+            assertEquals(DatelayoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
+
+
+
+            final ViewGroup.LayoutParams CategorylayoutParams =
+                    eventCategory.getLayoutParams();
+            assertNotNull(CategorylayoutParams);
+            assertEquals(CategorylayoutParams.width, WindowManager.LayoutParams.WRAP_CONTENT);
+            assertEquals(CategorylayoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
+
+
+            final ViewGroup.LayoutParams NamelayoutParams =
+                    eventName.getLayoutParams();
+            assertNotNull(NamelayoutParams);
+            assertEquals(NamelayoutParams.width, WindowManager.LayoutParams.WRAP_CONTENT);
+            assertEquals(NamelayoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
+
+
+
+            final ViewGroup.LayoutParams VenuelayoutParams =
+                    eventVenue.getLayoutParams();
+            assertNotNull(VenuelayoutParams);
+            assertEquals(VenuelayoutParams.width, WindowManager.LayoutParams.WRAP_CONTENT);
+            assertEquals(VenuelayoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
+
+
+            final ViewGroup.LayoutParams BannerlayoutParams =
+                    eventBanner.getLayoutParams();
+            assertNotNull(BannerlayoutParams);
+            assertEquals(BannerlayoutParams.width, WindowManager.LayoutParams.WRAP_CONTENT);
+            assertEquals(BannerlayoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
+
+
+
             assertEquals("Category doesn't match.", mCategory.getEventCategory(), eventCategory.getText());
             assertEquals("Name doesn't match.", mName.getEventName(),
                     eventName.getText());
 
             assertEquals("Venue doesn't match.", mVenue.getEventVenue(),
                     eventVenue.getText());
+
+
+
+
 
 
         }
