@@ -5,8 +5,11 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.ViewAsserts;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.view.View;
+
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.ViewAsserts;
 import android.test.suitebuilder.annotation.SmallTest;
+import android.view.View;
 import android.widget.ListView;
 
 /**
@@ -16,7 +19,6 @@ public class PlannerEventActivityTest extends ActivityInstrumentationTestCase2<P
 
     PlannerEventActivity mPlannerActivity;
     UserEvent mUserEvent = new UserEvent();
-
     ListView mListView;
 
     public PlannerEventActivityTest(){
@@ -31,6 +33,8 @@ public class PlannerEventActivityTest extends ActivityInstrumentationTestCase2<P
 
         /** Getting the reference to the activity to be tested */
         mListView = (ListView) mPlannerActivity.findViewById(R.id.listView);
+
+
 
     }
 
@@ -55,8 +59,8 @@ public class PlannerEventActivityTest extends ActivityInstrumentationTestCase2<P
 
         PlannerEventActivity receiverActivity = (PlannerEventActivity)
                 receiverActivityMonitor.waitForActivityWithTimeout(11000);
-
     }
+
 
 
     @SmallTest
@@ -121,5 +125,4 @@ public class PlannerEventActivityTest extends ActivityInstrumentationTestCase2<P
         String actualName = mUserEvent.getEventName();
         assertEquals(expectedName, actualName);
     }
-
 }
