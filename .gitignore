@@ -31,3 +31,6 @@ proguard/
 .idea/libraries
 .DS_Store
 captures
+.idea/misc.xml
+.idea/modules.xml
+leaves.iml

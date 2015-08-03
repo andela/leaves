@@ -40,4 +40,8 @@ public class Event extends ParseObject {
         put("userId", userId);
     }
 
+    public void setEventEntryFee(int entryFee) {
+        put("entryFee", entryFee);
+    }
+
 }
