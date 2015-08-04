@@ -50,7 +50,6 @@
                     android:id="@+id/ed_location_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edinburg tower"
                     style="@style/event_details_icon_texts"
                     android:layout_toRightOf="@id/ed_location_icon"/>
 
@@ -72,7 +71,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/event_details_icon_texts"
-                    android:text="Arts"
                     android:layout_toRightOf="@id/ed_category_icon"/>
 
             </LinearLayout>
@@ -93,7 +91,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/event_details_icon_texts"
-                    android:text="12/6/2016"
                     android:layout_toRightOf="@id/ed_date_icon"/>
             </LinearLayout>
 
@@ -109,6 +106,14 @@
             android:layout_marginLeft="16dp"
             android:layout_alignBottom="@+id/event_details_banner" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/no_internet_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="italic"/>
 
     <ListView
         android:id="@+id/items_list"
