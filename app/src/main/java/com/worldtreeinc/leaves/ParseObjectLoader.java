@@ -29,7 +29,7 @@ public class ParseObjectLoader {
     private ImageView imageView;
     private String parseTableName;
     private String parseObjectId;
-    private ParseObject object;
+    private Activity eventActivity;
 
 
     public ParseObjectLoader() {
@@ -52,6 +52,7 @@ public class ParseObjectLoader {
         this.imageView = banner;
         this.parseTableName = tableName;
         this.parseObjectId = objectId;
+        this.eventActivity = activity;
     }
 
     private ParseQuery<ParseObject> setParseQuery() {
@@ -91,6 +92,7 @@ public class ParseObjectLoader {
             public void done(ParseObject object, ParseException e) {
                 // Change default image only if object returned is not null
                 if (object != null) {
+                    eventActivity.setTitle(object.getString("eventName"));
                     if (category != null) {
                         category.setText(object.getString("eventCategory"));
                     }

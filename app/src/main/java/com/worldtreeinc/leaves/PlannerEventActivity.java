@@ -1,13 +1,17 @@
 package com.worldtreeinc.leaves;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -19,6 +23,8 @@ import java.util.List;
 
 
 public class PlannerEventActivity extends ActionBarActivity {
+
+    String id;
 
     ListView listview;
     List<ParseObject> ob;
@@ -39,6 +45,19 @@ public class PlannerEventActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_planner_event, menu);
         return true;
     }
+
+    private ListView.OnItemClickListener mMessageClickedHandler = new ListView.OnItemClickListener() {
+        public void onItemClick(AdapterView parent, View v, int position, long id)
+        {
+            String objectId = ob.get(position).getObjectId();
+            Intent intent = new Intent(getApplicationContext(), EventDetailsActivity.class);
+            intent.putExtra("OBJECT_ID", objectId);
+            startActivity(intent);
+
+            // Display a messagebox.
+            //Toast.makeText(getApplicationContext(), "You've got an event\n"+ Sid, Toast.LENGTH_SHORT).show();
+        }
+    };
 
     private class EventAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -97,6 +116,7 @@ public class PlannerEventActivity extends ActionBarActivity {
                     userEventList);
             // Binds the Adapter to the ListView
             listview.setAdapter(adapter);
+            listview.setOnItemClickListener(mMessageClickedHandler);
             // Close the progressdialog
             mProgressDialog.dismiss();
         }

@@ -30,22 +30,21 @@ import java.util.ArrayList;
 public class ParseItemsAdapter extends ParseQueryAdapter {
 
     // set private property to hold userId
-    private String userId;
     private Activity context;
 
     /*
     * here we must override the constructor for ParseQueryAdapter
 	*/
     // NOTE THAT USER ID IN THE CONSTRUCTOR SHOULD BE EVENTID
-    public ParseItemsAdapter(Activity context, final String userId) {
+    public ParseItemsAdapter(Activity context, final String eventId) {
 
         // Use the QueryFactory to construct a PQA that will only show
         // Todos marked as high-pri
         super(context, new ParseQueryAdapter.QueryFactory<ParseObject>() {
             public ParseQuery create() {
-                ParseQuery query = ParseQuery.getQuery("Events");
-                query.whereEqualTo("userId", userId);
-                query.orderByDescending("eventDate");
+                ParseQuery query = ParseQuery.getQuery("Items");
+                query.whereEqualTo("eventId", eventId);
+                //query.orderByDescending("eventDate");
                 return query;
             }
         });
@@ -114,7 +113,7 @@ public class ParseItemsAdapter extends ParseQueryAdapter {
                 setImage(itemImage, object);
             }
             if (itemName != null) {
-                itemName.setText(object.getString("eventName"));
+                itemName.setText(object.getString("eventName")); // edit key strings as necessary
             }
             if (itemDescription != null) {
                 itemDescription.setText(object.getString("eventDescription"));
@@ -131,10 +130,6 @@ public class ParseItemsAdapter extends ParseQueryAdapter {
             if (presentBid != null) {
                 presentBid.setText("$ 250");
             }
-        }
-        else {
-            TextView error =(TextView) context.findViewById(R.id.no_internet_error);
-            error.setText("No Items to Display");
         }
 
         // the view must be returned to our activity
