@@ -1,22 +1,15 @@
 package com.worldtreeinc.leaves;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-
-import com.parse.GetCallback;
-import com.parse.GetDataCallback;
-import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+import android.widget.TextView;
 
 public class EventDetailsActivity extends AppCompatActivity {
 
@@ -28,20 +21,28 @@ public class EventDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
-        // get ImageView of event banner to change
-        ImageView banner = (ImageView) findViewById(R.id.event_details_banner);
-
 
         // create new ParseImageLoader passing in banner to it and eventId
         // and call setImage() method on it
-        ParseImageLoader imageLoader = new ParseImageLoader(banner, "Events", "a5NzJWEExy");
-        imageLoader.setImage();
+        ParseObjectLoader objectLoader = new ParseObjectLoader(this, "Events", "a5NzJWEExy");
+        objectLoader.setImage();
+        // call set texts to set details of the events fetched from parse
+        objectLoader.setEventDetails();
 
-        // instantiate m_adapter and pass in object ID
-        m_adapter = new ParseItemsAdapter(this, "zNQS9XB8G5");
+        // check internet access
+        boolean connecting = checkOnlineState();
+        TextView error = (TextView) findViewById(R.id.no_internet_error);
+        if (!connecting) {
+            error.setText("No Internet Connection");
+        }
+        else {
+            // instantiate m_adapter and pass in object ID { Event ID }
+            m_adapter = new ParseItemsAdapter(this, "zNQS9XB8G5");
 
-        ListView listView = (ListView) findViewById(R.id.items_list);
-        listView.setAdapter(m_adapter);
+            ListView listView = (ListView) findViewById(R.id.items_list);
+            listView.setAdapter(m_adapter);
+        }
+
     }
 
     @Override
@@ -64,5 +65,15 @@ public class EventDetailsActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean checkOnlineState() {
+        ConnectivityManager CManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo NInfo = CManager.getActiveNetworkInfo();
+        if (NInfo != null && NInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
     }
 }

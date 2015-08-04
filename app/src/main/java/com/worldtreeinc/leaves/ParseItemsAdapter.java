@@ -4,9 +4,12 @@ package com.worldtreeinc.leaves;
  * Created by kamiye on 7/27/15.
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +31,13 @@ public class ParseItemsAdapter extends ParseQueryAdapter {
 
     // set private property to hold userId
     private String userId;
+    private Activity context;
 
     /*
     * here we must override the constructor for ParseQueryAdapter
 	*/
     // NOTE THAT USER ID IN THE CONSTRUCTOR SHOULD BE EVENTID
-    public ParseItemsAdapter(Context context, final String userId) {
+    public ParseItemsAdapter(Activity context, final String userId) {
 
         // Use the QueryFactory to construct a PQA that will only show
         // Todos marked as high-pri
@@ -45,6 +49,8 @@ public class ParseItemsAdapter extends ParseQueryAdapter {
                 return query;
             }
         });
+
+        this.context = context;
 
     }
 
@@ -125,6 +131,10 @@ public class ParseItemsAdapter extends ParseQueryAdapter {
             if (presentBid != null) {
                 presentBid.setText("$ 250");
             }
+        }
+        else {
+            TextView error =(TextView) context.findViewById(R.id.no_internet_error);
+            error.setText("No Items to Display");
         }
 
         // the view must be returned to our activity
