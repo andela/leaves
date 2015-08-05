@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -32,7 +31,7 @@ import com.rey.material.widget.Spinner;
 import java.io.ByteArrayOutputStream;
 
 
-public class CreateEventActivity extends AppCompatActivity  implements AdapterView.OnItemSelectedListener{
+public class CreateEventActivity extends AppCompatActivity  implements Spinner.OnItemSelectedListener {
 
 
     // global variables to be used in multiple methods.
@@ -65,14 +64,10 @@ public class CreateEventActivity extends AppCompatActivity  implements AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event2);
         initialize();
+        // populate the spinner with data from a string resource
+        populateCategorySpinner();
 
-        // create event onItemSelectedListener for the spinner
-        eventCategorySpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(Spinner spinner, View view, int i, long l) {
-                eventCategory = eventCategorySpinner.getSelectedItem().toString();
-            }
-        });
+
 
         // create onClick listener for the date picker
         ImageButton datePicker = (ImageButton) findViewById(R.id.date_picker);
@@ -330,18 +325,7 @@ public class CreateEventActivity extends AppCompatActivity  implements AdapterVi
         eventEntryFee = eventEntryFeeEditText.getText().toString().trim();
         eventVenue = eventVenueEditText.getText().toString().trim();
         eventDescription = eventDescriptionEditText.getText().toString().trim();
-
-
-        eventCategorySpinner = (Spinner) findViewById(R.id.events_categories_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.events_categories, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        eventCategorySpinner.setAdapter(adapter);
     }
-
 
 
     // method to open gallery
@@ -352,6 +336,7 @@ public class CreateEventActivity extends AppCompatActivity  implements AdapterVi
         // Start the Intent
         startActivityForResult(galleryIntent, RESULT_LOAD);
     }
+
     // method to be invoked when a picture is selected in the gallery
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -363,7 +348,7 @@ public class CreateEventActivity extends AppCompatActivity  implements AdapterVi
                 // Get the Image from data
 
                 Uri selectedImage = data.getData();
-                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
                 // Get the cursor
                 Cursor cursor = getContentResolver().query(selectedImage,
@@ -386,7 +371,6 @@ public class CreateEventActivity extends AppCompatActivity  implements AdapterVi
     }
 
 
-
     // method to get byte array of selected image
     public void getByteArray(String filePath) {
         // prepare the image to be sent to parse server
@@ -401,16 +385,28 @@ public class CreateEventActivity extends AppCompatActivity  implements AdapterVi
     }
 
     // method to populate spinner
+    public void populateCategorySpinner() {
 
+        eventCategorySpinner = (Spinner) findViewById(R.id.events_categories_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.events_categories, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        eventCategorySpinner.setAdapter(adapter);
+
+    }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (getTaskId()) {
-            case R.id.events_categories_spinner :
+    public void onItemSelected(Spinner spinner, View view, int i, long l) {
+
+        switch (view.getId()){
+            case R.id.events_categories_spinner:
                 eventCategory = eventCategorySpinner.getSelectedItem().toString();
                 break;
         }
+
     }
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {}
+
 }
