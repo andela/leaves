@@ -22,7 +22,7 @@ public class EventBannerCompressor {
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
         // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = true;
+        options.inJustDecodeBounds = false;
         return BitmapFactory.decodeFile(filePath, options);
     }
 
@@ -31,7 +31,7 @@ public class EventBannerCompressor {
         // Raw height and width of image
         final int height = options.outHeight;
         final int width = options.outWidth;
-        int inSampleSize = 1;
+        int inSampleSize = 2;
 
         if (height > reqHeight || width > reqWidth) {
 

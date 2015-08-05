@@ -42,7 +42,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
     // global variables to be used in multiple methods.
     private static int RESULT_LOAD = 1;
-    String toastErrorMessage;
+    String imagePath;
     ProgressView progressView;
     Event event = new Event(); // event object
 
@@ -102,7 +102,27 @@ public class CreateEventActivity extends AppCompatActivity {
         bannerUploader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openGallery();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        openGallery();
+                    }
+                }).start();
+            }
+        });
+
+        // create onClick listener for image uploader
+        final ImageButton clearBanner = (ImageButton) findViewById(R.id.clear_banner_icon);
+        clearBanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Drawable drawable;
+                if (android.os.Build.VERSION.SDK_INT < 21) {
+                    drawable = getResources().getDrawable(R.drawable.default_image);
+                } else {
+                    drawable = getApplicationContext().getDrawable(R.drawable.default_image);
+                }
+                eventBannerImageView.setImageDrawable(drawable);
             }
         });
 
@@ -132,41 +152,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.create_event_cancel) {
-
-            // check if user has entered any data into the form
-            getFormData();
-
-            if (
-                    eventName.equals("") &&
-                    eventEntryFee.equals("") &&
-                    eventDate.equals("") &&
-                    eventVenue.equals("") &&
-                    eventDescription.equals("")
-                    ) {
-                // close the form and return to the dashboard
-                Intent intent = new Intent(this, PlannerDashActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                // build up the dialog
-                new AlertDialog.Builder(this)
-                        .setTitle("Cancel Event")
-                        .setMessage("Are you sure you want to cancel event? You will lose all data entered.")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
-                                // close the form and return to the dashboard
-                                backToDash();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-            }
+            cancelEvent();
         }
 
         return super.onOptionsItemSelected(item);
@@ -174,14 +160,49 @@ public class CreateEventActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // do some checks on user inputs before any action
-        if (true) {
-            // if fields are empty, change activity to the planner dashboard
+        cancelEvent();
+    }
+
+    public void cancelEvent() {
+        // check if user has entered any data into the form
+        getFormData();
+        if (
+                eventName.equals("") &&
+                        eventEntryFee.equals("") &&
+                        eventDate.equals("") &&
+                        eventVenue.equals("") &&
+                        eventDescription.equals("") &&
+                        file == null
+                ) {
+            // close the form and return to the dashboard
             backToDash();
         } else {
-            // alert user of data loss if activity is switched
-            // and ask for confirmation
+            // build up the dialog
+            new AlertDialog.Builder(this)
+                    .setTitle("Cancel Event")
+                    .setMessage("Are you sure you want to cancel event? You will lose all data entered.")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                            // close the form and return to the dashboard
+                            backToDash();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
+    }
+
+    // method to switch activity
+    public void backToDash() {
+        Intent intent = new Intent(this, PlannerDashActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     // method to handle event creation
@@ -198,6 +219,15 @@ public class CreateEventActivity extends AppCompatActivity {
         if (eventCategory == null) {
             eventCategory = "General";
         }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (imagePath != null) {
+                    getByteArray(imagePath);
+                }
+            }
+        }).start();
 
         // check if user did not select an event banner.
         if (file == null) {
@@ -303,14 +333,6 @@ public class CreateEventActivity extends AppCompatActivity {
         eventDescription = eventDescriptionEditText.getText().toString().trim();
     }
 
-
-    // method to switch activity
-    public void backToDash() {
-        Intent intent = new Intent(this, PlannerDashActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
     public Bitmap drawableToBitmap(Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
             return ((BitmapDrawable) drawable).getBitmap();
@@ -361,32 +383,29 @@ public class CreateEventActivity extends AppCompatActivity {
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                String img_Decodable_Str = cursor.getString(columnIndex);
+                imagePath = cursor.getString(columnIndex);
                 cursor.close();
 
-                ImageView imgView = (ImageView) findViewById(R.id.event_banner);
+                // set the imageView to the selected image
+                setEventBanner();
 
-                // create a new banner compressor object
-                EventBannerCompressor compressor = new EventBannerCompressor();
-
-                // Set the Image in ImageView after decoding the String
-                imgView.setImageBitmap(compressor.getCompressed(img_Decodable_Str, 450, 900));
-
-                //imgView.setImageBitmap(
-                        //decodeSampledBitmapFromFile(img_Decodable_Str, 900, 450));
-
-                // call method to get byte array from selected image file
-                getByteArray(img_Decodable_Str);
-
-            } else {
-                Toast.makeText(this, "Pick an image first",
-                        Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
             Toast.makeText(this, "Please select an image!", Toast.LENGTH_LONG)
                     .show();
         }
+    }
 
+    public void setEventBanner() {
+        // create a new banner compressor object
+        EventBannerCompressor compressor = new EventBannerCompressor();
+
+        // Set the Image in ImageView after decoding the String
+        Bitmap bitmap = compressor.getCompressed(imagePath, 450, 900);
+        eventBannerImageView.setImageBitmap(bitmap);
+
+        // clear bitmap
+        bitmap = null;
     }
 
     // method to get byte array of selected image
@@ -398,8 +417,9 @@ public class CreateEventActivity extends AppCompatActivity {
         bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] parseFile = stream.toByteArray();
         file = new ParseFile("banner.jpg", parseFile);
+        // clear bitmap
+        bmp = null;
     }
-
 
     // method to populate spinner
     public void populateCategorySpinner() {
@@ -415,17 +435,13 @@ public class CreateEventActivity extends AppCompatActivity {
 
     }
 
-
-    /*
-        Date picker section
-     */
     public void selectDate() {
         int mYear, mMonth, mDay;
         // Process to get Current Date
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
+        final Calendar calendar = Calendar.getInstance();
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
         // Launch Date Picker Dialog
         DatePickerDialog dpd = new DatePickerDialog(CreateEventActivity.this, new DatePickerDialog.OnDateSetListener() {
