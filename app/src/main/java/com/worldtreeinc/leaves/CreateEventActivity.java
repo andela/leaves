@@ -123,6 +123,8 @@ public class CreateEventActivity extends AppCompatActivity {
                     drawable = getApplicationContext().getDrawable(R.drawable.default_image);
                 }
                 eventBannerImageView.setImageDrawable(drawable);
+                file = null;
+                imagePath = null;
             }
         });
 
