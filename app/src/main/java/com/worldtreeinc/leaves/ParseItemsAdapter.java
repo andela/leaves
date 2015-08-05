@@ -8,13 +8,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.GetDataCallback;
@@ -23,14 +19,9 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
-//import com.pkmmte.view.CircularImageView;
 
-import java.util.ArrayList;
 
 public class ParseItemsAdapter extends ParseQueryAdapter {
-
-    // set private property to hold userId
-    private Activity context;
 
     /*
     * here we must override the constructor for ParseQueryAdapter
@@ -44,12 +35,10 @@ public class ParseItemsAdapter extends ParseQueryAdapter {
             public ParseQuery create() {
                 ParseQuery query = ParseQuery.getQuery("Items");
                 query.whereEqualTo("eventId", eventId);
-                //query.orderByDescending("eventDate");
+                //query.orderByDescending("eventDate"); // order item by preferable order
                 return query;
             }
         });
-
-        this.context = context;
 
     }
 
@@ -116,19 +105,19 @@ public class ParseItemsAdapter extends ParseQueryAdapter {
                 itemName.setText(object.getString("eventName")); // edit key strings as necessary
             }
             if (itemDescription != null) {
-                itemDescription.setText(object.getString("eventDescription"));
+                itemDescription.setText(object.getString("eventDescription")); // edit key strings as necessary
             }
             if (startingBidTitle != null) {
-                startingBidTitle.setText("Starting Bid: ");
+                startingBidTitle.setText("Starting Bid: "); // edit key strings as necessary
             }
             if (startingBid != null) {
-                startingBid.setText("$ 200");
+                startingBid.setText("$ 200"); // edit key strings as necessary
             }
             if (presentBidTitle != null) {
-                presentBidTitle.setText("Present Bid: ");
+                presentBidTitle.setText("Present Bid: "); // edit key strings as necessary
             }
             if (presentBid != null) {
-                presentBid.setText("$ 250");
+                presentBid.setText("$ 250"); // edit key strings as necessary
             }
         }
 

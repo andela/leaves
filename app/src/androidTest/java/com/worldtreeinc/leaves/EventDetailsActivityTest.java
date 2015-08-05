@@ -122,5 +122,4 @@ public class EventDetailsActivityTest extends ActivityInstrumentationTestCase2<E
         assertEquals("Internet error not showing", expected, actual);
     }
 
-    // test maybe for margins and spacing
 }
