@@ -1,7 +1,6 @@
 package com.worldtreeinc.leaves;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,7 +32,6 @@ import com.rey.material.widget.ProgressView;
 import com.rey.material.widget.Spinner;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Calendar;
 
 
 public class CreateEventActivity extends AppCompatActivity {
@@ -93,7 +90,8 @@ public class CreateEventActivity extends AppCompatActivity {
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectDate();
+                EventDataClass eventDataClass = new EventDataClass(CreateEventActivity.this, eventDateEditText);
+                eventDataClass.selectDate();
             }
         });
 
@@ -437,22 +435,5 @@ public class CreateEventActivity extends AppCompatActivity {
 
     }
 
-    public void selectDate() {
-        int mYear, mMonth, mDay;
-        // Process to get Current Date
-        final Calendar calendar = Calendar.getInstance();
-        mYear = calendar.get(Calendar.YEAR);
-        mMonth = calendar.get(Calendar.MONTH);
-        mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Launch Date Picker Dialog
-        DatePickerDialog dpd = new DatePickerDialog(CreateEventActivity.this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                // Display Selected date in text box
-                eventDateEditText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-            }
-        }, mYear, mMonth, mDay);
-        dpd.show();
-    }
 }
