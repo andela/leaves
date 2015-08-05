@@ -60,6 +60,7 @@ public class CreateEventActivity extends AppCompatActivity {
     String eventVenue;
     String eventDescription;
     ParseFile file;
+    EventDataClass eventDataClass = new EventDataClass();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -387,7 +388,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 cursor.close();
 
                 // set the imageView to the selected image
-                setEventBanner();
+                eventDataClass.setEventBanner(eventBannerImageView, imagePath);
 
             }
         } catch (Exception e) {
@@ -396,17 +397,7 @@ public class CreateEventActivity extends AppCompatActivity {
         }
     }
 
-    public void setEventBanner() {
-        // create a new banner compressor object
-        EventBannerCompressor compressor = new EventBannerCompressor();
 
-        // Set the Image in ImageView after decoding the String
-        Bitmap bitmap = compressor.getCompressed(imagePath, 450, 900);
-        eventBannerImageView.setImageBitmap(bitmap);
-
-        // clear bitmap
-        bitmap = null;
-    }
 
     // method to get byte array of selected image
     public void getByteArray(String filePath) {
