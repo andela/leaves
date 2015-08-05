@@ -70,6 +70,7 @@
 
     // event details activity
     <string name="title_activity_event_details">Event Details</string>
+    <string name="title_activity_planner_event">PlannerEventActivity</string>
     <string name="Event_Description_Text">Description:</string>
     <string name="Event_Date_Text">Date:</string>
     <string name="Event_Category_Text">Category:</string>
@@ -77,5 +78,11 @@
     //planner event list activity
     <string name="title_activity_planner_event">PlannerEventActivity</string>
 
+    //Adds Dashboard layout [#98934380]
+    <string name="planner_dash_create_event">Create Event</string>
+    <string name="planner_dash_manage_events">Manage Events</string>
+    <string name="planner_dash_count_default">10</string>
+    <string name="planner_dash_content_description">message notification</string>
+    <string name="planner_dash_latest_bids">Latest Bids</string>
 </resources>
 
