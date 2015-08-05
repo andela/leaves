@@ -65,16 +65,6 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         setContentView(R.layout.activity_create_event2);
         initialize();
 
-        // create onClick listener for the date picker
-        ImageButton datePicker = (ImageButton) findViewById(R.id.date_picker);
-        datePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventDataClass eventDataClass = new EventDataClass(CreateEventActivity.this, eventDateEditText);
-                eventDataClass.selectDate();
-            }
-        });
-
         // create onClick listener for image uploader
         ImageButton bannerUploader = (ImageButton) findViewById(R.id.banner_select_icon);
         bannerUploader.setOnClickListener(new View.OnClickListener() {
@@ -108,8 +98,8 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         eventEntryFeeEditText = (EditText) findViewById(R.id.create_event_entry_fee);
         eventDescriptionEditText = (EditText) findViewById(R.id.event_description);
         eventBannerImageView = (ImageView) findViewById(R.id.event_banner);
-//        ImageButton datePicker = (ImageButton) findViewById(R.id.date_picker);
-//        datePicker.setOnClickListener(this);
+        ImageButton datePicker = (ImageButton) findViewById(R.id.date_picker);
+        datePicker.setOnClickListener(this);
 
         final ImageButton clearBanner = (ImageButton) findViewById(R.id.clear_banner_icon);
         clearBanner.setOnClickListener(this);
@@ -393,10 +383,10 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-//            case R.id.date_picker:
-//                EventDataClass eventDataClass = new EventDataClass(this, eventDateEditText);
-//                eventDataClass.selectDate();
-//                break;
+            case R.id.date_picker:
+                EventDataClass eventDataClass = new EventDataClass(this, eventDateEditText);
+                eventDataClass.selectDate();
+                break;
 
 
             case R.id.clear_banner_icon:
