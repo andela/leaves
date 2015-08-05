@@ -5,14 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -239,7 +236,7 @@ public class CreateEventActivity extends AppCompatActivity {
             } else {
                 drawable = this.getDrawable(R.drawable.default_image);
             }
-            Bitmap bitmap = drawableToBitmap(drawable);
+            Bitmap bitmap = eventDataClass.drawableToBitmap(drawable);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             byte[] parseFile = stream.toByteArray();
@@ -334,27 +331,7 @@ public class CreateEventActivity extends AppCompatActivity {
         eventDescription = eventDescriptionEditText.getText().toString().trim();
     }
 
-    public Bitmap drawableToBitmap(Drawable drawable) {
-        if (drawable instanceof BitmapDrawable) {
-            return ((BitmapDrawable) drawable).getBitmap();
-        }
 
-        final int width = !drawable.getBounds().isEmpty() ? drawable
-                .getBounds().width() : drawable.getIntrinsicWidth();
-
-        final int height = !drawable.getBounds().isEmpty() ? drawable
-                .getBounds().height() : drawable.getIntrinsicHeight();
-
-        final Bitmap bitmap = Bitmap.createBitmap(width <= 0 ? 1 : width,
-                height <= 0 ? 1 : height, Bitmap.Config.ARGB_8888);
-
-        Log.v("Bitmap width - Height :", width + " : " + height);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-
-        return bitmap;
-    }
 
     // method to open gallery
     public void openGallery() {
