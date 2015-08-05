@@ -2,8 +2,10 @@ package com.worldtreeinc.leaves;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.util.Calendar;
 
@@ -13,11 +15,14 @@ import java.util.Calendar;
 public class EventDataClass {
     EditText eventDateEditText;
     Context context;
+    ;
     public EventDataClass(Context context,EditText eventDateEditText){
         this.context = context;
         this.eventDateEditText = eventDateEditText;
 
     }
+
+    public EventDataClass(){}
 
     public void selectDate() {
         int mYear, mMonth, mDay;
@@ -36,5 +41,18 @@ public class EventDataClass {
             }
         }, mYear, mMonth, mDay);
         dpd.show();
+    }
+
+
+    public void setEventBanner(ImageView eventBannerImageView, String imagePath) {
+        // create a new banner compressor object
+        EventBannerCompressor compressor = new EventBannerCompressor();
+
+        // Set the Image in ImageView after decoding the String
+        Bitmap bitmap = compressor.getCompressed(imagePath, 450, 900);
+        eventBannerImageView.setImageBitmap(bitmap);
+
+        // clear bitmap
+        bitmap = null;
     }
 }
