@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,7 +32,7 @@ import com.rey.material.widget.Spinner;
 import java.io.ByteArrayOutputStream;
 
 
-public class CreateEventActivity extends AppCompatActivity {
+public class CreateEventActivity extends AppCompatActivity  implements AdapterView.OnItemSelectedListener{
 
 
     // global variables to be used in multiple methods.
@@ -64,9 +65,6 @@ public class CreateEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event2);
         initialize();
-
-        // populate the spinner with data from a string resource
-        populateCategorySpinner();
 
         // create event onItemSelectedListener for the spinner
         eventCategorySpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
@@ -332,6 +330,16 @@ public class CreateEventActivity extends AppCompatActivity {
         eventEntryFee = eventEntryFeeEditText.getText().toString().trim();
         eventVenue = eventVenueEditText.getText().toString().trim();
         eventDescription = eventDescriptionEditText.getText().toString().trim();
+
+
+        eventCategorySpinner = (Spinner) findViewById(R.id.events_categories_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.events_categories, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        eventCategorySpinner.setAdapter(adapter);
     }
 
 
@@ -393,18 +401,16 @@ public class CreateEventActivity extends AppCompatActivity {
     }
 
     // method to populate spinner
-    public void populateCategorySpinner() {
 
-        eventCategorySpinner = (Spinner) findViewById(R.id.events_categories_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.events_categories, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        eventCategorySpinner.setAdapter(adapter);
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (getTaskId()) {
+            case R.id.events_categories_spinner :
+                eventCategory = eventCategorySpinner.getSelectedItem().toString();
+                break;
+        }
     }
-
-
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {}
 }
