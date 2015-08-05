@@ -160,7 +160,7 @@
                 android:layout_height="fill_parent"
                 android:scaleType="fitXY"
                 android:id="@+id/event_banner"
-                android:src="@drawable/default_image_2"/>
+                android:src="@drawable/default_image"/>
 
             <ImageButton
                 android:id="@+id/banner_select_icon"
