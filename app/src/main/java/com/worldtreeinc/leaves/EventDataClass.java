@@ -3,6 +3,10 @@ package com.worldtreeinc.leaves;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -54,5 +58,29 @@ public class EventDataClass {
 
         // clear bitmap
         bitmap = null;
+    }
+
+
+
+    public Bitmap drawableToBitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+
+        final int width = !drawable.getBounds().isEmpty() ? drawable
+                .getBounds().width() : drawable.getIntrinsicWidth();
+
+        final int height = !drawable.getBounds().isEmpty() ? drawable
+                .getBounds().height() : drawable.getIntrinsicHeight();
+
+        final Bitmap bitmap = Bitmap.createBitmap(width <= 0 ? 1 : width,
+                height <= 0 ? 1 : height, Bitmap.Config.ARGB_8888);
+
+        Log.v("Bitmap width - Height :", width + " : " + height);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 }
