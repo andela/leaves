@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -297,11 +296,11 @@ public class CreateEventActivity extends AppCompatActivity {
 
     // method to get all form data.
     public void getFormData() {
-        eventName = eventNameEditText.getText().toString();
-        eventDate = eventDateEditText.getText().toString();
-        eventEntryFee = eventEntryFeeEditText.getText().toString();
-        eventVenue = eventVenueEditText.getText().toString();
-        eventDescription = eventDescriptionEditText.getText().toString();
+        eventName = eventNameEditText.getText().toString().trim();
+        eventDate = eventDateEditText.getText().toString().trim();
+        eventEntryFee = eventEntryFeeEditText.getText().toString().trim();
+        eventVenue = eventVenueEditText.getText().toString().trim();
+        eventDescription = eventDescriptionEditText.getText().toString().trim();
     }
 
 
@@ -365,11 +364,16 @@ public class CreateEventActivity extends AppCompatActivity {
                 String img_Decodable_Str = cursor.getString(columnIndex);
                 cursor.close();
 
-
                 ImageView imgView = (ImageView) findViewById(R.id.event_banner);
+
+                // create a new banner compressor object
+                EventBannerCompressor compressor = new EventBannerCompressor();
+
                 // Set the Image in ImageView after decoding the String
-                imgView.setImageBitmap(BitmapFactory
-                        .decodeFile(img_Decodable_Str));
+                imgView.setImageBitmap(compressor.getCompressed(img_Decodable_Str, 450, 900));
+
+                //imgView.setImageBitmap(
+                        //decodeSampledBitmapFromFile(img_Decodable_Str, 900, 450));
 
                 // call method to get byte array from selected image file
                 getByteArray(img_Decodable_Str);
@@ -388,7 +392,8 @@ public class CreateEventActivity extends AppCompatActivity {
     // method to get byte array of selected image
     public void getByteArray(String filePath) {
         // prepare the image to be sent to parse server
-        Bitmap bmp = BitmapFactory.decodeFile(filePath);
+        EventBannerCompressor compressor = new EventBannerCompressor();
+        Bitmap bmp = compressor.getCompressed(filePath, 450, 900);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] parseFile = stream.toByteArray();
