@@ -63,14 +63,7 @@ public class CreateEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event2);
-
-        // find all UI element by ID
-        eventNameEditText = (EditText) findViewById(R.id.create_event_name);
-        eventDateEditText = (EditText) findViewById(R.id.create_event_date);
-        eventVenueEditText = (EditText) findViewById(R.id.create_event_venue);
-        eventEntryFeeEditText = (EditText) findViewById(R.id.create_event_entry_fee);
-        eventDescriptionEditText = (EditText) findViewById(R.id.event_description);
-        eventBannerImageView = (ImageView) findViewById(R.id.event_banner);
+        initialize();
 
         // populate the spinner with data from a string resource
         populateCategorySpinner();
@@ -132,6 +125,16 @@ public class CreateEventActivity extends AppCompatActivity {
                 createEvent();
             }
         });
+    }
+
+    private void initialize() {
+        // find all UI element by ID
+        eventNameEditText = (EditText) findViewById(R.id.create_event_name);
+        eventDateEditText = (EditText) findViewById(R.id.create_event_date);
+        eventVenueEditText = (EditText) findViewById(R.id.create_event_venue);
+        eventEntryFeeEditText = (EditText) findViewById(R.id.create_event_entry_fee);
+        eventDescriptionEditText = (EditText) findViewById(R.id.event_description);
+        eventBannerImageView = (ImageView) findViewById(R.id.event_banner);
     }
 
     @Override
