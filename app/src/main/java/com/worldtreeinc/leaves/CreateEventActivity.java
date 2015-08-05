@@ -31,7 +31,7 @@ import com.rey.material.widget.Spinner;
 import java.io.ByteArrayOutputStream;
 
 
-public class CreateEventActivity extends AppCompatActivity  implements Spinner.OnItemSelectedListener {
+public class CreateEventActivity extends AppCompatActivity  implements Spinner.OnItemSelectedListener, View.OnClickListener{
 
 
     // global variables to be used in multiple methods.
@@ -64,10 +64,6 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event2);
         initialize();
-        // populate the spinner with data from a string resource
-        populateCategorySpinner();
-
-
 
         // create onClick listener for the date picker
         ImageButton datePicker = (ImageButton) findViewById(R.id.date_picker);
@@ -93,22 +89,6 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
             }
         });
 
-        // create onClick listener for image uploader
-        final ImageButton clearBanner = (ImageButton) findViewById(R.id.clear_banner_icon);
-        clearBanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Drawable drawable;
-                if (android.os.Build.VERSION.SDK_INT < 21) {
-                    drawable = getResources().getDrawable(R.drawable.default_image);
-                } else {
-                    drawable = getApplicationContext().getDrawable(R.drawable.default_image);
-                }
-                eventBannerImageView.setImageDrawable(drawable);
-                file = null;
-                imagePath = null;
-            }
-        });
 
         // create onClick listener for the createEvent button
         Button createEventButton = (Button) findViewById(R.id.create_event_button);
@@ -128,6 +108,19 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         eventEntryFeeEditText = (EditText) findViewById(R.id.create_event_entry_fee);
         eventDescriptionEditText = (EditText) findViewById(R.id.event_description);
         eventBannerImageView = (ImageView) findViewById(R.id.event_banner);
+//        ImageButton datePicker = (ImageButton) findViewById(R.id.date_picker);
+//        datePicker.setOnClickListener(this);
+
+        final ImageButton clearBanner = (ImageButton) findViewById(R.id.clear_banner_icon);
+        clearBanner.setOnClickListener(this);
+        eventCategorySpinner = (Spinner) findViewById(R.id.events_categories_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.events_categories, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        eventCategorySpinner.setAdapter(adapter);
     }
 
     @Override
@@ -384,19 +377,7 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         bmp = null;
     }
 
-    // method to populate spinner
-    public void populateCategorySpinner() {
 
-        eventCategorySpinner = (Spinner) findViewById(R.id.events_categories_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.events_categories, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        eventCategorySpinner.setAdapter(adapter);
-
-    }
 
     @Override
     public void onItemSelected(Spinner spinner, View view, int i, long l) {
@@ -409,4 +390,27 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+//            case R.id.date_picker:
+//                EventDataClass eventDataClass = new EventDataClass(this, eventDateEditText);
+//                eventDataClass.selectDate();
+//                break;
+
+
+            case R.id.clear_banner_icon:
+                Drawable drawable;
+                if (android.os.Build.VERSION.SDK_INT < 21) {
+                    drawable = getResources().getDrawable(R.drawable.default_image);
+                } else {
+                    drawable = getApplicationContext().getDrawable(R.drawable.default_image);
+                }
+                eventBannerImageView.setImageDrawable(drawable);
+                file = null;
+                imagePath = null;
+                break;
+
+        }
+    }
 }
