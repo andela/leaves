@@ -27,8 +27,8 @@ public class EventDetailsActivity extends AppCompatActivity {
         // create new ParseImageLoader passing in banner to it and eventId
         // and call setImage() method on it
         ParseObjectLoader objectLoader = new ParseObjectLoader(this, "Events", eventId);
-        objectLoader.setImage();
-        // call set texts to set details of the events fetched from parse
+
+        // set details of the events fetched from parse
         objectLoader.setEventDetails();
 
         // check internet access
@@ -40,6 +40,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         else {
             // instantiate m_adapter and pass in Event ID
             m_adapter = new ParseItemsAdapter(this, eventId);
+            m_adapter.notifyDataSetChanged();
 
             // check if there are no items and display message as necessary
             if (m_adapter.getCount() == 0) {

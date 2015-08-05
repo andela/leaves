@@ -32,7 +32,11 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".GetStartedActivity"
@@ -77,15 +81,9 @@
             android:label="@string/title_activity_create_event" >
         <activity
             android:name=".EventDetailsActivity"
-            android:label="@string/title_activity_event_details" >
-            <!-- Event Details Parent Activity goes here
-            android:parentActivityName=".MainActivity"
-            -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="@string/title_activity_event_details"
+            android:parentActivityName=".PlannerEventActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

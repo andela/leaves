@@ -3,6 +3,7 @@ package com.worldtreeinc.leaves;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class ParseObjectLoader {
     private String parseTableName;
     private String parseObjectId;
     private Activity eventActivity;
+
 
 
     public ParseObjectLoader() {
@@ -61,49 +63,51 @@ public class ParseObjectLoader {
         return query;
     }
 
+    public void setTextViewText (TextView textView, ParseObject object, String category) {
+        textView.setText(object.getString(category));
+    }
 
-    public void setImage() {
-        ParseQuery<ParseObject> query = setParseQuery();
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                // Change default image only if object returned is not null
-                if (object != null) {
-                    ParseFile eventBanner = (ParseFile) object.get("eventBanner");
-                    eventBanner.getDataInBackground(new GetDataCallback() {
-                        public void done(byte[] data, ParseException e) {
-                            // change default image only if image callback has no exception
-                            if (e == null) {
-                                // set the image file
-                                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                //Bitmap songImage = Bitmap.createScaledBitmap(bmp, 100, 100, true);
-                                imageView.setImageBitmap(bmp);
-                            }
-                        }
-                    });
+    public void setBannerImage(final ImageView imageView, ParseObject object, String fieldName) {
+
+        // set event banner
+        ParseFile eventBanner = (ParseFile) object.get(fieldName);
+        eventBanner.getDataInBackground(new GetDataCallback() {
+            public void done(byte[] data, ParseException e) {
+                // change default image only if image callback has no exception
+                if (e == null) {
+                    // set the image file
+                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    //Bitmap songImage = Bitmap.createScaledBitmap(bmp, 100, 100, true);
+                    imageView.setImageBitmap(bmp);
                 }
             }
         });
     }
 
-
     public void setEventDetails() {
         ParseQuery<ParseObject> query = setParseQuery();
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
-                // Change default image only if object returned is not null
                 if (object != null) {
+                    // set Activity title to event title
                     eventActivity.setTitle(object.getString("eventName"));
+
+                    // set banner image
+                    setBannerImage(imageView, object, "eventBanner");
+
+                    // set other textview details
                     if (category != null) {
-                        category.setText(object.getString("eventCategory"));
+                        setTextViewText(category, object, "eventCategory");
                     }
                     if (location != null) {
-                        location.setText(object.getString("eventVenue"));
+                        setTextViewText(location, object, "eventVenue");
                     }
                     if (date != null) {
-                        date.setText(object.getString("eventDate"));
+                        setTextViewText(date, object, "eventDate");
                     }
                 }
             }
+
         });
     }
 
