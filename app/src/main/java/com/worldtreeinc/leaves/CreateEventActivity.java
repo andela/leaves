@@ -30,9 +30,7 @@ import com.rey.material.widget.Spinner;
 
 import java.io.ByteArrayOutputStream;
 
-
 public class CreateEventActivity extends AppCompatActivity  implements Spinner.OnItemSelectedListener, View.OnClickListener{
-
 
     // global variables to be used in multiple methods.
     private static int RESULT_LOAD = 1;
@@ -78,7 +76,6 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         datePicker.setOnClickListener(this);
         Button createEventButton = (Button) findViewById(R.id.create_event_button);
         createEventButton.setOnClickListener(this);
-
         ImageButton bannerUploader = (ImageButton) findViewById(R.id.banner_select_icon);
         bannerUploader.setOnClickListener(this);
         final ImageButton clearBanner = (ImageButton) findViewById(R.id.clear_banner_icon);
@@ -332,12 +329,6 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
                     .show();
         }
     }
-
-
-    // method to get byte array of selected image
-
-
-
 
     @Override
     public void onItemSelected(Spinner spinner, View view, int i, long l) {
