@@ -11,6 +11,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.parse.ParseFile;
+
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 /**
@@ -19,6 +22,7 @@ import java.util.Calendar;
 public class EventDataClass {
     EditText eventDateEditText;
     Context context;
+    ParseFile file;
     ;
     public EventDataClass(Context context,EditText eventDateEditText){
         this.context = context;
@@ -83,4 +87,18 @@ public class EventDataClass {
 
         return bitmap;
     }
+
+    public ParseFile getByteArray(String filePath) {
+        // prepare the image to be sent to parse server
+        EventBannerCompressor compressor = new EventBannerCompressor();
+        Bitmap bmp = compressor.getCompressed(filePath, 450, 900);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] parseFile = stream.toByteArray();
+        file = new ParseFile("banner.jpg", parseFile);
+        // clear bitmap
+        bmp = null;
+        return file;
+    }
+
 }
