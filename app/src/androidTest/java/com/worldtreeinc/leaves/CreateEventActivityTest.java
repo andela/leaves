@@ -61,8 +61,10 @@ public class CreateEventActivityTest extends ActivityInstrumentationTestCase2<Cr
         progressView = (ProgressView) createEventActivity.findViewById(R.id.progress_view);
         createEventButton = (Button) createEventActivity.findViewById(R.id.create_event_button);
 
+    }
 
 
-
+    public void testPreconditions(){
+        assertNotNull("Event Name is Null", eventName);
     }
 }
