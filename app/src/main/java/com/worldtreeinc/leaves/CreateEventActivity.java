@@ -181,7 +181,7 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
             @Override
             public void run() {
                 if (imagePath != null) {
-                    getByteArray(imagePath);
+                   file = eventDataClass.getByteArray(imagePath);
                 }
             }
         }).start();
@@ -335,17 +335,7 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
 
 
     // method to get byte array of selected image
-    public void getByteArray(String filePath) {
-        // prepare the image to be sent to parse server
-        EventBannerCompressor compressor = new EventBannerCompressor();
-        Bitmap bmp = compressor.getCompressed(filePath, 450, 900);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] parseFile = stream.toByteArray();
-        file = new ParseFile("banner.jpg", parseFile);
-        // clear bitmap
-        bmp = null;
-    }
+
 
 
 
