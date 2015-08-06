@@ -60,7 +60,6 @@ public class ParseObjectLoader {
     private ParseObject getParseObject() {
         ParseObject object;
         ParseQuery<ParseObject> query = ParseQuery.getQuery(parseTableName);
-        //query.whereEqualTo("objectId", parseObjectId);
         try {
            object = query.get(parseObjectId);
         }
