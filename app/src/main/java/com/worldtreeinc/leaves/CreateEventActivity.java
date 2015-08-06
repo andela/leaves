@@ -1,5 +1,6 @@
 package com.worldtreeinc.leaves;
 
+<<<<<<< HEAD
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -56,10 +57,20 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
     String eventDescription;
     ParseFile file;
     EventDataClass eventDataClass = new EventDataClass();
+=======
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+
+public class CreateEventActivity extends ActionBarActivity {
+>>>>>>> Fix Parse bug
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
         setContentView(R.layout.activity_create_event2);
         initialize();
     }
@@ -88,6 +99,9 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         eventCategorySpinner.setAdapter(adapter);
+=======
+        setContentView(R.layout.activity_create_event);
+>>>>>>> Fix Parse bug
     }
 
     @Override
@@ -105,12 +119,18 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+<<<<<<< HEAD
         if (id == R.id.create_event_cancel) {
             cancelEvent();
+=======
+        if (id == R.id.action_settings) {
+            return true;
+>>>>>>> Fix Parse bug
         }
 
         return super.onOptionsItemSelected(item);
     }
+<<<<<<< HEAD
 
     @Override
     public void onBackPressed() {
@@ -382,3 +402,6 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         }
     }
 }
+=======
+}
+>>>>>>> Fix Parse bug

@@ -1,17 +1,93 @@
 package com.worldtreeinc.leaves;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class PlannerDashActivity extends ActionBarActivity {
+public class PlannerDashActivity extends AppCompatActivity {
+
+    private ListView bidList;
+    private BidListAdapter listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // check if user is logged in
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser == null) {
+            //redirect to get started page
+            Intent getStartedIntent = new Intent(this, GetStartedActivity.class);
+            startActivity(getStartedIntent);
+        }
+
         setContentView(R.layout.activity_planner_dash);
+
+//        //set adapter to list view
+//        bidList = (ListView) findViewById(R.id.items_list);
+//
+//        listAdapter = new BidListAdapter(this, new ArrayList<BidModel>());
+////        bidList.setAdapter(listAdapter);
+//        ParseObject bid = new ParseObject("Events");
+////        bid.setEventName("kjjkdfjk");
+//        bid.put("eventName", "YEs");
+//        bid.saveEventually();
+
+
+//        updateData();
+
+        Button createEventBtn = (Button) findViewById(R.id.create_event_btn);
+        createEventBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //redirect to bidder dashboard
+                Intent createEvent = new Intent(PlannerDashActivity.this, CreateEventActivity.class);
+                startActivity(createEvent);
+            }
+        });
+        Button manageEventBtn = (Button) findViewById(R.id.manage_events_btn);
+        manageEventBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //redirect to bidder dashboard
+                Intent manageEvent = new Intent(PlannerDashActivity.this, PlannerEventActivity.class);
+                startActivity(manageEvent);
+            }
+        });
+
+    }
+
+    public void updateData(){
+//        BidModel bid = new BidModel();
+        ParseObject bid = new ParseObject("Events");
+//        bid.setEventName("kjjkdfjk");
+        bid.put("eventName", "YEs");
+        bid.saveEventually();
+
+//        ParseQuery<BidModel> query = ParseQuery.getQuery(BidModel.class);
+//        query.findInBackground(new FindCallback<BidModel>() {
+//            @Override
+//            public void done(List<BidModel> bidObject, ParseException e) {
+//                Log.v("hjfddh", "dhjdhj" + bidObject.size());
+//            }
+//        });
     }
 
     @Override

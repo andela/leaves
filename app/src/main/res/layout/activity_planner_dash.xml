@@ -24,7 +24,7 @@
                 android:layout_width="40dp"
                 android:text="@string/planner_dash_bid_label"
                 android:textStyle="bold"
-                android:textSize="50sp"
+                android:textSize="40sp"
                 android:textColor="#fff"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -84,6 +84,7 @@
             android:orientation="vertical"
             android:background="@drawable/latest_bid_list"
             android:layout_height="200dp"
+            android:padding="3dp"
             tools:context="com.worldtreeinc.leaves.EventDetailsActivity">
 
             <TextView

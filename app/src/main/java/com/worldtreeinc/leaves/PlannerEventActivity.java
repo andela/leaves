@@ -64,8 +64,7 @@ public class PlannerEventActivity extends ActionBarActivity {
             userEventList = new ArrayList<UserEvent>();
             try {
                 // Locate the class table named "event" in Parse.com
-                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-                        "Events");
+                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Events");
                 // Locate the column named "ranknum" in Parse.com and order list
                 // by descending
                 query.orderByDescending("userId");

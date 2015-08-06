@@ -7,6 +7,8 @@ import com.parse.ParseACL;
 import com.parse.ParseCrashReporting;
 import com.parse.ParseObject;
 
+import com.parse.ParseObject;
+
 public class ParseApplication extends Application {
     @Override
     public void onCreate() {
@@ -19,10 +21,11 @@ public class ParseApplication extends Application {
         Parse.enableLocalDatastore(this);
 
         ParseObject.registerSubclass(Event.class);
+        //register subclasses
+        ParseObject.registerSubclass(BidModel.class);
 
         // Add your initialization code here
         Parse.initialize(this);
-
 
         ParseACL defaultACL = new ParseACL();
         // Optionally enable public read access.

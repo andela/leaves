@@ -23,6 +23,7 @@ public class RoleOptionActivity extends Activity {
         }
 
         setContentView(R.layout.activity_role_option);
+
         Button bidderBtn = (Button) findViewById(R.id.bidderBtn);
         bidderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
