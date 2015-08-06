@@ -15,7 +15,6 @@
         android:weightSum="1">
 
         <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="48dp"
             android:layout_marginLeft="20dp"
             android:layout_height="wrap_content">
@@ -23,7 +22,7 @@
             <TextView
                 android:id="@+id/planner_dash_bid"
                 android:layout_width="40dp"
-                android:text="B"
+                android:text="@string/planner_dash_bid_label"
                 android:textStyle="bold"
                 android:textSize="50sp"
                 android:textColor="#fff"
@@ -47,7 +46,6 @@
         </RelativeLayout>
 
         <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="66dp"
             android:layout_marginLeft="10dp"
             android:layout_height="wrap_content">

@@ -2,19 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.worldtreeinc.leaves.PlannerDashActivity">
-    <item
-        android:id="@+id/weather"
-        android:title="weather"/>
-    <item
-        android:id="@+id/second"
-        android:title="Home"/>
 
     <item
-        android:id="@+id/java"
-        android:title="Java"/>
+        android:id="@+id/dashboard"
+        android:title="Dashboard"/>
 
-    <item android:id="@+id/action_settings" android:title
-
-        ="@string/action_settings"
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>
