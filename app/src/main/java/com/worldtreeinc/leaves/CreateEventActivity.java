@@ -65,20 +65,6 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         setContentView(R.layout.activity_create_event2);
         initialize();
 
-        // create onClick listener for image uploader
-        ImageButton bannerUploader = (ImageButton) findViewById(R.id.banner_select_icon);
-        bannerUploader.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        openGallery();
-                    }
-                }).start();
-            }
-        });
-
 
         // create onClick listener for the createEvent button
         Button createEventButton = (Button) findViewById(R.id.create_event_button);
@@ -101,6 +87,9 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         ImageButton datePicker = (ImageButton) findViewById(R.id.date_picker);
         datePicker.setOnClickListener(this);
 
+
+        ImageButton bannerUploader = (ImageButton) findViewById(R.id.banner_select_icon);
+        bannerUploader.setOnClickListener(this);
         final ImageButton clearBanner = (ImageButton) findViewById(R.id.clear_banner_icon);
         clearBanner.setOnClickListener(this);
         eventCategorySpinner = (Spinner) findViewById(R.id.events_categories_spinner);
@@ -388,7 +377,6 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
                 eventDataClass.selectDate();
                 break;
 
-
             case R.id.clear_banner_icon:
                 Drawable drawable;
                 if (android.os.Build.VERSION.SDK_INT < 21) {
@@ -399,6 +387,14 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
                 eventBannerImageView.setImageDrawable(drawable);
                 file = null;
                 imagePath = null;
+                break;
+            case R.id.banner_select_icon:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        openGallery();
+                    }
+                }).start();
                 break;
 
         }
