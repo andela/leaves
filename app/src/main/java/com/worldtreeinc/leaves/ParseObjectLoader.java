@@ -57,10 +57,19 @@ public class ParseObjectLoader {
         this.eventActivity = activity;
     }
 
-    private ParseQuery<ParseObject> setParseQuery() {
+    private ParseObject getParseObject() {
+        ParseObject object;
         ParseQuery<ParseObject> query = ParseQuery.getQuery(parseTableName);
-        query.whereEqualTo("objectId", parseObjectId);
-        return query;
+        //query.whereEqualTo("objectId", parseObjectId);
+        try {
+           object = query.get(parseObjectId);
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+            object = null;
+        }
+
+        return object;
     }
 
     public void setTextViewText (TextView textView, ParseObject object, String category) {
@@ -85,30 +94,25 @@ public class ParseObjectLoader {
     }
 
     public void setEventDetails() {
-        ParseQuery<ParseObject> query = setParseQuery();
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (object != null) {
-                    // set Activity title to event title
-                    eventActivity.setTitle(object.getString("eventName"));
+        ParseObject object = getParseObject();
+        if (object != null) {
+            // set Activity title to event title
+            eventActivity.setTitle(object.getString("eventName"));
 
-                    // set banner image
-                    setBannerImage(imageView, object, "eventBanner");
+            // set banner image
+            setBannerImage(imageView, object, "eventBanner");
 
-                    // set other textview details
-                    if (category != null) {
-                        setTextViewText(category, object, "eventCategory");
-                    }
-                    if (location != null) {
-                        setTextViewText(location, object, "eventVenue");
-                    }
-                    if (date != null) {
-                        setTextViewText(date, object, "eventDate");
-                    }
-                }
+            // set other textview details
+            if (category != null) {
+                setTextViewText(category, object, "eventCategory");
             }
-
-        });
+            if (location != null) {
+                setTextViewText(location, object, "eventVenue");
+            }
+            if (date != null) {
+                setTextViewText(date, object, "eventDate");
+            }
+        }
     }
 
 }
