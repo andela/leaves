@@ -1,5 +1,6 @@
 package com.worldtreeinc.leaves;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,7 +20,7 @@ import java.util.Calendar;
 /**
  * Created by andela on 8/5/15.
  */
-public class EventDataClass {
+public class EventDataClass extends Activity{
     EditText eventDateEditText;
     Context context;
     ParseFile file;
