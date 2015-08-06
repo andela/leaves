@@ -64,16 +64,6 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event2);
         initialize();
-
-
-        // create onClick listener for the createEvent button
-        Button createEventButton = (Button) findViewById(R.id.create_event_button);
-        createEventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createEvent();
-            }
-        });
     }
 
     private void initialize() {
@@ -86,7 +76,8 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         eventBannerImageView = (ImageView) findViewById(R.id.event_banner);
         ImageButton datePicker = (ImageButton) findViewById(R.id.date_picker);
         datePicker.setOnClickListener(this);
-
+        Button createEventButton = (Button) findViewById(R.id.create_event_button);
+        createEventButton.setOnClickListener(this);
 
         ImageButton bannerUploader = (ImageButton) findViewById(R.id.banner_select_icon);
         bannerUploader.setOnClickListener(this);
@@ -395,6 +386,9 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
                         openGallery();
                     }
                 }).start();
+                break;
+            case R.id.create_event_button:
+                createEvent();
                 break;
 
         }
