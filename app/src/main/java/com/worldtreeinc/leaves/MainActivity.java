@@ -4,12 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
@@ -34,6 +31,7 @@ public class MainActivity extends Activity {
             public void run() {
                 // check if user is logged in
                 ParseUser currentUser = ParseUser.getCurrentUser();
+
                 if (currentUser != null) {
                     // call method to change activity to RoleOptionActivity
                     changeToRoleOption(view);

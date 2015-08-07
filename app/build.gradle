@@ -35,6 +35,8 @@ dependencies {
     compile files('libs/Parse-1.9.3.jar')
     compile 'com.facebook.android:facebook-android-sdk:4.1.0'
     compile files('libs/ParseFacebookUtilsV4-1.9.4.jar')
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
 
 
     // Set this dependency if you want to use Mockito
@@ -42,5 +44,5 @@ dependencies {
 
     androidTestCompile 'com.android.support.test:runner:0.3'
     androidTestCompile 'com.android.support.test:rules:0.3'
-    androidTestCompile 'org.hamcrest:hamcrest-library:1.1'
+
 }

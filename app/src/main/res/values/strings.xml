@@ -45,10 +45,29 @@
     //dashboard
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_role">Select Role</string>
+
+
+    // create event Activity
+    <string name="title_activity_create_event">Create Event</string>
+    <string name="create_event_name">Event Name</string>
+    <string name="create_event_date">Event Date</string>
+    <string name="create_event_venue">Venue</string>
+    <string name="create_event_image">Select Image</string>
+    <string name="create_event_button_text">Create Event</string>
+    <string name="create_event_description">Event Description</string>
+    <string name="create_event_entry_fee">Entry Fee</string>
+    <string-array name="events_categories">
+        <item>General</item>
+        <item>Art</item>
+        <item>Music</item>
+        <item>Technology</item>
+    </string-array>
+
     <string name="title_activity_planner_event">PlannerEventActivity</string>
     <string name="Event_Description_Text">Description:</string>
     <string name="Event_Date_Text">Date:</string>
     <string name="Event_Category_Text">Category:</string>
+
 
     // event details activity
     <string name="title_activity_event_details">Event Details</string>

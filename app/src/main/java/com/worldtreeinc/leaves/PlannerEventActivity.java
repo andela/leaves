@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -25,6 +24,7 @@ import java.util.List;
 public class PlannerEventActivity extends ActionBarActivity {
 
     String id;
+
 
     ListView listview;
     List<ParseObject> ob;
@@ -58,6 +58,7 @@ public class PlannerEventActivity extends ActionBarActivity {
             //Toast.makeText(getApplicationContext(), "You've got an event\n"+ Sid, Toast.LENGTH_SHORT).show();
         }
     };
+
 
     private class EventAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -117,6 +118,7 @@ public class PlannerEventActivity extends ActionBarActivity {
             // Binds the Adapter to the ListView
             listview.setAdapter(adapter);
             listview.setOnItemClickListener(mMessageClickedHandler);
+
             // Close the progressdialog
             mProgressDialog.dismiss();
         }

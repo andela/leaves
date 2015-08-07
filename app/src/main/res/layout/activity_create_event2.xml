@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="#FFF"
+            android:fillViewport="false">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:paddingLeft="16dp"
+                  android:paddingRight="16dp"
+                  android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp" >
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/create_event_name"
+                android:hint="@string/create_event_name"
+                android:layout_marginTop="60dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cropToPadding="true"
+                android:src="@drawable/name_icon"
+                android:layout_marginTop="60dp"
+                android:id="@+id/event_name_image"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp" >
+
+            <com.rey.material.widget.Spinner
+                style="@style/Material.Widget.Spinner"
+                app:rd_style="@style/Material.Drawable.Ripple.Wave"
+                android:id="@+id/events_categories_spinner"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cropToPadding="true"
+                android:src="@drawable/cat_icon"
+                android:id="@+id/events_categories_spinner_image"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp" >
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:id="@+id/create_event_entry_fee"
+                android:inputType="number"
+                android:hint="@string/create_event_entry_fee" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cropToPadding="true"
+                android:src="@drawable/key_icon"
+                android:id="@+id/entry_fee_image"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp" >
+
+            <EditText
+                android:id="@+id/create_event_date"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="@string/create_event_date"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date" >
+            </EditText>
+            <ImageButton
+                android:id="@+id/date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cropToPadding="true"
+                android:src="@drawable/calendar_icon"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp" >
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:id="@+id/create_event_venue"
+                android:hint="@string/create_event_venue" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cropToPadding="true"
+                android:src="@drawable/location_icon"
+                android:id="@+id/create_event_venue_image"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp" >
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textMultiLine"
+                android:hint="@string/create_event_description"
+                android:ems="10"
+                android:id="@+id/event_description"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cropToPadding="true"
+                android:src="@drawable/pen_icon"
+                android:id="@+id/event_description_image"/>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:scaleType="fitXY"
+                android:id="@+id/event_banner"
+                android:src="@drawable/default_image"/>
+
+            <ImageButton
+                android:id="@+id/banner_select_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/gallery_icon"
+                android:layout_gravity="right|bottom" />
+
+            <ImageButton
+                android:id="@+id/clear_banner_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cancel_icon_dark"
+                android:layout_gravity="left|bottom" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="30dp" >
+
+            <com.rey.material.widget.ProgressView
+                android:id="@+id/progress_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                app:pv_autostart="false"
+                app:pv_circular="true"
+                app:pv_progressStyle="@style/Material.Drawable.CircularProgress"
+                app:pv_progressMode="indeterminate"
+                android:layout_gravity="center_horizontal"/>
+
+            <com.rey.material.widget.Button
+                style="@style/Material.Drawable.Ripple.Wave"
+                android:id="@+id/create_event_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/create_event_button_text"
+                android:background="#00838F"
+                android:padding="10dp"
+                android:textColor="#FFFFFF"
+                android:textStyle="normal|bold"
+                android:textSize="20sp"
+                android:layout_marginBottom="15dp"
+                app:rd_enable="true"
+                app:rd_backgroundColor="#2196F3" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
