@@ -143,7 +143,25 @@ public class CreateEventActivityTest extends ActivityInstrumentationTestCase2<Cr
 
     }
 
+    public void testFuntionalPlannerEventActivity(){
 
+        Instrumentation.ActivityMonitor receiverActivityMonitor =
+                getInstrumentation().addMonitor(CreateEventActivity.class.getName(),
+                        null, false);
+
+        getActivity();
+
+        CreateEventActivity receiverActivity = (CreateEventActivity)
+                receiverActivityMonitor.waitForActivityWithTimeout(11000);
+        assertNotNull("PlannerEventActivity is null", receiverActivity);
+
+    }
+
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
 
 
 }
