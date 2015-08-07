@@ -1,6 +1,9 @@
 package com.worldtreeinc.leaves;
 
+import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.ViewAsserts;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -65,6 +68,82 @@ public class CreateEventActivityTest extends ActivityInstrumentationTestCase2<Cr
 
 
     public void testPreconditions(){
+
         assertNotNull("Event Name is Null", eventName);
+
+        assertNotNull("CreateEventActivity is null", createEventActivity);
+
+        assertNotNull("eventNameImage is null", eventNameImage);
+
+        assertNotNull("eventCategorySpinner is null", eventCategorySpinner);
+
+        assertNotNull("eventCategorySpinnerImage is null", eventCategorySpinnerImage);
+
+        assertNotNull("entryFee is null", entryFee);
+
+        assertNotNull("entryFeeImage is null", entryFeeImage);
+
+        assertNotNull("createEventDate is null", createEventDate);
+
+        assertNotNull("datePickerImage is null", datePickerImage);
+
+        assertNotNull("createEventVenue is null", createEventVenue);
+
+        assertNotNull("createEventVenueImage is null", createEventVenueImage);
+
+        assertNotNull("eventDescription is null", eventDescription);
+
+        assertNotNull("eventDescriptionImage is null", eventDescriptionImage);
+
+        assertNotNull("eventBanner is null", eventBanner);
+
+        assertNotNull("eventBannerIcon is null", eventBannerIcon);
+
+        assertNotNull("clearBanner is null", clearBanner);
+
+        assertNotNull("progressView is null", progressView);
+
+        assertNotNull("createEventButton is null", createEventButton);
+
+
+
+        final View decorView = createEventActivity.getWindow().getDecorView();
+
+        ViewAsserts.assertOnScreen(decorView, createEventButton);
+
+        ViewAsserts.assertOnScreen(decorView, progressView);
+
+        ViewAsserts.assertOnScreen(decorView, clearBanner);
+
+        ViewAsserts.assertOnScreen(decorView, eventBannerIcon);
+
+        ViewAsserts.assertOnScreen(decorView, eventBanner);
+
+        ViewAsserts.assertOnScreen(decorView, eventDescriptionImage);
+
+        ViewAsserts.assertOnScreen(decorView, eventDescription);
+
+        ViewAsserts.assertOnScreen(decorView, createEventVenueImage);
+
+        ViewAsserts.assertOnScreen(decorView, createEventVenue);
+
+        ViewAsserts.assertOnScreen(decorView, datePickerImage);
+
+        ViewAsserts.assertOnScreen(decorView, createEventDate);
+
+        ViewAsserts.assertOnScreen(decorView, entryFeeImage);
+        ViewAsserts.assertOnScreen(decorView, entryFee);
+
+        ViewAsserts.assertOnScreen(decorView, eventCategorySpinnerImage);
+
+        ViewAsserts.assertOnScreen(decorView, eventCategorySpinner);
+
+        ViewAsserts.assertOnScreen(decorView, eventNameImage);
+        ViewAsserts.assertOnScreen(decorView, eventName);
+
     }
+
+
+
+
 }
