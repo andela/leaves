@@ -8,12 +8,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,8 @@ public class PlannerDashActivity extends AppCompatActivity {
 
     private ListView bidList;
     private BidListAdapter listAdapter;
+    private ProgressView loader;
+    private FrameLayout frame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,8 @@ public class PlannerDashActivity extends AppCompatActivity {
         bidList = (ListView) findViewById(R.id.items_list);
         listAdapter = new BidListAdapter(this, new ArrayList<BidModel>());
         bidList.setAdapter(listAdapter);
+        frame = (FrameLayout)findViewById(R.id.frame_loader);
+        loader = (ProgressView) this.findViewById(R.id.loading);
 
         updateData();
 
@@ -67,6 +73,7 @@ public class PlannerDashActivity extends AppCompatActivity {
     }
 
     public void updateData(){
+        loader.start();
         ParseQuery<BidModel> query = ParseQuery.getQuery(BidModel.class);
         query.findInBackground(new FindCallback<BidModel>() {
             @Override
@@ -74,6 +81,8 @@ public class PlannerDashActivity extends AppCompatActivity {
                 if (e == null) {
                     listAdapter.clear();
                     listAdapter.addAll(bidObject);
+                    frame.setVisibility(View.GONE);
+                    loader.stop();
                 }
                 else {
                     Log.d("message", "Error: " + e.getMessage());

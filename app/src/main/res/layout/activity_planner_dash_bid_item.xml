@@ -3,6 +3,7 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="80dp"
     android:padding="5dp"
+    android:layout_marginBottom="2dp"
     android:background="@drawable/dash_bid_item"
     android:baselineAligned="false">
 
