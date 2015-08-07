@@ -20,12 +20,12 @@ public class ParseApplication extends Application {
         // Enable Local Data store.
         Parse.enableLocalDatastore(this);
 
-        ParseObject.registerSubclass(Event.class);
-        //register subclasses
-        ParseObject.registerSubclass(BidModel.class);
-
         // Add your initialization code here
         Parse.initialize(this);
+
+        //register subclasses
+        ParseObject.registerSubclass(BidModel.class);
+        ParseObject.registerSubclass(Event.class);
 
         ParseACL defaultACL = new ParseACL();
         // Optionally enable public read access.

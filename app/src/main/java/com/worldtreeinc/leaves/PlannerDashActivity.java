@@ -1,7 +1,6 @@
 package com.worldtreeinc.leaves;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.widget.ListView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -40,18 +38,12 @@ public class PlannerDashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_planner_dash);
 
-//        //set adapter to list view
-//        bidList = (ListView) findViewById(R.id.items_list);
-//
-//        listAdapter = new BidListAdapter(this, new ArrayList<BidModel>());
-////        bidList.setAdapter(listAdapter);
-//        ParseObject bid = new ParseObject("Events");
-////        bid.setEventName("kjjkdfjk");
-//        bid.put("eventName", "YEs");
-//        bid.saveEventually();
+        //set adapter to list view
+        bidList = (ListView) findViewById(R.id.items_list);
+        listAdapter = new BidListAdapter(this, new ArrayList<BidModel>());
+        bidList.setAdapter(listAdapter);
 
-
-//        updateData();
+        updateData();
 
         Button createEventBtn = (Button) findViewById(R.id.create_event_btn);
         createEventBtn.setOnClickListener(new View.OnClickListener() {
@@ -75,19 +67,18 @@ public class PlannerDashActivity extends AppCompatActivity {
     }
 
     public void updateData(){
-//        BidModel bid = new BidModel();
-        ParseObject bid = new ParseObject("Events");
-//        bid.setEventName("kjjkdfjk");
-        bid.put("eventName", "YEs");
-        bid.saveEventually();
-
-//        ParseQuery<BidModel> query = ParseQuery.getQuery(BidModel.class);
-//        query.findInBackground(new FindCallback<BidModel>() {
-//            @Override
-//            public void done(List<BidModel> bidObject, ParseException e) {
-//                Log.v("hjfddh", "dhjdhj" + bidObject.size());
-//            }
-//        });
+        ParseQuery<BidModel> query = ParseQuery.getQuery(BidModel.class);
+        query.findInBackground(new FindCallback<BidModel>() {
+            @Override
+            public void done(List<BidModel> bidObject, ParseException e) {
+                if (e == null) {
+                    listAdapter.clear();
+                    listAdapter.addAll(bidObject);
+                } else {
+                    Log.d("message", "Error: " + e.getMessage());
+                }
+            }
+        });
     }
 
     @Override

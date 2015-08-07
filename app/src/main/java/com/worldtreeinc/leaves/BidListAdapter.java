@@ -36,12 +36,12 @@ public class BidListAdapter extends ArrayAdapter<BidModel> {
         eventName.setText(bid.getEventName());
 
         TextView previousBid = (TextView) convertView.findViewById(R.id.planner_dash_previous_bid);
-        previousBid.setText((int) bid.getPreviousBid());
+        previousBid.setText(bid.getPreviousBid().toString());
 
         TextView newBid = (TextView) convertView.findViewById(R.id.planner_dash_new_bid);
-        newBid.setText((int) bid.getNewBid());
+        newBid.setText(bid.getNewBid().toString());
 
-        return super.getView(position, convertView, parent);
+        return convertView;
     }
 
 }
