@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:background="@drawable/latest_bid_list"
-            android:layout_height="200dp"
+            android:layout_height="220dp"
             android:padding="3dp"
             tools:context="com.worldtreeinc.leaves.EventDetailsActivity">
 

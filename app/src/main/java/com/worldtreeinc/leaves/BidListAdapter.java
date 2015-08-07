@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.parse.ParseImageView;
+
 import java.util.List;
 
 public class BidListAdapter extends ArrayAdapter<BidModel> {
@@ -40,6 +42,10 @@ public class BidListAdapter extends ArrayAdapter<BidModel> {
 
         TextView newBid = (TextView) convertView.findViewById(R.id.planner_dash_new_bid);
         newBid.setText(bid.getNewBid().toString());
+
+        final ParseImageView itemImage = (ParseImageView) convertView.findViewById(R.id.item_image);
+        itemImage.setParseFile(bid.getItemImage());
+        itemImage.loadInBackground();
 
         return convertView;
     }

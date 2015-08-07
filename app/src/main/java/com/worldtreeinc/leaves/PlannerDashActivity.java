@@ -74,7 +74,8 @@ public class PlannerDashActivity extends AppCompatActivity {
                 if (e == null) {
                     listAdapter.clear();
                     listAdapter.addAll(bidObject);
-                } else {
+                }
+                else {
                     Log.d("message", "Error: " + e.getMessage());
                 }
             }

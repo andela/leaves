@@ -80,7 +80,7 @@
     //plannerDash
     <string name="planner_dash_create_event">Create Event</string>
     <string name="planner_dash_manage_events">Manage Events</string>
-    <string name="planner_dash_count_default">10</string>
+    <string name="planner_dash_count_default">2</string>
     <string name="planner_dash_content_description">message notification</string>
     <string name="planner_dash_latest_bids">Latest Bids</string>
     <string name="planner_dash_bid_label">B</string>

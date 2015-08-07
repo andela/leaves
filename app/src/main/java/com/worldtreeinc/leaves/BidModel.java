@@ -1,7 +1,10 @@
 package com.worldtreeinc.leaves;
 
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
+
+import java.io.File;
 
 @ParseClassName("Bids")
 public class BidModel extends ParseObject {
@@ -38,5 +41,13 @@ public class BidModel extends ParseObject {
 
     public void setItemName(String itemName) {
         put("itemName", itemName);
+    }
+
+    public ParseFile getItemImage() {
+        return getParseFile("itemImage");
+    }
+
+    public void setItemImage(ParseFile itemImage) {
+        put("itemImage", itemImage);
     }
 }
