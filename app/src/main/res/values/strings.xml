@@ -50,4 +50,6 @@
     <string name="Event_Date_Text">Date:</string>
     <string name="Event_Category_Text">Category:</string>
 
+    // event details activity
+    <string name="title_activity_event_details">Event Details</string>
 </resources>
