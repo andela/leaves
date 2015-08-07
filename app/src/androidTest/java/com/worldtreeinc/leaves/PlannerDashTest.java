@@ -55,4 +55,15 @@ public class PlannerDashTest extends ActivityInstrumentationTestCase2<PlannerDas
         assertNotNull(nextActivity);
         nextActivity.finish();
     }
+
+    public void testBidModel() {
+        BidModel bid = new BidModel();
+
+        String eventName = "Club auction";
+        bid.setEventName(eventName);
+        String expectedName = eventName;
+        String actualName = bid.getEventName();
+        assertEquals(expectedName, actualName);
+
+    }
 }
