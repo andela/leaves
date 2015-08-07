@@ -31,7 +31,7 @@
             android:label="@string/app_name" />
 
         <activity
-            android:name=".PlannerEventActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -76,10 +76,10 @@
             android:label="@string/title_activity_create_event" >
         </activity>
 
-        <!--<activity-->
-            <!--android:name=".PlannerEventActivity"-->
-            <!--android:label="@string/title_activity_planner_event" >-->
-        <!--</activity>-->
+        <activity
+            android:name=".PlannerEventActivity"
+            android:label="@string/title_activity_planner_event" >
+        </activity>
 
 
     </application>
