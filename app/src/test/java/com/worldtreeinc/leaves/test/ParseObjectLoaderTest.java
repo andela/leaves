@@ -32,7 +32,7 @@ public class ParseObjectLoaderTest extends TestCase {
         textView.setText(parseObject.getString("string"));
 
         String expected = "string";
-        String actual = textView.getText().toString();
+        String actual = parseObject.getString("string");
         assertEquals("Unmatching strings", expected, actual);
     }
 }
