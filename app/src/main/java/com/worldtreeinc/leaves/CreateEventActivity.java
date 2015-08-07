@@ -162,6 +162,13 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
     // method to handle event creation
     public void createEvent() {
 
+        // check for internet connection
+        int internetStatus = NetworkUtil.getConnectivityStatus(this);
+        if (internetStatus == 0) {
+            Toast.makeText(this, "No Internet Connection.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         getFormData();
 
         // do form validation.
