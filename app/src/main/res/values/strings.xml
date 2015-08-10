@@ -4,7 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="parse_id">9nVNaNK86PKvBAwoChfqIbiHJO5Yjw2x4DuplQVe</string>
     <string name="parse_secret">dRuzXLKeMv5GBhDg1RM6LmyekR2WVNW7BfEX2U3p</string>
-    <string name="project_name">PROJECT NAME</string>
+    <string name="project_name">LEAVES</string>
 
     //get started activity
     <string name="title_activity_get_started">GetStartedActivity</string>
@@ -40,7 +40,7 @@
     <string name="bidder_btn">I am a Bidder</string>
     <string name="planner_btn">I am a Planner</string>
     <string name="title_activity_bidder_dash">BidderDashActivity</string>
-    <string name="title_activity_planner_dash">PlannerDashActivity</string>
+    <string name="title_activity_planner_dash">Planner Dashboard</string>
 
     //dashboard
     <string name="hello_world">Hello world!</string>
@@ -69,7 +69,7 @@
 
     // event details activity
     <string name="title_activity_event_details">Event Details</string>
-    <string name="title_activity_planner_event">PlannerEventActivity</string>
+    <string name="title_activity_planner_event">My Events</string>
     <string name="Event_Description_Text">Description:</string>
     <string name="Event_Date_Text">Date:</string>
     <string name="Event_Category_Text">Category:</string>

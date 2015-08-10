@@ -4,8 +4,6 @@ import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 
-import java.io.File;
-
 @ParseClassName("Bids")
 public class BidModel extends ParseObject {
     public BidModel() {
