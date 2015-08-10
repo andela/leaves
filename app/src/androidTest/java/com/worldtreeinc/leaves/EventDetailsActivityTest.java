@@ -22,8 +22,6 @@ public class EventDetailsActivityTest extends ActivityInstrumentationTestCase2<E
     private TextView mLocation;
     private TextView mCategory;
     private TextView mDate;
-    //private ListView listView;
-    //private int listViewCount;
 
     public EventDetailsActivityTest() {
         super(EventDetailsActivity.class);
@@ -37,7 +35,6 @@ public class EventDetailsActivityTest extends ActivityInstrumentationTestCase2<E
         mLocation =  (TextView) mEventDetailsActivity.findViewById(R.id.ed_location_text);
         mCategory =  (TextView) mEventDetailsActivity.findViewById(R.id.ed_category_text);
         mDate =  (TextView) mEventDetailsActivity.findViewById(R.id.ed_date_text);
-        //listView = (ListView) mEventDetailsActivity.findViewById(R.id.items_list);
     }
 
     // test preconditions for all view items to be tested
@@ -47,7 +44,6 @@ public class EventDetailsActivityTest extends ActivityInstrumentationTestCase2<E
         assertNotNull("Location TextView is null", mLocation);
         assertNotNull("Category TextView is null", mCategory);
         assertNotNull("Date TextView is null", mDate);
-        //assertNotNull("ListView is null", listView);
     }
 
     // test banner image
