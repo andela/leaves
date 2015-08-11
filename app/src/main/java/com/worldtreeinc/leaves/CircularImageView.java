@@ -18,16 +18,8 @@ import android.widget.ImageView;
  */
 public class CircularImageView extends ImageView {
 
-    public CircularImageView(Context context) {
-        super(context);
-    }
-
     public CircularImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public CircularImageView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
     }
 
     @Override
@@ -45,7 +37,7 @@ public class CircularImageView extends ImageView {
         Bitmap b = ((BitmapDrawable) drawable).getBitmap();
         Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
 
-        int w = getWidth(), h = getHeight();
+        int w = getWidth();
 
         Bitmap roundBitmap = getCroppedBitmap(bitmap, w);
         canvas.drawBitmap(roundBitmap, 0, 0, null);
@@ -53,21 +45,13 @@ public class CircularImageView extends ImageView {
     }
 
     public static Bitmap getCroppedBitmap(Bitmap bmp, int radius) {
-        Bitmap sbmp;
 
-        if (bmp.getWidth() != radius || bmp.getHeight() != radius) {
-            float smallest = Math.min(bmp.getWidth(), bmp.getHeight());
-            float factor = smallest / radius;
-            sbmp = Bitmap.createScaledBitmap(bmp, (int)(bmp.getWidth() / factor), (int)(bmp.getHeight() / factor), false);
-        } else {
-            sbmp = bmp;
-        }
+        Bitmap sbmp = resizeImage(bmp, radius);
 
         Bitmap output = Bitmap.createBitmap(radius, radius,
                 Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
 
-        final int color = 0xffa19774;
         final Paint paint = new Paint();
         final Rect rect = new Rect(0, 0, radius, radius);
 
@@ -84,4 +68,18 @@ public class CircularImageView extends ImageView {
         return output;
     }
 
+    public static Bitmap resizeImage(Bitmap bmp, int radius) {
+        Bitmap sbmp;
+        if (bmp.getWidth() != radius || bmp.getHeight() != radius) {
+            float smallest = Math.min(bmp.getWidth(), bmp.getHeight());
+            float factor = smallest / radius;
+            sbmp = Bitmap.createScaledBitmap(bmp, (int)(bmp.getWidth() / factor), (int)(bmp.getHeight() / factor), false);
+        } else {
+            sbmp = bmp;
+        }
+
+        return sbmp;
+    }
+
 }
+
