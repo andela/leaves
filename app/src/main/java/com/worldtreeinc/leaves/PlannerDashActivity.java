@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlannerDashActivity extends AppCompatActivity {
+public class PlannerDashActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView bidList;
     private BidListAdapter listAdapter;
@@ -39,37 +39,24 @@ public class PlannerDashActivity extends AppCompatActivity {
             Intent getStartedIntent = new Intent(this, GetStartedActivity.class);
             startActivity(getStartedIntent);
         }
-
         setContentView(R.layout.activity_planner_dash);
+        initialize();
+        updateData();
+    }
 
-        //set adapter to list view
+    public void initialize() {
         bidList = (ListView) findViewById(R.id.items_list);
+        //set adapter to list view
         listAdapter = new BidListAdapter(this, new ArrayList<BidModel>());
         bidList.setAdapter(listAdapter);
+
         frame = (FrameLayout)findViewById(R.id.frame_loader);
         loader = (ProgressView) this.findViewById(R.id.loading);
 
-        updateData();
-
         Button createEventBtn = (Button) findViewById(R.id.create_event_btn);
-        createEventBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //redirect to bidder dashboard
-                Intent createEvent = new Intent(PlannerDashActivity.this, CreateEventActivity.class);
-                startActivity(createEvent);
-            }
-        });
+        createEventBtn.setOnClickListener(this);
         Button manageEventBtn = (Button) findViewById(R.id.manage_events_btn);
-        manageEventBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //redirect to bidder dashboard
-                Intent manageEvent = new Intent(PlannerDashActivity.this, PlannerEventActivity.class);
-                startActivity(manageEvent);
-            }
-        });
-
+        manageEventBtn.setOnClickListener(this);
     }
 
     public void updateData(){
@@ -111,5 +98,20 @@ public class PlannerDashActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Class activitySwitch = null;
+        switch (v.getId()) {
+            case R.id.create_event_btn:
+                activitySwitch = CreateEventActivity.class;
+                break;
+            case R.id.manage_events_btn:
+                activitySwitch = PlannerEventActivity.class;
+                break;
+        }
+        Intent intent = new Intent(PlannerDashActivity.this, activitySwitch);
+        startActivity(intent);
     }
 }
