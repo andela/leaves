@@ -52,12 +52,12 @@ public class EventUtil {
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                pathToImage = cursor.getString(columnIndex);
+                setBannerPath(cursor.getString(columnIndex));
                 cursor.close();
 
                 // set the imageView to the selected image
                 EventData.setEventBanner(imageView, pathToImage);
-                bannerIsSelected = true;
+                setBannerIsSelected(true);
 
             }
         } catch (Exception e) {
@@ -66,7 +66,15 @@ public class EventUtil {
         }
     }
 
-    public static boolean updateBannerSelected() {
+    public static void setBannerPath(String path) {
+        pathToImage = path;
+    }
+
+    public static void setBannerIsSelected(boolean status) {
+        bannerIsSelected = true;
+    }
+
+    public static boolean getBannerSelectedStatus() {
         return bannerIsSelected;
     }
 

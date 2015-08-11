@@ -331,7 +331,7 @@ public class CreateEventActivity extends AppCompatActivity  implements Spinner.O
         // process the selected image
         //processSelectedImage(requestCode, resultCode, data);
         EventUtil.processSelectedImage(this, requestCode, resultCode, data, RESULT_LOAD, RESULT_OK, eventBannerImageView);
-        bannerSelected = EventUtil.updateBannerSelected();
+        bannerSelected = EventUtil.getBannerSelectedStatus();
         imagePath = EventUtil.getBannerPath();
     }
 
