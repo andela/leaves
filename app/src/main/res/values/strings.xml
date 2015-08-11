@@ -59,6 +59,7 @@
     <string name="create_event_button_text">Create Event</string>
     <string name="create_event_description">Event Description</string>
     <string name="create_event_entry_fee">Entry Fee</string>
+
     <string-array name="events_categories">
         <item>General</item>
         <item>Art</item>
