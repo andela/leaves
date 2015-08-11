@@ -14,7 +14,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
- * Created by kamiye on 7/28/15.
+ * Created by Pkmmte on 7/28/15.
  */
 public class CircularImageView extends ImageView {
 

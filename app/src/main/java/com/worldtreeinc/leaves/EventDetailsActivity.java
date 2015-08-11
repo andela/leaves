@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -41,13 +40,13 @@ public class EventDetailsActivity extends AppCompatActivity {
             // instantiate m_adapter and pass in Event ID
             m_adapter = new ParseItemsAdapter(this, eventId);
             m_adapter.notifyDataSetChanged();
-
-            // check if there are no items and display message as necessary
             if (m_adapter.getCount() == 0) {
                 error.setText("No Items to Display");
             }
+            // check if there are no items and display message as necessary
             ListView listView = (ListView) findViewById(R.id.items_list);
             listView.setAdapter(m_adapter);
+
         }
 
     }
@@ -78,9 +77,6 @@ public class EventDetailsActivity extends AppCompatActivity {
         ConnectivityManager CManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo NInfo = CManager.getActiveNetworkInfo();
-        if (NInfo != null && NInfo.isConnectedOrConnecting()) {
-            return true;
-        }
-        return false;
+        return (NInfo != null && NInfo.isConnectedOrConnecting());
     }
 }
