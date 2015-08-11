@@ -26,6 +26,7 @@ public class CircularImageView extends ImageView {
     protected void onDraw(Canvas canvas) {
 
         Drawable drawable = getDrawable();
+        int w = getWidth();
 
         if (drawable == null) {
             return;
@@ -34,10 +35,8 @@ public class CircularImageView extends ImageView {
         if (getWidth() == 0 || getHeight() == 0) {
             return;
         }
-        Bitmap b = ((BitmapDrawable) drawable).getBitmap();
-        Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
 
-        int w = getWidth();
+        Bitmap bitmap = getBitmapCopy(((BitmapDrawable) drawable).getBitmap(), drawable);
 
         Bitmap roundBitmap = getCroppedBitmap(bitmap, w);
         canvas.drawBitmap(roundBitmap, 0, 0, null);
@@ -79,6 +78,13 @@ public class CircularImageView extends ImageView {
         }
 
         return sbmp;
+    }
+
+    public Bitmap getBitmapCopy(Bitmap b, Drawable drawable) {
+        b = ((BitmapDrawable) drawable).getBitmap();
+        Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
+
+        return bitmap;
     }
 
 }
