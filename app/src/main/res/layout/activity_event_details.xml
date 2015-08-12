@@ -12,7 +12,7 @@
         android:layout_height="210dp"
         android:background="#00838F">
 
-        <ImageView
+        <com.parse.ParseImageView
             android:id="@+id/event_details_banner"
             android:layout_width="match_parent"
             android:layout_height="180dp"

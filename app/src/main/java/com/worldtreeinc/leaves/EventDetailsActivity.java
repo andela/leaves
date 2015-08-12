@@ -25,7 +25,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         // create new ParseImageLoader passing in banner to it and eventId
         // and call setImage() method on it
-        ParseEventLoader objectLoader = new ParseEventLoader(this, "Events", eventId);
+        EventLoader objectLoader = new EventLoader(this, eventId);
 
         // set details of the events fetched from parse
         objectLoader.setEventDetails();

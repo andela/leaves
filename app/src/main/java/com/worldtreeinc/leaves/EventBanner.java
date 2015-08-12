@@ -116,22 +116,5 @@ public class EventBanner {
     public void setPath(String path, EventForm eventForm) {
         eventForm.imagePath = path;
     }
-
-    public void setBannerImage(final ImageView imageView, ParseObject object, String fieldName) {
-
-        // set event banner
-        ParseFile eventBanner = (ParseFile) object.get(fieldName);
-        eventBanner.getDataInBackground(new GetDataCallback() {
-            public void done(byte[] data, ParseException e) {
-                // change default image only if image callback has no exception
-                if (e == null) {
-                    // set the image file
-                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                    //Bitmap songImage = Bitmap.createScaledBitmap(bmp, 100, 100, true);
-                    imageView.setImageBitmap(bmp);
-                }
-            }
-        });
-    }
-
 }
+

@@ -38,6 +38,10 @@ public class Event extends ParseObject {
         put("eventBanner", eventBanner);
     }
 
+    public ParseFile getEventBanner() {
+        return getParseFile("eventBanner");
+    }
+
     public void setUserId(String userId) {
         put("userId", userId);
     }
@@ -46,18 +50,18 @@ public class Event extends ParseObject {
         put("entryFee", entryFee);
     }
 
-    public static ParseObject getParseObject(String parseTableName, String parseObjectId) {
-        ParseObject object;
-        ParseQuery<ParseObject> query = ParseQuery.getQuery(parseTableName);
+    public Event getEvent(String eventId) {
+        Event event;
+        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         try {
-            object = query.get(parseObjectId);
+            event = query.get(eventId);
+
         }
         catch (ParseException e) {
             e.printStackTrace();
-            object = null;
+            event = null;
         }
-
-        return object;
+        return event;
     }
 
 }
