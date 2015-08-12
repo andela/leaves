@@ -47,7 +47,7 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
     public void initialize() {
         bidList = (ListView) findViewById(R.id.items_list);
         //set adapter to list view
-        listAdapter = new BidListAdapter(this, new ArrayList<BidModel>());
+        listAdapter = new BidListAdapter(this, new ArrayList<EventItemModel>());
         bidList.setAdapter(listAdapter);
 
         frame = (FrameLayout)findViewById(R.id.frame_loader);
@@ -61,10 +61,10 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
 
     public void updateData(){
         loader.start();
-        ParseQuery<BidModel> query = ParseQuery.getQuery(BidModel.class);
-        query.findInBackground(new FindCallback<BidModel>() {
+        ParseQuery<EventItemModel> query = ParseQuery.getQuery(EventItemModel.class);
+        query.findInBackground(new FindCallback<EventItemModel>() {
             @Override
-            public void done(List<BidModel> bidObject, ParseException e) {
+            public void done(List<EventItemModel> bidObject, ParseException e) {
                 if (e == null) {
                     listAdapter.clear();
                     listAdapter.addAll(bidObject);

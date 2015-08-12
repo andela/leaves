@@ -57,7 +57,7 @@ public class PlannerDashTest extends ActivityInstrumentationTestCase2<PlannerDas
     }
 
     public void testBidModel() {
-        BidModel bid = new BidModel();
+        EventItemModel bid = new EventItemModel();
 
         String eventName = "Club auction";
         bid.setEventName(eventName);

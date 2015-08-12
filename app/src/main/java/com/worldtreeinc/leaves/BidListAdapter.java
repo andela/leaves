@@ -11,12 +11,12 @@ import com.parse.ParseImageView;
 
 import java.util.List;
 
-public class BidListAdapter extends ArrayAdapter<BidModel> {
+public class BidListAdapter extends ArrayAdapter<EventItemModel> {
 
     private Context context;
-    private List<BidModel> bids;
+    private List<EventItemModel> bids;
 
-    public BidListAdapter(Context context, List<BidModel> objects) {
+    public BidListAdapter(Context context, List<EventItemModel> objects) {
         super(context, R.layout.activity_planner_dash_bid_item, objects);
         this.context = context;
         this.bids = objects;
@@ -29,7 +29,7 @@ public class BidListAdapter extends ArrayAdapter<BidModel> {
             convertView = listLayoutInflater.inflate(R.layout.activity_planner_dash_bid_item, null);
         }
 
-        BidModel bid = bids.get(position);
+        EventItemModel bid = bids.get(position);
 
         TextView itemName = (TextView) convertView.findViewById(R.id.planner_dash_item_name);
         itemName.setText(bid.getItemName());

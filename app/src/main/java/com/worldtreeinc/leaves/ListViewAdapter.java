@@ -26,8 +26,6 @@ public class ListViewAdapter extends BaseAdapter {
         this.context = context;
         this.userEventList = userEventList;
         inflater = LayoutInflater.from(context);
-        this.arraylist = new ArrayList<UserEvent>();
-        this.arraylist.addAll(userEventList);
         imageLoader = new ImageLoader(context);
     }
 
