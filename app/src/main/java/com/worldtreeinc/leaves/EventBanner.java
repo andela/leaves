@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -14,10 +13,8 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.parse.GetDataCallback;
-import com.parse.ParseException;
+
 import com.parse.ParseFile;
-import com.parse.ParseObject;
 
 import java.io.ByteArrayOutputStream;
 

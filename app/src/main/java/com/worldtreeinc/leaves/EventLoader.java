@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseImageView;
-import com.parse.ParseObject;
 
 /**
  * Created by kamiye on 7/30/15.
