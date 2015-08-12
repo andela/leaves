@@ -1,13 +1,10 @@
 package com.worldtreeinc.leaves;
 
-import android.content.Context;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.parse.ParseFile;
 
@@ -18,12 +15,41 @@ import java.io.ByteArrayOutputStream;
  */
 public class EventUtil {
 
+    String pathToImage;
+    boolean bannerIsSelected;
 
-    static String pathToImage;
-    static boolean bannerIsSelected;
+    public EventUtil() {}
+
+    public void dialog(Activity activity) {
+        final Activity eventActivity = activity;
+        // build up the dialog
+        new AlertDialog.Builder(eventActivity)
+                .setTitle("Cancel Event")
+                .setMessage("Are you sure you want to cancel event? You will lose all data entered.")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                        // close the form and return to the dashboard
+                        backToDash(eventActivity);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    public void backToDash(Activity activity) {
+        Intent intent = new Intent(activity, PlannerDashActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
+    }
 
 
-    public static ParseFile getByteArray(String filePath) {
+    public ParseFile getByteArray(String filePath) {
         // prepare the image to be sent to parse server
         EventBannerCompressor compressor = new EventBannerCompressor();
         Bitmap bmp = compressor.getCompressed(filePath, 450, 900);
@@ -34,51 +60,11 @@ public class EventUtil {
         return file;
     }
 
-    public static void processSelectedImage(
-            Context context, int requestCode, int resultCode, Intent data, int RESULT_LOAD, int RESULT_OK, ImageView imageView) {
-        try {
-            // When an Image is picked
-            if (requestCode == RESULT_LOAD && resultCode == RESULT_OK
-                    && null != data) {
-                // Get the Image from data
-
-                Uri selectedImage = data.getData();
-                String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-                // Get the cursor
-                Cursor cursor = context.getContentResolver().query(selectedImage,
-                        filePathColumn, null, null, null);
-                // Move to first row
-                cursor.moveToFirst();
-
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                setBannerPath(cursor.getString(columnIndex));
-                cursor.close();
-
-                // set the imageView to the selected image
-                EventData.setEventBanner(imageView, pathToImage);
-                setBannerIsSelected(true);
-
-            }
-        } catch (Exception e) {
-            Toast.makeText(context, "Please select an image!", Toast.LENGTH_LONG)
-                    .show();
-        }
-    }
-
-    public static void setBannerPath(String path) {
-        pathToImage = path;
-    }
-
-    public static void setBannerIsSelected(boolean status) {
-        bannerIsSelected = true;
-    }
-
-    public static boolean getBannerSelectedStatus() {
-        return bannerIsSelected;
-    }
-
-    public static String getBannerPath() {
+    public String getBannerPath() {
         return pathToImage;
+    }
+
+    public boolean getBannerSelectedStatus() {
+        return bannerIsSelected;
     }
 }

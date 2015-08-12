@@ -41,7 +41,7 @@ public class EventData {
     }
 
 
-    public static void setEventBanner(ImageView eventBannerImageView, String imagePath) {
+    public void setEventBanner(ImageView eventBannerImageView, String imagePath) {
         // create a new banner compressor object
         EventBannerCompressor compressor = new EventBannerCompressor();
 
