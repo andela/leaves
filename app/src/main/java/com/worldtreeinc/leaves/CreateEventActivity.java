@@ -19,14 +19,14 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
     // global variables to be used in multiple methods.
     private static int RESULT_LOAD = 1;
     String imagePath;
-    CreateEvent newEvent;
+    EventForm newEventForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event2);
 
-        newEvent = new CreateEvent(this);
+        newEventForm = new EventForm(this);
 
         Button createEventButton = (Button) findViewById(R.id.create_event_button);
         createEventButton.setOnClickListener(this);
@@ -34,7 +34,7 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
         openGalleryButton.setOnClickListener(this);
 
     }
-//    CreateEvent newEvent = new CreateEvent(createEventActivity);
+//    EventForm newEvent = new EventForm(createEventActivity);
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,7 +52,7 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.create_event_cancel) {
-            newEvent.cancelEvent();
+            newEventForm.cancelEvent();
         }
 
         return super.onOptionsItemSelected(item);
@@ -60,14 +60,14 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
 
     @Override
     public void onBackPressed() {
-        newEvent.cancelEvent();
+        newEventForm.cancelEvent();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.create_event_button:
-                newEvent.create();
+                newEventForm.create();
                 break;
             case R.id.banner_select_icon:
                 new Thread(new Runnable() {
@@ -110,9 +110,9 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
                 cursor.close();
 
                 // set the imageView to the selected image
-                new EventData().setEventBanner(newEvent.eventBannerImageView, imagePath);
-                newEvent.setBannerSelected(true);
-                newEvent.setBannerPath(imagePath);
+                newEventForm.setEventBanner(newEventForm.eventBannerImageView, imagePath);
+                newEventForm.setBannerSelected(true);
+                newEventForm.setBannerPath(imagePath);
 
             }
         } catch (Exception e) {

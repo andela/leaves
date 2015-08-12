@@ -1,11 +1,17 @@
 package com.worldtreeinc.leaves;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,11 +26,12 @@ import com.rey.material.widget.ProgressView;
 import com.rey.material.widget.Spinner;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
 
 /**
  * Created by andela on 8/11/15.
  */
-public class CreateEvent implements View.OnClickListener, Spinner.OnItemSelectedListener {
+public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedListener {
 
     Activity activity;
     // global variables to be used in multiple methods.
@@ -53,10 +60,9 @@ public class CreateEvent implements View.OnClickListener, Spinner.OnItemSelected
     ParseFile file;
 
     EventUtil eventUtil = new EventUtil();
-    EventData eventData = new EventData();
     Event event = new Event(); // event object
 
-    public CreateEvent(Activity activity) {
+    public EventForm(Activity activity) {
         this.activity = activity;
         initialize();
 
@@ -96,7 +102,7 @@ public class CreateEvent implements View.OnClickListener, Spinner.OnItemSelected
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.date_picker:
-                eventData.selectDate(activity, eventDateEditText);
+                selectDate(activity, eventDateEditText);
                 break;
             case R.id.clear_banner_icon:
                 clearEventBanner();
@@ -190,7 +196,7 @@ public class CreateEvent implements View.OnClickListener, Spinner.OnItemSelected
                 } else {
                     drawable = activity.getApplicationContext().getDrawable(R.drawable.default_image);
                 }
-                Bitmap bitmap = new EventData().drawableToBitmap(drawable);
+                Bitmap bitmap = drawableToBitmap(drawable);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] parseFile = stream.toByteArray();
@@ -283,5 +289,58 @@ public class CreateEvent implements View.OnClickListener, Spinner.OnItemSelected
         this.imagePath = path;
     }
 
+    public void selectDate(Context context, EditText eventDateInput) {
+        final EditText eventDateEditText = eventDateInput;
+        int mYear, mMonth, mDay;
+        // Process to get Current Date
+        final Calendar calendar = Calendar.getInstance();
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Launch Date Picker Dialog
+        DatePickerDialog dpd = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // Display Selected date in text box
+                eventDateEditText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+            }
+        }, mYear, mMonth, mDay);
+        dpd.show();
+    }
+
+
+    public void setEventBanner(ImageView eventBannerImageView, String imagePath) {
+        // create a new banner compressor object
+        EventBannerCompressor compressor = new EventBannerCompressor();
+
+        // Set the Image in ImageView after decoding the String
+        Bitmap bitmap = compressor.getCompressed(imagePath, 450, 900);
+        eventBannerImageView.setImageBitmap(bitmap);
+    }
+
+
+
+    public Bitmap drawableToBitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+
+        final int width = !drawable.getBounds().isEmpty() ? drawable
+                .getBounds().width() : drawable.getIntrinsicWidth();
+
+        final int height = !drawable.getBounds().isEmpty() ? drawable
+                .getBounds().height() : drawable.getIntrinsicHeight();
+
+        final Bitmap bitmap = Bitmap.createBitmap(width <= 0 ? 1 : width,
+                height <= 0 ? 1 : height, Bitmap.Config.ARGB_8888);
+
+        Log.v("Bitmap width - Height :", width + " : " + height);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
 
 }
