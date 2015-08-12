@@ -5,8 +5,8 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 @ParseClassName("Bids")
-public class EventItemModel extends ParseObject {
-    public EventItemModel() {
+public class EventItem extends ParseObject {
+    public EventItem() {
     }
 
     public String getEventName() {

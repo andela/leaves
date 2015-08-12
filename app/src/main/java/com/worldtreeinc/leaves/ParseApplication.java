@@ -22,7 +22,7 @@ public class ParseApplication extends Application {
         Parse.initialize(this);
 
         //register subclasses
-        ParseObject.registerSubclass(EventItemModel.class);
+        ParseObject.registerSubclass(EventItem.class);
         ParseObject.registerSubclass(Event.class);
 
         ParseACL defaultACL = new ParseACL();
