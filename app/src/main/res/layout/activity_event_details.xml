@@ -7,6 +7,26 @@
     android:orientation="vertical"
     tools:context="com.worldtreeinc.leaves.EventDetailsActivity">
 
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/event_details_frame_layout">
+
+        <com.rey.material.widget.ProgressView
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            app:pv_autostart="false"
+            app:pv_circular="true"
+            app:pv_progressStyle="@style/Material.Drawable.CircularProgress"
+            app:pv_progressMode="indeterminate"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/event_details_loading"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="210dp"

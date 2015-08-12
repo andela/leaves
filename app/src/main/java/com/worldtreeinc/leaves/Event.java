@@ -18,6 +18,10 @@ public class Event extends ParseObject {
         put("eventName", eventName);
     }
 
+    public String getField(String fieldName) {
+        return getString(fieldName);
+    }
+
     public void setEventCategory(String eventCategory) {
         put("eventCategory", eventCategory);
     }
