@@ -1,6 +1,5 @@
 package com.worldtreeinc.leaves;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -14,16 +13,12 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.rey.material.widget.Button;
-import com.rey.material.widget.ProgressView;
 
 public class CreateEventActivity extends AppCompatActivity  implements View.OnClickListener {
 
     // global variables to be used in multiple methods.
     private static int RESULT_LOAD = 1;
     String imagePath;
-    ProgressView progressView;
-    Event event = new Event(); // event object
-    Activity createEventActivity = this;
     CreateEvent newEvent;
 
     @Override
@@ -99,16 +94,14 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
         super.onActivityResult(requestCode, resultCode, data);
         try {
             // When an Image is picked
-            if (requestCode == RESULT_LOAD && resultCode == RESULT_OK
-                    && null != data) {
+            if (requestCode == RESULT_LOAD && resultCode == RESULT_OK && null != data) {
                 // Get the Image from data
 
                 Uri selectedImage = data.getData();
                 String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
                 // Get the cursor
-                Cursor cursor = getContentResolver().query(selectedImage,
-                        filePathColumn, null, null, null);
+                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
                 // Move to first row
                 cursor.moveToFirst();
 

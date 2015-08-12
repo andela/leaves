@@ -15,9 +15,6 @@ import java.io.ByteArrayOutputStream;
  */
 public class EventUtil {
 
-    String pathToImage;
-    boolean bannerIsSelected;
-
     public EventUtil() {}
 
     public void dialog(Activity activity) {
@@ -58,13 +55,5 @@ public class EventUtil {
         byte[] parseFile = stream.toByteArray();
         ParseFile file = new ParseFile("banner.jpg", parseFile);
         return file;
-    }
-
-    public String getBannerPath() {
-        return pathToImage;
-    }
-
-    public boolean getBannerSelectedStatus() {
-        return bannerIsSelected;
     }
 }
