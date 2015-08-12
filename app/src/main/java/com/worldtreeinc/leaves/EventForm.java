@@ -58,7 +58,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     EventCancelUtil eventCancelUtil = new EventCancelUtil();
     Event event = new Event(); // event object
-    EventBannerUtil eventBannerUtil = new EventBannerUtil();
+    EventBanner eventBanner = new EventBanner();
 
     public EventForm(Activity activity) {
         this.activity = activity;
@@ -103,7 +103,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 selectDate(activity, eventDateEditText);
                 break;
             case R.id.clear_banner_icon:
-                eventBannerUtil.clearEventBanner(activity, eventBannerImageView);
+                eventBanner.clear(activity, eventBannerImageView);
                 this.bannerSelected = false;
                 break;
         }
@@ -175,7 +175,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         @Override
         protected Void doInBackground(Void... params) {
             if (bannerSelected) {
-                file = eventBannerUtil.getByteArray(imagePath);
+                file = eventBanner.getByteArray(imagePath);
             } else {
                 // set default banner for event
                 Drawable drawable;
@@ -184,7 +184,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 } else {
                     drawable = activity.getApplicationContext().getDrawable(R.drawable.default_image);
                 }
-                Bitmap bitmap = eventBannerUtil.drawableToBitmap(drawable);
+                Bitmap bitmap = eventBanner.drawableToBitmap(drawable);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] parseFile = stream.toByteArray();

@@ -20,11 +20,11 @@ import java.io.ByteArrayOutputStream;
 /**
  * Created by andela on 8/12/15.
  */
-public class EventBannerUtil {
+public class EventBanner {
 
     public String imagePath;
 
-    public EventBannerUtil() {
+    public EventBanner() {
     }
 
     public void processSelectedImage(Activity activity, int requestCode, int resultCode, Intent data, EventForm newEventForm, int RESULT_LOAD) {
@@ -46,9 +46,9 @@ public class EventBannerUtil {
                 cursor.close();
 
                 // set the imageView to the selected image
-                setEventBanner(newEventForm.eventBannerImageView, imagePath);
-                setBannerSelected(true, newEventForm);
-                setBannerPath(imagePath, newEventForm);
+                set(newEventForm.eventBannerImageView, imagePath);
+                setSelected(true, newEventForm);
+                setPath(imagePath, newEventForm);
 
             }
         } catch (Exception e) {
@@ -58,16 +58,11 @@ public class EventBannerUtil {
     }
 
 
-    public void setEventBanner(ImageView eventBannerImageView, String imagePath) {
-        // create a new banner compressor object
-        EventBannerCompressor compressor = new EventBannerCompressor();
-
-        // Set the Image in ImageView after decoding the String
-        Bitmap bitmap = compressor.getCompressed(imagePath, 450, 900);
-        eventBannerImageView.setImageBitmap(bitmap);
+    public void set(ImageView eventBannerImageView, String imagePath) {
+        eventBannerImageView.setImageBitmap(new EventBannerCompressor().getCompressed(imagePath, 450, 900));
     }
 
-    public void clearEventBanner(Activity activity, ImageView bannerImageView) {
+    public void clear(Activity activity, ImageView bannerImageView) {
         Drawable drawable;
         if (android.os.Build.VERSION.SDK_INT < 21) {
             drawable = activity.getResources().getDrawable(R.drawable.default_image);
@@ -110,11 +105,11 @@ public class EventBannerUtil {
         return file;
     }
 
-    public void setBannerSelected(boolean status, EventForm eventForm) {
+    public void setSelected(boolean status, EventForm eventForm) {
         eventForm.bannerSelected = status;
     }
 
-    public void setBannerPath(String path, EventForm eventForm) {
+    public void setPath(String path, EventForm eventForm) {
         eventForm.imagePath = path;
     }
 }

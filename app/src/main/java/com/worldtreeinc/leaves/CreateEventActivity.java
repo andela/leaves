@@ -16,7 +16,7 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
     // global variables to be used in multiple methods.
     private static int RESULT_LOAD = 1;
     EventForm newEventForm;
-    EventBannerUtil eventBannerUtil = new EventBannerUtil();
+    EventBanner eventBanner = new EventBanner();
     Activity createEventActivity;
 
     @Override
@@ -91,6 +91,6 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        eventBannerUtil.processSelectedImage(createEventActivity, requestCode, resultCode, data, newEventForm, RESULT_LOAD);
+        eventBanner.processSelectedImage(createEventActivity, requestCode, resultCode, data, newEventForm, RESULT_LOAD);
     }
 }
