@@ -39,23 +39,6 @@ public class ParseEventLoader {
         textView.setText(object.getString(category));
     }
 
-    public void setBannerImage(final ImageView imageView, ParseObject object, String fieldName) {
-
-        // set event banner
-        ParseFile eventBanner = (ParseFile) object.get(fieldName);
-        eventBanner.getDataInBackground(new GetDataCallback() {
-            public void done(byte[] data, ParseException e) {
-            // change default image only if image callback has no exception
-            if (e == null) {
-                // set the image file
-                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                //Bitmap songImage = Bitmap.createScaledBitmap(bmp, 100, 100, true);
-                imageView.setImageBitmap(bmp);
-            }
-            }
-        });
-    }
-
     public void setEventDetails() {
         ParseObject object = Event.getParseObject(parseTableName, parseObjectId);
         if (object != null) {
@@ -64,7 +47,7 @@ public class ParseEventLoader {
 
             // set banner image
             ImageView banner = (ImageView) eventActivity.findViewById(R.id.event_details_banner);
-            setBannerImage(banner, object, "eventBanner");
+            new EventBanner().setBannerImage(banner, object, "eventBanner");
 
             // set other textview details
             TextView category = (TextView) eventActivity.findViewById(R.id.ed_category_text);
