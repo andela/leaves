@@ -2,8 +2,10 @@ package com.worldtreeinc.leaves;
 
 
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 @ParseClassName("Events")
 public class Event extends ParseObject {
@@ -42,6 +44,20 @@ public class Event extends ParseObject {
 
     public void setEventEntryFee(int entryFee) {
         put("entryFee", entryFee);
+    }
+
+    public static ParseObject getParseObject(String parseTableName, String parseObjectId) {
+        ParseObject object;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(parseTableName);
+        try {
+            object = query.get(parseObjectId);
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+            object = null;
+        }
+
+        return object;
     }
 
 }
