@@ -4,18 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-
-import com.parse.ParseFile;
-
-import java.io.ByteArrayOutputStream;
 
 /**
  * Created by tunde on 8/11/15.
  */
-public class EventUtil {
+public class EventCancelUtil {
 
-    public EventUtil() {}
+    public EventCancelUtil() {}
 
     public void dialog(Activity activity) {
         final Activity eventActivity = activity;
@@ -43,17 +38,5 @@ public class EventUtil {
         Intent intent = new Intent(activity, PlannerDashActivity.class);
         activity.startActivity(intent);
         activity.finish();
-    }
-
-
-    public ParseFile getByteArray(String filePath) {
-        // prepare the image to be sent to parse server
-        EventBannerCompressor compressor = new EventBannerCompressor();
-        Bitmap bmp = compressor.getCompressed(filePath, 450, 900);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] parseFile = stream.toByteArray();
-        ParseFile file = new ParseFile("banner.jpg", parseFile);
-        return file;
     }
 }

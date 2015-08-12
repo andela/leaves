@@ -1,16 +1,13 @@
 package com.worldtreeinc.leaves;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.rey.material.widget.Button;
 
@@ -18,8 +15,9 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
 
     // global variables to be used in multiple methods.
     private static int RESULT_LOAD = 1;
-    String imagePath;
     EventForm newEventForm;
+    EventBannerUtil eventBannerUtil = new EventBannerUtil();
+    Activity createEventActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +25,7 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
         setContentView(R.layout.activity_create_event2);
 
         newEventForm = new EventForm(this);
+        createEventActivity =  this;
 
         Button createEventButton = (Button) findViewById(R.id.create_event_button);
         createEventButton.setOnClickListener(this);
@@ -92,32 +91,6 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
-            // When an Image is picked
-            if (requestCode == RESULT_LOAD && resultCode == RESULT_OK && null != data) {
-                // Get the Image from data
-
-                Uri selectedImage = data.getData();
-                String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-                // Get the cursor
-                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                // Move to first row
-                cursor.moveToFirst();
-
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                imagePath = cursor.getString(columnIndex);
-                cursor.close();
-
-                // set the imageView to the selected image
-                newEventForm.setEventBanner(newEventForm.eventBannerImageView, imagePath);
-                newEventForm.setBannerSelected(true);
-                newEventForm.setBannerPath(imagePath);
-
-            }
-        } catch (Exception e) {
-            Toast.makeText(this, "Please select an image!", Toast.LENGTH_LONG)
-                    .show();
-        }
+        eventBannerUtil.processSelectedImage(createEventActivity, requestCode, resultCode, data, newEventForm, RESULT_LOAD);
     }
 }

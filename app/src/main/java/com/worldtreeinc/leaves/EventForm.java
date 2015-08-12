@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -59,14 +56,15 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     ParseFile file;
 
-    EventUtil eventUtil = new EventUtil();
+    EventCancelUtil eventCancelUtil = new EventCancelUtil();
     Event event = new Event(); // event object
+    EventBannerUtil eventBannerUtil = new EventBannerUtil();
 
     public EventForm(Activity activity) {
         this.activity = activity;
         initialize();
-
     }
+
     private void initialize() {
         // find all UI element by ID
         eventNameEditText = (EditText) activity.findViewById(R.id.create_event_name);
@@ -105,20 +103,10 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 selectDate(activity, eventDateEditText);
                 break;
             case R.id.clear_banner_icon:
-                clearEventBanner();
+                eventBannerUtil.clearEventBanner(activity, eventBannerImageView);
+                this.bannerSelected = false;
                 break;
         }
-    }
-
-    public void clearEventBanner() {
-        Drawable drawable;
-        if (android.os.Build.VERSION.SDK_INT < 21) {
-            drawable = activity.getResources().getDrawable(R.drawable.default_image);
-        } else {
-            drawable = activity.getApplicationContext().getDrawable(R.drawable.default_image);
-        }
-        eventBannerImageView.setImageDrawable(drawable);
-        bannerSelected = false;
     }
 
     // method to get all form data.
@@ -187,7 +175,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         @Override
         protected Void doInBackground(Void... params) {
             if (bannerSelected) {
-                file = eventUtil.getByteArray(imagePath);
+                file = eventBannerUtil.getByteArray(imagePath);
             } else {
                 // set default banner for event
                 Drawable drawable;
@@ -196,7 +184,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 } else {
                     drawable = activity.getApplicationContext().getDrawable(R.drawable.default_image);
                 }
-                Bitmap bitmap = drawableToBitmap(drawable);
+                Bitmap bitmap = eventBannerUtil.drawableToBitmap(drawable);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] parseFile = stream.toByteArray();
@@ -244,7 +232,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                     // show a toast
                     Toast.makeText(activity.getApplicationContext(), "Event Created.", Toast.LENGTH_LONG).show();
                     // finish activity and move to dashActivity
-                    eventUtil.backToDash(activity);
+                    eventCancelUtil.backToDash(activity);
                 }
             }
         });
@@ -274,19 +262,11 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 file == null
                 ) {
             // close the form and return to the dashboard
-            eventUtil.backToDash(activity);
+            eventCancelUtil.backToDash(activity);
         } else {
             // build up the dialog
-            eventUtil.dialog(activity);
+            eventCancelUtil.dialog(activity);
         }
-    }
-
-    public void setBannerSelected(boolean status) {
-        this.bannerSelected = status;
-    }
-
-    public void setBannerPath(String path) {
-        this.imagePath = path;
     }
 
     public void selectDate(Context context, EditText eventDateInput) {
@@ -308,39 +288,4 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         }, mYear, mMonth, mDay);
         dpd.show();
     }
-
-
-    public void setEventBanner(ImageView eventBannerImageView, String imagePath) {
-        // create a new banner compressor object
-        EventBannerCompressor compressor = new EventBannerCompressor();
-
-        // Set the Image in ImageView after decoding the String
-        Bitmap bitmap = compressor.getCompressed(imagePath, 450, 900);
-        eventBannerImageView.setImageBitmap(bitmap);
-    }
-
-
-
-    public Bitmap drawableToBitmap(Drawable drawable) {
-        if (drawable instanceof BitmapDrawable) {
-            return ((BitmapDrawable) drawable).getBitmap();
-        }
-
-        final int width = !drawable.getBounds().isEmpty() ? drawable
-                .getBounds().width() : drawable.getIntrinsicWidth();
-
-        final int height = !drawable.getBounds().isEmpty() ? drawable
-                .getBounds().height() : drawable.getIntrinsicHeight();
-
-        final Bitmap bitmap = Bitmap.createBitmap(width <= 0 ? 1 : width,
-                height <= 0 ? 1 : height, Bitmap.Config.ARGB_8888);
-
-        Log.v("Bitmap width - Height :", width + " : " + height);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-
-        return bitmap;
-    }
-
 }
