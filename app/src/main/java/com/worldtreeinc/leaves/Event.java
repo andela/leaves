@@ -1,11 +1,14 @@
 package com.worldtreeinc.leaves;
 
 
+import com.parse.FindCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
+import java.util.List;
 
 @ParseClassName("Events")
 public class Event extends ParseObject {
@@ -14,52 +17,66 @@ public class Event extends ParseObject {
 
     }
 
-    public void setEventName(String eventName) {
-        put("eventName", eventName);
-    }
-
     public String getField(String fieldName) {
         return getString(fieldName);
     }
 
-    public void setEventCategory(String eventCategory) {
-        put("eventCategory", eventCategory);
+    public ParseFile getBanner() {
+        return getParseFile("eventBanner");
     }
 
-    public void setEventDate(String eventDate) {
-        put("eventDate", eventDate);
+    public void setName(String name) {
+        put("eventName", name);
     }
 
-    public void setEventVenue(String eventVenue) {
+    public void setCategory(String category) {
+        put("eventCategory", category);
+    }
+
+    public void setDate(String date) {
+        put("eventDate", date);
+    }
+
+    public void setVenue(String eventVenue) {
         put("eventVenue", eventVenue);
     }
 
-    public void setEventDescription(String eventDescription) {
-        put("eventDescription", eventDescription);
+    public void setDescription(String description) {
+        put("eventDescription", description);
     }
 
-    public void setEventBanner(ParseFile eventBanner) {
-        put("eventBanner", eventBanner);
-    }
-
-    public ParseFile getEventBanner() {
-        return getParseFile("eventBanner");
+    public void setBanner(ParseFile banner) {
+        put("eventBanner", banner);
     }
 
     public void setUserId(String userId) {
         put("userId", userId);
     }
 
-    public void setEventEntryFee(int entryFee) {
+    public void setEntryFee(int entryFee) {
         put("entryFee", entryFee);
     }
 
-    public Event getEvent(String eventId) {
+    public Event getOne(String eventId) {
         Event event;
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         try {
             event = query.get(eventId);
 
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+            event = null;
+        }
+        return event;
+    }
+
+    public List<Event> getList(String userId) {
+        List<Event> event;
+        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
+//        query.whereEqualTo("userId", userId);
+        try {
+            event = query.find();
         }
         catch (ParseException e) {
             e.printStackTrace();
