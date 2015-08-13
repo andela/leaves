@@ -27,7 +27,7 @@ public class ParseItemsAdapter extends ParseQueryAdapter {
     * here we must override the constructor for ParseQueryAdapter
 	*/
     // NOTE THAT USER ID IN THE CONSTRUCTOR SHOULD BE EVENTID
-    public ParseItemsAdapter(Activity context, final String eventId) {
+    public ParseItemsAdapter(Activity context, final Event eventId) {
 
         // Use the QueryFactory to construct a PQA that will only show
         // Todos marked as high-pri

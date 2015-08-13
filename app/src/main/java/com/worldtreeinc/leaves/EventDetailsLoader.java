@@ -12,14 +12,13 @@ import com.parse.ParseImageView;
 /**
  * Created by kamiye on 7/30/15.
  */
-public class EventLoader {
+public class EventDetailsLoader {
 
     // set class properties
     private String eventId;
     private Activity eventActivity;
 
-    public EventLoader(Activity activity, String eventId) {
-        this.eventId = eventId;
+    public EventDetailsLoader(Activity activity) {
         this.eventActivity = activity;
     }
 
@@ -27,8 +26,8 @@ public class EventLoader {
         textView.setText(event.getField(fieldName));
     }
 
-    public void setEventDetails() {
-        Event event = new Event().getOne(eventId);
+    public void set(Event event) {
+
         if (event != null) {
             // set Activity title to event title
             eventActivity.setTitle(event.getString("eventName"));

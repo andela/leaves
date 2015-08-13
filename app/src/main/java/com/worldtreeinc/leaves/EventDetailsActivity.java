@@ -20,15 +20,12 @@ public class EventDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
-        // get event Id from extras
-        String eventId = getIntent().getExtras().getString("OBJECT_ID");
-
         // create new ParseImageLoader passing in banner to it and eventId
         // and call setImage() method on it
-        EventLoader objectLoader = new EventLoader(this, eventId);
+        Event event = new Event().getOne(getIntent().getExtras().getString("OBJECT_ID"));
 
-        // set details of the events fetched from parse
-        objectLoader.setEventDetails();
+        EventDetailsLoader eventDetails = new EventDetailsLoader(this);
+        eventDetails.set(event);
 
         // check internet access
         boolean connecting = checkOnlineState();
@@ -38,7 +35,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         }
         else {
             // instantiate m_adapter and pass in Event ID
-            m_adapter = new ParseItemsAdapter(this, eventId);
+            m_adapter = new ParseItemsAdapter(this, new Event().getOne(getIntent().getExtras().getString("OBJECT_ID")));
             m_adapter.notifyDataSetChanged();
             if (m_adapter.getCount() == 0) {
                 error.setText("No Items to Display");
