@@ -19,7 +19,6 @@ import com.parse.ParseImageView;
 public class EventDetailsActivity extends AppCompatActivity {
 
     // declare class variables
-    private ParseItemsAdapter m_adapter;
     String eventId;
 
     @Override
@@ -38,18 +37,6 @@ public class EventDetailsActivity extends AppCompatActivity {
         TextView error = (TextView) findViewById(R.id.no_internet_error);
         if (!connecting) {
             error.setText("No Internet Connection");
-        }
-        else {
-            // instantiate m_adapter and pass in Event ID
-            m_adapter = new ParseItemsAdapter(this, Event.getOne(eventId));
-            m_adapter.notifyDataSetChanged();
-            if (m_adapter.getCount() == 0) {
-                error.setText("No Items to Display");
-            }
-            // check if there are no items and display message as necessary
-            ListView listView = (ListView) findViewById(R.id.items_list);
-            listView.setAdapter(m_adapter);
-
         }
 
     }
