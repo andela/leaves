@@ -57,7 +57,7 @@ public class Event extends ParseObject {
         put("entryFee", entryFee);
     }
 
-    public Event getOne(String eventId) {
+    public static Event getOne(String eventId) {
         Event event;
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         try {

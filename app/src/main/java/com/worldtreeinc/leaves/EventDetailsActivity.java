@@ -7,25 +7,31 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseImageView;
 
 public class EventDetailsActivity extends AppCompatActivity {
 
     // declare class variables
     private ParseItemsAdapter m_adapter;
+    String eventId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
+        eventId = getIntent().getExtras().getString("OBJECT_ID");
         // create new ParseImageLoader passing in banner to it and eventId
         // and call setImage() method on it
-        Event event = new Event().getOne(getIntent().getExtras().getString("OBJECT_ID"));
 
-        EventDetailsLoader eventDetails = new EventDetailsLoader(this);
-        eventDetails.set(event);
+        set(eventId);
 
         // check internet access
         boolean connecting = checkOnlineState();
@@ -35,7 +41,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         }
         else {
             // instantiate m_adapter and pass in Event ID
-            m_adapter = new ParseItemsAdapter(this, new Event().getOne(getIntent().getExtras().getString("OBJECT_ID")));
+            m_adapter = new ParseItemsAdapter(this, Event.getOne(eventId));
             m_adapter.notifyDataSetChanged();
             if (m_adapter.getCount() == 0) {
                 error.setText("No Items to Display");
@@ -47,6 +53,45 @@ public class EventDetailsActivity extends AppCompatActivity {
         }
 
     }
+
+    public void setViewText(TextView textView, Event event, String fieldName) {
+        textView.setText(event.getField(fieldName));
+    }
+
+    public void set(String eventId) {
+        Event event = Event.getOne(eventId);
+        if (event != null) {
+            // set Activity title to event title
+            setTitle(event.getString("eventName"));
+
+            // set banner image
+            ParseImageView banner = (ParseImageView) findViewById(R.id.event_details_banner);
+            final FrameLayout loader_frame = (FrameLayout) findViewById(R.id.event_details_frame_layout);
+            final com.rey.material.widget.ProgressView loader = (com.rey.material.widget.ProgressView) findViewById(R.id.event_details_loading);
+            loader.start();
+            banner.setParseFile(event.getBanner());
+            banner.loadInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] bytes, ParseException e) {
+                    loader_frame.setVisibility(View.GONE);
+                    loader.stop();
+
+                }
+            });
+
+            // set other textview details
+            TextView category = (TextView) findViewById(R.id.ed_category_text);
+            setViewText(category, event, "eventCategory");
+
+            TextView location = (TextView) findViewById(R.id.ed_location_text);
+            setViewText(location, event, "eventVenue");
+
+            TextView date = (TextView) findViewById(R.id.ed_date_text);
+            setViewText(date, event, "eventDate");
+
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
