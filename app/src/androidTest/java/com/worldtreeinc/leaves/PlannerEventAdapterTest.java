@@ -10,51 +10,31 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 /**
  * Created by andela on 7/29/15.
  */
-public class ListViewAdapterTest extends AndroidTestCase {
+public class PlannerEventAdapterTest extends AndroidTestCase {
 
-
-
-    private UserEvent mDescription = new UserEvent();
-    private UserEvent mVenue = new UserEvent();
-    private UserEvent mName = new UserEvent();
-    private UserEvent mCategory = new UserEvent();
-    private UserEvent mDate = new UserEvent();
     Context context;
 
-    private List<UserEvent> data = new ArrayList<UserEvent>();
+    private List<Event> data = new ArrayList<Event>();
 
-    private ListViewAdapter mAdapter;
+    private PlannerEventAdapter mAdapter;
+    Event event = new Event();
 
-    public ListViewAdapterTest() {
+    public PlannerEventAdapterTest() {
         super();
     }
 
     protected void setUp() throws Exception {
         super.setUp();
-        mAdapter = new ListViewAdapter(getContext(), data);
-
-        mDescription.setEventDescription("Technology");
-        mVenue.setEventVenue("Amity");
-        mName.setEventName("cheapest car");
-        mCategory.setEventCategory("Bizz");
-        mDate.setEventDate("30/08/1987");
-
-        data.add(mDescription);
-        data.add(mDate);
-        data.add(mVenue);
-        data.add(mName);
-        data.add(mCategory);
-
-    }
-
-    public void testGetItem() {
-        assertEquals("Technology was expected.", mDescription.getEventDescription(),
-                ((UserEvent) mAdapter.getItem(0)).getEventDescription());
+        mAdapter = new PlannerEventAdapter(getContext(), data);
+        event.setDescription("Technology");
+        event.setVenue("Amity");
+        event.setName("cheapest car");
+        event.setCategory("Bizz");
+        event.setDate("30/08/1987");
+        data.add(event);
     }
 
     public void testGetItemId() {
@@ -66,8 +46,6 @@ public class ListViewAdapterTest extends AndroidTestCase {
     }
 
     public void testGetView() {
-
-
         View view = mAdapter.getView(0, null, null);
 
         if (view == null) {
@@ -94,10 +72,9 @@ public class ListViewAdapterTest extends AndroidTestCase {
             assertNull("Venue TextView is null. ", eventVenue);
             assertNull("Venue ImageView is null. ", eventBanner);
 
-            assertEquals("Description doesn't match.", mDescription.getEventDescription(), eventDescription.getText());
-            assertEquals("Date doesn't match.", mDate.getEventDate(),
+            assertEquals("Description doesn't match.", event.getField("eventDescription"), eventDescription.getText());
+            assertEquals("Date doesn't match.", event.getField("eventDate"),
                     eventDate.getText());
-
 
             final ViewGroup.LayoutParams DescriptionlayoutParams =
                     eventDescription.getLayoutParams();
@@ -106,14 +83,11 @@ public class ListViewAdapterTest extends AndroidTestCase {
             assertEquals(DescriptionlayoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
 
 
-
             final ViewGroup.LayoutParams DatelayoutParams =
                     eventDate.getLayoutParams();
             assertNotNull(DatelayoutParams);
             assertEquals(DatelayoutParams.width, WindowManager.LayoutParams.WRAP_CONTENT);
             assertEquals(DatelayoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
-
-
 
             final ViewGroup.LayoutParams CategorylayoutParams =
                     eventCategory.getLayoutParams();
@@ -121,14 +95,11 @@ public class ListViewAdapterTest extends AndroidTestCase {
             assertEquals(CategorylayoutParams.width, WindowManager.LayoutParams.WRAP_CONTENT);
             assertEquals(CategorylayoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
 
-
             final ViewGroup.LayoutParams NamelayoutParams =
                     eventName.getLayoutParams();
             assertNotNull(NamelayoutParams);
             assertEquals(NamelayoutParams.width, WindowManager.LayoutParams.WRAP_CONTENT);
             assertEquals(NamelayoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
-
-
 
             final ViewGroup.LayoutParams VenuelayoutParams =
                     eventVenue.getLayoutParams();
@@ -136,27 +107,18 @@ public class ListViewAdapterTest extends AndroidTestCase {
             assertEquals(VenuelayoutParams.width, WindowManager.LayoutParams.WRAP_CONTENT);
             assertEquals(VenuelayoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
 
-
             final ViewGroup.LayoutParams BannerlayoutParams =
                     eventBanner.getLayoutParams();
             assertNotNull(BannerlayoutParams);
             assertEquals(BannerlayoutParams.width, WindowManager.LayoutParams.WRAP_CONTENT);
             assertEquals(BannerlayoutParams.height, WindowManager.LayoutParams.WRAP_CONTENT);
 
-
-
-            assertEquals("Category doesn't match.", mCategory.getEventCategory(), eventCategory.getText());
-            assertEquals("Name doesn't match.", mName.getEventName(),
+            assertEquals("Category doesn't match.", event.getField("eventCategory"), eventCategory.getText());
+            assertEquals("Name doesn't match.", event.getField("EventName"),
                     eventName.getText());
 
-            assertEquals("Venue doesn't match.", mVenue.getEventVenue(),
+            assertEquals("Venue doesn't match.", event.getField("EventVenue"),
                     eventVenue.getText());
-
-
-
-
-
-
         }
 
     }

@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 /**
  * Created by andela on 8/3/15.
  */
-public class UserEventTest extends TestCase {
+public class    UserEventTest extends TestCase {
 
     UserEvent mUserEvent = new UserEvent();
 

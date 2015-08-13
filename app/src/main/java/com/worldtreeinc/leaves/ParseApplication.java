@@ -5,6 +5,7 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseCrashReporting;
+import com.parse.ParseObject;
 
 public class ParseApplication extends Application {
     @Override
@@ -20,10 +21,14 @@ public class ParseApplication extends Application {
         // Add your initialization code here
         Parse.initialize(this);
 
+        //register subclasses
+        ParseObject.registerSubclass(EventItem.class);
+        ParseObject.registerSubclass(Event.class);
 
         ParseACL defaultACL = new ParseACL();
         // Optionally enable public read access.
-        // defaultACL.setPublicReadAccess(true);
+        defaultACL.setPublicReadAccess(true);
+        defaultACL.setPublicWriteAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
     }
 }

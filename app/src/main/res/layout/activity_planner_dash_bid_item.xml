@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:padding="5dp"
+    android:layout_marginBottom="2dp"
+    android:background="@drawable/dash_bid_item"
+    android:baselineAligned="false">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight=".3"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="@drawable/planner_bid_item_image_border">
+
+        <com.parse.ParseImageView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:src="@drawable/splash"
+            android:padding="5dp"
+            android:id="@+id/item_image"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/planner_dash_bid_item_image_desc" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/planner_dash_item_name"
+            android:text="@string/planner_dash_item_name"
+            android:textSize="15sp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight=".5"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/event_name_label"
+                android:layout_height="wrap_content"
+                android:text="@string/planner_dash_default_event_name"
+                android:textSize="15sp"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/planner_dash_event_name"
+                android:textSize="15sp"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/event_name_label"
+                android:id="@+id/planner_dash_event_name"
+                android:textColor="#000"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/previous_bid_label"
+                android:layout_height="wrap_content"
+                android:text="Previous Bid: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$230"
+                android:textSize="15sp"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/previous_bid_label"
+                android:id="@+id/planner_dash_previous_bid"
+                android:textColor="#000"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/new_bid_label"
+                android:layout_height="wrap_content"
+                android:text="New Bid: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$300"
+                android:textSize="15sp"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/new_bid_label"
+                android:id="@+id/planner_dash_new_bid"
+                android:textColor="#000"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

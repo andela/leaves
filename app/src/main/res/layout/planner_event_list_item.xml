@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" android:background="#F7F2F5">
-
-
-
+    android:layout_height="fill_parent"
+    android:background="#fff"
+    android:padding="10dp"
+    android:layout_marginBottom="3dp">
 
     <com.pkmmte.view.CircularImageView
         android:id="@+id/eventBanner"
         android:layout_width="100dp"
         android:layout_height="110dp"
         android:layout_alignParentLeft="true"
-        android:padding="1dp"
+        android:padding="15dp"
         android:scaleType="fitXY"
         android:layout_marginRight="10dp"/>
 
@@ -93,8 +93,9 @@
         android:layout_width="20dp"
         android:layout_height="30dp"
         android:id="@+id/deleteButton"
-        android:src="@drawable/del"
+        android:layout_marginRight="5dp"
         android:scaleType="fitXY"
+        android:background="@android:drawable/ic_delete"
         android:layout_alignBottom="@+id/eventBanner"
         android:layout_toLeftOf="@+id/editButton"
         android:layout_toStartOf="@+id/editButton"/>
@@ -103,12 +104,12 @@
         android:layout_width="20dp"
         android:layout_height="30dp"
         android:id="@+id/editButton"
-        android:src="@drawable/edit"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/ic_menu_edit"
         android:scaleType="fitXY"
         android:layout_alignTop="@+id/deleteButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="5dp"/>
-
 
 </RelativeLayout>
