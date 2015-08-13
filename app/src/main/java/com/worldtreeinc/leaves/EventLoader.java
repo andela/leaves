@@ -28,7 +28,7 @@ public class EventLoader {
     }
 
     public void setEventDetails() {
-        Event event = new Event().getEvent(eventId);
+        Event event = new Event().getOne(eventId);
         if (event != null) {
             // set Activity title to event title
             eventActivity.setTitle(event.getString("eventName"));
@@ -38,7 +38,7 @@ public class EventLoader {
             final FrameLayout loader_frame = (FrameLayout) eventActivity.findViewById(R.id.event_details_frame_layout);
             final com.rey.material.widget.ProgressView loader = (com.rey.material.widget.ProgressView) eventActivity.findViewById(R.id.event_details_loading);
             loader.start();
-            banner.setParseFile(event.getEventBanner());
+            banner.setParseFile(event.getBanner());
             banner.loadInBackground(new GetDataCallback() {
                 @Override
                 public void done(byte[] bytes, ParseException e) {

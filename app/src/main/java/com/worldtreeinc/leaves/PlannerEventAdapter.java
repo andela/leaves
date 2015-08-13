@@ -4,25 +4,26 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.parse.ParseFile;
+
 import java.util.List;
 
 /**
  * Created by andela on 7/24/15.
  */
-public class ListViewAdapter extends BaseAdapter {
+public class PlannerEventAdapter extends ArrayAdapter<Event> {
 
     // Declare Variables
     Context context;
     LayoutInflater inflater;
     ImageLoader imageLoader;
-    private List<UserEvent> userEventList = null;
-    private ArrayList<UserEvent> arraylist;
+    private List<Event> userEventList = null;
 
-    public ListViewAdapter(Context context, List<UserEvent> userEventList) {
+    public PlannerEventAdapter(Context context, List<Event> userEventList) {
+        super(context, R.layout.planner_event_list_item, userEventList);
         this.context = context;
         this.userEventList = userEventList;
         inflater = LayoutInflater.from(context);
@@ -36,36 +37,22 @@ public class ListViewAdapter extends BaseAdapter {
         com.pkmmte.view.CircularImageView eventBanner;
         TextView eventName;
         TextView eventVenue;
-
-    }
-
-    @Override
-    public int getCount() {
-        return userEventList.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return userEventList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
     }
 
     public View getView(final int position, View view, ViewGroup parent) {
+        Event event = userEventList.get(position);
         final ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
-            view = inflater.inflate(R.layout.activity_planner_event_list, null);
+
+            view = inflater.inflate(R.layout.planner_event_list_item, null);
+
             // Locate the TextViews in listview_item.xml
             holder.eventDescription = (TextView) view.findViewById(R.id.eventDescription);
             holder.eventDate = (TextView) view.findViewById(R.id.eventDate);
             holder.eventCategory = (TextView) view.findViewById(R.id.eventCategory);
             holder.eventName = (TextView) view.findViewById(R.id.eventName);
             holder.eventVenue = (TextView) view.findViewById(R.id.eventVenue);
-
             // Locate the ImageView in listview_item.xml
             holder.eventBanner = (com.pkmmte.view.CircularImageView) view.findViewById(R.id.eventBanner);
             view.setTag(holder);
@@ -73,14 +60,14 @@ public class ListViewAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        holder.eventDescription.setText(userEventList.get(position).getEventDescription());
-        holder.eventDate.setText(userEventList.get(position).getEventDate());
-        holder.eventCategory.setText(userEventList.get(position).getEventCategory());
-        holder.eventVenue.setText(userEventList.get(position).getEventVenue() + " ");
-        holder.eventName.setText(userEventList.get(position).getEventName());
+        holder.eventDescription.setText(event.getField("eventDescription"));
+        holder.eventDate.setText(event.getField("eventDate"));
+        holder.eventCategory.setText(event.getField("eventCategory"));
+        holder.eventVenue.setText(event.getField("eventVenue") + " ");
+        holder.eventName.setText(event.getField("eventName"));
 
-
-        imageLoader.DisplayImage(userEventList.get(position).getEventBanner(),
+        ParseFile image = (ParseFile) event.get("eventBanner");
+        imageLoader.DisplayImage(image.getUrl(),
                 holder.eventBanner);
         return view;
     }

@@ -32,7 +32,7 @@ public class BidListAdapter extends ArrayAdapter<EventItem> {
         EventItem bid = bids.get(position);
 
         TextView itemName = (TextView) convertView.findViewById(R.id.planner_dash_item_name);
-        itemName.setText(bid.getItemName());
+        itemName.setText(bid.getName());
 
         TextView eventName = (TextView) convertView.findViewById(R.id.planner_dash_event_name);
         eventName.setText(bid.getEventName());
@@ -44,7 +44,7 @@ public class BidListAdapter extends ArrayAdapter<EventItem> {
         newBid.setText(bid.getNewBid().toString());
 
         final ParseImageView itemImage = (ParseImageView) convertView.findViewById(R.id.item_image);
-        itemImage.setParseFile(bid.getItemImage());
+        itemImage.setParseFile(bid.getImage());
         itemImage.loadInBackground();
 
         return convertView;

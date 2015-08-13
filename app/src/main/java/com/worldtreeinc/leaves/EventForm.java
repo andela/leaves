@@ -239,13 +239,13 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
     }
 
     public void compileEventData() {
-        event.setEventName(eventName);
-        event.setEventCategory(eventCategory);
-        event.setEventEntryFee(Integer.parseInt(eventEntryFee));
-        event.setEventDate(eventDate);
-        event.setEventVenue(eventVenue);
-        event.setEventDescription(eventDescription);
-        event.setEventBanner(file);
+        event.setName(eventName);
+        event.setCategory(eventCategory);
+        event.setEntryFee(Integer.parseInt(eventEntryFee));
+        event.setDate(eventDate);
+        event.setVenue(eventVenue);
+        event.setDescription(eventDescription);
+        event.setBanner(file);
         // get current user from localStore
         ParseUser currentUser = ParseUser.getCurrentUser();
         event.setUserId(currentUser.getObjectId());

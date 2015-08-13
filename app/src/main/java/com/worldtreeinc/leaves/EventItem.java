@@ -33,19 +33,19 @@ public class EventItem extends ParseObject {
         put("newBid", newBid);
     }
 
-    public String getItemName() {
+    public String getName() {
         return getString("itemName");
     }
 
-    public void setItemName(String itemName) {
+    public void setName(String itemName) {
         put("itemName", itemName);
     }
 
-    public ParseFile getItemImage() {
+    public ParseFile getImage() {
         return getParseFile("itemImage");
     }
 
-    public void setItemImage(ParseFile itemImage) {
-        put("itemImage", itemImage);
+    public void setImage(ParseFile image) {
+        put("itemImage", image);
     }
 }
