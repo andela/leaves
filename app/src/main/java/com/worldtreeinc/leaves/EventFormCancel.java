@@ -8,9 +8,9 @@ import android.content.Intent;
 /**
  * Created by tunde on 8/11/15.
  */
-public class EventCancelUtil {
+public class EventFormCancel {
 
-    public EventCancelUtil() {}
+    public EventFormCancel() {}
 
     public void dialog(Activity activity) {
         final Activity eventActivity = activity;

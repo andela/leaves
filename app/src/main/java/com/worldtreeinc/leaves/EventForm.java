@@ -56,7 +56,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     ParseFile file;
 
-    EventCancelUtil eventCancelUtil = new EventCancelUtil();
+    EventFormCancel eventFormCancel = new EventFormCancel();
     Event event = new Event(); // event object
     EventBanner eventBanner = new EventBanner();
 
@@ -232,7 +232,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                     // show a toast
                     Toast.makeText(activity.getApplicationContext(), "Event Created.", Toast.LENGTH_LONG).show();
                     // finish activity and move to dashActivity
-                    eventCancelUtil.backToDash(activity);
+                    eventFormCancel.backToDash(activity);
                 }
             }
         });
@@ -262,10 +262,10 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 file == null
                 ) {
             // close the form and return to the dashboard
-            eventCancelUtil.backToDash(activity);
+            eventFormCancel.backToDash(activity);
         } else {
             // build up the dialog
-            eventCancelUtil.dialog(activity);
+            eventFormCancel.dialog(activity);
         }
     }
 
