@@ -71,7 +71,7 @@ public class Event extends ParseObject {
         return event;
     }
 
-    public List<Event> getList(String userId) {
+    public static List<Event> getAll(String userId) {
         List<Event> event;
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.whereEqualTo("userId", userId);

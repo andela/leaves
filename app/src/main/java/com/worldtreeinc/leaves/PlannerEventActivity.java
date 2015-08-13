@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class PlannerEventActivity extends ActionBarActivity {
     private ListView.OnItemClickListener mMessageClickedHandler = new ListView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id)
         {
-            String objectId = new Event().getList(currentUserId).get(position).getObjectId();
+            String objectId = new Event().getAll(currentUserId).get(position).getObjectId();
             Intent intent = new Intent(getApplicationContext(), EventDetailsActivity.class);
             intent.putExtra("OBJECT_ID", objectId);
             startActivity(intent);
@@ -59,7 +58,7 @@ public class PlannerEventActivity extends ActionBarActivity {
     private class EventAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            adapter.addAll(new Event().getList(currentUserId));
+            adapter.addAll(Event.getAll(currentUserId));
             return null;
         }
 
