@@ -31,7 +31,7 @@
     <string name="register_confirm_password">Confirm Password</string>
     <string name="title_activity_register">Register</string>
     <string name="register_button">Sign Up</string>
-    <string name="register_question">Have an account?</string>
+    <string name="register_question">Have an account?</string>creat
     <string name="register_login">Login</string>
     <string name="register_btn">Register</string>
 
@@ -45,10 +45,6 @@
     //dashboard
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_role">Select Role</string>
-    <string name="title_activity_planner_event">PlannerEventActivity</string>
-    <string name="Event_Description_Text">Description:</string>
-    <string name="Event_Date_Text">Date:</string>
-    <string name="Event_Category_Text">Category:</string>
 
     // create event Activity
     <string name="title_activity_create_event">Create Event</string>
@@ -66,17 +62,15 @@
         <item>Music</item>
         <item>Technology</item>
     </string-array>
-    <string name="create_event_description">Event Description</string>
 
     // event details activity
     <string name="title_activity_event_details">Event Details</string>
-    <string name="title_activity_planner_event">My Events</string>
     <string name="Event_Description_Text">Description:</string>
     <string name="Event_Date_Text">Date:</string>
     <string name="Event_Category_Text">Category:</string>
 
     //planner event list activity
-    <string name="title_activity_planner_event">PlannerEventActivity</string>
+    <string name="title_activity_planner_event">My Events</string>
 
     //plannerDash
     <string name="planner_dash_create_event">Create Event</string>
