@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -22,6 +24,7 @@ import com.rey.material.widget.ProgressView;
 import com.rey.material.widget.Spinner;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.Calendar;
 
 /**
@@ -67,10 +70,10 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     private void initialize() {
         // find all UI element by ID
-        eventNameEditText = (EditText) activity.findViewById(R.id.create_event_name);
-        eventDateEditText = (EditText) activity.findViewById(R.id.create_event_date);
-        eventVenueEditText = (EditText) activity.findViewById(R.id.create_event_venue);
-        eventEntryFeeEditText = (EditText) activity.findViewById(R.id.create_event_entry_fee);
+        eventNameEditText = (EditText) activity.findViewById(R.id.event_name);
+        eventDateEditText = (EditText) activity.findViewById(R.id.event_date);
+        eventVenueEditText = (EditText) activity.findViewById(R.id.event_venue);
+        eventEntryFeeEditText = (EditText) activity.findViewById(R.id.event_entry_fee);
         eventDescriptionEditText = (EditText) activity.findViewById(R.id.event_description);
         eventBannerImageView = (ImageView) activity.findViewById(R.id.event_banner);
         ImageButton datePicker = (ImageButton) activity.findViewById(R.id.date_picker);
@@ -119,6 +122,25 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
     }
 
     public void uploadData() {
+    public void setData(String eventId) {
+        Event eventObject = Event.getOne(eventId);
+
+        file = (ParseFile) eventObject.get("eventBanner");
+        file.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] bytes, ParseException e) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                eventBannerImageView.setImageBitmap(bmp);
+            }
+        });
+        eventNameEditText.setText(eventObject.getString("eventName"));
+        eventDateEditText.setText(eventObject.getString("eventDate"));
+        eventEntryFeeEditText.setText(eventObject.getString("eventEntryFee"));
+        eventVenueEditText.setText(eventObject.getString("eventVenue"));
+        eventDescriptionEditText.setText(eventObject.getString("eventDescription"));
+    }
+
+    public void create() {
         // check for internet connection
         if (NetworkUtil.getConnectivityStatus(activity) == 0) {
             Toast.makeText(activity, "No Internet Connection.", Toast.LENGTH_LONG).show();
@@ -304,4 +326,5 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         }, mYear, mMonth, mDay);
         dpd.show();
     }
+
 }

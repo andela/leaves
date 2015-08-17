@@ -105,7 +105,7 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
         Class activitySwitch = null;
         switch (v.getId()) {
             case R.id.create_event_btn:
-                activitySwitch = CreateEventActivity.class;
+                activitySwitch = EventActivity.class;
                 break;
             case R.id.manage_events_btn:
                 activitySwitch = PlannerEventActivity.class;
