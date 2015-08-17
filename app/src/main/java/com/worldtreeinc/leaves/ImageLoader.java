@@ -51,7 +51,6 @@ public class ImageLoader {
             queuePhoto(url, imageView);
             imageView.setImageResource(stub_id);
         }
-        imageView.setImageBitmap(bitmap);
     }
 
     private void queuePhoto(String url, ImageView imageView) {

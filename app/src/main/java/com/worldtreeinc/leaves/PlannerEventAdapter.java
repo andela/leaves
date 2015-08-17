@@ -89,6 +89,7 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> implements View.OnC
                     intent.putExtra("EVENT_ID", eventId);
                     context.startActivity(intent);
                 break;
+
         }
     }
 
