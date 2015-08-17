@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
-import com.parse.ProgressCallback;
 import com.parse.SaveCallback;
 import com.rey.material.widget.ProgressView;
 import com.rey.material.widget.Spinner;
@@ -53,6 +52,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
     String eventDate;
     String eventVenue;
     String eventDescription;
+    String eventId;
 
     ParseFile file;
 
@@ -110,7 +110,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
     }
 
     // method to get all form data.
-    public void getFormData() {
+    public void getData() {
         eventName = eventNameEditText.getText().toString().trim();
         eventDate = eventDateEditText.getText().toString().trim();
         eventEntryFee = eventEntryFeeEditText.getText().toString().trim();
@@ -118,24 +118,34 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         eventDescription = eventDescriptionEditText.getText().toString().trim();
     }
 
-    public void create() {
+    public void uploadData() {
         // check for internet connection
         if (NetworkUtil.getConnectivityStatus(activity) == 0) {
             Toast.makeText(activity, "No Internet Connection.", Toast.LENGTH_LONG).show();
             return;
         }
-        getFormData();
+
+        getData();
 
         // do form validation.
-        if (!formValid()) {
+        if (!isValid()) {
             return; // break out of the method
         }
 
         new ParseImageSelector().execute();
     }
 
+    public void create() {
+        uploadData();
+    }
+
+    public void update(String eventId) {
+        this.eventId = eventId;
+        uploadData();
+    }
+
     // method to perform form validation
-    public boolean formValid() {
+    public boolean isValid() {
 
         boolean validate = true;
 
@@ -195,42 +205,48 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         @Override
         protected void onPostExecute(Void result) {
             // after all validation has passed, send the image to the server
-            sendEventBannerToParse();
+            sendBanner();
         }
     }
 
-    public void sendEventBannerToParse() {
+    public void sendBanner() {
         file.saveInBackground(new SaveCallback() {
             public void done(ParseException e) {
                 // Handle success or failure here ...
                 if (e == null) {
                     // save complete event object to parse
-                    saveEvent();
+                    save();
                 } else {
                     // display error message
                 }
             }
-        }, new ProgressCallback() {
-            public void done(Integer percentDone) {
-                // Update your progress spinner here. percentDone will be between 0 and 100.
-            }
         });
     }
 
-    public void saveEvent() {
-        // assign values from form to event object
-        compileEventData();
+    public void save() {
+        // check if it is new event or event for update
+        if (eventId == null) {
+            // assign values from form to event object
+            compileEventData();
+            saveToDatabase("Event Created.");
+        }
+        else {
+            event = Event.getOne(eventId);
+            compileEventData();
+            saveToDatabase("Event Updated.");
+        }
+    }
 
-        // save the event in the parse database.
+    public void saveToDatabase(String feedbackText) {
+        final String text = feedbackText;
         event.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                // handle success or failure here
                 if (e == null) {
                     // stop the progress view
                     progressView.stop();
                     // show a toast
-                    Toast.makeText(activity.getApplicationContext(), "Event Created.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
                     // finish activity and move to dashActivity
                     eventFormCancel.backToDash(activity);
                 }
@@ -253,7 +269,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     public void cancelEvent() {
         // check if user has entered any data into the form
-        getFormData();
+        getData();
         if ( eventName.equals("") &&
                 eventEntryFee.equals("") &&
                 eventDate.equals("") &&
