@@ -27,7 +27,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_details);
 
         eventId = getIntent().getExtras().getString("OBJECT_ID");
-        // create new ParseImageLoader passing in banner to it and eventId
+        // uploadData new ParseImageLoader passing in banner to it and eventId
         // and call setImage() method on it
 
         set(eventId);

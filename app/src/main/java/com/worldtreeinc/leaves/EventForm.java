@@ -121,7 +121,6 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         eventDescription = eventDescriptionEditText.getText().toString().trim();
     }
 
-    public void uploadData() {
     public void setData(String eventId) {
         Event eventObject = Event.getOne(eventId);
 
@@ -140,7 +139,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         eventDescriptionEditText.setText(eventObject.getString("eventDescription"));
     }
 
-    public void create() {
+    public void uploadData() {
         // check for internet connection
         if (NetworkUtil.getConnectivityStatus(activity) == 0) {
             Toast.makeText(activity, "No Internet Connection.", Toast.LENGTH_LONG).show();
