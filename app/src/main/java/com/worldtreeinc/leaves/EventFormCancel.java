@@ -22,7 +22,7 @@ public class EventFormCancel {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
                         // close the form and return to the dashboard
-                        backToDash(eventActivity);
+                        backToEventList(eventActivity);
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -34,8 +34,8 @@ public class EventFormCancel {
                 .show();
     }
 
-    public void backToDash(Activity activity) {
-        Intent intent = new Intent(activity, PlannerDashActivity.class);
+    public void backToEventList(Activity activity) {
+        Intent intent = new Intent(activity, PlannerEventActivity.class);
         activity.startActivity(intent);
         activity.finish();
     }

@@ -247,8 +247,8 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                     progressView.stop();
                     // show a toast
                     Toast.makeText(activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
-                    // finish activity and move to dashActivity
-                    eventFormCancel.backToDash(activity);
+                    // finish activity and move to plannerEventListActivity
+                    eventFormCancel.backToEventList(activity);
                 }
             }
         });
@@ -278,7 +278,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 file == null
                 ) {
             // close the form and return to the dashboard
-            eventFormCancel.backToDash(activity);
+            eventFormCancel.backToEventList(activity);
         } else {
             // build up the dialog
             eventFormCancel.dialog(activity);
