@@ -16,13 +16,14 @@ import java.util.List;
 /**
  * Created by andela on 7/24/15.
  */
-public class PlannerEventAdapter extends ArrayAdapter<Event> {
+public class PlannerEventAdapter extends ArrayAdapter<Event> implements View.OnClickListener{
 
     // Declare Variables
     Context context;
     LayoutInflater inflater;
     ImageLoader imageLoader;
     private List<Event> userEventList = null;
+    Event event;
 
     public PlannerEventAdapter(Context context, List<Event> userEventList) {
         super(context, R.layout.planner_event_list_item, userEventList);
@@ -31,6 +32,8 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> {
         inflater = LayoutInflater.from(context);
         imageLoader = new ImageLoader(context);
     }
+
+
 
     public class ViewHolder {
         TextView eventDescription;
@@ -43,7 +46,7 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> {
     }
 
     public View getView(final int position, View view, ViewGroup parent) {
-        final Event event = userEventList.get(position);
+        event = userEventList.get(position);
         final ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
@@ -71,18 +74,22 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> {
         holder.eventName.setText(event.getField("eventName"));
 
         ParseFile image = (ParseFile) event.get("eventBanner");
-        imageLoader.DisplayImage(image.getUrl(),
-                holder.eventBanner);
-        holder.editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               String eventId = event.getObjectId();
-                Intent intent = new Intent(context, CreateEventActivity.class);
-                intent.putExtra("EVENT_ID", eventId);
-                context.startActivity(intent);
-            }
-        });
+        imageLoader.DisplayImage(image.getUrl(), holder.eventBanner);
+        holder.editButton.setOnClickListener(this);
+
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.editButton:
+                    String eventId = event.getObjectId();
+                    Intent intent = new Intent(context, CreateEventActivity.class);
+                    intent.putExtra("EVENT_ID", eventId);
+                    context.startActivity(intent);
+                break;
+        }
     }
 
 }
