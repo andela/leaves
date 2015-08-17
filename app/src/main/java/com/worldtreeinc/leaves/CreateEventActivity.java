@@ -24,6 +24,7 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event2);
 
+
         newEventForm = new EventForm(this);
         createEventActivity =  this;
 

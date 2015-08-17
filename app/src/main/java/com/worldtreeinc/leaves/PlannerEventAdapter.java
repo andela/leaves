@@ -1,10 +1,12 @@
 package com.worldtreeinc.leaves;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.ParseFile;
@@ -37,10 +39,11 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> {
         com.pkmmte.view.CircularImageView eventBanner;
         TextView eventName;
         TextView eventVenue;
+        ImageView editButton;
     }
 
     public View getView(final int position, View view, ViewGroup parent) {
-        Event event = userEventList.get(position);
+        final Event event = userEventList.get(position);
         final ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
@@ -53,6 +56,7 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> {
             holder.eventCategory = (TextView) view.findViewById(R.id.eventCategory);
             holder.eventName = (TextView) view.findViewById(R.id.eventName);
             holder.eventVenue = (TextView) view.findViewById(R.id.eventVenue);
+            holder.editButton = (ImageView) view.findViewById(R.id.editButton);
             // Locate the ImageView in listview_item.xml
             holder.eventBanner = (com.pkmmte.view.CircularImageView) view.findViewById(R.id.eventBanner);
             view.setTag(holder);
@@ -69,6 +73,15 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> {
         ParseFile image = (ParseFile) event.get("eventBanner");
         imageLoader.DisplayImage(image.getUrl(),
                 holder.eventBanner);
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               String eventId = event.getObjectId();
+                Intent intent = new Intent(context, CreateEventActivity.class);
+                intent.putExtra("EVENT_ID", eventId);
+                context.startActivity(intent);
+            }
+        });
         return view;
     }
 
