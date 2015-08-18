@@ -1,6 +1,5 @@
 package com.worldtreeinc.leaves;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,8 +25,8 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
         setContentView(R.layout.activity_create_event2);
         eventButton = (Button) findViewById(R.id.event_button);
 
-        updateInit();
         newEventForm = new EventForm(this);
+        setupEdit();
 
         eventButton.setOnClickListener(this);
         ImageButton openGalleryButton = (ImageButton) findViewById(R.id.banner_select_icon);
@@ -98,10 +97,11 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
         eventBanner.processSelectedImage(EventActivity.this, requestCode, resultCode, data, newEventForm, RESULT_LOAD);
     }
 
-    protected void updateInit() {
+    protected void setupEdit() {
         try {
             eventId = getIntent().getExtras().getString("EVENT_ID");
-            eventButton.setText("Edit Event");
+
+            eventButton.setText("Update Event");
             setTitle("Edit Event");
             // call the set fields method to prefill the form fields
             newEventForm.setData(eventId);

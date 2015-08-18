@@ -1,5 +1,6 @@
 package com.worldtreeinc.leaves;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -19,18 +20,18 @@ import java.util.List;
 public class PlannerEventAdapter extends ArrayAdapter<Event> implements View.OnClickListener{
 
     // Declare Variables
-    Context context;
+    Activity activity;
     LayoutInflater inflater;
     ImageLoader imageLoader;
     private List<Event> userEventList = null;
     Event event;
 
-    public PlannerEventAdapter(Context context, List<Event> userEventList) {
-        super(context, R.layout.planner_event_list_item, userEventList);
-        this.context = context;
+    public PlannerEventAdapter(Activity activity, List<Event> userEventList) {
+        super(activity, R.layout.planner_event_list_item, userEventList);
+        this.activity = activity;
         this.userEventList = userEventList;
-        inflater = LayoutInflater.from(context);
-        imageLoader = new ImageLoader(context);
+        inflater = LayoutInflater.from(activity);
+        imageLoader = new ImageLoader(activity);
     }
 
 
@@ -85,9 +86,10 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> implements View.OnC
         switch (v.getId()) {
             case R.id.editButton:
                     String eventId = event.getObjectId();
-                    Intent intent = new Intent(context, CreateEventActivity.class);
+                    Intent intent = new Intent(activity, EventActivity.class);
                     intent.putExtra("EVENT_ID", eventId);
-                    context.startActivity(intent);
+                    activity.startActivity(intent);
+                    activity.finish();
                 break;
 
         }

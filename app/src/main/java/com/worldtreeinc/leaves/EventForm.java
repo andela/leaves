@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -35,7 +36,9 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
     Activity activity;
     // global variables to be used in multiple methods.
     private static int RESULT_LOAD = 1;
+
     boolean bannerSelected = false;
+    boolean updateBanner = false;
 
     String imagePath;
     // form objects
@@ -56,6 +59,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
     String eventVenue;
     String eventDescription;
     String eventId;
+    ArrayAdapter<CharSequence> adapter;
 
     ParseFile file;
 
@@ -83,15 +87,17 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         bannerUploader.setOnClickListener(this);
         final ImageButton clearBanner = (ImageButton) activity.findViewById(R.id.clear_banner_icon);
         clearBanner.setOnClickListener(this);
+
         eventCategorySpinner = (Spinner) activity.findViewById(R.id.events_categories_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
+        adapter = ArrayAdapter.createFromResource(activity,
                 R.array.events_categories, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         eventCategorySpinner.setAdapter(adapter);
         eventCategorySpinner.setOnItemSelectedListener(this);
+
     }
 
     @Override
@@ -108,6 +114,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
             case R.id.clear_banner_icon:
                 eventBanner.clear(activity, eventBannerImageView);
                 this.bannerSelected = false;
+                this.updateBanner = false;
                 break;
         }
     }
@@ -132,11 +139,17 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 eventBannerImageView.setImageBitmap(bmp);
             }
         });
+
+        updateBanner = true;
+        bannerSelected = true;
+
         eventNameEditText.setText(eventObject.getString("eventName"));
         eventDateEditText.setText(eventObject.getString("eventDate"));
-        eventEntryFeeEditText.setText(eventObject.getString("eventEntryFee"));
+        eventEntryFeeEditText.setText(eventObject.getNumber("entryFee").toString());
         eventVenueEditText.setText(eventObject.getString("eventVenue"));
         eventDescriptionEditText.setText(eventObject.getString("eventDescription"));
+        eventCategory = eventObject.getString("eventCategory");
+        eventCategorySpinner.setSelection(adapter.getPosition(eventCategory));
     }
 
     public void uploadData() {
@@ -206,7 +219,9 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         @Override
         protected Void doInBackground(Void... params) {
             if (bannerSelected) {
-                file = eventBanner.getByteArray(imagePath);
+                if (!updateBanner) {
+                    file = eventBanner.getByteArray(imagePath);
+                }
             } else {
                 // set default banner for event
                 Drawable drawable;
