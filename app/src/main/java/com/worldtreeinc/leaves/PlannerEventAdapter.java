@@ -3,6 +3,7 @@ package com.worldtreeinc.leaves;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * Created by andela on 7/24/15.
  */
-public class PlannerEventAdapter extends ArrayAdapter<Event> implements View.OnClickListener{
+public class PlannerEventAdapter extends ArrayAdapter<Event>{
 
     // Declare Variables
     Activity activity;
@@ -76,23 +77,20 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> implements View.OnC
 
         ParseFile image = (ParseFile) event.get("eventBanner");
         imageLoader.DisplayImage(image.getUrl(), holder.eventBanner);
-        holder.editButton.setOnClickListener(this);
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                event = userEventList.get(position);
+                String eventId = event.getObjectId();
+                Log.v("Event ID", eventId);
+                Intent intent = new Intent(activity, EventActivity.class);
+                intent.putExtra("EVENT_ID", eventId);
+                activity.startActivity(intent);
+                activity.finish();
+            }
+        });
 
         return view;
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.editButton:
-                    String eventId = event.getObjectId();
-                    Intent intent = new Intent(activity, EventActivity.class);
-                    intent.putExtra("EVENT_ID", eventId);
-                    activity.startActivity(intent);
-                    activity.finish();
-                break;
-
-        }
     }
 
 }
