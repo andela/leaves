@@ -264,12 +264,12 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         if (eventId == null) {
             // assign values from form to event object
             compileEventData();
-            saveToDatabase("Event Created.");
+            saveToDatabase(activity.getString(R.string.create_event_form_toast));
         }
         else {
             event = Event.getOne(eventId);
             compileEventData();
-            saveToDatabase("Event Updated.");
+            saveToDatabase(activity.getString(R.string.update_event_form_toast));
         }
     }
 
@@ -283,7 +283,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                     progressView.stop();
                     // show a toast
                     Toast.makeText(activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
-                    // finish activity and move to plannerEventListActivity
+                    // finish context and move to plannerEventListActivity
                     eventFormCancel.backToEventList(activity);
                 }
             }

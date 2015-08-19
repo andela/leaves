@@ -83,6 +83,8 @@
     <string name="planner_dash_item_name">Samsung 21\'TV set</string>
     <string name="planner_dash_default_event_name">Event Name: </string>
     <string name="planner_dash_event_name">China Town Auction</string>
+    <string name="create_event_form_toast">Event Created.</string>
+    <string name="update_event_form_toast">Event Updated.</string>
 
 </resources>
 
