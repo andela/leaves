@@ -33,7 +33,7 @@ public class PlannerEventActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planner_event);
-        adapter = new PlannerEventAdapter(PlannerEventActivity.this,
+        adapter = new PlannerEventAdapter(this,
                 new ArrayList<Event>());
         new EventAsyncTask().execute();
     }

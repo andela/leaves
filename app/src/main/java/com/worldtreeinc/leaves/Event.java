@@ -1,7 +1,6 @@
 package com.worldtreeinc.leaves;
 
 
-import com.parse.FindCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -12,10 +11,6 @@ import java.util.List;
 
 @ParseClassName("Events")
 public class Event extends ParseObject {
-
-    public Event() {
-
-    }
 
     public String getField(String fieldName) {
         return getString(fieldName);
@@ -74,7 +69,7 @@ public class Event extends ParseObject {
     public static List<Event> getAll(String userId) {
         List<Event> event;
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-//        query.whereEqualTo("userId", userId);
+        query.whereEqualTo("userId", userId);
         try {
             event = query.find();
         }

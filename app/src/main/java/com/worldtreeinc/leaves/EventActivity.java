@@ -1,6 +1,5 @@
 package com.worldtreeinc.leaves;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,34 +10,33 @@ import android.widget.ImageButton;
 
 import com.rey.material.widget.Button;
 
-public class CreateEventActivity extends AppCompatActivity  implements View.OnClickListener {
+public class EventActivity extends AppCompatActivity  implements View.OnClickListener {
 
     // global variables to be used in multiple methods.
     private static int RESULT_LOAD = 1;
     EventForm newEventForm;
     EventBanner eventBanner = new EventBanner();
-    Activity createEventActivity;
+    String eventId;
+    Button eventButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event2);
+        eventButton = (Button) findViewById(R.id.event_button);
 
         newEventForm = new EventForm(this);
-        createEventActivity =  this;
+        setupEdit();
 
-        Button createEventButton = (Button) findViewById(R.id.create_event_button);
-        createEventButton.setOnClickListener(this);
+        eventButton.setOnClickListener(this);
         ImageButton openGalleryButton = (ImageButton) findViewById(R.id.banner_select_icon);
         openGalleryButton.setOnClickListener(this);
-
     }
-//    EventForm newEvent = new EventForm(createEventActivity);
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_create_event, menu);
+        getMenuInflater().inflate(R.menu.menu_event, menu);
         return true;
     }
 
@@ -65,8 +63,13 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.create_event_button:
-                newEventForm.create();
+            case R.id.event_button:
+                if (eventId != null) {
+                    newEventForm.update(eventId);
+                }
+                else{
+                    newEventForm.create();
+                }
                 break;
             case R.id.banner_select_icon:
                 new Thread(new Runnable() {
@@ -91,6 +94,20 @@ public class CreateEventActivity extends AppCompatActivity  implements View.OnCl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        eventBanner.processSelectedImage(createEventActivity, requestCode, resultCode, data, newEventForm, RESULT_LOAD);
+        eventBanner.processSelectedImage(EventActivity.this, requestCode, resultCode, data, newEventForm, RESULT_LOAD);
+    }
+
+    protected void setupEdit() {
+        try {
+            eventId = getIntent().getExtras().getString("EVENT_ID");
+
+            eventButton.setText("Update Event");
+            setTitle("Edit Event");
+            // call the set fields method to prefill the form fields
+            newEventForm.setData(eventId);
+        }
+        catch (Exception e) {
+            eventId = null;
+        }
     }
 }

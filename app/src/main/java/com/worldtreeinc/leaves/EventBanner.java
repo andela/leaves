@@ -108,6 +108,7 @@ public class EventBanner {
 
     public void setSelected(boolean status, EventForm eventForm) {
         eventForm.bannerSelected = status;
+        eventForm.updateBanner = false;
     }
 
     public void setPath(String path, EventForm eventForm) {

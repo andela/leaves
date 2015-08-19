@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.worldtreeinc.leaves.EventActivity">
+    <item
+        android:id="@+id/create_event_cancel"
+        android:icon="@drawable/cancel_icon"
+        android:orderInCategory="1"
+        app:showAsAction="always"
+        android:title="End"/>
+</menu>

@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -14,15 +16,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
-import com.parse.ProgressCallback;
 import com.parse.SaveCallback;
 import com.rey.material.widget.ProgressView;
 import com.rey.material.widget.Spinner;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.Calendar;
 
 /**
@@ -33,7 +36,9 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
     Activity activity;
     // global variables to be used in multiple methods.
     private static int RESULT_LOAD = 1;
+
     boolean bannerSelected = false;
+    boolean updateBanner = false;
 
     String imagePath;
     // form objects
@@ -53,6 +58,8 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
     String eventDate;
     String eventVenue;
     String eventDescription;
+    String eventId;
+    ArrayAdapter<CharSequence> adapter;
 
     ParseFile file;
 
@@ -67,10 +74,10 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     private void initialize() {
         // find all UI element by ID
-        eventNameEditText = (EditText) activity.findViewById(R.id.create_event_name);
-        eventDateEditText = (EditText) activity.findViewById(R.id.create_event_date);
-        eventVenueEditText = (EditText) activity.findViewById(R.id.create_event_venue);
-        eventEntryFeeEditText = (EditText) activity.findViewById(R.id.create_event_entry_fee);
+        eventNameEditText = (EditText) activity.findViewById(R.id.event_name);
+        eventDateEditText = (EditText) activity.findViewById(R.id.event_date);
+        eventVenueEditText = (EditText) activity.findViewById(R.id.event_venue);
+        eventEntryFeeEditText = (EditText) activity.findViewById(R.id.event_entry_fee);
         eventDescriptionEditText = (EditText) activity.findViewById(R.id.event_description);
         eventBannerImageView = (ImageView) activity.findViewById(R.id.event_banner);
         ImageButton datePicker = (ImageButton) activity.findViewById(R.id.date_picker);
@@ -80,15 +87,17 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         bannerUploader.setOnClickListener(this);
         final ImageButton clearBanner = (ImageButton) activity.findViewById(R.id.clear_banner_icon);
         clearBanner.setOnClickListener(this);
+
         eventCategorySpinner = (Spinner) activity.findViewById(R.id.events_categories_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
+        adapter = ArrayAdapter.createFromResource(activity,
                 R.array.events_categories, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         eventCategorySpinner.setAdapter(adapter);
         eventCategorySpinner.setOnItemSelectedListener(this);
+
     }
 
     @Override
@@ -105,12 +114,13 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
             case R.id.clear_banner_icon:
                 eventBanner.clear(activity, eventBannerImageView);
                 this.bannerSelected = false;
+                this.updateBanner = false;
                 break;
         }
     }
 
     // method to get all form data.
-    public void getFormData() {
+    public void getData() {
         eventName = eventNameEditText.getText().toString().trim();
         eventDate = eventDateEditText.getText().toString().trim();
         eventEntryFee = eventEntryFeeEditText.getText().toString().trim();
@@ -118,24 +128,58 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         eventDescription = eventDescriptionEditText.getText().toString().trim();
     }
 
-    public void create() {
+    public void setData(String eventId) {
+        Event eventObject = Event.getOne(eventId);
+
+        file = (ParseFile) eventObject.get("eventBanner");
+        file.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] bytes, ParseException e) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                eventBannerImageView.setImageBitmap(bmp);
+            }
+        });
+
+        updateBanner = true;
+        bannerSelected = true;
+
+        eventNameEditText.setText(eventObject.getString("eventName"));
+        eventDateEditText.setText(eventObject.getString("eventDate"));
+        eventEntryFeeEditText.setText(eventObject.getNumber("entryFee").toString());
+        eventVenueEditText.setText(eventObject.getString("eventVenue"));
+        eventDescriptionEditText.setText(eventObject.getString("eventDescription"));
+        eventCategory = eventObject.getString("eventCategory");
+        eventCategorySpinner.setSelection(adapter.getPosition(eventCategory));
+    }
+
+    public void uploadData() {
         // check for internet connection
         if (NetworkUtil.getConnectivityStatus(activity) == 0) {
             Toast.makeText(activity, "No Internet Connection.", Toast.LENGTH_LONG).show();
             return;
         }
-        getFormData();
+
+        getData();
 
         // do form validation.
-        if (!formValid()) {
+        if (!isValid()) {
             return; // break out of the method
         }
 
         new ParseImageSelector().execute();
     }
 
+    public void create() {
+        uploadData();
+    }
+
+    public void update(String eventId) {
+        this.eventId = eventId;
+        uploadData();
+    }
+
     // method to perform form validation
-    public boolean formValid() {
+    public boolean isValid() {
 
         boolean validate = true;
 
@@ -175,7 +219,9 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         @Override
         protected Void doInBackground(Void... params) {
             if (bannerSelected) {
-                file = eventBanner.getByteArray(imagePath);
+                if (!updateBanner) {
+                    file = eventBanner.getByteArray(imagePath);
+                }
             } else {
                 // set default banner for event
                 Drawable drawable;
@@ -195,44 +241,50 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         @Override
         protected void onPostExecute(Void result) {
             // after all validation has passed, send the image to the server
-            sendEventBannerToParse();
+            sendBanner();
         }
     }
 
-    public void sendEventBannerToParse() {
+    public void sendBanner() {
         file.saveInBackground(new SaveCallback() {
             public void done(ParseException e) {
                 // Handle success or failure here ...
                 if (e == null) {
                     // save complete event object to parse
-                    saveEvent();
+                    save();
                 } else {
                     // display error message
                 }
             }
-        }, new ProgressCallback() {
-            public void done(Integer percentDone) {
-                // Update your progress spinner here. percentDone will be between 0 and 100.
-            }
         });
     }
 
-    public void saveEvent() {
-        // assign values from form to event object
-        compileEventData();
+    public void save() {
+        // check if it is new event or event for update
+        if (eventId == null) {
+            // assign values from form to event object
+            compileEventData();
+            saveToDatabase(activity.getString(R.string.create_event_form_toast));
+        }
+        else {
+            event = Event.getOne(eventId);
+            compileEventData();
+            saveToDatabase(activity.getString(R.string.update_event_form_toast));
+        }
+    }
 
-        // save the event in the parse database.
+    public void saveToDatabase(String feedbackText) {
+        final String text = feedbackText;
         event.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                // handle success or failure here
                 if (e == null) {
                     // stop the progress view
                     progressView.stop();
                     // show a toast
-                    Toast.makeText(activity.getApplicationContext(), "Event Created.", Toast.LENGTH_LONG).show();
-                    // finish activity and move to dashActivity
-                    eventFormCancel.backToDash(activity);
+                    Toast.makeText(activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                    // finish context and move to plannerEventListActivity
+                    eventFormCancel.backToEventList(activity);
                 }
             }
         });
@@ -253,7 +305,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     public void cancelEvent() {
         // check if user has entered any data into the form
-        getFormData();
+        getData();
         if ( eventName.equals("") &&
                 eventEntryFee.equals("") &&
                 eventDate.equals("") &&
@@ -262,7 +314,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 file == null
                 ) {
             // close the form and return to the dashboard
-            eventFormCancel.backToDash(activity);
+            eventFormCancel.backToEventList(activity);
         } else {
             // build up the dialog
             eventFormCancel.dialog(activity);
@@ -288,4 +340,5 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         }, mYear, mMonth, mDay);
         dpd.show();
     }
+
 }

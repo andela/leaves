@@ -1,10 +1,14 @@
 package com.worldtreeinc.leaves;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.ParseFile;
@@ -14,21 +18,24 @@ import java.util.List;
 /**
  * Created by andela on 7/24/15.
  */
-public class PlannerEventAdapter extends ArrayAdapter<Event> {
+public class PlannerEventAdapter extends ArrayAdapter<Event>{
 
     // Declare Variables
-    Context context;
+    Activity activity;
     LayoutInflater inflater;
     ImageLoader imageLoader;
     private List<Event> userEventList = null;
+    Event event;
 
-    public PlannerEventAdapter(Context context, List<Event> userEventList) {
-        super(context, R.layout.planner_event_list_item, userEventList);
-        this.context = context;
+    public PlannerEventAdapter(Activity activity, List<Event> userEventList) {
+        super(activity, R.layout.planner_event_list_item, userEventList);
+        this.activity = activity;
         this.userEventList = userEventList;
-        inflater = LayoutInflater.from(context);
-        imageLoader = new ImageLoader(context);
+        inflater = LayoutInflater.from(activity);
+        imageLoader = new ImageLoader(activity);
     }
+
+
 
     public class ViewHolder {
         TextView eventDescription;
@@ -37,10 +44,11 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> {
         com.pkmmte.view.CircularImageView eventBanner;
         TextView eventName;
         TextView eventVenue;
+        ImageView editButton;
     }
 
     public View getView(final int position, View view, ViewGroup parent) {
-        Event event = userEventList.get(position);
+        event = userEventList.get(position);
         final ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
@@ -53,6 +61,7 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> {
             holder.eventCategory = (TextView) view.findViewById(R.id.eventCategory);
             holder.eventName = (TextView) view.findViewById(R.id.eventName);
             holder.eventVenue = (TextView) view.findViewById(R.id.eventVenue);
+            holder.editButton = (ImageView) view.findViewById(R.id.editButton);
             // Locate the ImageView in listview_item.xml
             holder.eventBanner = (com.pkmmte.view.CircularImageView) view.findViewById(R.id.eventBanner);
             view.setTag(holder);
@@ -67,8 +76,20 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> {
         holder.eventName.setText(event.getField("eventName"));
 
         ParseFile image = (ParseFile) event.get("eventBanner");
-        imageLoader.DisplayImage(image.getUrl(),
-                holder.eventBanner);
+        imageLoader.DisplayImage(image.getUrl(), holder.eventBanner);
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                event = userEventList.get(position);
+                String eventId = event.getObjectId();
+                Log.v("Event ID", eventId);
+                Intent intent = new Intent(activity, EventActivity.class);
+                intent.putExtra("EVENT_ID", eventId);
+                activity.startActivity(intent);
+                activity.finish();
+            }
+        });
+
         return view;
     }
 

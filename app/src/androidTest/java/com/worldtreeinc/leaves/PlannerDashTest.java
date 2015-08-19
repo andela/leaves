@@ -19,7 +19,7 @@ public class PlannerDashTest extends ActivityInstrumentationTestCase2<PlannerDas
     //test bidder role button
     public void testCreateEventBtn() {
         //Initialize activity monitor on BidderDashActivity
-        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(CreateEventActivity.class.getName(), null, false);
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(EventActivity.class.getName(), null, false);
         //current activity
         final PlannerDashActivity activity = getActivity();
 
@@ -31,7 +31,7 @@ public class PlannerDashTest extends ActivityInstrumentationTestCase2<PlannerDas
             }
         });
         //next activity after button click
-        CreateEventActivity nextActivity = (CreateEventActivity) getInstrumentation().waitForMonitor(activityMonitor);
+        EventActivity nextActivity = (EventActivity) getInstrumentation().waitForMonitor(activityMonitor);
         assertNotNull(nextActivity);
         nextActivity.finish();
     }

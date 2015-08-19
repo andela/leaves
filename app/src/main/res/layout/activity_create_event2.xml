@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:id="@+id/create_event_name"
+                android:id="@+id/event_name"
                 android:hint="@string/create_event_name"
                 android:layout_marginTop="60dp" />
 
@@ -74,7 +74,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:id="@+id/create_event_entry_fee"
+                android:id="@+id/event_entry_fee"
                 android:inputType="number"
                 android:hint="@string/create_event_entry_fee" />
             <ImageView
@@ -93,7 +93,7 @@
             android:layout_marginBottom="20dp" >
 
             <EditText
-                android:id="@+id/create_event_date"
+                android:id="@+id/event_date"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:hint="@string/create_event_date"
@@ -121,7 +121,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:id="@+id/create_event_venue"
+                android:id="@+id/event_venue"
                 android:hint="@string/create_event_venue" />
             <ImageView
                 android:layout_width="wrap_content"
@@ -203,7 +203,7 @@
 
             <com.rey.material.widget.Button
                 style="@style/Material.Drawable.Ripple.Wave"
-                android:id="@+id/create_event_button"
+                android:id="@+id/event_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/create_event_button_text"
