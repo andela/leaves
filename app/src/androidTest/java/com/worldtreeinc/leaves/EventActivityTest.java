@@ -42,10 +42,10 @@ public class EventActivityTest extends ActivityInstrumentationTestCase2<EventAct
     protected void setUp() throws Exception {
         super.setUp();
 
-        /** Getting the reference to the activity containing listview to be tested */
+        /** Getting the reference to the context containing listview to be tested */
         eventActivity = getActivity();
 
-        /** Getting the reference to the activity to be tested */
+        /** Getting the reference to the context to be tested */
         eventName = (EditText) eventActivity.findViewById(R.id.event_name);
         eventNameImage = (ImageView) eventActivity.findViewById(R.id.event_name_image);
         eventCategorySpinner = (Spinner) eventActivity.findViewById(R.id.events_categories_spinner);

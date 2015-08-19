@@ -12,10 +12,6 @@ import java.util.List;
 @ParseClassName("Events")
 public class Event extends ParseObject {
 
-    public Event() {
-
-    }
-
     public String getField(String fieldName) {
         return getString(fieldName);
     }

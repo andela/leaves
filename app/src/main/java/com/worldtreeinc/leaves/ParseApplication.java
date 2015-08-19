@@ -14,16 +14,16 @@ public class ParseApplication extends Application {
 
         // Initialize Crash Reporting.
         ParseCrashReporting.enable(this);
-
         // Enable Local Data store.
         Parse.enableLocalDatastore(this);
-
-        // Add your initialization code here
-        Parse.initialize(this);
 
         //register subclasses
         ParseObject.registerSubclass(EventItem.class);
         ParseObject.registerSubclass(Event.class);
+
+        // Add your initialization code here
+        Parse.initialize(this);
+
 
         ParseACL defaultACL = new ParseACL();
         // Optionally enable public read access.
