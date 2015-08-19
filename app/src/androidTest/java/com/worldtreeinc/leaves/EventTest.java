@@ -10,58 +10,58 @@ import com.parse.ParseFile;
  */
 public class EventTest extends InstrumentationTestCase {
 
-    Event mUserEvent;
+    Event mEvent;
 
     @SmallTest
     public void testEvent(){
 
-        mUserEvent = new Event();
+        mEvent = new Event();
 
         //testing the set and get venue methods
         String venue = "Amity";
-        mUserEvent.setVenue(venue);
+        mEvent.setVenue(venue);
         String expectedVenue  = venue;
-        String actualVenue = mUserEvent.getField("eventVenue");
+        String actualVenue = mEvent.getField("eventVenue");
         assertEquals(expectedVenue, actualVenue);
 
 
         //testing the set and get description methods
         String descript = "Technology";
-        mUserEvent.setDescription(descript);
+        mEvent.setDescription(descript);
         String expectedDescription  = descript;
-        String actualDescription = mUserEvent.getField("eventDescription");
+        String actualDescription = mEvent.getField("eventDescription");
         assertEquals(expectedDescription, actualDescription);
 
 
         //testing the set and get Date methods
         String date = "30/08/1987";
-        mUserEvent.setDate(date);
+        mEvent.setDate(date);
         String expectedDate  = date;
-        String actualDate = mUserEvent.getField("eventDate");
+        String actualDate = mEvent.getField("eventDate");
         assertEquals(expectedDate, actualDate);
 
 
         //testing the get and set category methods
         String category = "Education";
-        mUserEvent.setCategory(category);
+        mEvent.setCategory(category);
         String expectedCategory  = category;
-        String actualCategory = mUserEvent.getField("eventCategory");
+        String actualCategory = mEvent.getField("eventCategory");
         assertEquals(expectedCategory, actualCategory);
 
 
         //testing the get and set event Banner methods
         ParseFile banner = new ParseFile("String".getBytes());
-        mUserEvent.setBanner(banner);
+        mEvent.setBanner(banner);
         ParseFile expectedBanner  = banner;
-        ParseFile actualBanner = mUserEvent.getBanner();
+        ParseFile actualBanner = mEvent.getBanner();
         assertEquals(expectedBanner, actualBanner);
 
 
         //testing the get and set event Name
         String name = "Cheapest car";
-        mUserEvent.setName(name);
+        mEvent.setName(name);
         String expectedName  = name;
-        String actualName = mUserEvent.getField("eventName");
+        String actualName = mEvent.getField("eventName");
         assertEquals(expectedName, actualName);
     }
 
