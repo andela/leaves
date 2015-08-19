@@ -1,64 +1,67 @@
+package com.worldtreeinc.leaves;
+
+import android.test.InstrumentationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 
-import com.worldtreeinc.leaves.UserEvent;
-
-import junit.framework.TestCase;
+import com.parse.ParseFile;
 
 /**
  * Created by andela on 8/3/15.
  */
-public class    UserEventTest extends TestCase {
+public class EventTest extends InstrumentationTestCase {
 
-    UserEvent mUserEvent = new UserEvent();
+    Event mUserEvent;
 
     @SmallTest
-    public void testUserEvent(){
+    public void testEvent(){
+
+        mUserEvent = new Event();
 
         //testing the set and get venue methods
         String venue = "Amity";
-        mUserEvent.setEventVenue(venue);
+        mUserEvent.setVenue(venue);
         String expectedVenue  = venue;
-        String actualVenue = mUserEvent.getEventVenue();
+        String actualVenue = mUserEvent.getField("eventVenue");
         assertEquals(expectedVenue, actualVenue);
 
 
         //testing the set and get description methods
         String descript = "Technology";
-        mUserEvent.setEventDescription(descript);
+        mUserEvent.setDescription(descript);
         String expectedDescription  = descript;
-        String actualDescription = mUserEvent.getEventDescription();
+        String actualDescription = mUserEvent.getField("eventDescription");
         assertEquals(expectedDescription, actualDescription);
 
 
         //testing the set and get Date methods
         String date = "30/08/1987";
-        mUserEvent.setEventDate(date);
+        mUserEvent.setDate(date);
         String expectedDate  = date;
-        String actualDate = mUserEvent.getEventDate();
+        String actualDate = mUserEvent.getField("eventDate");
         assertEquals(expectedDate, actualDate);
 
 
         //testing the get and set category methods
         String category = "Education";
-        mUserEvent.setEventCategory(category);
+        mUserEvent.setCategory(category);
         String expectedCategory  = category;
-        String actualCategory = mUserEvent.getEventCategory();
+        String actualCategory = mUserEvent.getField("eventCategory");
         assertEquals(expectedCategory, actualCategory);
 
 
         //testing the get and set event Banner methods
-        String banner = "http://files.parsetfss.com/8bf661dc-3da1-4288-b727-8a7210bd2943/tfss-dd0ae0da-b48a-4d3a-bcd6-29682948208a-banner.jpg";
-        mUserEvent.setEventBanner(banner);
-        String expectedBanner  = banner;
-        String actualBanner = mUserEvent.getEventBanner();
+        ParseFile banner = new ParseFile("String".getBytes());
+        mUserEvent.setBanner(banner);
+        ParseFile expectedBanner  = banner;
+        ParseFile actualBanner = mUserEvent.getBanner();
         assertEquals(expectedBanner, actualBanner);
 
 
         //testing the get and set event Name
         String name = "Cheapest car";
-        mUserEvent.setEventName(name);
+        mUserEvent.setName(name);
         String expectedName  = name;
-        String actualName = mUserEvent.getEventName();
+        String actualName = mUserEvent.getField("eventName");
         assertEquals(expectedName, actualName);
     }
 
