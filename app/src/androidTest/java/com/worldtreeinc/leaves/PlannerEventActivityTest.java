@@ -112,7 +112,7 @@ public class PlannerEventActivityTest extends ActivityInstrumentationTestCase2<P
         String banner = "http://files.parsetfss.com/8bf661dc-3da1-4288-b727-8a7210bd2943/tfss-dd0ae0da-b48a-4d3a-bcd6-29682948208a-banner.jpg";
         mEvent.setBanner(banner);
         String expectedBanner  = banner;
-        ParseFile actualBanner = mEvent.getParseFile("banner");
+        ParseFile actualBanner = mEvent.getParseFile("eventBanner");
         assertEquals(expectedBanner, actualBanner);
 
 
