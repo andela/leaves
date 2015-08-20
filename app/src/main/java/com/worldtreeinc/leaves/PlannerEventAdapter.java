@@ -100,7 +100,7 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> {
                 {
                     @Override
                     public void onFinished() {
-                         dialog.deleteEvent(context, event);
+                         event.deleteEvent(context);
                     }
                 });
             }

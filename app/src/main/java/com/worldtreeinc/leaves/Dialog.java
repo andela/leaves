@@ -52,19 +52,5 @@ public class Dialog {
         activity.finish();
     }
 
-    public void deleteEvent(final Context context, Event event) {
 
-        event.deleteInBackground(new DeleteCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    // show a toast
-                    Toast.makeText(context, "message deleted", Toast.LENGTH_LONG).show();
-                    // reload event list after deleting
-                    ((Activity) context).recreate();
-
-                }
-            }
-        });
-    }
 }
