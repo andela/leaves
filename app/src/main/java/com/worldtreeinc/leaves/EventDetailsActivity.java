@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.GetDataCallback;
@@ -27,9 +26,6 @@ public class EventDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_details);
 
         eventId = getIntent().getExtras().getString("OBJECT_ID");
-        // uploadData new ParseImageLoader passing in banner to it and eventId
-        // and call setImage() method on it
-
         set(eventId);
 
         // check internet access
