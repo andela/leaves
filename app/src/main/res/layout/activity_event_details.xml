@@ -135,11 +135,16 @@
         android:textSize="16sp"
         android:textStyle="italic"/>
 
-    <ListView
-        android:id="@+id/items_list"
+    <fragment
+        android:id="@+id/item_list_frag"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:name="com.worldtreeinc.leaves.ItemListFragment"/>
 
-    </ListView>
+    <fragment
+        android:id="@+id/item_form_frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="com.worldtreeinc.leaves.ItemFormFragment"/>
 
 </LinearLayout>
