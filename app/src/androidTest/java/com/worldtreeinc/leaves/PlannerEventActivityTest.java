@@ -6,11 +6,9 @@ import android.test.ViewAsserts;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.view.View;
 
-import android.test.ActivityInstrumentationTestCase2;
-import android.test.ViewAsserts;
-import android.test.suitebuilder.annotation.SmallTest;
-import android.view.View;
 import android.widget.ListView;
+
+import com.parse.ParseFile;
 
 /**
  * Created by andela on 7/29/15.
@@ -18,7 +16,7 @@ import android.widget.ListView;
 public class PlannerEventActivityTest extends ActivityInstrumentationTestCase2<PlannerEventActivity> {
 
     PlannerEventActivity mPlannerActivity;
-    UserEvent mUserEvent = new UserEvent();
+    Event mEvent = new Event();
     ListView mListView;
 
     public PlannerEventActivityTest(){
@@ -28,10 +26,10 @@ public class PlannerEventActivityTest extends ActivityInstrumentationTestCase2<P
     protected void setUp() throws Exception {
         super.setUp();
 
-        /** Getting the reference to the activity containing listview to be tested */
+        /** Getting the reference to the context containing listview to be tested */
         mPlannerActivity = getActivity();
 
-        /** Getting the reference to the activity to be tested */
+        /** Getting the reference to the context to be tested */
         mListView = (ListView) mPlannerActivity.findViewById(R.id.listView);
 
 
@@ -80,49 +78,49 @@ public class PlannerEventActivityTest extends ActivityInstrumentationTestCase2<P
 
         //testing the set and get venue methods
         String venue = "Amity";
-        mUserEvent.setEventVenue(venue);
+        mEvent.setVenue(venue);
         String expectedVenue  = venue;
-        String actualVenue = mUserEvent.getEventVenue();
+        String actualVenue = mEvent.getField("eventVenue");
         assertEquals(expectedVenue, actualVenue);
 
 
         //testing the set and get description methods
         String descript = "Technology";
-        mUserEvent.setEventDescription(descript);
+        mEvent.setDescription(descript);
         String expectedDescription  = descript;
-        String actualDescription = mUserEvent.getEventDescription();
+        String actualDescription = mEvent.getField("eventDescription");
         assertEquals(expectedDescription, actualDescription);
 
 
         //testing the set and get Date methods
         String date = "30/08/1987";
-        mUserEvent.setEventDate(date);
+        mEvent.setDate(date);
         String expectedDate  = date;
-        String actualDate = mUserEvent.getEventDate();
+        String actualDate = mEvent.getField("eventDate");
         assertEquals(expectedDate, actualDate);
 
 
         //testing the get and set category methods
         String category = "Education";
-        mUserEvent.setEventCategory(category);
+        mEvent.setCategory(category);
         String expectedCategory  = category;
-        String actualCategory = mUserEvent.getEventCategory();
+        String actualCategory = mEvent.getField("eventCategory");
         assertEquals(expectedCategory, actualCategory);
 
 
         //testing the get and set event Banner methods
         String banner = "http://files.parsetfss.com/8bf661dc-3da1-4288-b727-8a7210bd2943/tfss-dd0ae0da-b48a-4d3a-bcd6-29682948208a-banner.jpg";
-        mUserEvent.setEventBanner(banner);
+        mEvent.setBanner(banner);
         String expectedBanner  = banner;
-        String actualBanner = mUserEvent.getEventBanner();
+        ParseFile actualBanner = mEvent.getParseFile("eventBanner");
         assertEquals(expectedBanner, actualBanner);
 
 
         //testing the get and set event Name
         String name = "Cheapest car";
-        mUserEvent.setEventName(name);
+        mEvent.setName(name);
         String expectedName  = name;
-        String actualName = mUserEvent.getEventName();
+        String actualName = mEvent.getField("eventName");
         assertEquals(expectedName, actualName);
     }
 }

@@ -21,18 +21,18 @@ import java.util.List;
 public class PlannerEventAdapter extends ArrayAdapter<Event>{
 
     // Declare Variables
-    Activity activity;
+    Context context;
     LayoutInflater inflater;
     ImageLoader imageLoader;
     private List<Event> userEventList = null;
     Event event;
 
-    public PlannerEventAdapter(Activity activity, List<Event> userEventList) {
-        super(activity, R.layout.planner_event_list_item, userEventList);
-        this.activity = activity;
+    public PlannerEventAdapter(Context context, List<Event> userEventList) {
+        super(context, R.layout.planner_event_list_item, userEventList);
+        this.context = context;
         this.userEventList = userEventList;
-        inflater = LayoutInflater.from(activity);
-        imageLoader = new ImageLoader(activity);
+        inflater = LayoutInflater.from(context);
+        imageLoader = new ImageLoader(context);
     }
 
 
@@ -83,10 +83,10 @@ public class PlannerEventAdapter extends ArrayAdapter<Event>{
                 event = userEventList.get(position);
                 String eventId = event.getObjectId();
                 Log.v("Event ID", eventId);
-                Intent intent = new Intent(activity, EventActivity.class);
+                Intent intent = new Intent(context, EventActivity.class);
                 intent.putExtra("EVENT_ID", eventId);
-                activity.startActivity(intent);
-                activity.finish();
+                context.startActivity(intent);
+                ((Activity) context).finish();
             }
         });
 
