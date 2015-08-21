@@ -1,9 +1,9 @@
 package com.worldtreeinc.leaves;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,9 +11,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.rey.material.widget.ProgressView;
 
@@ -24,7 +21,7 @@ import java.util.List;
 public class PlannerDashActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView bidList;
-    private BidListAdapter listAdapter;
+    private ItemListAdapter listAdapter;
     private ProgressView loader;
     private FrameLayout frame;
 
@@ -41,41 +38,41 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
         }
         setContentView(R.layout.activity_planner_dash);
         initialize();
-        updateData();
+        new ItemAsyncTask().execute();
     }
 
     public void initialize() {
         bidList = (ListView) findViewById(R.id.items_list);
-        //set adapter to list view
-        listAdapter = new BidListAdapter(this, new ArrayList<EventItem>());
-        bidList.setAdapter(listAdapter);
-
         frame = (FrameLayout)findViewById(R.id.frame_loader);
         loader = (ProgressView) this.findViewById(R.id.loading);
-
         Button createEventBtn = (Button) findViewById(R.id.create_event_btn);
         createEventBtn.setOnClickListener(this);
         Button manageEventBtn = (Button) findViewById(R.id.manage_events_btn);
         manageEventBtn.setOnClickListener(this);
     }
 
-    public void updateData(){
-        loader.start();
-        ParseQuery<EventItem> query = ParseQuery.getQuery(EventItem.class);
-        query.findInBackground(new FindCallback<EventItem>() {
-            @Override
-            public void done(List<EventItem> bidObject, ParseException e) {
-                if (e == null) {
-                    listAdapter.clear();
-                    listAdapter.addAll(bidObject);
-                    frame.setVisibility(View.GONE);
-                    loader.stop();
-                }
-                else {
-                    Log.d("message", "Error: " + e.getMessage());
-                }
-            }
-        });
+    private class ItemAsyncTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            List items = EventItem.getAll();
+            listAdapter.clear();
+            listAdapter.addAll(items);
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            listAdapter = new ItemListAdapter(PlannerDashActivity.this, new ArrayList<EventItem>());
+            loader.start();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            bidList.setAdapter(listAdapter);
+            frame.setVisibility(View.GONE);
+            loader.stop();
+        }
     }
 
     @Override
