@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseImageView;
+import com.rey.material.widget.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +28,42 @@ public class EventDetailsActivity extends AppCompatActivity {
     String userId;
     ListView itemList;
     ItemListAdapter listAdapter;
+    FloatingActionButton addItemButton;
+    ItemFormFragment itemFormFragment =  new ItemFormFragment();
+    private boolean mShowingBack = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
+        if (savedInstanceState == null) {
+            // If there is no saved instance state, add a fragment representing the
+            // front of the card to this activity. If there is saved instance state,
+            // this fragment will have already been added to the activity.
+            getFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.container, new ItemListFragment())
+                    .commit();
+        } else {
+            mShowingBack = (getFragmentManager().getBackStackEntryCount() > 0);
+        }
+
+
         eventId = getIntent().getExtras().getString("OBJECT_ID");
         set(eventId);
         new ItemAsyncTask().execute();
+
+        addItemButton = (FloatingActionButton) findViewById(R.id.add_item_button);
+
+        addItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flipCard();
+                addItemButton.setVisibility(v.GONE);
+                itemFormFragment.getResource(addItemButton);
+            }
+        });
 
         // check internet access
         boolean connecting = checkOnlineState();
@@ -43,6 +72,25 @@ public class EventDetailsActivity extends AppCompatActivity {
             error.setText("No Internet Connection");
         }
 
+    }
+
+    private void flipCard() {
+        if (mShowingBack) {
+            getFragmentManager().popBackStack();
+            mShowingBack = false;
+            return;
+        }
+
+        mShowingBack = true;
+
+        getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        R.animator.card_flip_right_in, R.animator.card_flip_right_out,
+                        R.animator.card_flip_left_in, R.animator.card_flip_left_out)
+                .replace(R.id.container, itemFormFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     public void setViewText(TextView textView, Event event, String fieldName) {
