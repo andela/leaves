@@ -96,11 +96,14 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> {
             @Override
             public void onClick(View v) {
                 event = userEventList.get(position);
-                dialog.dialog(context, context.getString(R.string.delete_event_title), context.getString(R.string.delete_event_message), new Dialog.CallBack()
-                {
+                if (event.getEntries() > 0) {
+                    dialog.dialog(context, context.getString(R.string.delete_event_title), context.getString(R.string.delete_event_error));
+                    return;
+                }
+                dialog.dialog(context, context.getString(R.string.delete_event_title), context.getString(R.string.delete_event_message), new Dialog.CallBack() {
                     @Override
                     public void onFinished() {
-                         event.deleteEvent(context);
+                        event.delete(context);
                     }
                 });
             }

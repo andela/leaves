@@ -57,6 +57,14 @@ public class Event extends ParseObject {
         put("entryFee", entryFee);
     }
 
+    public void setEntries() {
+        put("entries", 0);
+    }
+
+    public int getEntries() {
+        return (int) getNumber("entries");
+    }
+
     public static Event getOne(String eventId) {
         Event event;
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
@@ -85,8 +93,7 @@ public class Event extends ParseObject {
         return event;
     }
 
-    public void deleteEvent(final Context context) {
-
+    public void delete(final Context context) {
         this.deleteInBackground(new DeleteCallback() {
             @Override
             public void done(ParseException e) {

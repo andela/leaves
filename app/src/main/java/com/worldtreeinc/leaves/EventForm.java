@@ -305,6 +305,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         event.setVenue(eventVenue);
         event.setDescription(eventDescription);
         event.setBanner(file);
+        event.setEntries();
         // get current user from localStore
         ParseUser currentUser = ParseUser.getCurrentUser();
         event.setUserId(currentUser.getObjectId());

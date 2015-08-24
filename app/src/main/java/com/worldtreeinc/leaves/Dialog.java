@@ -24,7 +24,7 @@ public class Dialog {
         void onFinished();
     }
 
-    public void dialog(Context context, String title, String message,final CallBack callback) {
+    public void dialog(Context context, String title, String message,final CallBack... callbacks) {
 //        final Activity eventActivity = activity;
         // build up the dialog
         new AlertDialog.Builder(context)
@@ -34,7 +34,8 @@ public class Dialog {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
                         // close the form and return to the dashboard
-                        callback.onFinished();
+                        if (callbacks.length > 0)
+                            callbacks[0].onFinished();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
