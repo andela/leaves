@@ -18,6 +18,7 @@ public class ItemFormFragment extends Fragment {
     ImageButton cancelItemAddButton;
     FloatingActionButton floatingActionButton;
     private boolean mShowingBack = false;
+    String eventId;
 
 
     @Nullable
@@ -49,17 +50,23 @@ public class ItemFormFragment extends Fragment {
 
         mShowingBack = true;
 
+        ItemListFragment itemListFragment = new ItemListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("eventId", eventId);
+        itemListFragment.setArguments(bundle);
+
         getFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(
                         R.animator.card_flip_right_in, R.animator.card_flip_right_out,
                         R.animator.card_flip_left_in, R.animator.card_flip_left_out)
-                .replace(R.id.container, new ItemListFragment())
+                .replace(R.id.container, itemListFragment)
                 .addToBackStack(null)
                 .commit();
     }
 
-    public void getResource(FloatingActionButton fButton) {
-        floatingActionButton = fButton;
+    public void setResource(FloatingActionButton fButton, String eventId) {
+        this.floatingActionButton = fButton;
+        this.eventId = eventId;
     }
 }

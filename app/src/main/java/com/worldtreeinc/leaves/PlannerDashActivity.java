@@ -63,7 +63,7 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            listAdapter = new ItemListAdapter(PlannerDashActivity.this, new ArrayList<EventItem>());
+            listAdapter = new ItemListAdapter(PlannerDashActivity.this, new ArrayList<EventItem>(), true);
             loader.start();
         }
 

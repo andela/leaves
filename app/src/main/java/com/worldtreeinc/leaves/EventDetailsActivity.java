@@ -3,7 +3,6 @@ package com.worldtreeinc.leaves;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -18,9 +17,6 @@ import com.parse.ParseException;
 import com.parse.ParseImageView;
 import com.rey.material.widget.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class EventDetailsActivity extends AppCompatActivity {
 
     // declare class variables
@@ -29,6 +25,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     ListView itemList;
     ItemListAdapter listAdapter;
     FloatingActionButton addItemButton;
+    ItemListFragment itemListFragment;
     ItemFormFragment itemFormFragment =  new ItemFormFragment();
     private boolean mShowingBack = false;
 
@@ -37,22 +34,25 @@ public class EventDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
+        eventId = getIntent().getExtras().getString("OBJECT_ID");
+        set(eventId);
+
+        itemListFragment = new ItemListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("eventId", eventId);
+        itemListFragment.setArguments(bundle);
+
         if (savedInstanceState == null) {
             // If there is no saved instance state, add a fragment representing the
             // front of the card to this activity. If there is saved instance state,
             // this fragment will have already been added to the activity.
             getFragmentManager()
                     .beginTransaction()
-                    .add(R.id.container, new ItemListFragment())
+                    .add(R.id.container, itemListFragment)
                     .commit();
         } else {
             mShowingBack = (getFragmentManager().getBackStackEntryCount() > 0);
         }
-
-
-        eventId = getIntent().getExtras().getString("OBJECT_ID");
-        set(eventId);
-        new ItemAsyncTask().execute();
 
         addItemButton = (FloatingActionButton) findViewById(R.id.add_item_button);
 
@@ -61,7 +61,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 flipCard();
                 addItemButton.setVisibility(v.GONE);
-                itemFormFragment.getResource(addItemButton);
+                itemFormFragment.setResource(addItemButton, eventId);
             }
         });
 
@@ -97,6 +97,25 @@ public class EventDetailsActivity extends AppCompatActivity {
         textView.setText(event.getField(fieldName));
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_event_details, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void set(String eventId) {
         Event event = Event.getOne(eventId);
         if (event != null) {
@@ -126,28 +145,8 @@ public class EventDetailsActivity extends AppCompatActivity {
 
                 }
             });
-            itemList = (ListView) findViewById(R.id.items_list);
 
         }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_event_details, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public boolean checkOnlineState() {
@@ -155,26 +154,5 @@ public class EventDetailsActivity extends AppCompatActivity {
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo NInfo = CManager.getActiveNetworkInfo();
         return (NInfo != null && NInfo.isConnectedOrConnecting());
-    }
-
-    private class ItemAsyncTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            List items = EventItem.getAll(eventId);
-            listAdapter.clear();
-            listAdapter.addAll(items);
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            listAdapter = new ItemListAdapter(EventDetailsActivity.this, new ArrayList<EventItem>());
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            itemList.setAdapter(listAdapter);
-        }
     }
 }

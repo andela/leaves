@@ -46,6 +46,10 @@ public class EventItem extends ParseObject {
         return getString("itemName");
     }
 
+    public String getDescription() {
+        return getString("itemDescription");
+    }
+
     public void setName(String itemName) {
         put("itemName", itemName);
     }
