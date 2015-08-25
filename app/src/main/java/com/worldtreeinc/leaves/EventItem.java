@@ -79,15 +79,23 @@ public class EventItem extends ParseObject {
         return item;
     }
 
-    public static List<EventItem> getAll(String... args) {
+    public static List<EventItem> getByUserId() {
         List<EventItem> item;
         ParseQuery<EventItem> query = ParseQuery.getQuery(EventItem.class);
-        if (args.length == 0){
-            query.whereEqualTo("userId", ParseUser.getCurrentUser().getObjectId());
+        query.whereEqualTo("userId", ParseUser.getCurrentUser().getObjectId());
+        try {
+            item = query.find();
         }
-        else if (args.length == 1){
-            query.whereEqualTo("eventId", args[0]);
+        catch (ParseException e) {
+            e.printStackTrace();
+            item = null;
         }
+        return item;
+    }
+    public static List<EventItem> getByEventId(String eventId) {
+        List<EventItem> item;
+        ParseQuery<EventItem> query = ParseQuery.getQuery(EventItem.class);
+        query.whereEqualTo("eventId", eventId);
         try {
             item = query.find();
         }

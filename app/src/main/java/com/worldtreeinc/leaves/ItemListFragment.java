@@ -56,7 +56,7 @@ public class ItemListFragment extends Fragment {
     private class ItemAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            List items = EventItem.getAll(eventId);
+            List items = EventItem.getByEventId(eventId);
             Log.v("List: ", String.valueOf(items));
             listAdapter.clear();
             listAdapter.addAll(items);
