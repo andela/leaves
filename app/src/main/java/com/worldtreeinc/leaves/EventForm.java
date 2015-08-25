@@ -273,19 +273,24 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     public void saveToDatabase(String feedbackText) {
         final String text = feedbackText;
-        event.saveInBackground(new SaveCallback() {
+        AsyncTask<Void, Void, Void> itemAsync = new AsyncTask<Void, Void, Void>() {
             @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    // stop the progress view
-                    progressView.stop();
-                    // show a toast
-                    Toast.makeText(activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
-                    // finish context and move to plannerEventListActivity
-                    eventFormCancel.backToEventList(activity);
-                }
+            protected Void doInBackground(Void... params) {
+                event.saveAll();
+                return null;
             }
-        });
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                // stop the progress view
+                progressView.stop();
+                // show a toast
+                Toast.makeText(activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                // finish context and move to plannerEventListActivity
+                eventFormCancel.backToEventList(activity);
+            }
+        };
+        itemAsync.execute();
     }
 
     public void compileEventData() {

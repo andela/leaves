@@ -105,4 +105,14 @@ public class EventItem extends ParseObject {
         }
         return item;
     }
+
+    public Void saveAll(){
+            try {
+                save();
+            }
+            catch (ParseException e) {
+                e.printStackTrace();
+            }
+        return null;
+    }
 }

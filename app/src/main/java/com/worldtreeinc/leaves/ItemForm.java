@@ -2,6 +2,7 @@ package com.worldtreeinc.leaves;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -9,9 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.SaveCallback;
 import com.rey.material.widget.FloatingActionButton;
 
 /**
@@ -78,7 +77,7 @@ public class ItemForm implements View.OnClickListener  {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.item_image_select_icon | R.id.new_item_image:
+            case R.id.item_image_select_icon | R.id.new_item_form_image_frame:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -87,12 +86,12 @@ public class ItemForm implements View.OnClickListener  {
                 }).start();
                 break;
             case R.id.confirm_add_item_button:
-                compile();
+                add();
                 break;
         }
     }
 
-    private void compile() {
+    private void add() {
         getData();
         if(isValid()){
             set();
@@ -100,10 +99,18 @@ public class ItemForm implements View.OnClickListener  {
         }
     }
 
+
     private void save() {
-        item.saveInBackground(new SaveCallback() {
+
+        AsyncTask<Void, Void, Void> itemAsync = new AsyncTask<Void, Void, Void>() {
             @Override
-            public void done(ParseException e) {
+            protected Void doInBackground(Void... params) {
+                item.saveAll();
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
                 itemListFragment = new ItemListFragment();
                 bundle = new Bundle();
                 bundle.putString("eventId", eventId);
@@ -118,14 +125,15 @@ public class ItemForm implements View.OnClickListener  {
                         .commit();
                 floatingActionButton.setVisibility(View.VISIBLE);
             }
-        });
+        };
+        itemAsync.execute();
     }
 
     private void set() {
         item.setName(nameText);
         item.setDescription(descriptionText);
-        item.setPreviousBid(Integer.parseInt(startBidText));
-        item.setNewBid(Integer.parseInt(startBidText));
+        item.setPreviousBid(Double.parseDouble(startBidText));
+        item.setNewBid(Double.parseDouble(startBidText));
         item.setImage(file);
         item.setEventId(eventId);
         item.setUserId(userId);

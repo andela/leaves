@@ -80,4 +80,14 @@ public class Event extends ParseObject {
         return event;
     }
 
+    public Void saveAll(){
+        try {
+            save();
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
