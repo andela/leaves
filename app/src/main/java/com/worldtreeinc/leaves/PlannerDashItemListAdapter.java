@@ -16,48 +16,31 @@ import com.parse.ParseFile;
 
 import java.util.List;
 
-public class ItemListAdapter extends ArrayAdapter<EventItem> {
+public class PlannerDashItemListAdapter extends ArrayAdapter<EventItem> {
 
     private Context context;
     private List<EventItem> items;
-    private boolean isDash;
 
-    public ItemListAdapter(Context context, List<EventItem> objects) {
-        super(context, R.layout.event_details_items, objects);
-        this.context = context;
-        this.items = objects;
-    }
-    public ItemListAdapter(Context context, List<EventItem> objects, boolean isDash) {
+    public PlannerDashItemListAdapter(Context context, List<EventItem> objects) {
         super(context, R.layout.activity_planner_dash_bid_item, objects);
         this.context = context;
         this.items = objects;
-        this.isDash = isDash;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null){
+        if(convertView == null) {
             LayoutInflater listLayoutInflater = LayoutInflater.from(context);
-            convertView = isDash ? listLayoutInflater.inflate(R.layout.activity_planner_dash_bid_item, null)
-                    : listLayoutInflater.inflate(R.layout.event_details_items, null);
+            convertView = listLayoutInflater.inflate(R.layout.activity_planner_dash_bid_item, null);
         }
-
         EventItem item = items.get(position);
         Event event =  Event.getOne(item.getEventId());
 
         TextView itemName = (TextView) convertView.findViewById(R.id.item_name);
         itemName.setText(item.getName());
 
-        TextView itemDescription = (TextView) convertView.findViewById(R.id.item_description);
-
         TextView eventName = (TextView) convertView.findViewById(R.id.planner_dash_event_name);
-
-        if (eventName != null) {
-            eventName.setText(event.getField("eventName"));
-        }
-        else {
-            itemDescription.setText(item.getDescription());
-        }
+        eventName.setText(event.getField("eventName"));
 
         TextView previousBid = (TextView) convertView.findViewById(R.id.previous_bid);
         previousBid.setText(item.getPreviousBid().toString());
@@ -81,3 +64,4 @@ public class ItemListAdapter extends ArrayAdapter<EventItem> {
     }
 
 }
+

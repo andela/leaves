@@ -25,7 +25,7 @@ public class ItemListFragment extends Fragment {
     ListView itemList;
     FrameLayout frame;
     ProgressView loader;
-    ItemListAdapter listAdapter;
+    EventDetailItemListAdapter listAdapter;
     String eventId;
 
     @Override
@@ -66,7 +66,7 @@ public class ItemListFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            listAdapter = new ItemListAdapter(getActivity(), new ArrayList<EventItem>());
+            listAdapter = new EventDetailItemListAdapter(getActivity(), new ArrayList<EventItem>());
             loader.start();
         }
 

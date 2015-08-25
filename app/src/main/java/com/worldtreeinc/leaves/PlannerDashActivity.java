@@ -21,7 +21,7 @@ import java.util.List;
 public class PlannerDashActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView bidList;
-    private ItemListAdapter listAdapter;
+    private PlannerDashItemListAdapter listAdapter;
     private ProgressView loader;
     private FrameLayout frame;
 
@@ -63,7 +63,7 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            listAdapter = new ItemListAdapter(PlannerDashActivity.this, new ArrayList<EventItem>(), true);
+            listAdapter = new PlannerDashItemListAdapter(PlannerDashActivity.this, new ArrayList<EventItem>());
             loader.start();
         }
 
