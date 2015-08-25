@@ -85,6 +85,7 @@
     <string name="planner_dash_event_name">China Town Auction</string>
     <string name="create_event_form_toast">Event Created.</string>
     <string name="update_event_form_toast">Event Updated.</string>
+    <string name="event_detail_internet_error">No Internet Connection</string>
 
 </resources>
 

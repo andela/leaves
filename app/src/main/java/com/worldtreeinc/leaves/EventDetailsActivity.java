@@ -1,9 +1,6 @@
 package com.worldtreeinc.leaves;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -27,7 +24,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     private boolean mShowingBack = false;
     Bundle bundle;
     Banner banner;
-    TextView error;
+    TextView errorMessageHolder;
 
     private static int RESULT_LOAD_IMAGE = 1;
 
@@ -48,20 +45,16 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
 
         init(savedInstanceState);
 
-        internetError();
+        NetworkUtil.setError(this, errorMessageHolder, getString(R.string.event_detail_internet_error));
+
     }
 
-    private void internetError() {
-        if (!checkOnlineState()) {
-            error.setText("No Internet Connection");
-        }
-    }
 
     private void init(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            // If there is no saved instance state, add a fragment representing the
-            // front of the card to this activity. If there is saved instance state,
-            // this fragment will have already been added to the activity.
+            /* If there is no saved instance state, add a fragment representing the
+              front of the card to this activity. If there is saved instance state,
+             this fragment will have already been added to the activity. */
             getFragmentManager()
                     .beginTransaction()
                     .add(R.id.container, itemListFragment)
@@ -71,7 +64,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         }
 
         addItemButton = (FloatingActionButton) findViewById(R.id.add_item_button);
-        error = (TextView) findViewById(R.id.no_internet_error);
+        errorMessageHolder = (TextView) findViewById(R.id.no_internet_error);
 
         addItemButton.setOnClickListener(this);
     }
@@ -152,13 +145,6 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
             });
 
         }
-    }
-
-    public boolean checkOnlineState() {
-        ConnectivityManager CManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo NInfo = CManager.getActiveNetworkInfo();
-        return (NInfo != null && NInfo.isConnectedOrConnecting());
     }
 
     @Override
