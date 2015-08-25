@@ -17,7 +17,7 @@ import com.parse.ParseException;
 import com.parse.ParseImageView;
 import com.rey.material.widget.FloatingActionButton;
 
-public class EventDetailsActivity extends AppCompatActivity {
+public class EventDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     // declare class variables
     String eventId;
@@ -27,6 +27,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     private boolean mShowingBack = false;
     Bundle bundle;
     Banner banner;
+    TextView error;
 
     private static int RESULT_LOAD_IMAGE = 1;
 
@@ -45,6 +46,18 @@ public class EventDetailsActivity extends AppCompatActivity {
         banner = new Banner();
         set(eventId);
 
+        init(savedInstanceState);
+
+        internetError();
+    }
+
+    private void internetError() {
+        if (!checkOnlineState()) {
+            error.setText("No Internet Connection");
+        }
+    }
+
+    private void init(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             // If there is no saved instance state, add a fragment representing the
             // front of the card to this activity. If there is saved instance state,
@@ -58,23 +71,9 @@ public class EventDetailsActivity extends AppCompatActivity {
         }
 
         addItemButton = (FloatingActionButton) findViewById(R.id.add_item_button);
+        error = (TextView) findViewById(R.id.no_internet_error);
 
-
-        addItemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                flipCard();
-                addItemButton.setVisibility(v.GONE);
-            }
-        });
-
-        // check internet access
-        boolean connecting = checkOnlineState();
-        TextView error = (TextView) findViewById(R.id.no_internet_error);
-        if (!connecting) {
-            error.setText("No Internet Connection");
-        }
-
+        addItemButton.setOnClickListener(this);
     }
 
     private void flipCard() {
@@ -170,4 +169,9 @@ public class EventDetailsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        flipCard();
+        addItemButton.setVisibility(v.GONE);
+    }
 }
