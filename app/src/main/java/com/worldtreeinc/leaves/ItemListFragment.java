@@ -31,7 +31,11 @@ public class ItemListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        eventId = getArguments().getString("eventId");
+        try {
+            eventId = getArguments().getString("eventId");
+        } catch (Exception e){
+
+        }
     }
 
     @Nullable
@@ -53,7 +57,6 @@ public class ItemListFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             List items = EventItem.getAll(eventId);
-
             Log.v("List: ", String.valueOf(items));
             listAdapter.clear();
             listAdapter.addAll(items);

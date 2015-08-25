@@ -41,7 +41,7 @@ public class Event extends ParseObject {
     }
 
     public void setBanner(ParseFile banner) {
-        put("eventBanner", banner);
+        put("banner", banner);
     }
 
     public void setUserId(String userId) {

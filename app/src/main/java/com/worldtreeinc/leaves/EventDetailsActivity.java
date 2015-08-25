@@ -1,6 +1,7 @@
 package com.worldtreeinc.leaves;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.GetDataCallback;
@@ -21,26 +21,29 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     // declare class variables
     String eventId;
-    String userId;
-    ListView itemList;
-    ItemListAdapter listAdapter;
     FloatingActionButton addItemButton;
     ItemListFragment itemListFragment;
-    ItemFormFragment itemFormFragment =  new ItemFormFragment();
+    ItemFormFragment itemFormFragment;
     private boolean mShowingBack = false;
+    Bundle bundle;
+    Banner banner;
+
+    private static int RESULT_LOAD_IMAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
+        bundle = new Bundle();
         eventId = getIntent().getExtras().getString("OBJECT_ID");
-        set(eventId);
 
         itemListFragment = new ItemListFragment();
-        Bundle bundle = new Bundle();
         bundle.putString("eventId", eventId);
         itemListFragment.setArguments(bundle);
+
+        banner = new Banner();
+        set(eventId);
 
         if (savedInstanceState == null) {
             // If there is no saved instance state, add a fragment representing the
@@ -56,12 +59,12 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         addItemButton = (FloatingActionButton) findViewById(R.id.add_item_button);
 
+
         addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 flipCard();
                 addItemButton.setVisibility(v.GONE);
-                itemFormFragment.setResource(addItemButton, eventId);
             }
         });
 
@@ -80,6 +83,9 @@ public class EventDetailsActivity extends AppCompatActivity {
             mShowingBack = false;
             return;
         }
+        itemFormFragment =  new ItemFormFragment();
+        itemFormFragment.setArguments(bundle);
+        itemFormFragment.setResource(addItemButton);
 
         mShowingBack = true;
 
@@ -155,4 +161,13 @@ public class EventDetailsActivity extends AppCompatActivity {
         NetworkInfo NInfo = CManager.getActiveNetworkInfo();
         return (NInfo != null && NInfo.isConnectedOrConnecting());
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            new ItemImage().set(this, data.getData());
+        }
+    }
+
 }

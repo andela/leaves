@@ -15,14 +15,14 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
     // global variables to be used in multiple methods.
     private static int RESULT_LOAD = 1;
     EventForm newEventForm;
-    EventBanner eventBanner = new EventBanner();
+    Banner banner = new Banner();
     String eventId;
     Button eventButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_event2);
+        setContentView(R.layout.activity_create_event);
         eventButton = (Button) findViewById(R.id.event_button);
 
         newEventForm = new EventForm(this);
@@ -94,7 +94,7 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        eventBanner.processSelectedImage(EventActivity.this, requestCode, resultCode, data, newEventForm, RESULT_LOAD);
+        banner.processSelectedImage(EventActivity.this, requestCode, resultCode, data, newEventForm, RESULT_LOAD);
     }
 
     protected void setupEdit() {

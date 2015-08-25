@@ -63,7 +63,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     EventFormCancel eventFormCancel = new EventFormCancel();
     Event event = new Event(); // event object
-    EventBanner eventBanner = new EventBanner();
+    Banner banner = new Banner();
 
     public EventForm(Activity activity) {
         this.activity = activity;
@@ -110,7 +110,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 selectDate(activity, eventDateEditText);
                 break;
             case R.id.clear_banner_icon:
-                eventBanner.clear(activity, eventBannerImageView);
+                banner.clear(activity, eventBannerImageView);
                 this.bannerSelected = false;
                 this.updateBanner = false;
                 break;
@@ -129,7 +129,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
     public void setData(String eventId) {
         Event eventObject = Event.getOne(eventId);
 
-        file = (ParseFile) eventObject.get("eventBanner");
+        file = (ParseFile) eventObject.get("banner");
         file.getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] bytes, ParseException e) {
@@ -218,7 +218,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         protected Void doInBackground(Void... params) {
             if (bannerSelected) {
                 if (!updateBanner) {
-                    file = eventBanner.getByteArray(imagePath);
+                    file = banner.getByteArray(imagePath);
                 }
             } else {
                 // set default banner for event
@@ -228,7 +228,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 } else {
                     drawable = activity.getApplicationContext().getDrawable(R.drawable.default_image);
                 }
-                Bitmap bitmap = eventBanner.drawableToBitmap(drawable);
+                Bitmap bitmap = banner.drawableToBitmap(drawable);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] parseFile = stream.toByteArray();

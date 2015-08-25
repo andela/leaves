@@ -21,11 +21,11 @@ import java.io.ByteArrayOutputStream;
 /**
  * Created by andela on 8/12/15.
  */
-public class EventBanner {
+public class Banner {
 
     public String imagePath;
 
-    public EventBanner() {
+    public Banner() {
     }
 
     public void processSelectedImage(Activity activity, int requestCode, int resultCode, Intent data, EventForm newEventForm, int RESULT_LOAD) {
