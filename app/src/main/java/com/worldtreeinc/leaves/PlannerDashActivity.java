@@ -54,7 +54,7 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
     private class ItemAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            List items = EventItem.getByUserId();
+            List items = EventItem.getByCurrentUserId();
             listAdapter.clear();
             listAdapter.addAll(items);
             return null;

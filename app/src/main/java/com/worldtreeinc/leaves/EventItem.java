@@ -79,7 +79,7 @@ public class EventItem extends ParseObject {
         return item;
     }
 
-    public static List<EventItem> getByUserId() {
+    public static List<EventItem> getByCurrentUserId() {
         List<EventItem> item;
         ParseQuery<EventItem> query = ParseQuery.getQuery(EventItem.class);
         query.whereEqualTo("userId", ParseUser.getCurrentUser().getObjectId());
