@@ -153,12 +153,17 @@ public class UserAuthentication {
         Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
     }
 
-    private class RegisterAsyncTask extends AsyncTask<Void, Void, ParseException>{
+    private class RegisterAsyncTask extends AsyncTask<Void, Void, String>{
 
         @Override
-        protected ParseException doInBackground(Void... params) {
-            return user.register();
-
+        protected String doInBackground(Void... params) {
+            String message = null;
+            try {
+                user.signUp();
+            }catch (Exception e){
+               message = e.getMessage().toString();
+            }
+            return message;
         }
 
         @Override
@@ -172,41 +177,35 @@ public class UserAuthentication {
         }
 
         @Override
-        protected void onPostExecute(ParseException e) {
-            super.onPostExecute(e);
-            if(e == null){
+        protected void onPostExecute(String string) {
+            super.onPostExecute(string);
+            if(string == null){
                 String message = "Sign Up Successful";
                 loader.stop();
                 setToastMessage(message);
                 // call login after registering
                 login();
             }else{
-                String message;
                 // get error message from parse
-                if (e != null) {
-                    if (e.getCause() != null) {
-                        message = e.getCause().getMessage();
-                    } else {
-                        message = e.getMessage();
-                    }
-                    setToastMessage(message);
-                }
+                setToastMessage(string);
                 loader.stop();
             }
-
-
         }
 
     }
     public void login () {
 
-        AsyncTask<Void, Void, Exception> LoginAsyncTask = new AsyncTask<Void, Void, Exception>() {
+        AsyncTask<Void, Void, String> LoginAsyncTask = new AsyncTask<Void, Void, String>() {
 
             @Override
-            protected Exception doInBackground(Void... params) {
-
-                return user.login(username, password);
-
+            protected String doInBackground(Void... params) {
+                String message = null;
+                try {
+                    user.login(username, password);
+                }catch(Exception e){
+                    message = e.getMessage().toString();
+                }
+                return message;
             }
 
             @Override
@@ -216,17 +215,16 @@ public class UserAuthentication {
             }
 
             @Override
-            protected void onPostExecute(Exception e) {
-                super.onPostExecute(e);
-                if (e == null) {
+            protected void onPostExecute(String message) {
+                super.onPostExecute(message);
+                if (message == null) {
                     // Hooray! The user is logged in.
                     setToastMessage("You are logged in");
                     Intent roleIntent = new Intent(activity, RoleOptionActivity.class);
                     activity.startActivity(roleIntent);
                 } else {
                     // Login failed. Look at the ParseException to see what happened.
-                    if (user.getError() != null)
-                        setToastMessage(user.getError().getMessage());
+                        setToastMessage(message);
                     return;
                 }
             }
