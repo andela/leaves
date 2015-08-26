@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by andela on 7/24/15.
  */
-public class PlannerEventAdapter extends ArrayAdapter<Event>{
+public class PlannerEventAdapter extends ArrayAdapter<Event> {
 
     // Declare Variables
     Context context;
@@ -26,6 +26,8 @@ public class PlannerEventAdapter extends ArrayAdapter<Event>{
     ImageLoader imageLoader;
     private List<Event> userEventList = null;
     Event event;
+    Dialog dialog = new Dialog();
+    Activity activity = ((Activity) context);
 
     public PlannerEventAdapter(Context context, List<Event> userEventList) {
         super(context, R.layout.planner_event_list_item, userEventList);
@@ -43,6 +45,7 @@ public class PlannerEventAdapter extends ArrayAdapter<Event>{
         TextView eventName;
         TextView eventVenue;
         ImageView editButton;
+        ImageView deleteButton;
     }
 
     public View getView(final int position, View view, ViewGroup parent) {
@@ -60,6 +63,7 @@ public class PlannerEventAdapter extends ArrayAdapter<Event>{
             holder.eventName = (TextView) view.findViewById(R.id.eventName);
             holder.eventVenue = (TextView) view.findViewById(R.id.eventVenue);
             holder.editButton = (ImageView) view.findViewById(R.id.editButton);
+            holder.deleteButton = (ImageView) view.findViewById(R.id.deleteButton);
             // Locate the ImageView in listview_item.xml
             holder.eventBanner = (com.pkmmte.view.CircularImageView) view.findViewById(R.id.eventBanner);
             view.setTag(holder);
@@ -87,8 +91,24 @@ public class PlannerEventAdapter extends ArrayAdapter<Event>{
                 ((Activity) context).finish();
             }
         });
+        holder.deleteButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                event = userEventList.get(position);
+                if (event.getEntries() > 0) {
+                    dialog.dialog(context, context.getString(R.string.delete_event_title), context.getString(R.string.delete_event_error));
+                    return;
+                }
+                dialog.dialog(context, context.getString(R.string.delete_event_title), context.getString(R.string.delete_event_message), new Dialog.CallBack() {
+                    @Override
+                    public void onFinished() {
+                        event.delete(context);
+                    }
+                });
+            }
+        });
 
         return view;
     }
-
 }

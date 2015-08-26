@@ -19,6 +19,7 @@ public class ParseApplication extends Application {
 
         //register subclasses
         ParseObject.registerSubclass(EventItem.class);
+        ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Event.class);
 
         // Add your initialization code here

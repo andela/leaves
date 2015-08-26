@@ -109,12 +109,11 @@ public class PlannerEventActivityTest extends ActivityInstrumentationTestCase2<P
 
 
         //testing the get and set event Banner methods
-        String banner = "http://files.parsetfss.com/8bf661dc-3da1-4288-b727-8a7210bd2943/tfss-dd0ae0da-b48a-4d3a-bcd6-29682948208a-banner.jpg";
+        ParseFile banner = new ParseFile("String".getBytes());
         mEvent.setBanner(banner);
-        String expectedBanner  = banner;
-        ParseFile actualBanner = mEvent.getParseFile("banner");
+        ParseFile expectedBanner  = banner;
+        ParseFile actualBanner = mEvent.getBanner();
         assertEquals(expectedBanner, actualBanner);
-
 
         //testing the get and set event Name
         String name = "Cheapest car";

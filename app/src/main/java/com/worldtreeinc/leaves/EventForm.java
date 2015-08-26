@@ -61,7 +61,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     ParseFile file;
 
-    EventFormCancel eventFormCancel = new EventFormCancel();
+    Dialog eventFormCancelDialog = new Dialog();
     Event event = new Event(); // event object
     Banner banner = new Banner();
 
@@ -305,6 +305,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         event.setVenue(eventVenue);
         event.setDescription(eventDescription);
         event.setBanner(file);
+        event.setEntries();
         // get current user from localStore
         ParseUser currentUser = ParseUser.getCurrentUser();
         event.setUserId(currentUser.getObjectId());
@@ -321,10 +322,15 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 file == null
                 ) {
             // close the form and return to the dashboard
-            eventFormCancel.backToEventList(activity);
+            eventFormCancelDialog.backToEventList(activity);
         } else {
             // build up the dialog
-            eventFormCancel.dialog(activity);
+            eventFormCancelDialog.dialog(activity, activity.getString(R.string.cancel_event_title), activity.getString(R.string.cancel_event_message), new Dialog.CallBack() {
+                @Override
+                public void onFinished() {
+                    eventFormCancelDialog.backToEventList(activity);
+                }
+            });
         }
     }
 
