@@ -291,7 +291,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 // show a toast
                 Toast.makeText(activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
                 // finish context and move to plannerEventListActivity
-                eventFormCancel.backToEventList(activity);
+                eventFormCancelDialog.backToEventList(activity);
             }
         };
         itemAsync.execute();
