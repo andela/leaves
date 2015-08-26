@@ -201,7 +201,7 @@ public class UserAuthentication {
             protected String doInBackground(Void... params) {
                 String message = null;
                 try {
-                    user.login(username, password);
+                    user.logIn(username, password);
                 }catch(Exception e){
                     message = e.getMessage().toString();
                 }
