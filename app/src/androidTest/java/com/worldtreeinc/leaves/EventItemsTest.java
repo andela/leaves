@@ -64,11 +64,6 @@ public class EventItemsTest extends InstrumentationTestCase {
         ParseFile expected = image;
         ParseFile actual = mItem.getImage();
 
-        Log.v("TAG-EXPECTED", expected.toString());
-
-        Log.v("TAG-ACTUAL", actual.toString());
-
-
         assertSame("Images not equal", expected, actual);
     }
 
