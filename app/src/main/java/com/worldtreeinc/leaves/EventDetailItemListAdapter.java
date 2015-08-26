@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.rey.material.widget.FloatingActionButton;
 
 import java.util.List;
@@ -59,8 +58,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> {
         newBid.setText(item.getNewBid().toString());
 
         final ImageView itemImage = (ImageView) convertView.findViewById(R.id.event_details_item_image);
-        ParseFile image = (ParseFile) item.getImage();
-        image.getDataInBackground(new GetDataCallback() {
+        item.getImage().getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] bytes, ParseException e) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
