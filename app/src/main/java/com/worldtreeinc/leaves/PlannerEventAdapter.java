@@ -35,8 +35,6 @@ public class PlannerEventAdapter extends ArrayAdapter<Event>{
         imageLoader = new ImageLoader(context);
     }
 
-
-
     public class ViewHolder {
         TextView eventDescription;
         TextView eventDate;

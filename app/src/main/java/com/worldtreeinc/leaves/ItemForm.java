@@ -2,6 +2,8 @@ package com.worldtreeinc.leaves;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +12,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.rey.material.widget.FloatingActionButton;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by andela on 8/24/15.
@@ -22,6 +28,7 @@ public class ItemForm implements View.OnClickListener  {
     String eventId;
     String userId;
     FloatingActionButton floatingActionButton;
+    private boolean mShowingBack = false;
 
     EditText name;
     EditText description;
@@ -30,9 +37,10 @@ public class ItemForm implements View.OnClickListener  {
     ImageView confirmAddBtn;
     ImageButton imageSelectBtn;
     String nameText;
-
     String descriptionText;
     String startBidText;
+    ImageButton cancelAddItemButton;
+    String itemId;
 
     public static ImageView image;
     public static ParseFile file;
@@ -45,14 +53,18 @@ public class ItemForm implements View.OnClickListener  {
 
     View view;
 
-    public ItemForm(Activity activity, View view, String eventId, String userId, FloatingActionButton btn) {
+    public ItemForm(Activity activity, View view, String eventId, String userId, FloatingActionButton btn, String itemId) {
         this.view = view;
         this.activity = activity;
         this.eventId = eventId;
         this.userId = userId;
         this.floatingActionButton = btn;
+        this.itemId = itemId;
         initialize();
         item = new EventItem();
+        if(itemId != null) {
+            setData();
+        }
     }
 
     private void initialize() {
@@ -66,6 +78,30 @@ public class ItemForm implements View.OnClickListener  {
         imageSelectBtn = (ImageButton) view.findViewById(R.id.item_image_select_icon);
         imageSelectBtn.setOnClickListener(this);
         confirmAddBtn.setOnClickListener(this);
+
+        cancelAddItemButton = (ImageButton) view.findViewById(R.id.cancel_add_item_button);
+        cancelAddItemButton.setOnClickListener(this);
+
+    }
+
+    private void setData() {
+        EventItem items = EventItem.getOne(itemId);
+        eventId = items.getEventId();
+
+        name.setText(items.getName());
+        description.setText(items.getDescription());
+        startBid.setText(items.getPreviousBid().toString());
+        items.getImage().getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] bytes, ParseException e) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                image.setImageBitmap(bitmap);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] parseFile = stream.toByteArray();
+                file = new ParseFile("image.jpg", parseFile);
+            }
+        });
     }
 
     public void getData(){
@@ -86,26 +122,60 @@ public class ItemForm implements View.OnClickListener  {
                 }).start();
                 break;
             case R.id.confirm_add_item_button:
-                add();
+                update();
+                break;
+            case R.id.cancel_add_item_button:
+                flipCard();
+                floatingActionButton.setVisibility(v.VISIBLE);
                 break;
         }
     }
 
-    private void add() {
+    private void update() {
         getData();
         if(isValid()){
+            if(itemId != null) {
+                item = EventItem.getOne(itemId);
+            }
             set();
             save();
         }
     }
 
+    public void flipCard() {
+        if (mShowingBack) {
+            activity.getFragmentManager().popBackStack();
+            mShowingBack = false;
+            return;
+        }
+
+        mShowingBack = true;
+
+        ItemListFragment itemListFragment = new ItemListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("eventId", eventId);
+        itemListFragment.setArguments(bundle);
+
+        activity.getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        R.animator.card_flip_right_in, R.animator.card_flip_right_out,
+                        R.animator.card_flip_left_in, R.animator.card_flip_left_out)
+                .replace(R.id.container, itemListFragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
     private void save() {
-
-        AsyncTask<Void, Void, Void> itemAsync = new AsyncTask<Void, Void, Void>() {
+        final AsyncTask<Void, Void, Void> itemAsync = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                item.saveAll();
+                try {
+
+                    item.save();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 return null;
             }
             @Override

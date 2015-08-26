@@ -9,7 +9,7 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
-@ParseClassName("Bids")
+@ParseClassName("Items")
 public class EventItem extends ParseObject {
     public EventItem() {
     }
@@ -104,15 +104,5 @@ public class EventItem extends ParseObject {
             item = null;
         }
         return item;
-    }
-
-    public Void saveAll(){
-            try {
-                save();
-            }
-            catch (ParseException e) {
-                e.printStackTrace();
-            }
-        return null;
     }
 }

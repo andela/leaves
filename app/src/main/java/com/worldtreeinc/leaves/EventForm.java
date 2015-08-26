@@ -276,7 +276,11 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         AsyncTask<Void, Void, Void> itemAsync = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                event.saveAll();
+                try {
+                    event.save();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 return null;
             }
             @Override

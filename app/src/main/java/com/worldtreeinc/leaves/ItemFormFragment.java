@@ -14,7 +14,7 @@ import com.rey.material.widget.FloatingActionButton;
 /**
  * Created by tunde on 8/20/15.
  */
-public class ItemFormFragment extends Fragment  implements View.OnClickListener {
+public class ItemFormFragment extends Fragment {
 
     FloatingActionButton floatingActionButton;
 
@@ -24,11 +24,13 @@ public class ItemFormFragment extends Fragment  implements View.OnClickListener 
     String userId;
     ImageButton cancelAddItemButton;
     ItemForm form;
+    String itemId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         eventId = getArguments().getString("eventId");
+        itemId = getArguments().getString("itemId");
     }
 
     @Nullable
@@ -37,45 +39,22 @@ public class ItemFormFragment extends Fragment  implements View.OnClickListener 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.item_form, container, false);
         userId = ParseUser.getCurrentUser().getObjectId();
-        form = new ItemForm(getActivity(), view, eventId, userId, floatingActionButton);
-
-        cancelAddItemButton = (ImageButton) view.findViewById(R.id.cancel_add_item_button);
-        cancelAddItemButton.setOnClickListener(this);
+        form = new ItemForm(getActivity(), view, eventId, userId, floatingActionButton, itemId);
+//        cancelAddItemButton = (ImageButton) view.findViewById(R.id.cancel_add_item_button);
+//        cancelAddItemButton.setOnClickListener(this);
 
         return view;
     }
 
-    public void flipCard() {
-        if (mShowingBack) {
-            getFragmentManager().popBackStack();
-            mShowingBack = false;
-            return;
-        }
 
-        mShowingBack = true;
-
-        ItemListFragment itemListFragment = new ItemListFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("eventId", eventId);
-        itemListFragment.setArguments(bundle);
-
-        getFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(
-                        R.animator.card_flip_right_in, R.animator.card_flip_right_out,
-                        R.animator.card_flip_left_in, R.animator.card_flip_left_out)
-                .replace(R.id.container, itemListFragment)
-                .addToBackStack(null)
-                .commit();
-    }
 
     public void setResource(FloatingActionButton fButton) {
         this.floatingActionButton = fButton;
     }
 
-    @Override
+   /* @Override
     public void onClick(View v) {
         flipCard();
         floatingActionButton.setVisibility(v.VISIBLE);
-    }
+    }*/
 }
