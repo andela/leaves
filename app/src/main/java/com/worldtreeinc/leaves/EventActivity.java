@@ -89,6 +89,7 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         // Start the Intent
         startActivityForResult(galleryIntent, RESULT_LOAD);
+
     }
 
     @Override
@@ -110,4 +111,6 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
             eventId = null;
         }
     }
+
+
 }

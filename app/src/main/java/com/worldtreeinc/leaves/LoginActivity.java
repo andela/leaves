@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.parse.ParseFacebookUtils;
-import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText mUsername;
@@ -44,10 +43,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         try {
             String username = mUsername.getText().toString().trim();
             String password = mPassword.getText().toString().trim();
-            UserAuth userAuthentication = new UserAuth(LoginActivity.this, username, password);
+            UserAuthentication userAuthentication = new UserAuthentication(LoginActivity.this, username, password);
             switch (v.getId()){
                 case R.id.loginButton:
-                    userAuthentication.login();
+                   userAuthentication.login();
                     break;
                 case R.id.registerUser:
                     Intent register = new Intent(this, RegisterActivity.class);
@@ -59,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
         } catch(Exception e){
-            Log.v("button click", e.getMessage());
+            e.printStackTrace();
         }
     }
 

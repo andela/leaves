@@ -49,12 +49,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      *
-     * @param view - Calls the register method from the UserRegistration class
+     * @param view - Calls the register method from the UserAuthentication class
      *             and registers the user
      */
     public void register(View view) {
         // instantiate register object
-        UserRegistration registerObject = new UserRegistration(this);
+        UserAuthentication registerObject = new UserAuthentication(this);
         // call register method
         registerObject.register();
     }
