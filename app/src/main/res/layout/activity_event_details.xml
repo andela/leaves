@@ -29,6 +29,7 @@
     </FrameLayout>
 
     <RelativeLayout
+        android:id="@+id/event_details_relativelayout"
         android:layout_width="match_parent"
         android:layout_height="210dp"
         android:background="#00838F">

@@ -129,7 +129,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
     public void setData(String eventId) {
         Event eventObject = Event.getOne(eventId);
 
-        file = (ParseFile) eventObject.get("banner");
+        file = (ParseFile) eventObject.get("eventBanner");
         file.getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] bytes, ParseException e) {

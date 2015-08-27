@@ -60,9 +60,9 @@ public class PlannerDashTest extends ActivityInstrumentationTestCase2<PlannerDas
         EventItem bid = new EventItem();
 
         String eventName = "Club auction";
-        bid.setEventName(eventName);
+        bid.setName(eventName);
         String expectedName = eventName;
-        String actualName = bid.getEventName();
+        String actualName = bid.getName();
         assertEquals(expectedName, actualName);
 
     }

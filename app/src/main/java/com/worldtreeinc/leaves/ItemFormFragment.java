@@ -19,10 +19,8 @@ public class ItemFormFragment extends Fragment {
     FloatingActionButton floatingActionButton;
 
     View view;
-    private boolean mShowingBack = false;
     String eventId;
     String userId;
-    ImageButton cancelAddItemButton;
     ItemForm form;
     String itemId;
 
@@ -40,8 +38,6 @@ public class ItemFormFragment extends Fragment {
         view = inflater.inflate(R.layout.item_form, container, false);
         userId = ParseUser.getCurrentUser().getObjectId();
         form = new ItemForm(getActivity(), view, eventId, userId, floatingActionButton, itemId);
-//        cancelAddItemButton = (ImageButton) view.findViewById(R.id.cancel_add_item_button);
-//        cancelAddItemButton.setOnClickListener(this);
 
         return view;
     }
@@ -51,10 +47,4 @@ public class ItemFormFragment extends Fragment {
     public void setResource(FloatingActionButton fButton) {
         this.floatingActionButton = fButton;
     }
-
-   /* @Override
-    public void onClick(View v) {
-        flipCard();
-        floatingActionButton.setVisibility(v.VISIBLE);
-    }*/
 }

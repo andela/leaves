@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -113,7 +114,7 @@ public class ItemForm implements View.OnClickListener  {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.item_image_select_icon | R.id.new_item_form_image_frame:
+            case R.id.item_image_select_icon:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
