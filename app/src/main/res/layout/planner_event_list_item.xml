@@ -90,26 +90,14 @@
         android:textStyle="bold"/>
 
     <ImageView
-        android:layout_width="20dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:id="@+id/deleteButton"
-        android:layout_marginRight="5dp"
+        android:id="@+id/popMenu"
+        android:src="@drawable/ic_more"
+        android:background="#FFF"
         android:scaleType="fitXY"
-        android:background="@android:drawable/ic_delete"
-        android:layout_alignBottom="@+id/eventBanner"
-        android:layout_toLeftOf="@+id/editButton"
-        android:layout_toStartOf="@+id/editButton"/>
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        android:id="@+id/editButton"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/ic_menu_edit"
-        android:scaleType="fitXY"
-        android:layout_alignTop="@+id/deleteButton"
+        android:layout_alignTop="@+id/eventCategory"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="5dp"/>
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>
