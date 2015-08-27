@@ -33,6 +33,7 @@ public class PlannerDashItemListAdapter extends ArrayAdapter<EventItem> {
             LayoutInflater listLayoutInflater = LayoutInflater.from(context);
             convertView = listLayoutInflater.inflate(R.layout.activity_planner_dash_bid_item, null);
         }
+
         EventItem item = items.get(position);
         Event event =  Event.getOne(item.getEventId());
 
@@ -64,4 +65,3 @@ public class PlannerDashItemListAdapter extends ArrayAdapter<EventItem> {
     }
 
 }
-

@@ -1,16 +1,17 @@
 package com.worldtreeinc.leaves;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,26 +21,27 @@ import com.rey.material.widget.FloatingActionButton;
 
 import java.util.List;
 
-public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> {
+public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implements PopupMenu.OnMenuItemClickListener {
 
-    private Context context;
+    private Activity activity;
     private List<EventItem> items;
     EventItem item;
     FloatingActionButton addItemButton;
+    int currentPosition;
 
     ItemFormFragment itemFormFragment;
     Bundle bundle;
 
-    public EventDetailItemListAdapter(Context context, List<EventItem> objects) {
-        super(context, R.layout.event_details_items, objects);
-        this.context = context;
+    public EventDetailItemListAdapter(Activity activity, List<EventItem> objects) {
+        super(activity, R.layout.event_details_items, objects);
+        this.activity = activity;
         this.items = objects;
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if(convertView == null){
-            LayoutInflater listLayoutInflater = LayoutInflater.from(context);
+            LayoutInflater listLayoutInflater = LayoutInflater.from(activity);
             convertView = listLayoutInflater.inflate(R.layout.event_details_items, null);
         }
 
@@ -66,26 +68,15 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> {
             }
         });
 
-        ImageView editBtn = (ImageView) convertView.findViewById(R.id.item_details_edit);
-        ImageView deleteBtn = (ImageView) convertView.findViewById(R.id.item_details_delete);
+        ImageView moreActionButton = (ImageView) convertView.findViewById(R.id.popMenu);
 
-        editBtn.setOnClickListener(new View.OnClickListener() {
+        moreActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                item = items.get(position);
-                String itemId = item.getObjectId();
-                openForm(itemId);
+                currentPosition = position;
+                showMenu(v);
             }
         });
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                item = items.get(position);
-                String itemId = item.getObjectId();
-                delete(itemId);
-            }
-        });
-
         return convertView;
     }
 
@@ -93,7 +84,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> {
 
         itemFormFragment =  new ItemFormFragment();
 
-        addItemButton = (FloatingActionButton) ((Activity) context).findViewById(R.id.add_item_button);
+        addItemButton = (FloatingActionButton) activity.findViewById(R.id.add_item_button);
         addItemButton.setVisibility(View.GONE);
         itemFormFragment.setResource(addItemButton);
 
@@ -101,7 +92,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> {
         bundle.putString("itemId", itemId);
         itemFormFragment.setArguments(bundle);
 
-        ((Activity) context).getFragmentManager()
+        activity.getFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(
                         R.animator.card_flip_right_in, R.animator.card_flip_right_out,
@@ -127,10 +118,36 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                Toast.makeText(context, "item deleted", Toast.LENGTH_LONG).show();
-                ((Activity) context).recreate();
+                Toast.makeText(activity, "item deleted", Toast.LENGTH_LONG).show();
+                activity.recreate();
             }
         };
         delete.execute();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem popMenuItem) {
+        String itemId;
+        switch (popMenuItem.getItemId()) {
+            case R.id.editEvent:
+                item = items.get(currentPosition);
+                itemId = item.getObjectId();
+                openForm(itemId);
+                return true;
+            case R.id.deleteEvent:
+                item = items.get(currentPosition);
+                itemId = item.getObjectId();
+                delete(itemId);
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public void showMenu(View v) {
+        PopupMenu popup = new PopupMenu(activity, v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.menu_event_list);
+        popup.show();
     }
 }

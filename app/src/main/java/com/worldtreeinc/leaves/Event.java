@@ -70,7 +70,6 @@ public class Event extends ParseObject {
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         try {
             event = query.get(eventId);
-
         }
         catch (ParseException e) {
             e.printStackTrace();
