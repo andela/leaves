@@ -32,7 +32,7 @@ public class ItemImage {
             // set the imageView to the selected image
             ItemForm.image.setImageBitmap(new EventBannerCompressor().getCompressed(imagePath, 300, 300));
 
-            // getByteArray(imagePath);
+             getByteArray(imagePath);
 
         } catch (Exception e) {
             e.printStackTrace();
