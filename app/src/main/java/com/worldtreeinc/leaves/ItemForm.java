@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,13 +35,12 @@ public class ItemForm implements View.OnClickListener  {
     EditText name;
     EditText description;
     EditText startBid;
-    ImageView cancelAdd;
-    ImageView confirmAddBtn;
+    com.rey.material.widget.Button confirmAddBtn;
     ImageButton imageSelectBtn;
     String nameText;
     String descriptionText;
     String startBidText;
-    ImageButton cancelAddItemButton;
+    com.rey.material.widget.Button cancelAddItemButton;
     String itemId;
 
     public static ImageView image;
@@ -73,14 +73,13 @@ public class ItemForm implements View.OnClickListener  {
         description = (EditText) view.findViewById(R.id.new_item_description);
         startBid = (EditText) view.findViewById(R.id.new_item_start_bid);
 
-        cancelAdd = (ImageView) view.findViewById(R.id.cancel_add_item_button);
-        confirmAddBtn = (ImageView) view.findViewById(R.id.confirm_add_item_button);
+        confirmAddBtn = (com.rey.material.widget.Button) view.findViewById(R.id.confirm_add_item_button);
         image = (ImageView) view.findViewById(R.id.new_item_image);
         imageSelectBtn = (ImageButton) view.findViewById(R.id.item_image_select_icon);
         imageSelectBtn.setOnClickListener(this);
         confirmAddBtn.setOnClickListener(this);
 
-        cancelAddItemButton = (ImageButton) view.findViewById(R.id.cancel_add_item_button);
+        cancelAddItemButton = (com.rey.material.widget.Button) view.findViewById(R.id.cancel_add_item_button);
         cancelAddItemButton.setOnClickListener(this);
 
     }
