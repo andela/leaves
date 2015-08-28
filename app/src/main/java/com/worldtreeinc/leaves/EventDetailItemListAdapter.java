@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.rey.material.widget.FloatingActionButton;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implements PopupMenu.OnMenuItemClickListener {
@@ -154,6 +156,20 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         PopupMenu popup = new PopupMenu(activity, v);
         popup.setOnMenuItemClickListener(this);
         popup.inflate(R.menu.menu_event_list);
+        // Force icons to show
+        Object menuHelper;
+        Class[] argTypes;
+        try {
+            Field fMenuHelper = PopupMenu.class.getDeclaredField("mPopup");
+            fMenuHelper.setAccessible(true);
+            menuHelper = fMenuHelper.get(popup);
+            argTypes = new Class[] { boolean.class };
+            menuHelper.getClass().getDeclaredMethod("setForceShowIcon", argTypes).invoke(menuHelper, true);
+        } catch (Exception e) {
+            Log.w("TAG", "error forcing menu icons to show", e);
+            popup.show();
+            return;
+        }
         popup.show();
     }
 }
