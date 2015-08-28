@@ -127,7 +127,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
 
     @Override
     public boolean onMenuItemClick(MenuItem popMenuItem) {
-        String itemId;
+        final String itemId;
         switch (popMenuItem.getItemId()) {
             case R.id.editEvent:
                 item = items.get(currentPosition);
@@ -137,7 +137,13 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
             case R.id.deleteEvent:
                 item = items.get(currentPosition);
                 itemId = item.getObjectId();
-                delete(itemId);
+                new Dialog().dialog(activity, activity.getString(R.string.delete_item_title), activity.getString(R.string.delete_item_message), new Dialog.CallBack() {
+                    @Override
+                    public void onFinished() {
+                        delete(itemId);
+                    }
+                });
+
                 return true;
             default:
                 return false;

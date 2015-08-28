@@ -1,19 +1,21 @@
 package com.worldtreeinc.leaves;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseImageView;
 import com.rey.material.widget.FloatingActionButton;
+import com.rey.material.widget.ProgressView;
 
 public class EventDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,6 +28,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     Bundle bundle;
     Banner banner;
     TextView errorMessageHolder;
+    Event event;
 
     private static int RESULT_LOAD_IMAGE = 1;
 
@@ -76,7 +79,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
             mShowingBack = false;
             return;
         }
-        itemFormFragment =  new ItemFormFragment();
+        itemFormFragment = new ItemFormFragment();
         itemFormFragment.setArguments(bundle);
         itemFormFragment.setResource(addItemButton);
 
@@ -115,8 +118,33 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         return super.onOptionsItemSelected(item);
     }
 
-    public void set(String eventId) {
-        Event event = Event.getOne(eventId);
+    public void set(final String eventId) {
+        final FrameLayout loader_frame = (FrameLayout) findViewById(R.id.event_details_frame_layout);
+        final com.rey.material.widget.ProgressView loader = (com.rey.material.widget.ProgressView) findViewById(R.id.event_details_loading);
+
+        AsyncTask<Void, Void, Void> getOne = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loader.start();
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                event = Event.getOne(eventId);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                setData(loader_frame, loader);
+            }
+        };
+        getOne.execute();
+    }
+
+    private void setData(final FrameLayout loader_frame, final ProgressView loader) {
         if (event != null) {
             // set Activity title to event title
             setTitle(event.getString("eventName"));
@@ -131,17 +159,12 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
             // set banner image
             ParseImageView banner = (ParseImageView) findViewById(R.id.event_details_banner);
 
-            final FrameLayout loader_frame = (FrameLayout) findViewById(R.id.event_details_frame_layout);
-            final com.rey.material.widget.ProgressView loader = (com.rey.material.widget.ProgressView) findViewById(R.id.event_details_loading);
-            loader.start();
-
             banner.setParseFile(event.getBanner());
             banner.loadInBackground(new GetDataCallback() {
                 @Override
                 public void done(byte[] bytes, ParseException e) {
                     loader_frame.setVisibility(View.GONE);
                     loader.stop();
-
                 }
             });
 
@@ -151,8 +174,14 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            new ItemImage().set(this, data.getData());
+        try {
+            if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+                new ItemImage().set(this, data.getData());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Please select an image!", Toast.LENGTH_LONG)
+                    .show();
         }
     }
 
