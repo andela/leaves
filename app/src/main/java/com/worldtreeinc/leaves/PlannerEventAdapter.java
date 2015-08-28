@@ -93,11 +93,11 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> implements PopupMen
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
+    public boolean onMenuItemClick(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.editEvent:
                 event = userEventList.get(currentPosition);
-                String eventId = event.getObjectId();
+                eventId = event.getObjectId();
                 Log.v("Event ID", eventId);
                 Intent intent = new Intent(activity, EventActivity.class);
                 intent.putExtra("EVENT_ID", eventId);
@@ -106,6 +106,7 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> implements PopupMen
                 return true;
             case R.id.deleteEvent:
                 event = userEventList.get(currentPosition);
+                eventId = event.getObjectId();
                 if (event.getEntries() > 0) {
                     dialog.dialog(activity, activity.getString(R.string.delete_event_title), activity.getString(R.string.delete_event_error));
                     return true;
@@ -113,6 +114,14 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> implements PopupMen
                     dialog.dialog(activity, activity.getString(R.string.delete_event_title), activity.getString(R.string.delete_event_message), new Dialog.CallBack() {
                         @Override
                         public void onFinished() {
+                            // delete all items related to event
+                            List<EventItem> items = EventItem.getByEventId(eventId);
+                            int i = 0;
+                            while (i < items.size()) {
+                                items.get(i).deleteInBackground();
+                                i++;
+                            }
+                            // delete event
                             event.delete(activity);
                         }
                     });

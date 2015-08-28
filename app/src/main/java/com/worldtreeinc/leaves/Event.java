@@ -98,7 +98,7 @@ public class Event extends ParseObject {
             public void done(ParseException e) {
                 if (e == null) {
                     // show a toast
-                    Toast.makeText(context, "message deleted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, R.string.delete_event_toast_message, Toast.LENGTH_LONG).show();
                     // reload event list after deleting
                     ((Activity) context).recreate();
 
