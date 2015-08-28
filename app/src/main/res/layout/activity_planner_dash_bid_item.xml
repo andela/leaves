@@ -17,7 +17,6 @@
         <com.parse.ParseImageView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:src="@drawable/splash"
             android:padding="5dp"
             android:id="@+id/item_image"
             android:layout_gravity="center_horizontal"

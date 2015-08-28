@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.worldtreeinc.leaves.PlannerEventActivity"
-    android:background="#fff">
+    android:padding="10dp"
+    tools:context="com.worldtreeinc.leaves.PlannerEventActivity" >
 
     <ListView
         android:layout_width="fill_parent"
