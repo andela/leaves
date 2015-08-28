@@ -43,4 +43,9 @@ public class RoleOptionActivity extends Activity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        AppState.minimize(this);
+    }
 }
