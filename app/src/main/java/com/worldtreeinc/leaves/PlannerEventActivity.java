@@ -28,6 +28,7 @@ public class PlannerEventActivity extends ActionBarActivity {
     PlannerEventAdapter adapter;
     String currentUserId = ParseUser.getCurrentUser().getObjectId();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
