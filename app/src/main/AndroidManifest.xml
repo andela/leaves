@@ -32,6 +32,7 @@
 
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,26 +42,32 @@
         </activity>
         <activity
             android:name=".GetStartedActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_get_started" >
         </activity>
         <activity
             android:name=".WelcomeActivity"
+            android:screenOrientation="portrait"
             android:label="@string/welcome_activity_label" >
         </activity>
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
             android:name=".RoleOptionActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_role_option" >
         </activity>
         <activity
             android:name=".BidderDashActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_bidder_dash" >
         </activity>
         <activity
             android:name=".PlannerDashActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_planner_dash"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -69,20 +76,24 @@
         </activity>
         <activity
             android:name=".RegisterActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_register"
             android:parentActivityName=".WelcomeActivity" >
         </activity>
 
         <activity
             android:name=".PlannerEventActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_planner_event" >
         </activity>
         <activity
             android:name=".EventActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_create_event" >
         </activity>
         <activity
             android:name=".EventDetailsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_event_details"
             android:parentActivityName=".PlannerEventActivity">
 
