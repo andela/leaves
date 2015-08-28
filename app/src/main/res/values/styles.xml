@@ -24,8 +24,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="event_item_color">
+    <style name="event_save_item_color">
         <item name="android:background">#006064</item>
         <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="event_cancel_item_color">
+        <item name="android:background">#006064</item>
+        <item name="android:textColor">#f00</item>
     </style>
 </resources>

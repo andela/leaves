@@ -31,13 +31,13 @@
     <RelativeLayout
         android:id="@+id/event_details_relativelayout"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_height="180dp"
         android:background="#00838F">
 
         <com.parse.ParseImageView
             android:id="@+id/event_details_banner"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="150dp"
             android:src="@drawable/banner_placeholder"
             android:scaleType="centerCrop"
             android:layout_marginBottom="10dp"/>

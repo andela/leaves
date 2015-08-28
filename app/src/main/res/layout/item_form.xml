@@ -28,7 +28,7 @@
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:text="Save"
-                style="@style/event_item_color"
+                style="@style/event_save_item_color"
                 android:id="@+id/confirm_add_item_button"
                 android:src="@drawable/confirm_icon"
                 android:layout_alignParentTop="true"
