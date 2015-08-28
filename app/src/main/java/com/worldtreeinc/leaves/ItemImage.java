@@ -1,6 +1,7 @@
 package com.worldtreeinc.leaves;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -8,7 +9,6 @@ import android.provider.MediaStore;
 import com.parse.ParseFile;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 /**
  * Created by andela on 8/25/15.
@@ -16,18 +16,37 @@ import java.io.IOException;
 public class ItemImage {
 
     public void set(Activity activity, Uri image){
-        ItemForm.image.setImageURI(image);
         Bitmap bitmap;
         try {
-            bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), image);
-            // Convert it to byte
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] parseFile = stream.toByteArray();
-            ItemForm.file = new ParseFile("image.jpg", parseFile);
-        } catch (IOException e) {
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            String imagePath;
+            // Get the cursor
+            Cursor cursor = activity.getContentResolver().query(image, filePathColumn, null, null, null);
+            // Move to first row
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            imagePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            // set the imageView to the selected image
+            ItemForm.image.setImageBitmap(new EventBannerCompressor().getCompressed(imagePath, 300, 300));
+
+            // getByteArray(imagePath);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void getByteArray(String filePath) {
+        // prepare the image to be sent to parse server
+        EventBannerCompressor compressor = new EventBannerCompressor();
+        Bitmap bmp = compressor.getCompressed(filePath, 450, 900);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] parseFile = stream.toByteArray();
+        ItemForm.file = new ParseFile("item.jpg", parseFile);
     }
 
 }
