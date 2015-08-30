@@ -1,20 +1,12 @@
 package com.worldtreeinc.leaves;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import com.rey.material.widget.Button;
 
-import com.parse.ParseException;
-
-import com.parse.ParseFile;
 
 /**
  * Created by kamiye on 8/27/15.
@@ -23,9 +15,6 @@ public class ItemFormFragmentTest extends ActivityInstrumentationTestCase2<Event
 
     private ItemFormFragment formFragment = new ItemFormFragment();
     private EventDetailsActivity activity;
-
-    // define image bytes to be used
-    private ParseFile image = new ParseFile("image".getBytes());
 
     // define form fields
     private EditText itemName;
@@ -76,7 +65,7 @@ public class ItemFormFragmentTest extends ActivityInstrumentationTestCase2<Event
         assertTrue(formFragment.isAdded());
     }
 
-    public void testAdapterView_contents() {
+    public void testFormFragment_formFields() {
 
         this.getInstrumentation().waitForIdleSync();
 
@@ -90,11 +79,6 @@ public class ItemFormFragmentTest extends ActivityInstrumentationTestCase2<Event
         // define expected and actual variables to be reused
         String expected;
         String actual;
-
-        Drawable drawable;
-        /*Bitmap imageBitmap;
-        Bitmap actualImageBitmap;
-        byte[] imageBytes;*/
         int expectedBid;
         int actualBid;
 
