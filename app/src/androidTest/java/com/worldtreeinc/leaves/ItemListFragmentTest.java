@@ -1,20 +1,14 @@
 package com.worldtreeinc.leaves;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.ParseException;
-import com.worldtreeinc.leaves.CircularImageView;
 
 import com.parse.ParseFile;
 
