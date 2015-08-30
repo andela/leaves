@@ -37,7 +37,7 @@ public class PlannerEventAdapterTest extends InstrumentationTestCase {
         event.setCategory("Bizz");
         event.setDate("30/08/1987");
         data.add(event);
-        mAdapter = new PlannerEventAdapter(getInstrumentation().getContext(), data);
+        mAdapter = new PlannerEventAdapter((Activity) getInstrumentation().getContext(), data);
     }
 
     public void testGetItemId() {
