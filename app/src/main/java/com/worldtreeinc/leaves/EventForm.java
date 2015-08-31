@@ -23,7 +23,6 @@ import com.parse.SaveCallback;
 import com.rey.material.widget.ProgressView;
 import com.rey.material.widget.Spinner;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 /**
@@ -216,9 +215,10 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         }
         @Override
         protected Void doInBackground(Void... params) {
+            String bannerName = "banner.jpg";
             if (bannerSelected) {
                 if (!updateBanner) {
-                    file = banner.getByteArray(imagePath);
+                    file = banner.getImageFromGallery(imagePath, bannerName);
                 }
             } else {
                 // set default banner for event
@@ -229,10 +229,8 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                     drawable = activity.getApplicationContext().getDrawable(R.drawable.default_image);
                 }
                 Bitmap bitmap = banner.drawableToBitmap(drawable);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] parseFile = stream.toByteArray();
-                file = new ParseFile("banner.jpg", parseFile);
+
+                file = banner.getImageFromBitmap(bitmap, bannerName);
             }
             return null;
         }

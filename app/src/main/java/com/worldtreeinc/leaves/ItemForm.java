@@ -6,9 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,8 +16,6 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.rey.material.widget.FloatingActionButton;
-
-import java.io.ByteArrayOutputStream;
 
 /**
  * Created by andela on 8/24/15.
@@ -96,10 +92,7 @@ public class ItemForm implements View.OnClickListener  {
             public void done(byte[] bytes, ParseException e) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 image.setImageBitmap(bitmap);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] parseFile = stream.toByteArray();
-                file = new ParseFile("image.jpg", parseFile);
+                file = new Banner().getImageFromBitmap(bitmap, "item-banner.jpg");
             }
         });
     }

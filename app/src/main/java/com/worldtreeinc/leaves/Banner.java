@@ -95,14 +95,17 @@ public class Banner {
         return bitmap;
     }
 
-    public ParseFile getByteArray(String filePath) {
-        // prepare the image to be sent to parse server
+    public ParseFile getImageFromGallery(String filePath, String fileName) {
         EventBannerCompressor compressor = new EventBannerCompressor();
         Bitmap bmp = compressor.getCompressed(filePath, 450, 900);
+        return getImageFromBitmap(bmp, fileName);
+    }
+
+    public ParseFile getImageFromBitmap(Bitmap bitmap, String fileName) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] parseFile = stream.toByteArray();
-        ParseFile file = new ParseFile("banner.jpg", parseFile);
+        ParseFile file = new ParseFile(fileName, parseFile);
         return file;
     }
 
