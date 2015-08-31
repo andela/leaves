@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp" >
+
+            <com.rey.material.widget.Button
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:textColor="#fff"
+                android:background="#f00"
+                android:text="Cancel"
+                android:id="@+id/cancel_add_item_button"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <com.rey.material.widget.Button
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:text="Save"
+                style="@style/event_save_item_color"
+                android:id="@+id/confirm_add_item_button"
+                android:src="@drawable/confirm_icon"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:layout_weight="5" >
+
+                <EditText
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/new_item_name"
+                    android:layout_marginTop="15dp"
+                    android:hint="Title" />
+
+                <EditText
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/new_item_start_bid"
+                    android:layout_marginTop="30dp"
+                    android:inputType="numberDecimal"
+                    android:hint="Starting bid" />
+
+            </LinearLayout>
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="150dp"
+                android:id="@+id/new_item_form_image_frame"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:scaleType="fitXY"
+                    android:cropToPadding="true"
+                    android:src="@drawable/default_image"
+                    android:id="@+id/new_item_image"/>
+                <ImageButton
+                    android:background="@android:color/transparent"
+                    android:id="@+id/item_image_select_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/gallery_icon"
+                    android:layout_gravity="right|bottom" />
+                <ImageButton
+                    android:background="@android:color/transparent"
+                    android:id="@+id/clear_item_image_select_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cancel_icon_dark"
+                    android:layout_gravity="left|bottom" />
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="20dp">
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_width="match_parent"
+                android:inputType="textMultiLine"
+                android:id="@+id/new_item_description"
+                android:hint="Description" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

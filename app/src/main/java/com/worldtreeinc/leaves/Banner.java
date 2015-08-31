@@ -21,11 +21,11 @@ import java.io.ByteArrayOutputStream;
 /**
  * Created by andela on 8/12/15.
  */
-public class EventBanner {
+public class Banner {
 
     public String imagePath;
 
-    public EventBanner() {
+    public Banner() {
     }
 
     public void processSelectedImage(Activity activity, int requestCode, int resultCode, Intent data, EventForm newEventForm, int RESULT_LOAD) {
@@ -95,14 +95,17 @@ public class EventBanner {
         return bitmap;
     }
 
-    public ParseFile getByteArray(String filePath) {
-        // prepare the image to be sent to parse server
+    public ParseFile getImageFromGallery(String filePath, String fileName) {
         EventBannerCompressor compressor = new EventBannerCompressor();
         Bitmap bmp = compressor.getCompressed(filePath, 450, 900);
+        return getImageFromBitmap(bmp, fileName);
+    }
+
+    public ParseFile getImageFromBitmap(Bitmap bitmap, String fileName) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] parseFile = stream.toByteArray();
-        ParseFile file = new ParseFile("banner.jpg", parseFile);
+        ParseFile file = new ParseFile(fileName, parseFile);
         return file;
     }
 

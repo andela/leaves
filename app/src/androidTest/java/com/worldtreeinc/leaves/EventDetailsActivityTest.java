@@ -1,16 +1,21 @@
 package com.worldtreeinc.leaves;
 
+import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
+import android.test.ViewAsserts;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.parse.CountCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+import com.rey.material.widget.FloatingActionButton;
 
 /**
  * Created by kamiye on 8/1/15.
@@ -22,6 +27,8 @@ public class EventDetailsActivityTest extends ActivityInstrumentationTestCase2<E
     private TextView mLocation;
     private TextView mCategory;
     private TextView mDate;
+    private FloatingActionButton mAddButton;
+    private Fragment fragment;
 
     public EventDetailsActivityTest() {
         super(EventDetailsActivity.class);
@@ -30,11 +37,19 @@ public class EventDetailsActivityTest extends ActivityInstrumentationTestCase2<E
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+
+        Intent intent = new Intent();
+        intent.putExtra("EVENT_ID", "string");
+        setActivityIntent(intent);
         mEventDetailsActivity = getActivity();
         mImageBanner =  (ImageView) mEventDetailsActivity.findViewById(R.id.event_details_banner);
         mLocation =  (TextView) mEventDetailsActivity.findViewById(R.id.ed_location_text);
         mCategory =  (TextView) mEventDetailsActivity.findViewById(R.id.ed_category_text);
         mDate =  (TextView) mEventDetailsActivity.findViewById(R.id.ed_date_text);
+
+        // other components
+        fragment = (Fragment) getActivity().getSupportFragmentManager().getFragments();
+        mAddButton = (FloatingActionButton) mEventDetailsActivity.findViewById(R.id.add_item_button);
     }
 
     // test preconditions for all view items to be tested
@@ -99,23 +114,27 @@ public class EventDetailsActivityTest extends ActivityInstrumentationTestCase2<E
         assertNotSame("Date not fetched", expected, actual);
     }
 
-    // test error message for no internet
-    public void testErrorMessage() {
+    public void testAddButton() {
+        final ViewGroup buttonRootView = (ViewGroup) mEventDetailsActivity.findViewById(R.id.event_details_relativelayout);
+        ViewAsserts.assertGroupContains(buttonRootView, mAddButton);
+
+        final ViewGroup.LayoutParams layoutParams =
+                mAddButton.getLayoutParams();
+        assertNotNull(layoutParams);
+        assertEquals(layoutParams.width, ViewGroup.LayoutParams.WRAP_CONTENT);
+        assertEquals(layoutParams.height, ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+
+    public void testAddButton_autoHiding() {
         mEventDetailsActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                WifiManager wifiManager = (WifiManager) mEventDetailsActivity.getSystemService(Context.WIFI_SERVICE);
-                wifiManager.setWifiEnabled(false);
+                mAddButton.performClick();
             }
         });
 
-
-        String expected = "No Internet Connection";
-        getInstrumentation().waitForIdleSync();
-        TextView error = (TextView) mEventDetailsActivity.findViewById(R.id.no_internet_error);
-        String actual  = error.getText().toString();
-
-        assertEquals("Internet error not showing", expected, actual);
+        this.getInstrumentation().waitForIdleSync();
+        assertTrue(FloatingActionButton.GONE == mAddButton.getVisibility());
     }
 
 }

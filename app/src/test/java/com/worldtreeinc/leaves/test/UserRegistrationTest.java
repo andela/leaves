@@ -1,7 +1,7 @@
 package com.worldtreeinc.leaves.test;
 
 
-import com.worldtreeinc.leaves.UserRegistration;
+import com.worldtreeinc.leaves.UserAuthentication;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,10 +24,10 @@ public class UserRegistrationTest {
     String password = "password";
     String passwordAgain = "password";
 
-    UserRegistration registerObject = mock(UserRegistration.class);
+    UserAuthentication registerObject = mock(UserAuthentication.class);
 
     @Mock
-    UserRegistration getRegisterObject;
+    UserAuthentication getRegisterObject;
 
     @Before
     public void setInitialConditions() {

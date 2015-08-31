@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -24,8 +23,6 @@ import com.parse.SaveCallback;
 import com.rey.material.widget.ProgressView;
 import com.rey.material.widget.Spinner;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.Calendar;
 
 /**
@@ -63,9 +60,9 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     ParseFile file;
 
-    EventFormCancel eventFormCancel = new EventFormCancel();
+    Dialog eventFormCancelDialog = new Dialog();
     Event event = new Event(); // event object
-    EventBanner eventBanner = new EventBanner();
+    Banner banner = new Banner();
 
     public EventForm(Activity activity) {
         this.activity = activity;
@@ -112,7 +109,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 selectDate(activity, eventDateEditText);
                 break;
             case R.id.clear_banner_icon:
-                eventBanner.clear(activity, eventBannerImageView);
+                banner.clear(activity, eventBannerImageView);
                 this.bannerSelected = false;
                 this.updateBanner = false;
                 break;
@@ -218,9 +215,10 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         }
         @Override
         protected Void doInBackground(Void... params) {
+            String bannerName = "banner.jpg";
             if (bannerSelected) {
                 if (!updateBanner) {
-                    file = eventBanner.getByteArray(imagePath);
+                    file = banner.getImageFromGallery(imagePath, bannerName);
                 }
             } else {
                 // set default banner for event
@@ -230,11 +228,9 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 } else {
                     drawable = activity.getApplicationContext().getDrawable(R.drawable.default_image);
                 }
-                Bitmap bitmap = eventBanner.drawableToBitmap(drawable);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] parseFile = stream.toByteArray();
-                file = new ParseFile("banner.jpg", parseFile);
+                Bitmap bitmap = banner.drawableToBitmap(drawable);
+
+                file = banner.getImageFromBitmap(bitmap, bannerName);
             }
             return null;
         }
@@ -275,19 +271,28 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     public void saveToDatabase(String feedbackText) {
         final String text = feedbackText;
-        event.saveInBackground(new SaveCallback() {
+        AsyncTask<Void, Void, Void> itemAsync = new AsyncTask<Void, Void, Void>() {
             @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    // stop the progress view
-                    progressView.stop();
-                    // show a toast
-                    Toast.makeText(activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
-                    // finish context and move to plannerEventListActivity
-                    eventFormCancel.backToEventList(activity);
+            protected Void doInBackground(Void... params) {
+                try {
+                    event.save();
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
+                return null;
             }
-        });
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                // stop the progress view
+                progressView.stop();
+                // show a toast
+                Toast.makeText(activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                // finish context and move to plannerEventListActivity
+                eventFormCancelDialog.backToEventList(activity);
+            }
+        };
+        itemAsync.execute();
     }
 
     public void compileEventData() {
@@ -298,6 +303,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         event.setVenue(eventVenue);
         event.setDescription(eventDescription);
         event.setBanner(file);
+        event.setEntries();
         // get current user from localStore
         ParseUser currentUser = ParseUser.getCurrentUser();
         event.setUserId(currentUser.getObjectId());
@@ -314,10 +320,15 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 file == null
                 ) {
             // close the form and return to the dashboard
-            eventFormCancel.backToEventList(activity);
+            eventFormCancelDialog.backToEventList(activity);
         } else {
             // build up the dialog
-            eventFormCancel.dialog(activity);
+            eventFormCancelDialog.dialog(activity, activity.getString(R.string.cancel_event_title), activity.getString(R.string.cancel_event_message), new Dialog.CallBack() {
+                @Override
+                public void onFinished() {
+                    eventFormCancelDialog.backToEventList(activity);
+                }
+            });
         }
     }
 

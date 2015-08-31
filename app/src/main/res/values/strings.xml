@@ -85,6 +85,18 @@
     <string name="planner_dash_event_name">China Town Auction</string>
     <string name="create_event_form_toast">Event Created.</string>
     <string name="update_event_form_toast">Event Updated.</string>
+    <string name="event_detail_internet_error">No Internet Connection</string>
+
+    <string name="cancel_event_title">Cancel Event</string>
+    <string name="cancel_event_message">Are you sure you want to cancel event? You will lose all data entered.</string>
+
+    <string name="delete_event_message">You will loose all your data in the event if you continue</string>
+    <string name="delete_event_title">Do you want to delete this event?</string>
+    <string name="delete_event_error">This event has been entered and cannot be deleted!</string>
+
+    <string name="delete_item_title">Do you want to delete this item?</string>
+    <string name="delete_item_message">This can not be reversed if you choose to continue</string>
+    <string name="delete_event_toast_message">Event Deleted</string>
 
 </resources>
 

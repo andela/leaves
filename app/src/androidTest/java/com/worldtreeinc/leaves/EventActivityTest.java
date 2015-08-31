@@ -95,7 +95,7 @@ public class EventActivityTest extends ActivityInstrumentationTestCase2<EventAct
 
         assertNotNull("eventDescriptionImage is null", eventDescriptionImage);
 
-        assertNotNull("eventBanner is null", eventBanner);
+        assertNotNull("banner is null", eventBanner);
 
         assertNotNull("eventBannerIcon is null", eventBannerIcon);
 

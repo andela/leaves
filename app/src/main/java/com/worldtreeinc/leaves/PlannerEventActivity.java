@@ -3,16 +3,15 @@ package com.worldtreeinc.leaves;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.parse.ParseUser;
 
@@ -28,6 +27,7 @@ public class PlannerEventActivity extends ActionBarActivity {
     ProgressDialog mProgressDialog;
     PlannerEventAdapter adapter;
     String currentUserId = ParseUser.getCurrentUser().getObjectId();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class PlannerEventActivity extends ActionBarActivity {
     private ListView.OnItemClickListener mMessageClickedHandler = new ListView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id)
         {
+            Log.e("Clicked: ", "I just got clicked!!!");
             String objectId = new Event().getAll(currentUserId).get(position).getObjectId();
             Intent intent = new Intent(getApplicationContext(), EventDetailsActivity.class);
             intent.putExtra("OBJECT_ID", objectId);

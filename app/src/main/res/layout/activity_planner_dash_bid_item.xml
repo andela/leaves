@@ -17,7 +17,6 @@
         <com.parse.ParseImageView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:src="@drawable/splash"
             android:padding="5dp"
             android:id="@+id/item_image"
             android:layout_gravity="center_horizontal"
@@ -26,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/planner_dash_item_name"
+            android:id="@+id/item_name"
             android:text="@string/planner_dash_item_name"
             android:textSize="15sp"
             android:textColor="#000"
@@ -85,7 +84,7 @@
                 android:textSize="15sp"
                 android:layout_marginLeft="2dp"
                 android:layout_toRightOf="@+id/previous_bid_label"
-                android:id="@+id/planner_dash_previous_bid"
+                android:id="@+id/previous_bid"
                 android:textColor="#000"/>
 
         </RelativeLayout>
@@ -108,7 +107,7 @@
                 android:textSize="15sp"
                 android:layout_marginLeft="2dp"
                 android:layout_toRightOf="@+id/new_bid_label"
-                android:id="@+id/planner_dash_new_bid"
+                android:id="@+id/new_bid"
                 android:textColor="#000"/>
 
         </RelativeLayout>

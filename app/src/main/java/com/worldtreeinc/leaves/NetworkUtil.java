@@ -3,6 +3,7 @@ package com.worldtreeinc.leaves;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.TextView;
 
 /**
  * Created by andela on 8/7/15.
@@ -27,5 +28,12 @@ public class NetworkUtil {
                 return TYPE_MOBILE;
         }
         return TYPE_NOT_CONNECTED;
+    }
+
+    public static void setError(Context context, TextView textView, String message) {
+
+        if (getConnectivityStatus(context) == TYPE_NOT_CONNECTED) {
+            textView.setText(message);
+        }
     }
 }

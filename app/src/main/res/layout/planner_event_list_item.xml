@@ -1,115 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#fff"
-    android:padding="10dp"
-    android:layout_marginBottom="3dp">
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:background="#fff"
+                android:padding="2dp">
 
     <com.pkmmte.view.CircularImageView
         android:id="@+id/eventBanner"
         android:layout_width="100dp"
         android:layout_height="110dp"
         android:layout_alignParentLeft="true"
+        android:layout_marginRight="10dp"
         android:padding="15dp"
-        android:scaleType="fitXY"
-        android:layout_marginRight="10dp"/>
+        android:scaleType="fitXY"/>
 
     <TextView
-        android:id="@+id/eventDescriptionlabel"
+        android:id="@+id/eventName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Event_Description_Text"
-        android:layout_toRightOf="@+id/eventBanner"
         android:layout_toEndOf="@+id/eventBanner"
-        android:layout_below="@+id/eventVenue"
+        android:layout_toRightOf="@+id/eventBanner"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/eventDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/eventDescriptionlabel"
-        android:layout_below="@+id/eventVenue"
-        android:textStyle="bold"/>
+        android:layout_below="@+id/eventName"
+        android:layout_toEndOf="@+id/eventBanner"
+        android:layout_toRightOf="@+id/eventBanner"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="italic"/>
+
+    <ImageView
+        android:id="@+id/ed_location_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/eventDescription"
+        android:layout_toEndOf="@+id/eventBanner"
+        android:layout_toRightOf="@+id/eventBanner"
+        android:src="@mipmap/ic_place_black_24dp"
+        android:layout_marginRight="2dp"/>
 
     <TextView
-        android:id="@+id/eventDatelabel"
+        android:id="@+id/eventVenue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Event_Date_Text"
         android:layout_below="@+id/eventDescription"
-        android:layout_alignLeft="@+id/eventDescriptionlabel"
-        android:layout_alignStart="@+id/eventDescriptionlabel"
+        android:layout_toEndOf="@+id/ed_location_icon"
+        android:layout_toRightOf="@+id/ed_location_icon"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textStyle="bold"/>
+
+    <ImageView
+        android:id="@+id/ed_date_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/ed_location_icon"
+        android:layout_toEndOf="@+id/eventBanner"
+        android:layout_toRightOf="@+id/eventBanner"
+        android:src="@mipmap/ic_event_black_24dp"
+        android:layout_marginRight="2dp"/>
 
     <TextView
         android:id="@+id/eventDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/eventDescription"
-        android:layout_toRightOf="@+id/eventDatelabel"
+        android:layout_below="@+id/ed_location_icon"
+        android:layout_toEndOf="@+id/ed_date_icon"
+        android:layout_toRightOf="@+id/ed_date_icon"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/eventCategorylabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Event_Category_Text"
-        android:layout_below="@+id/eventDate"
-        android:layout_alignLeft="@+id/eventDatelabel"
-        android:layout_alignStart="@+id/eventDatelabel"
-        android:textStyle="bold"/>
+    <ImageView
+        android:id="@+id/ed_category_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/ed_date_icon"
+        android:layout_toEndOf="@+id/eventBanner"
+        android:layout_toRightOf="@+id/eventBanner"
+        android:src="@mipmap/ic_swap_vert_black_24dp"
+        android:layout_marginRight="2dp"/>
 
     <TextView
         android:id="@+id/eventCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/eventDate"
-        android:layout_toRightOf="@+id/eventCategorylabel"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/eventVenue"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/eventDescriptionlabel"
-        android:layout_alignStart="@+id/eventDescriptionlabel"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/eventName"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/eventVenue"
-        android:layout_toEndOf="@+id/eventVenue"
+        android:layout_below="@+id/ed_date_icon"
+        android:layout_toEndOf="@+id/ed_category_icon"
+        android:layout_toRightOf="@+id/ed_category_icon"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textStyle="bold"/>
 
     <ImageView
-        android:layout_width="20dp"
+        android:id="@+id/popMenu"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:id="@+id/deleteButton"
-        android:layout_marginRight="5dp"
-        android:scaleType="fitXY"
-        android:background="@android:drawable/ic_delete"
-        android:layout_alignBottom="@+id/eventBanner"
-        android:layout_toLeftOf="@+id/editButton"
-        android:layout_toStartOf="@+id/editButton"/>
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        android:id="@+id/editButton"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/ic_menu_edit"
-        android:scaleType="fitXY"
-        android:layout_alignTop="@+id/deleteButton"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="5dp"/>
+        android:background="#FFF"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_more"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
 
 </RelativeLayout>

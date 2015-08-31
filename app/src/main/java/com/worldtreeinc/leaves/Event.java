@@ -1,6 +1,11 @@
 package com.worldtreeinc.leaves;
 
 
+import android.app.Activity;
+import android.content.Context;
+import android.widget.Toast;
+
+import com.parse.DeleteCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -52,12 +57,19 @@ public class Event extends ParseObject {
         put("entryFee", entryFee);
     }
 
+    public void setEntries() {
+        put("entries", 0);
+    }
+
+    public int getEntries() {
+        return (int) getNumber("entries");
+    }
+
     public static Event getOne(String eventId) {
         Event event;
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         try {
             event = query.get(eventId);
-
         }
         catch (ParseException e) {
             e.printStackTrace();
@@ -80,4 +92,18 @@ public class Event extends ParseObject {
         return event;
     }
 
+    public void delete(final Context context) {
+        this.deleteInBackground(new DeleteCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    // show a toast
+                    Toast.makeText(context, R.string.delete_event_toast_message, Toast.LENGTH_LONG).show();
+                    // reload event list after deleting
+                    ((Activity) context).recreate();
+
+                }
+            }
+        });
+    }
 }
