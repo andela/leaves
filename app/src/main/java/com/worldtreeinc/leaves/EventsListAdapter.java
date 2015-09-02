@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseFile;
 
@@ -20,7 +21,7 @@ import java.util.List;
 /**
  * Created by andela on 7/24/15.
  */
-public class PlannerEventAdapter extends ArrayAdapter<Event> implements PopupMenu.OnMenuItemClickListener {
+public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.OnMenuItemClickListener {
 
     // Declare Variables
     Activity activity;
@@ -31,10 +32,12 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> implements PopupMen
     int currentPosition;
     String eventId;
     Dialog dialog = new Dialog();
+    boolean isPlanner;
 
-    public PlannerEventAdapter(Activity activity, List<Event> userEventList) {
+    public EventsListAdapter(Activity activity, List<Event> userEventList, boolean flag) {
         super(activity, R.layout.planner_event_list_item, userEventList);
         this.activity = activity;
+        this.isPlanner = flag;
         this.userEventList = userEventList;
         inflater = LayoutInflater.from(activity);
         imageLoader = new ImageLoader(activity);
@@ -101,9 +104,17 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> implements PopupMen
             case R.id.deleteEvent:
                 deleteEvent();
                 return true;
+            case R.id.enterEvent:
+                enterEvent();
+                return true;
             default:
                 return false;
         }
+    }
+
+    // method to be called when the enterEvent button is clicked
+    private void enterEvent() {
+        Toast.makeText(activity, "Event Entered!", Toast.LENGTH_LONG).show();
     }
 
     private void editEvent() {
@@ -142,7 +153,11 @@ public class PlannerEventAdapter extends ArrayAdapter<Event> implements PopupMen
     public void showMenu(View v) {
         PopupMenu popup = new PopupMenu(activity, v);
         popup.setOnMenuItemClickListener(this);
-        popup.inflate(R.menu.menu_event_list);
+        if (isPlanner) {
+            popup.inflate(R.menu.menu_event_list);
+        } else {
+            popup.inflate(R.menu.bidder_menu_event_list);
+        }
         // Force icons to show
         Object menuHelper;
         Class[] argTypes;

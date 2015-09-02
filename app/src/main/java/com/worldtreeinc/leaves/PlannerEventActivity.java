@@ -25,7 +25,7 @@ public class PlannerEventActivity extends ActionBarActivity {
     ListView listview;
     List<Event> event;
     ProgressDialog mProgressDialog;
-    PlannerEventAdapter adapter;
+    EventsListAdapter adapter;
     String currentUserId = ParseUser.getCurrentUser().getObjectId();
 
 
@@ -33,8 +33,8 @@ public class PlannerEventActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planner_event);
-        adapter = new PlannerEventAdapter(this,
-                new ArrayList<Event>());
+        adapter = new EventsListAdapter(this,
+                new ArrayList<Event>(), true);
         new EventAsyncTask().execute();
     }
 
