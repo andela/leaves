@@ -9,9 +9,9 @@
     <application
         android:name=".ParseApplication"
         android:allowBackup="true"
-        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.parse.APPLICATION_ID"
@@ -19,86 +19,93 @@
         <meta-data
             android:name="com.parse.CLIENT_KEY"
             android:value="@string/parse_secret" />
-
-
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".GetStartedActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_get_started" >
+            android:label="@string/title_activity_get_started"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".WelcomeActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/welcome_activity_label" >
+            android:label="@string/welcome_activity_label"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".RoleOptionActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_role_option" >
+            android:label="@string/title_activity_role_option"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".BidderDashActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_bidder_dash" >
+            android:label="@string/title_activity_bidder_dash"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".PlannerDashActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_planner_dash"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.worldtreeinc.leaves.MainActivity" />
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_register"
-            android:parentActivityName=".WelcomeActivity" >
+            android:parentActivityName=".WelcomeActivity"
+            android:screenOrientation="portrait" >
         </activity>
-
         <activity
             android:name=".PlannerEventActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_planner_event" >
+            android:label="@string/title_activity_planner_event"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".EventActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_create_event" >
+            android:label="@string/title_activity_create_event"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".EventDetailsActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_event_details"
-            android:parentActivityName=".PlannerEventActivity">
+            android:parentActivityName=".PlannerEventActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".BidderEventsTabActivity"
+            android:label="@string/title_activity_bidder_events_tab"
+            android:parentActivityName=".WelcomeActivity"
+            android:screenOrientation="portrait" > <!-- change name later -->
 
         </activity>
+        <activity
+            android:name=".BidderEventListActivity"
+            android:label="@string/title_activity_bidder_event_list"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
