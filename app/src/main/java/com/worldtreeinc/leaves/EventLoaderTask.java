@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by kamiye on 9/4/15.
  */
-public class EventTaskLoader {
+public class EventLoaderTask {
 
     private Activity activity;
     private ListView listView;
@@ -26,7 +26,7 @@ public class EventTaskLoader {
     private String column;
 
 
-    public EventTaskLoader(ListView listView, Activity activity, EventsListAdapter eventsListAdapter) {
+    public EventLoaderTask(ListView listView, Activity activity, EventsListAdapter eventsListAdapter) {
         this.listView = listView;
         this.activity = activity;
         this.eventsListAdapter = eventsListAdapter;

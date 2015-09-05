@@ -12,13 +12,12 @@ import android.widget.ListView;
 import com.rey.material.widget.Spinner;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class BidderEventListActivity extends AppCompatActivity {
 
     private ListView listView;
     private EventsListAdapter eventsListAdapter;
-    private EventTaskLoader eventTaskLoader;
+    private EventLoaderTask eventLoaderTask;
 
 
     @Override
@@ -40,8 +39,8 @@ public class BidderEventListActivity extends AppCompatActivity {
         });
 
         eventsListAdapter = new EventsListAdapter(this, new ArrayList<Event>(), false);
-        eventTaskLoader = new EventTaskLoader(listView, this, eventsListAdapter);
-        eventTaskLoader.fetchEvents(false, "General");
+        eventLoaderTask = new EventLoaderTask(listView, this, eventsListAdapter);
+        eventLoaderTask.fetchEvents(false, "General");
     }
 
     @Override
@@ -71,6 +70,6 @@ public class BidderEventListActivity extends AppCompatActivity {
     }
 
     private void refreshList(String category) {
-        eventTaskLoader.updateEventList(category);
+        eventLoaderTask.updateEventList(category);
     }
 }

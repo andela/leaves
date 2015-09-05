@@ -2,21 +2,22 @@ package com.worldtreeinc.leaves;
 
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlannerEventActivity extends ActionBarActivity {
+public class PlannerEventActivity extends AppCompatActivity {
 
     String id;
     ListView listview;
     List<Event> event;
     EventsListAdapter adapter;
-    private EventTaskLoader eventTaskLoader;
+    private EventLoaderTask eventLoaderTask;
 
 
     @Override
@@ -26,8 +27,8 @@ public class PlannerEventActivity extends ActionBarActivity {
         adapter = new EventsListAdapter(this,
                 new ArrayList<Event>(), true);
 
-        eventTaskLoader = new EventTaskLoader(listview, this, adapter);
-        eventTaskLoader.fetchEvents(true, null);
+        eventLoaderTask = new EventLoaderTask(listview, this, adapter);
+        eventLoaderTask.fetchEvents(true, null);
     }
 
     @Override
