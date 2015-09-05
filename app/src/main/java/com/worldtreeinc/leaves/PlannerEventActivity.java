@@ -1,20 +1,11 @@
 package com.worldtreeinc.leaves;
 
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-
-import com.parse.ParseUser;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +15,8 @@ public class PlannerEventActivity extends ActionBarActivity {
     String id;
     ListView listview;
     List<Event> event;
-    ProgressDialog mProgressDialog;
     EventsListAdapter adapter;
-    String currentUserId = ParseUser.getCurrentUser().getObjectId();
+    private EventTaskLoader eventTaskLoader;
 
 
     @Override
@@ -35,7 +25,9 @@ public class PlannerEventActivity extends ActionBarActivity {
         setContentView(R.layout.activity_planner_event);
         adapter = new EventsListAdapter(this,
                 new ArrayList<Event>(), true);
-        new EventAsyncTask().execute();
+
+        eventTaskLoader = new EventTaskLoader(listview, this, adapter);
+        eventTaskLoader.fetchEvents(true, null);
     }
 
     @Override
@@ -44,51 +36,6 @@ public class PlannerEventActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_planner_event, menu);
         return true;
     }
-
-    private ListView.OnItemClickListener mMessageClickedHandler = new ListView.OnItemClickListener() {
-        public void onItemClick(AdapterView parent, View v, int position, long id)
-        {
-            Log.e("Clicked: ", "I just got clicked!!!");
-            String objectId = new Event().getAll(currentUserId).get(position).getObjectId();
-            Intent intent = new Intent(getApplicationContext(), EventDetailsActivity.class);
-            intent.putExtra("OBJECT_ID", objectId);
-            startActivity(intent);
-        }
-    };
-
-    private class EventAsyncTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            adapter.addAll(Event.getAll(currentUserId));
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // Create a progressdialog
-            mProgressDialog = new ProgressDialog(PlannerEventActivity.this);
-            // Set progressdialog title
-            mProgressDialog.setTitle("My event list");
-            // Set progressdialog message
-            mProgressDialog.setMessage("Loading...");
-            mProgressDialog.setIndeterminate(false);
-            // Show progressdialog
-            mProgressDialog.show();
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            // Locate the listview in listview_main.xml
-            listview = (ListView) findViewById(R.id.listView);
-            // Binds the Adapter to the ListView
-            listview.setAdapter(adapter);
-            listview.setOnItemClickListener(mMessageClickedHandler);
-            // Close the progressdialog
-            mProgressDialog.dismiss();
-        }
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

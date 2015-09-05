@@ -78,10 +78,24 @@ public class Event extends ParseObject {
         return event;
     }
 
-    public static List<Event> getAll(String userId) {
+    /*public static List<Event> getAll(String userId) {
         List<Event> event;
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.whereEqualTo("userId", userId);
+        try {
+            event = query.find();
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+            event = null;
+        }
+        return event;
+    }*/
+
+    public static List<Event> getAll(String ObjectReference, String column) {
+        List<Event> event;
+        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
+        query.whereEqualTo(ObjectReference, column);
         try {
             event = query.find();
         }

@@ -5,11 +5,21 @@ import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.rey.material.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BidderEventListActivity extends AppCompatActivity {
+
+    private ListView listView;
+    private EventsListAdapter eventsListAdapter;
+    private EventTaskLoader eventTaskLoader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,9 +28,20 @@ public class BidderEventListActivity extends AppCompatActivity {
 
         Spinner eventCategories = (Spinner) findViewById(R.id.bidder_events_categories_spinner);
 
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.events_categories, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        eventCategories.setAdapter(adapter);
+        ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.events_categories, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        eventCategories.setAdapter(spinnerAdapter);
+        eventCategories.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(Spinner spinner, View view, int i, long l) {
+                String selectedCategory = spinner.getSelectedItem().toString();
+                refreshList(selectedCategory);
+            }
+        });
+
+        eventsListAdapter = new EventsListAdapter(this, new ArrayList<Event>(), false);
+        eventTaskLoader = new EventTaskLoader(listView, this, eventsListAdapter);
+        eventTaskLoader.fetchEvents(false, "General");
     }
 
     @Override
@@ -47,5 +68,9 @@ public class BidderEventListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void refreshList(String category) {
+        eventTaskLoader.updateEventList(category);
     }
 }
