@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class BidderEventListActivity extends AppCompatActivity {
 
     private ListView listView;
-    private EventsListAdapter eventsListAdapter;
     private EventLoaderTask eventLoaderTask;
 
 
@@ -38,7 +37,7 @@ public class BidderEventListActivity extends AppCompatActivity {
             }
         });
 
-        eventsListAdapter = new EventsListAdapter(this, new ArrayList<Event>(), false);
+        EventsListAdapter eventsListAdapter = new EventsListAdapter(this, new ArrayList<Event>(), false);
         eventLoaderTask = new EventLoaderTask(listView, this, eventsListAdapter);
         eventLoaderTask.fetchEvents(false, "General");
     }

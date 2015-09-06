@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -71,10 +70,9 @@ public class EventLoaderTask {
     private ListView.OnItemClickListener mMessageClickedHandler = new ListView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id)
         {
-            Log.e("Clicked: ", "I just got clicked!!!");
-            String objectId = Event.getAll(objectReferrence, column).get(position).getObjectId();
+            List<Event> allEvents = eventsListAdapter.getCurrentEventList();
             Intent intent = new Intent(activity.getApplicationContext(), EventDetailsActivity.class);
-            intent.putExtra("OBJECT_ID", objectId);
+            intent.putExtra("OBJECT_ID", allEvents.get(position).getObjectId());
             activity.startActivity(intent);
         }
     };
