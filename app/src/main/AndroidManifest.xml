@@ -32,6 +32,11 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".GetStartedActivity"
@@ -89,22 +94,17 @@
             android:parentActivityName=".PlannerEventActivity"
             android:screenOrientation="portrait" >
         </activity>
-        <activity
-            android:name=".BidderEventsTabActivity"
-            android:label="@string/title_activity_bidder_events_tab"
-            android:parentActivityName=".WelcomeActivity"
-            android:screenOrientation="portrait" > <!-- change name later -->
+        <!--<activity-->
+            <!--android:name=".BidderEventsTabActivity"-->
+            <!--android:label="@string/title_activity_bidder_events_tab"-->
+            <!--android:parentActivityName=".WelcomeActivity"-->
+            <!--android:screenOrientation="portrait" > &lt;!&ndash; change name later &ndash;&gt;-->
 
-        </activity>
+        <!--</activity>-->
         <activity
             android:name=".BidderEventListActivity"
             android:label="@string/title_activity_bidder_event_list"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

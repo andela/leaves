@@ -95,8 +95,8 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
         return view;
     }
 
-    public List<Event> getCurrentEventList()  {
-        return this.userEventList;
+    public Event getCurrentEvent(int position)  {
+        return this.userEventList.get(position);
     }
 
     @Override

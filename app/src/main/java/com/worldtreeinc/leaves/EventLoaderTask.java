@@ -70,9 +70,9 @@ public class EventLoaderTask {
     private ListView.OnItemClickListener mMessageClickedHandler = new ListView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id)
         {
-            List<Event> allEvents = eventsListAdapter.getCurrentEventList();
+            Event event = eventsListAdapter.getCurrentEvent(position);
             Intent intent = new Intent(activity.getApplicationContext(), EventDetailsActivity.class);
-            intent.putExtra("OBJECT_ID", allEvents.get(position).getObjectId());
+            intent.putExtra("OBJECT_ID", event.getObjectId());
             activity.startActivity(intent);
         }
     };
