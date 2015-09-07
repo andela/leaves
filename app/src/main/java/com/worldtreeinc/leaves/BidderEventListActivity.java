@@ -26,8 +26,9 @@ public class BidderEventListActivity extends AppCompatActivity {
 
         Spinner eventCategories = (Spinner) findViewById(R.id.bidder_events_categories_spinner);
 
+        // simple_spinner_dropdown_item
         ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.events_categories, android.R.layout.simple_spinner_item);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_style);
         eventCategories.setAdapter(spinnerAdapter);
         eventCategories.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             @Override

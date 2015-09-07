@@ -1,14 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.worldtreeinc.leaves.BidderEventListActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              tools:context="com.worldtreeinc.leaves.BidderEventListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,28 +16,31 @@
         android:layout_margin="5dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="5dp"
-            android:text="Sort By" />
 
         <com.rey.material.widget.Spinner
             android:id="@+id/bidder_events_categories_spinner"
             style="@style/Material.Widget.Spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            app:rd_style="@style/Material.Drawable.Ripple.Wave" />
+            app:rd_style="@style/Material.Drawable.Ripple.Wave"
+            app:spn_arrowSize="7dp"
+            app:spn_arrowSwitchMode="true"
+            app:spn_dividerHeight="2dp"
+            app:spn_label="Sort by Category"
+            app:spn_labelEnable="true"
+            app:spn_labelPadding="5dp"
+            app:spn_dividerColor="#00838F"
+            app:spn_dividerPadding="10dp"
+            app:spn_labelTextAppearance="?android:attr/textAppearanceMedium"
+            app:spn_labelTextColor="#000000"/>
     </LinearLayout>
 
     <ListView
+        android:id="@+id/listView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:divider="@android:color/transparent"
         android:dividerHeight="5.0dp"/>
 
