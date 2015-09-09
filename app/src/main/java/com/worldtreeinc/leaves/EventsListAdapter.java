@@ -35,9 +35,10 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
     Dialog dialog = new Dialog();
     boolean isPlanner;
 
-    public EventsListAdapter(Context context, List<Event> userEventList, boolean flag) {
+    public EventsListAdapter(Context context, List<Event> userEventList, boolean isPlanner) {
         super(context, R.layout.planner_event_list_item, userEventList);
-        this.isPlanner = flag;
+        this.isPlanner = isPlanner;
+        this.context = context;
         this.userEventList = userEventList;
         inflater = LayoutInflater.from(context);
         imageLoader = new ImageLoader(context);
