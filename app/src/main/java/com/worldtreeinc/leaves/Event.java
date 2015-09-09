@@ -10,6 +10,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 
 import java.util.List;
@@ -106,6 +107,19 @@ public class Event extends ParseObject {
         return event;
     }
 
+    public static List<Event> getAll1() {
+        List<Event> event;
+        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
+        try {
+            event = query.find();
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+            event = null;
+        }
+        return event;
+    }
+
     public void delete(final Context context) {
         this.deleteInBackground(new DeleteCallback() {
             @Override
@@ -120,4 +134,5 @@ public class Event extends ParseObject {
             }
         });
     }
+
 }
