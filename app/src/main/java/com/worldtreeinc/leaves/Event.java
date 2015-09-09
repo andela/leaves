@@ -18,12 +18,53 @@ import java.util.List;
 @ParseClassName("Events")
 public class Event extends ParseObject {
 
+    public static Event getOne(String eventId) {
+        Event event;
+        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
+        try {
+            event = query.get(eventId);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            event = null;
+        }
+        return event;
+    }
+
+    public static List<Event> getAll(String ObjectReference, String column) {
+        List<Event> event;
+        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
+        query.whereEqualTo(ObjectReference, column);
+        try {
+            event = query.find();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            event = null;
+        }
+        return event;
+    }
+
+    public static Event getFirst() {
+        Event event = null;
+        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
+        query.orderByDescending("createdAt");
+        try {
+            event = query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return event;
+    }
+
     public String getField(String fieldName) {
         return getString(fieldName);
     }
 
     public ParseFile getBanner() {
         return getParseFile("eventBanner");
+    }
+
+    public void setBanner(ParseFile banner) {
+        put("eventBanner", banner);
     }
 
     public void setName(String name) {
@@ -46,37 +87,12 @@ public class Event extends ParseObject {
         put("eventDescription", description);
     }
 
-    public void setBanner(ParseFile banner) {
-        put("eventBanner", banner);
-    }
-
     public void setUserId(String userId) {
         put("userId", userId);
     }
 
     public void setEntryFee(int entryFee) {
         put("entryFee", entryFee);
-    }
-
-    public void setEntries() {
-        put("entries", 0);
-    }
-
-    public int getEntries() {
-        return (int) getNumber("entries");
-    }
-
-    public static Event getOne(String eventId) {
-        Event event;
-        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-        try {
-            event = query.get(eventId);
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-            event = null;
-        }
-        return event;
     }
 
     /*public static List<Event> getAll(String userId) {
@@ -93,31 +109,12 @@ public class Event extends ParseObject {
         return event;
     }*/
 
-    public static List<Event> getAll(String ObjectReference, String column) {
-        List<Event> event;
-        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-        query.whereEqualTo(ObjectReference, column);
-        try {
-            event = query.find();
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-            event = null;
-        }
-        return event;
+    public void setEntries() {
+        put("entries", 0);
     }
 
-    public static List<Event> getAll1() {
-        List<Event> event;
-        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-        try {
-            event = query.find();
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-            event = null;
-        }
-        return event;
+    public int getEntries() {
+        return (int) getNumber("entries");
     }
 
     public void delete(final Context context) {

@@ -75,9 +75,9 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
     private class ItemAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            List event = Event.getAll1();
+            Event event = Event.getFirst();
             listAdapter.clear();
-            listAdapter.addAll(event);
+            listAdapter.add(event);
             return null;
         }
 
@@ -100,7 +100,6 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.browse_event_btn :
-                Log.v("TAG", "this browse button has been called");
                 Intent bidderEvent = new Intent(this, BidderEventListActivity.class);
                 startActivity(bidderEvent);
                 break;
