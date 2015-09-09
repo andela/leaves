@@ -10,7 +10,6 @@ import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
-import com.parse.ParsePush;
 import com.parse.ParseQuery;
 
 import java.util.List;
@@ -94,20 +93,6 @@ public class Event extends ParseObject {
     public void setEntryFee(int entryFee) {
         put("entryFee", entryFee);
     }
-
-    /*public static List<Event> getAll(String userId) {
-        List<Event> event;
-        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-        query.whereEqualTo("userId", userId);
-        try {
-            event = query.find();
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-            event = null;
-        }
-        return event;
-    }*/
 
     public void setEntries() {
         put("entries", 0);
