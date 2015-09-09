@@ -24,23 +24,19 @@ public class EventLoaderTask {
     private String objectReferrence;
     private String column;
 
-
     public EventLoaderTask(ListView listView, Activity activity, EventsListAdapter eventsListAdapter) {
         this.listView = listView;
         this.activity = activity;
         this.eventsListAdapter = eventsListAdapter;
     }
 
-    public void fetchEvents(boolean flag, String category) {
-        if (flag) {
+    public void fetchEvents(boolean isPlanner, String category) {
+        if (isPlanner) {
             objectReferrence = "userId";
             column = ParseUser.getCurrentUser().getObjectId();
-        }
-        else {
-            if (category != null) {
-                objectReferrence = "eventCategory";
-                column = category;
-            }
+        } else {
+            objectReferrence = "eventCategory";
+            column = category;
         }
         new EventAsyncTask().execute();
     }
@@ -48,24 +44,30 @@ public class EventLoaderTask {
     public void updateEventList(final String category) {
         mProgressDialog = new ProgressDialog(activity);
         // Set progressdialog title
-        mProgressDialog.setTitle("My event list");
+        mProgressDialog.setTitle(activity.getString(R.string.Event_list_progress_dialog));
         // Set progressdialog message
-        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setMessage(activity.getString(R.string.event_list_progress_loading));
         mProgressDialog.setIndeterminate(false);
         // Show progressdialog
         mProgressDialog.show();
         eventsListAdapter.clear();
-        activity.runOnUiThread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                List<Event> events = Event.getAll(objectReferrence, category);
-                eventsListAdapter.addAll(events);
-                eventsListAdapter.notifyDataSetChanged();
-                mProgressDialog.dismiss();
+                final List<Event> events = Event.getAll(objectReferrence, category);
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        eventsListAdapter.addAll(events);
+                        eventsListAdapter.notifyDataSetChanged();
+                        mProgressDialog.dismiss();
+                    }
+                });
             }
-        });
+        }).start();
 
     }
+
 
     private ListView.OnItemClickListener mMessageClickedHandler = new ListView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id)
@@ -90,9 +92,9 @@ public class EventLoaderTask {
             // Create a progressdialog
             mProgressDialog = new ProgressDialog(activity);
             // Set progressdialog title
-            mProgressDialog.setTitle("My event list");
+            mProgressDialog.setTitle(activity.getString(R.string.Event_list_progress_dialog));
             // Set progressdialog message
-            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setMessage(activity.getString(R.string.event_list_progress_loading));
             mProgressDialog.setIndeterminate(false);
             // Show progressdialog
             mProgressDialog.show();
