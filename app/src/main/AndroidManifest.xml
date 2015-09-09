@@ -94,7 +94,7 @@
         </activity>
         <activity
             android:name=".BidderEventListActivity"
-            android:label="bidder_event_list"
+            android:label="@string/title_activity_bidder_events_tab"
             android:screenOrientation="portrait" >
         </activity>
         <activity
