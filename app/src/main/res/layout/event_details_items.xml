@@ -1,116 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="120dp"
               android:orientation="vertical">
 
-    <LinearLayout
-        android:background="#FFFFFF"
-        android:layout_marginTop="10dp"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:padding="10dp"
+        android:layout_marginTop="0dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <com.worldtreeinc.leaves.CircularImageView
-            android:id="@+id/event_details_item_image"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:scaleType="centerCrop"
-            android:layout_weight="1" />
+        android:layout_height="120dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-            <TextView
-                android:id="@+id/event_details_item_name"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/event_details_item_description"
-                android:textSize="13sp"
-                android:textStyle="italic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <com.worldtreeinc.leaves.CircularImageView
+                android:id="@+id/event_details_item_image"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"/>
 
             <LinearLayout
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="3"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/ed_starting_bid_title"
+                    android:id="@+id/event_details_item_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:text="Previous Bid: "
+                    android:textSize="16sp"
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/event_details_previous_bid"
-                    android:textSize="13sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/ed_present_bid_title"
-                    android:layout_width="wrap_content"
-                    android:text="Present Bid: "
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/event_details_new_bid"
-                    android:textSize="13sp"
+                    android:id="@+id/event_details_item_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/ed_present_bid_title"
-                    android:layout_toEndOf="@id/ed_present_bid_title"/>
+                    android:textSize="13sp"
+                    android:textStyle="italic"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true">
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
-                    <ImageView
+                    <TextView
+                        android:id="@+id/ed_starting_bid_title"
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:id="@+id/popMenu"
-                        android:src="@drawable/ic_more"
-                        android:background="#FFF"
-                        android:scaleType="fitXY" />
+                        android:layout_height="wrap_content"
+                        android:text="Previous Bid: "
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/event_details_previous_bid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"/>
 
                 </LinearLayout>
 
-            </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/ed_present_bid_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Present Bid: "
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/event_details_new_bid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/ed_present_bid_title"
+                        android:layout_toRightOf="@id/ed_present_bid_title"
+                        android:textSize="13sp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/popMenu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_more"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
 
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
+
 
 </LinearLayout>

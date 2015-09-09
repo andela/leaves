@@ -1,8 +1,6 @@
 package com.worldtreeinc.leaves.test;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
-import android.test.AndroidTestCase;
 import android.test.InstrumentationTestCase;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +8,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.worldtreeinc.leaves.Event;
-import com.worldtreeinc.leaves.PlannerEventAdapter;
+import com.worldtreeinc.leaves.EventsListAdapter;
 import com.worldtreeinc.leaves.R;
 
 import java.util.ArrayList;
@@ -24,7 +22,7 @@ public class PlannerEventAdapterTest extends InstrumentationTestCase {
 
     private List<Event> data = new ArrayList<Event>();
 
-    private PlannerEventAdapter mAdapter;
+    private EventsListAdapter mAdapter;
     Event event;
 
     public PlannerEventAdapterTest() {
@@ -42,7 +40,7 @@ public class PlannerEventAdapterTest extends InstrumentationTestCase {
         event.setDate("30/08/1987");
         data.add(event);
 
-        mAdapter = new PlannerEventAdapter(new Activity(), data);
+        mAdapter = new EventsListAdapter(new Activity(), data);
     }
 
     public void testGetItemId() {
