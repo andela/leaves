@@ -132,7 +132,6 @@
                 <category android:name="com.worldtreeinc.leaves" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

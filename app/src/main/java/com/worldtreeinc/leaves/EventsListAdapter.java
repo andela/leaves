@@ -1,6 +1,7 @@
 package com.worldtreeinc.leaves;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +25,7 @@ import java.util.List;
 public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.OnMenuItemClickListener {
 
     // Declare Variables
-    Activity activity;
+    Context context;
     LayoutInflater inflater;
     ImageLoader imageLoader;
     private List<Event> userEventList = null;
@@ -34,13 +35,12 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
     Dialog dialog = new Dialog();
     boolean isPlanner;
 
-    public EventsListAdapter(Activity activity, List<Event> userEventList, boolean flag) {
-        super(activity, R.layout.planner_event_list_item, userEventList);
-        this.activity = activity;
+    public EventsListAdapter(Context context, List<Event> userEventList, boolean flag) {
+        super(context, R.layout.planner_event_list_item, userEventList);
         this.isPlanner = flag;
         this.userEventList = userEventList;
-        inflater = LayoutInflater.from(activity);
-        imageLoader = new ImageLoader(activity);
+        inflater = LayoutInflater.from(context);
+        imageLoader = new ImageLoader(context);
     }
 
     public class ViewHolder {
@@ -118,26 +118,26 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
 
     // method to be called when the enterEvent button is clicked
     private void enterEvent() {
-        Toast.makeText(activity, "Event Entered!", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Event Entered!", Toast.LENGTH_LONG).show();
     }
 
     private void editEvent() {
         event = userEventList.get(currentPosition);
         eventId = event.getObjectId();
         Log.v("Event ID", eventId);
-        Intent intent = new Intent(activity, EventActivity.class);
+        Intent intent = new Intent(context, EventActivity.class);
         intent.putExtra("EVENT_ID", eventId);
-        activity.startActivity(intent);
-        activity.finish();
+        context.startActivity(intent);
+        ((Activity) context).finish();
     }
 
     private void deleteEvent() {
         event = userEventList.get(currentPosition);
         eventId = event.getObjectId();
         if (event.getEntries() > 0) {
-            dialog.dialog(activity, activity.getString(R.string.delete_event_title), activity.getString(R.string.delete_event_error));
+            dialog.dialog(context, context.getString(R.string.delete_event_title), context.getString(R.string.delete_event_error));
         } else {
-            dialog.dialog(activity, activity.getString(R.string.delete_event_title), activity.getString(R.string.delete_event_message), new Dialog.CallBack() {
+            dialog.dialog(context, context.getString(R.string.delete_event_title), context.getString(R.string.delete_event_message), new Dialog.CallBack() {
                 @Override
                 public void onFinished() {
                     // delete all items related to event
@@ -148,14 +148,14 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
                         i++;
                     }
                     // delete event
-                    event.delete(activity);
+                    event.delete(context);
                 }
             });
         }
     }
 
     public void showMenu(View v) {
-        PopupMenu popup = new PopupMenu(activity, v);
+        PopupMenu popup = new PopupMenu(context, v);
         popup.setOnMenuItemClickListener(this);
         if (isPlanner) {
             popup.inflate(R.menu.menu_event_list);

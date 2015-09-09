@@ -40,7 +40,8 @@ public class BidderEventListActivity extends AppCompatActivity {
 
         EventsListAdapter eventsListAdapter = new EventsListAdapter(this, new ArrayList<Event>(), false);
         eventLoaderTask = new EventLoaderTask(listView, this, eventsListAdapter);
-        eventLoaderTask.fetchEvents(false, "General");
+        String defaultCategory = getResources().getStringArray(R.array.events_categories)[0];
+        eventLoaderTask.fetchEvents(false, defaultCategory);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class EventsListAdapterTest extends InstrumentationTestCase {
         event.setCategory("Bizz");
         event.setDate("30/08/1987");
         data.add(event);
-        mAdapter = new EventsListAdapter((Activity) getInstrumentation().getContext(), data, true);
+        mAdapter = new EventsListAdapter(getInstrumentation().getContext(), data, true);
     }
 
     public void testGetItemId() {
