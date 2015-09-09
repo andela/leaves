@@ -10,6 +10,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 
 import java.util.List;
@@ -23,6 +24,10 @@ public class Event extends ParseObject {
 
     public ParseFile getBanner() {
         return getParseFile("eventBanner");
+    }
+
+    public void setBanner(ParseFile banner) {
+        put("eventBanner", banner);
     }
 
     public void setName(String name) {
@@ -43,10 +48,6 @@ public class Event extends ParseObject {
 
     public void setDescription(String description) {
         put("eventDescription", description);
-    }
-
-    public void setBanner(ParseFile banner) {
-        put("eventBanner", banner);
     }
 
     public void setUserId(String userId) {
@@ -70,27 +71,38 @@ public class Event extends ParseObject {
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         try {
             event = query.get(eventId);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
             event = null;
         }
         return event;
     }
 
-    public static List<Event> getAll(String userId) {
+    public static List<Event> getAll(String ObjectReference, String column) {
         List<Event> event;
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-        query.whereEqualTo("userId", userId);
+        query.whereEqualTo(ObjectReference, column);
         try {
             event = query.find();
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
             event = null;
         }
         return event;
     }
+
+    public static Event getFirst() {
+        Event event = null;
+        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
+        query.orderByDescending("createdAt");
+        try {
+            event = query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return event;
+    }
+
 
     public void delete(final Context context) {
         this.deleteInBackground(new DeleteCallback() {
@@ -106,4 +118,5 @@ public class Event extends ParseObject {
             }
         });
     }
+
 }
