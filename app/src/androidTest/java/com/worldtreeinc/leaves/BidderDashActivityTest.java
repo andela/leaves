@@ -40,8 +40,8 @@ public class BidderDashActivityTest extends ActivityInstrumentationTestCase2<Bid
 
     //test planner role button
     public void testMyBidsBtn() {
-        final BidderDashActivity activity2 = getActivity();
-        final Button myBidsBtn = (Button) activity2.findViewById(R.id.my_bids_btn);
+        BidderDashActivity activity = getActivity();
+        Button myBidsBtn = (Button) activity.findViewById(R.id.my_bids_btn);
         assertNotNull(myBidsBtn);
     }
 

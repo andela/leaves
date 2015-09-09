@@ -2,11 +2,9 @@ package com.worldtreeinc.leaves;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +15,6 @@ import android.widget.ListView;
 import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class BidderDashActivity extends AppCompatActivity implements View.OnClickListener{
@@ -34,15 +31,17 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bidder_dash);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        setTitle("Dashboard");
         initialize();
+
         new ItemAsyncTask().execute();
     }
 
     private void initialize(){
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        setTitle(getString(R.string.bidder_dashboard_title));
+
         browseEvent = (Button) findViewById(R.id.browse_event_btn);
         browseEvent.setOnClickListener(this);
         eventList = (ListView) findViewById(R.id.event_list);
@@ -100,8 +99,7 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.browse_event_btn :
-                Intent bidderEvent = new Intent(this, BidderEventListActivity.class);
-                startActivity(bidderEvent);
+                startActivity(new Intent(this, BidderEventListActivity.class));
                 break;
         }
     }
