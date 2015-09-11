@@ -79,6 +79,18 @@ public class EventItem extends ParseObject {
         return item;
     }
 
+    public static EventItem getFirst() {
+        EventItem item = null;
+        ParseQuery<EventItem> query = ParseQuery.getQuery(EventItem.class);
+        query.orderByDescending("createdAt");
+        try {
+            item = query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return item;
+    }
+
     public static List<EventItem> getByCurrentUserId() {
         List<EventItem> item;
         ParseQuery<EventItem> query = ParseQuery.getQuery(EventItem.class);
