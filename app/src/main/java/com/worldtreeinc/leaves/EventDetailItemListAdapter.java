@@ -33,11 +33,13 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
 
     ItemFormFragment itemFormFragment;
     Bundle bundle;
+    private boolean isPlanner;
 
-    public EventDetailItemListAdapter(Activity activity, List<EventItem> objects) {
+    public EventDetailItemListAdapter(Activity activity, List<EventItem> objects, boolean isPlanner) {
         super(activity, R.layout.event_details_items, objects);
         this.activity = activity;
         this.items = objects;
+        this.isPlanner = isPlanner;
     }
 
     @Override
@@ -127,6 +129,10 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         delete.execute();
     }
 
+    private void bidItem() {
+        Toast.makeText(activity, "Bid Made!", Toast.LENGTH_LONG).show();
+    }
+
     @Override
     public boolean onMenuItemClick(MenuItem popMenuItem) {
         final String itemId;
@@ -147,6 +153,9 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
                 });
 
                 return true;
+            case R.id.bidItem:
+                bidItem();
+                return true;
             default:
                 return false;
         }
@@ -155,7 +164,12 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
     public void showMenu(View v) {
         PopupMenu popup = new PopupMenu(activity, v);
         popup.setOnMenuItemClickListener(this);
-        popup.inflate(R.menu.menu_event_list);
+        if (isPlanner) {
+            popup.inflate(R.menu.menu_event_list);
+        }
+        else {
+            popup.inflate(R.menu.bidder_menu_item_list);
+        }
         // Force icons to show
         Object menuHelper;
         Class[] argTypes;

@@ -16,7 +16,6 @@ public class PlannerEventActivity extends AppCompatActivity {
     String id;
     ListView listview;
     List<Event> event;
-    EventsListAdapter adapter;
     private EventLoaderTask eventLoaderTask;
 
 
@@ -24,10 +23,8 @@ public class PlannerEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planner_event);
-        adapter = new EventsListAdapter(this,
-                new ArrayList<Event>(), true);
 
-        eventLoaderTask = new EventLoaderTask(listview, this, adapter);
+        eventLoaderTask = new EventLoaderTask(listview, this, true);
         eventLoaderTask.fetchEvents(true, null);
     }
 

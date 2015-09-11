@@ -27,12 +27,14 @@ public class ItemListFragment extends Fragment {
     ProgressView loader;
     EventDetailItemListAdapter listAdapter;
     String eventId;
+    boolean isPlanner;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
             eventId = getArguments().getString("eventId");
+            isPlanner = getArguments().getBoolean("isPlanner");
         } catch (Exception e){
 
         }
@@ -66,7 +68,7 @@ public class ItemListFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            listAdapter = new EventDetailItemListAdapter(getActivity(), new ArrayList<EventItem>());
+            listAdapter = new EventDetailItemListAdapter(getActivity(), new ArrayList<EventItem>(), isPlanner);
             loader.start();
         }
 
