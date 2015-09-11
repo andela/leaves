@@ -1,118 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:padding="5dp"
-    android:layout_marginBottom="2dp"
-    android:background="@drawable/dash_bid_item"
-    android:baselineAligned="false">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight=".3"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:background="@drawable/planner_bid_item_image_border">
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <com.parse.ParseImageView
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:padding="5dp"
-            android:id="@+id/item_image"
-            android:layout_gravity="center_horizontal"
-            android:contentDescription="@string/planner_dash_bid_item_image_desc" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/item_name"
-            android:text="@string/planner_dash_item_name"
-            android:textSize="15sp"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:layout_gravity="center_horizontal" />
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-    </LinearLayout>
+            <com.worldtreeinc.leaves.CircularImageView
+                android:id="@+id/event_details_item_image"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"/>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight=".5"
-        android:paddingTop="5dp"
-        android:paddingLeft="5dp"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/event_name_label"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/planner_dash_default_event_name"
-                android:textSize="15sp"
-                android:textColor="#000" />
+                android:layout_weight="3"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/planner_dash_event_name"
-                android:textSize="15sp"
-                android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@+id/event_name_label"
-                android:id="@+id/planner_dash_event_name"
-                android:textColor="#000"/>
+                <TextView
+                    android:id="@+id/event_details_item_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/event_details_item_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="italic"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/previous_bid_label"
-                android:layout_height="wrap_content"
-                android:text="Previous Bid: "
-                android:textSize="15sp"
-                android:textColor="#000" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$230"
-                android:textSize="15sp"
-                android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@+id/previous_bid_label"
-                android:id="@+id/previous_bid"
-                android:textColor="#000"/>
+                    <TextView
+                        android:id="@+id/ed_starting_bid_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Previous Bid: "
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
 
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/event_details_previous_bid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/new_bid_label"
-                android:layout_height="wrap_content"
-                android:text="New Bid: "
-                android:textSize="15sp"
-                android:textColor="#000" />
+                </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$300"
-                android:textSize="15sp"
-                android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@+id/new_bid_label"
-                android:id="@+id/new_bid"
-                android:textColor="#000"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-        </RelativeLayout>
+                    <TextView
+                        android:id="@+id/ed_present_bid_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Present Bid: "
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/event_details_new_bid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/ed_present_bid_title"
+                        android:layout_toRightOf="@id/ed_present_bid_title"
+                        android:textSize="13sp"/>
+
+                </RelativeLayout>
 
 
-    </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
 
 </LinearLayout>

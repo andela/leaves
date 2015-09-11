@@ -36,7 +36,7 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
     boolean isPlanner;
 
     public EventsListAdapter(Context context, List<Event> userEventList, boolean isPlanner) {
-        super(context, R.layout.planner_event_list_item, userEventList);
+        super(context, R.layout.event_list_item, userEventList);
         this.isPlanner = isPlanner;
         this.context = context;
         this.userEventList = userEventList;
@@ -60,7 +60,7 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
         if (view == null) {
             holder = new ViewHolder();
 
-            view = inflater.inflate(R.layout.planner_event_list_item, parent, false);
+            view = inflater.inflate(R.layout.event_list_item, parent, false);
 
             // Locate the TextViews in listview_item.xml
             holder.eventDescription = (TextView) view.findViewById(R.id.eventDescription);
