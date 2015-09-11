@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 
 import java.util.List;
 
@@ -34,32 +33,29 @@ public class PlannerDashItemListAdapter extends ArrayAdapter<EventItem> {
             convertView = listLayoutInflater.inflate(R.layout.activity_planner_dash_bid_item, null);
         }
 
-        EventItem item = items.get(position);
-        Event event =  Event.getOne(item.getEventId());
 
-        TextView itemName = (TextView) convertView.findViewById(R.id.item_name);
+        EventItem item = items.get(position);
+
+        TextView itemName = (TextView) convertView.findViewById(R.id.event_details_item_name);
         itemName.setText(item.getName());
 
-        TextView eventName = (TextView) convertView.findViewById(R.id.planner_dash_event_name);
-        eventName.setText(event.getField("eventName"));
+        TextView itemDescription = (TextView) convertView.findViewById(R.id.event_details_item_description);
+        itemDescription.setText(item.getDescription());
 
-        TextView previousBid = (TextView) convertView.findViewById(R.id.previous_bid);
+        TextView previousBid = (TextView) convertView.findViewById(R.id.event_details_previous_bid);
         previousBid.setText(item.getPreviousBid().toString());
 
-        TextView newBid = (TextView) convertView.findViewById(R.id.new_bid);
+        TextView newBid = (TextView) convertView.findViewById(R.id.event_details_new_bid);
         newBid.setText(item.getNewBid().toString());
 
-        final ImageView itemImage = (ImageView) convertView.findViewById(R.id.item_image);
-
-        ParseFile image = (ParseFile) item.getImage();
-        image.getDataInBackground(new GetDataCallback() {
+        final ImageView itemImage = (ImageView) convertView.findViewById(R.id.event_details_item_image);
+        item.getImage().getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] bytes, ParseException e) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 itemImage.setImageBitmap(bitmap);
             }
         });
-
 
         return convertView;
     }

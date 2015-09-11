@@ -96,8 +96,6 @@ public class EventLoaderTask {
             super.onPreExecute();
             // Create a progressdialog
             mProgressDialog = new ProgressDialog(activity);
-            // Set progressdialog title
-            mProgressDialog.setTitle(activity.getString(R.string.Event_list_progress_dialog));
             // Set progressdialog message
             mProgressDialog.setMessage(activity.getString(R.string.event_list_progress_loading));
             mProgressDialog.setIndeterminate(false);

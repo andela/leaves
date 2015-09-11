@@ -15,7 +15,6 @@ import com.parse.ParseUser;
 import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class PlannerDashActivity extends AppCompatActivity implements View.OnClickListener {
@@ -54,9 +53,9 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
     private class ItemAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            List items = EventItem.getByCurrentUserId();
+            EventItem item = EventItem.getFirstByUserId();
             listAdapter.clear();
-            listAdapter.addAll(items);
+            listAdapter.add(item);
             return null;
         }
 

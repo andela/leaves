@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:background="@drawable/latest_bid_list"
-                android:layout_height="200dp"
+                android:layout_height="170dp"
                 android:padding="3dp"
                 tools:context="com.worldtreeinc.leaves.EventDetailsActivity">
 
@@ -68,7 +68,8 @@
                 <ListView
                     android:id="@+id/event_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
                 </ListView>
 
             </LinearLayout>

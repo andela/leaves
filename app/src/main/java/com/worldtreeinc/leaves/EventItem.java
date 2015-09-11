@@ -79,9 +79,10 @@ public class EventItem extends ParseObject {
         return item;
     }
 
-    public static EventItem getFirst() {
+    public static EventItem getFirstByUserId() {
         EventItem item = null;
         ParseQuery<EventItem> query = ParseQuery.getQuery(EventItem.class);
+        query.whereEqualTo("userId", ParseUser.getCurrentUser().getObjectId());
         query.orderByDescending("createdAt");
         try {
             item = query.getFirst();
@@ -91,19 +92,6 @@ public class EventItem extends ParseObject {
         return item;
     }
 
-    public static List<EventItem> getByCurrentUserId() {
-        List<EventItem> item;
-        ParseQuery<EventItem> query = ParseQuery.getQuery(EventItem.class);
-        query.whereEqualTo("userId", ParseUser.getCurrentUser().getObjectId());
-        try {
-            item = query.find();
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-            item = null;
-        }
-        return item;
-    }
     public static List<EventItem> getByEventId(String eventId) {
         List<EventItem> item;
         ParseQuery<EventItem> query = ParseQuery.getQuery(EventItem.class);
