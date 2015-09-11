@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,7 +21,7 @@ public class PlannerEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_planner_event);
+        setContentView(R.layout.activity_planner_event_list);
 
         eventLoaderTask = new EventLoaderTask(listview, this, true);
         eventLoaderTask.fetchEvents(true, null);
