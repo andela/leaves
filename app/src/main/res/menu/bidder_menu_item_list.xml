@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item android:id="@+id/bidItem"
+            android:icon="@drawable/ic_attach_money_black_24dp"
+            android:title="Bid" />
+    </group>
+</menu>

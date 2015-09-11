@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,11 +24,13 @@ public class EventLoaderTask {
     private ProgressDialog mProgressDialog;
     private String objectReferrence;
     private String column;
+    private boolean isPlanner;
 
-    public EventLoaderTask(ListView listView, Activity activity, EventsListAdapter eventsListAdapter) {
+    public EventLoaderTask(ListView listView, Activity activity, boolean isPlanner) {
         this.listView = listView;
         this.activity = activity;
-        this.eventsListAdapter = eventsListAdapter;
+        eventsListAdapter = new EventsListAdapter(activity, new ArrayList<Event>(), isPlanner);
+        this.isPlanner = isPlanner;
     }
 
     public void fetchEvents(boolean isPlanner, String category) {
@@ -75,6 +78,8 @@ public class EventLoaderTask {
             Event event = eventsListAdapter.getCurrentEvent(position);
             Intent intent = new Intent(activity.getApplicationContext(), EventDetailsActivity.class);
             intent.putExtra("OBJECT_ID", event.getObjectId());
+            if (isPlanner) { intent.putExtra("IS_PLANNER", "TRUE"); }
+            else { intent.putExtra("IS_PLANNER", false); }
             activity.startActivity(intent);
         }
     };
