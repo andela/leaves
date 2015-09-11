@@ -29,6 +29,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     Banner banner;
     TextView errorMessageHolder;
     Event event;
+    private boolean isPlanner;
 
     private static int RESULT_LOAD_IMAGE = 1;
 
@@ -39,9 +40,11 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
 
         bundle = new Bundle();
         eventId = getIntent().getExtras().getString("OBJECT_ID");
+        isPlanner = getIntent().getExtras().getBoolean("IS_PLANNER");
 
         itemListFragment = new ItemListFragment();
         bundle.putString("eventId", eventId);
+        bundle.putBoolean("isPlanner", isPlanner);
         itemListFragment.setArguments(bundle);
 
         banner = new Banner();
@@ -68,6 +71,10 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         }
 
         addItemButton = (FloatingActionButton) findViewById(R.id.add_item_button);
+
+        if (!isPlanner) {
+            addItemButton.setVisibility(View.GONE);
+        }
         errorMessageHolder = (TextView) findViewById(R.id.no_internet_error);
 
         addItemButton.setOnClickListener(this);
