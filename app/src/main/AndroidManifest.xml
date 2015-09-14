@@ -19,7 +19,7 @@
         android:allowBackup="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme.Base"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_leaf"
         android:label="@string/app_name">
         <meta-data
             android:name="com.parse.APPLICATION_ID"

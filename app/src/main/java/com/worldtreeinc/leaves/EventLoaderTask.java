@@ -47,7 +47,7 @@ public class EventLoaderTask {
     public void updateEventList(final String category) {
         mProgressDialog = new ProgressDialog(activity);
         // Set progressdialog title
-        mProgressDialog.setTitle(activity.getString(R.string.Event_list_progress_dialog));
+        mProgressDialog.setTitle(category+activity.getString(R.string.bidder_event_list_dialog));
         // Set progressdialog message
         mProgressDialog.setMessage(activity.getString(R.string.event_list_progress_loading));
         mProgressDialog.setIndeterminate(false);
@@ -78,7 +78,7 @@ public class EventLoaderTask {
             Event event = eventsListAdapter.getCurrentEvent(position);
             Intent intent = new Intent(activity.getApplicationContext(), EventDetailsActivity.class);
             intent.putExtra("OBJECT_ID", event.getObjectId());
-            if (isPlanner) { intent.putExtra("IS_PLANNER", "TRUE"); }
+            if (isPlanner) { intent.putExtra("IS_PLANNER", true); }
             else { intent.putExtra("IS_PLANNER", false); }
             activity.startActivity(intent);
         }

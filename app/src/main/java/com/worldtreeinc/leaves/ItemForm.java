@@ -1,6 +1,7 @@
 package com.worldtreeinc.leaves;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,6 +39,7 @@ public class ItemForm implements View.OnClickListener  {
     String startBidText;
     com.rey.material.widget.Button cancelAddItemButton;
     String itemId;
+    ProgressDialog progressDialog;
 
     public static ImageView image;
     public static ParseFile file;
@@ -77,6 +79,7 @@ public class ItemForm implements View.OnClickListener  {
 
         cancelAddItemButton = (com.rey.material.widget.Button) view.findViewById(R.id.cancel_add_item_button);
         cancelAddItemButton.setOnClickListener(this);
+
 
     }
 
@@ -145,8 +148,14 @@ public class ItemForm implements View.OnClickListener  {
         mShowingBack = true;
 
         ItemListFragment itemListFragment = new ItemListFragment();
+        changeToListFragment(itemListFragment);
+
+    }
+
+    private void changeToListFragment(ItemListFragment itemListFragment) {
         Bundle bundle = new Bundle();
         bundle.putString("eventId", eventId);
+        bundle.putBoolean("isPlanner", true);
         itemListFragment.setArguments(bundle);
 
         activity.getFragmentManager()
@@ -164,29 +173,32 @@ public class ItemForm implements View.OnClickListener  {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-
                     item.save();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 return null;
             }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                // Create a progressdialog
+                progressDialog = new ProgressDialog(activity);
+                // Set progressdialog message
+                progressDialog.setMessage(activity.getString(R.string.event_list_progress_saving));
+                progressDialog.setIndeterminate(false);
+                // Show progressdialog
+                progressDialog.show();
+            }
+
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 itemListFragment = new ItemListFragment();
-                bundle = new Bundle();
-                bundle.putString("eventId", eventId);
-                itemListFragment.setArguments(bundle);
-                activity.getFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(
-                                R.animator.card_flip_right_in, R.animator.card_flip_right_out,
-                                R.animator.card_flip_left_in, R.animator.card_flip_left_out)
-                        .replace(R.id.container, itemListFragment)
-                        .addToBackStack(null)
-                        .commit();
+                changeToListFragment(itemListFragment);
                 floatingActionButton.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
             }
         };
         itemAsync.execute();
