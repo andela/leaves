@@ -105,6 +105,10 @@
     <string name="Event_list_progress_dialog">My event list</string>
     <string name="event_list_progress_loading">Loading...</string>
     <string name="event_list_progress_saving">Saving...</string>
+    <string name="enter_event_button_text">Enter Event</string>
+    <string name="title_activity_payment">Select Payment</string>
+    <string name="paypal_button_string">Pay With PayPal</string>
+    <string name="payment_amount_text">Total $</string>
 
 </resources>
 

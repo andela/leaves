@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     // declare class variables
     String eventId;
     FloatingActionButton addItemButton;
+    Button enterEventButton;
     ItemListFragment itemListFragment;
     ItemFormFragment itemFormFragment;
     private boolean mShowingBack = false;
@@ -71,13 +73,22 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         }
 
         addItemButton = (FloatingActionButton) findViewById(R.id.add_item_button);
+        enterEventButton = (Button) findViewById(R.id.enterEventButton);
 
-        if (!isPlanner) {
-            addItemButton.setVisibility(View.GONE);
+        if (isPlanner) {
+            enterEventButton.setVisibility(View.GONE);
+        }
+        else {
+            // call method to check whether bidder has entered the event
+            checkBidderAccess();
         }
         errorMessageHolder = (TextView) findViewById(R.id.no_internet_error);
 
         addItemButton.setOnClickListener(this);
+    }
+
+    private void checkBidderAccess() {
+        addItemButton.setVisibility(View.GONE);
     }
 
     private void flipCard() {
@@ -196,5 +207,13 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         flipCard();
         addItemButton.setVisibility(v.GONE);
+    }
+
+    public void startPaymentActivity(View v) {
+
+        Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
+        intent.putExtra("entry_fee", event.getEntryFee());
+        intent.putExtra("payment_type", "TYPE GOES HERE");
+        startActivity(intent);
     }
 }

@@ -38,4 +38,7 @@
         <item name="android:background">#006064</item>
         <item name="android:textColor">#f00</item>
     </style>
+
+    <style name="enter_event_button_style">
+    </style>
 </resources>

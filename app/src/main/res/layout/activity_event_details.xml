@@ -130,6 +130,17 @@
             android:layout_marginLeft="16dp"
             android:layout_alignBottom="@+id/event_details_banner" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/enterEventButton"
+            android:text="@string/enter_event_button_text"
+            style="@style/enter_event_button_style"
+            android:layout_marginBottom="-25dp"
+            android:layout_marginLeft="16dp"
+            android:layout_alignBottom="@+id/event_details_banner"
+            android:onClick="startPaymentActivity"/>
+
     </RelativeLayout>
 
     <TextView

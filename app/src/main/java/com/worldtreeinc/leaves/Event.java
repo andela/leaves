@@ -22,6 +22,10 @@ public class Event extends ParseObject {
         return getString(fieldName);
     }
 
+    public Number getEntryFee() {
+        return getNumber("entryFee");
+    }
+
     public ParseFile getBanner() {
         return getParseFile("eventBanner");
     }
