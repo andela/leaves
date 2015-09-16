@@ -7,10 +7,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.worldtreeinc.leaves.PaymentActivity">
+    tools:context="com.worldtreeinc.leaves.PaymentOptionActivity">
 
     <TextView
-        android:id="@+id/amount"
+        android:id="@+id/payment_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/payment_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"

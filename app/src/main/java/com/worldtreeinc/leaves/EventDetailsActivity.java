@@ -211,9 +211,8 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
 
     public void startPaymentActivity(View v) {
 
-        Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
-        intent.putExtra("entry_fee", event.getEntryFee());
-        intent.putExtra("payment_type", "TYPE GOES HERE");
+        Intent intent = new Intent(getApplicationContext(), PaymentOptionActivity.class);
+        intent.putExtra("event_id", eventId);
         startActivity(intent);
     }
 }
