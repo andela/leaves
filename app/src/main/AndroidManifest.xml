@@ -109,7 +109,16 @@
             android:screenOrientation="portrait" >
         </activity>
 
+        <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.LoginActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
+
         <service android:name="com.parse.PushService" />
+
+        <service android:name="com.paypal.android.sdk.payments.PayPalService"
+        android:exported="false" />
+
         <receiver android:name="com.parse.ParseBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
