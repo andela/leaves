@@ -7,41 +7,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-
-import com.paypal.android.sdk.payments.PayPalConfiguration;
-import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
-
 import org.json.JSONException;
 
-import java.math.BigDecimal;
 
-public class PaymentOptionActivity extends AppCompatActivity  implements View.OnClickListener{
-
-    private static PayPalConfiguration config = new PayPalConfiguration()
-
-            // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
-            // or live (ENVIRONMENT_PRODUCTION)
-            // ENVIRONMENT_NO_NETWORK
-
-            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-
-            .clientId("ATMzxMuhDbJj2r7A2aNNyZSp7irs0opd1kjMVYicHQJ1U_yiH86ozVMyCrvRpFuocOUz3MVncxnZMtrG");
-
+public class PaymentOptionActivity extends AppCompatActivity {
 
 
     private double amount;
-    private TextView entryFeetextView;
-    private Button payWithPayPal;
     private String eventId;
     private Event event;
-    private TextView paymentNametextView;
-    private String paymentName;
+    private TextView paymentName;
+    private TextView paymentAmount;
+    private String eventName;
+    private PaymentOptionFragment paymentOptionFragment;
+    private Bundle bundle;
 
 
     @Override
@@ -53,24 +36,30 @@ public class PaymentOptionActivity extends AppCompatActivity  implements View.On
 
         init();
 
-        event = Event.getOne(eventId);
-        amount = Integer.parseInt(String.valueOf(event.getEntryFee()));
-        paymentName = event.getField("eventName");
-
-        entryFeetextView.setText(getString(R.string.payment_amount_text) + amount);
-        paymentNametextView.setText(getString(R.string.payment_amount_text) + paymentName);
     }
 
     private void init() {
-        entryFeetextView = (TextView) findViewById(R.id.payment_amount);
-        paymentNametextView = (TextView) findViewById(R.id.payment_name);
+        paymentName = (TextView) findViewById(R.id.payment_name);
+        paymentAmount = (TextView) findViewById(R.id.payment_fee);
 
-        payWithPayPal = (Button) findViewById(R.id.paypal_payment_button);
-        payWithPayPal.setOnClickListener(this);
+        event = Event.getOne(eventId);
+        amount = Integer.parseInt(String.valueOf(event.getEntryFee()));
+        eventName = event.getField("eventName");
 
-        Intent intent = new Intent(this, PayPalService.class);
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-        startService(intent);
+        paymentName.setText("Name: "+eventName);
+        paymentAmount.setText("Entry Fee: $"+amount);
+
+        // launch fragment with properties
+        paymentOptionFragment = new PaymentOptionFragment();
+        bundle = new Bundle();
+        bundle.putString("paymentName", eventName);
+        bundle.putDouble("amount", amount);
+        paymentOptionFragment.setArguments(bundle);
+
+        getFragmentManager()
+                .beginTransaction()
+                .add(R.id.payment_option_container, paymentOptionFragment)
+                .commit();
     }
 
     @Override
@@ -99,28 +88,6 @@ public class PaymentOptionActivity extends AppCompatActivity  implements View.On
     public void onDestroy() {
         stopService(new Intent(this, PayPalService.class));
         super.onDestroy();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.paypal_payment_button:
-                payWithPayPal();
-                break;
-        }
-    }
-
-    private void payWithPayPal() {
-        PayPalPayment payment = new PayPalPayment(new BigDecimal(amount), "USD", paymentName,
-                PayPalPayment.PAYMENT_INTENT_SALE);
-
-        Intent intent = new Intent(this, PaymentActivity.class);
-
-        // send the same configuration for restart resiliency
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
-
-        startActivityForResult(intent, 0);
     }
 
     @Override

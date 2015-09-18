@@ -108,7 +108,15 @@
     <string name="enter_event_button_text">Enter Event</string>
     <string name="title_activity_payment">Select Payment</string>
     <string name="paypal_button_string">Pay With PayPal</string>
+    <string name="square_button_string">Pay With Square</string>
+    <string name="stripe_button_string">Pay With Stripe</string>
     <string name="payment_amount_text">Total $</string>
+    <string name="payment_success_text">You have successfully made entry payment for the above event</string>
+    <string name="payment_success_title">Payment Success</string>
+    <string name="proceed_button_text">Proceed</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
 

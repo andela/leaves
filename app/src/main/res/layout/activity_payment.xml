@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/payment_option_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,23 +11,25 @@
     tools:context="com.worldtreeinc.leaves.PaymentOptionActivity">
 
     <TextView
-        android:id="@+id/payment_amount"
+        android:id="@+id/payment_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:textSize="16sp"/>
+        android:text="@string/title_activity_event_details"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/payment_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:text="Name: "
         android:textSize="16sp"/>
 
-    <Button
-        android:id="@+id/paypal_payment_button"
+    <TextView
+        android:id="@+id/payment_fee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/paypal_button_string" />
+        android:text="Entry Fee: "/>
 
 </LinearLayout>
