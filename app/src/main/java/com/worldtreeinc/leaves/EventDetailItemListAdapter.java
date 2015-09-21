@@ -1,6 +1,7 @@
 package com.worldtreeinc.leaves;
 
-import android.app.Activity;
+import android.app.*;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import com.parse.ParseException;
 import com.rey.material.widget.FloatingActionButton;
 
 import java.lang.reflect.Field;
+import java.text.NumberFormat;
 import java.util.List;
 
 public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implements PopupMenu.OnMenuItemClickListener {
@@ -30,6 +33,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
     EventItem item;
     FloatingActionButton addItemButton;
     int currentPosition;
+    private TextView itemName;
 
     ItemFormFragment itemFormFragment;
     Bundle bundle;
@@ -130,7 +134,67 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
     }
 
     private void bidItem() {
-        Toast.makeText(activity, "Bid Made!", Toast.LENGTH_LONG).show();
+        final LayoutInflater inflater = activity.getLayoutInflater();
+        View view = inflater.inflate(R.layout.bid_layout, null);
+        setDialogElement(view);
+    }
+
+    public void setDialogDetails(final ImageView itemImage, TextView minBid, TextView itemName,View view, EditText bidAmount) {
+        minBid.setText(NumberFormat.getCurrencyInstance().format(item.getPreviousBid()));
+        itemName.setText(item.getName());
+        item.getImage().getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] bytes, ParseException e) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                itemImage.setImageBitmap(bitmap);
+            }
+        });
+        showDialog(view, bidAmount);
+    }
+
+    public void setDialogElement(View view) {
+        ImageView itemImage = (ImageView) view.findViewById(R.id.item_image);
+        TextView minBid = (TextView) view.findViewById(R.id.min_bid);
+        TextView itemName = (TextView) view.findViewById(R.id.item_name);
+        EditText bidAmount = (EditText) view.findViewById(R.id.enter_amount);
+        setDialogDetails(itemImage, minBid, itemName, view, bidAmount);
+    }
+
+    public void showDialog(View view, final EditText bidAmount){
+        final AlertDialog builder = new AlertDialog.Builder(activity).create();
+        builder.setButton(0, "Bid", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                double amount = Double.parseDouble(bidAmount.getText().toString());
+                if (performBid(amount)) {
+                    builder.dismiss();
+                }
+            }
+        });
+        builder.setButton(1,"Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                    builder.dismiss();
+                }
+        });
+
+        builder.show();
+    }
+
+    public boolean performBid(double amount){
+        double bid = Double.parseDouble(item.getNewBid().toString());
+        boolean isBidded = false;
+        int duration = Toast.LENGTH_SHORT;
+        String text = null;
+        Toast toast = Toast.makeText(activity, text, duration);
+        if(amount > bid){
+            isBidded = true;
+            text = "You have successfully place your Bid";
+        }else if(amount <= bid){
+            text = "Your bid must be greater than minimum bid";
+        }
+        toast.show();
+        return isBidded;
     }
 
     @Override
@@ -145,7 +209,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
             case R.id.deleteEvent:
                 item = items.get(currentPosition);
                 itemId = item.getObjectId();
-                new Dialog().dialog(activity, activity.getString(R.string.delete_item_title), activity.getString(R.string.delete_item_message), new Dialog.CallBack() {
+                new DialogBox().dialog(activity, activity.getString(R.string.delete_item_title), activity.getString(R.string.delete_item_message), new DialogBox.CallBack() {
                     @Override
                     public void onFinished() {
                         delete(itemId);
