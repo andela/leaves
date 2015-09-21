@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/item_name"
-            android:textSize="40dp"
+            android:textSize="30dp"
             android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
@@ -33,15 +33,12 @@
         android:orientation="horizontal"
         android:layout_marginTop="5dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_attach_money_black_24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Minimum Bid  "/>
+            android:text="Minimum Bid  "
+            android:layout_margin="5dp"/>
 
         <TextView
             android:id="@+id/min_bid"
@@ -60,5 +57,25 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
         android:hint="Enter Amount" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bid_action"
+            android:text="Bid"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancel_action"
+            android:text="Cancel"
+            />
+        </LinearLayout>
 
 </LinearLayout>
