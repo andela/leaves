@@ -137,6 +137,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         };
         delete.execute();
     }
+
     private void bidItem() {
         final LayoutInflater inflater = activity.getLayoutInflater();
         View view = inflater.inflate(R.layout.bid_layout, null);
@@ -200,6 +201,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         toast.show();
         return isBidded;
     }
+
     @Override
     public boolean onMenuItemClick(MenuItem popMenuItem) {
         final String itemId;
