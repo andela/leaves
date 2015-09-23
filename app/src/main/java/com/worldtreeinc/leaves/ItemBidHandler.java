@@ -40,6 +40,7 @@ public class ItemBidHandler extends Activity{
         setDialogElement(view);
     }
 
+
     private void setDialogDetails(final ImageView itemImage, TextView minBid, TextView itemName,View view, EditText bidAmount) {
         minBid.setText(NumberFormat.getCurrencyInstance().format(item.getNewBid()));
         itemName.setText(item.getName());
