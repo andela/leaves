@@ -137,69 +137,6 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         delete.execute();
     }
 
-    private void bidItem() {
-        final LayoutInflater inflater = activity.getLayoutInflater();
-        View view = inflater.inflate(R.layout.bid_layout, null);
-        setDialogElement(view);
-    }
-
-    public void setDialogDetails(final ImageView itemImage, TextView minBid, TextView itemName,View view, EditText bidAmount) {
-        minBid.setText(NumberFormat.getCurrencyInstance().format(item.getPreviousBid()));
-        itemName.setText(item.getName());
-        item.getImage().getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] bytes, ParseException e) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                itemImage.setImageBitmap(bitmap);
-            }
-        });
-        showDialog(view, bidAmount);
-    }
-
-    public void setDialogElement(View view) {
-        ImageView itemImage = (ImageView) view.findViewById(R.id.item_image);
-        TextView minBid = (TextView) view.findViewById(R.id.min_bid);
-        TextView itemName = (TextView) view.findViewById(R.id.item_name);
-        EditText bidAmount = (EditText) view.findViewById(R.id.enter_amount);
-        setDialogDetails(itemImage, minBid, itemName, view, bidAmount);
-    }
-
-    public void showDialog(View view, final EditText bidAmount){
-        final AlertDialog builder = new AlertDialog.Builder(activity).create();
-        builder.setButton(0, "Bid", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                double amount = Double.parseDouble(bidAmount.getText().toString());
-                if (performBid(amount)) {
-                    builder.dismiss();
-                }
-            }
-        });
-        builder.setButton(1,"Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                    builder.dismiss();
-                }
-        });
-
-        builder.show();
-    }
-
-    public boolean performBid(double amount){
-        double bid = Double.parseDouble(item.getNewBid().toString());
-        boolean isBidded = false;
-        int duration = Toast.LENGTH_SHORT;
-        String text = null;
-        Toast toast = Toast.makeText(activity, text, duration);
-        if(amount > bid){
-            isBidded = true;
-            text = "You have successfully place your Bid";
-        }else if(amount <= bid){
-            text = "Your bid must be greater than minimum bid";
-        }
-        toast.show();
-        return isBidded;
-    }
 
     @Override
     public boolean onMenuItemClick(MenuItem popMenuItem) {
@@ -222,7 +159,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
 
                 return true;
             case R.id.bidItem:
-                bidItem();
+                new ItemBidHandler(activity, items, currentPosition).bidItem();
                 return true;
             default:
                 return false;
