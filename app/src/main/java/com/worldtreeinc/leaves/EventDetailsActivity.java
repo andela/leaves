@@ -38,6 +38,9 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
+        errorMessageHolder = (TextView) findViewById(R.id.no_internet_error);
+
+
         bundle = new Bundle();
         eventId = getIntent().getExtras().getString("OBJECT_ID");
         isPlanner = getIntent().getExtras().getBoolean("IS_PLANNER");
@@ -50,10 +53,11 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         banner = new Banner();
         set(eventId);
 
-        init(savedInstanceState);
 
-        NetworkUtil.setError(this, errorMessageHolder, getString(R.string.event_detail_internet_error));
-
+        if(NetworkUtil.getConnectivityStatus(this))
+            init(savedInstanceState);
+        else
+            errorMessageHolder.setText(getString(R.string.event_detail_internet_error));
     }
 
 
@@ -75,7 +79,6 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         if (!isPlanner) {
             addItemButton.setVisibility(View.GONE);
         }
-        errorMessageHolder = (TextView) findViewById(R.id.no_internet_error);
 
         addItemButton.setOnClickListener(this);
     }
