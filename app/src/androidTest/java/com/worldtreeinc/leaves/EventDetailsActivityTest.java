@@ -1,21 +1,14 @@
 package com.worldtreeinc.leaves;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
-import android.net.wifi.WifiManager;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.TouchUtils;
 import android.test.ViewAsserts;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.rey.material.widget.FloatingActionButton;
+import com.worldtreeinc.leaves.activity.EventDetailsActivity;
 
 /**
  * Created by kamiye on 8/1/15.

@@ -3,8 +3,11 @@ package com.worldtreeinc.leaves;
 
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.TouchUtils;
 import android.widget.Button;
+
+import com.worldtreeinc.leaves.activity.BidderDashActivity;
+import com.worldtreeinc.leaves.activity.PlannerDashActivity;
+import com.worldtreeinc.leaves.activity.RoleOptionActivity;
 
 public class RoleOptionTest extends ActivityInstrumentationTestCase2<RoleOptionActivity> {
     public RoleOptionTest() {

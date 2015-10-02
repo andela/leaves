@@ -4,6 +4,7 @@ import android.test.InstrumentationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import com.parse.ParseFile;
+import com.worldtreeinc.leaves.model.Event;
 
 /**
  * Created by andela on 8/3/15.

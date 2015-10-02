@@ -4,9 +4,9 @@ package com.worldtreeinc.leaves;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.rey.material.widget.Button;
+import com.worldtreeinc.leaves.activity.RegisterActivity;
 
 /**
  * Created by kamiye on 7/22/15.

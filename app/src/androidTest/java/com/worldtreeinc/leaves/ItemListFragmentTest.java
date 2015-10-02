@@ -11,6 +11,11 @@ import android.widget.TextView;
 import com.parse.ParseException;
 
 import com.parse.ParseFile;
+import com.worldtreeinc.leaves.activity.EventDetailsActivity;
+import com.worldtreeinc.leaves.adapter.EventDetailItemListAdapter;
+import com.worldtreeinc.leaves.fragment.ItemListFragment;
+import com.worldtreeinc.leaves.helper.CircularImageView;
+import com.worldtreeinc.leaves.model.EventItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +78,7 @@ public class ItemListFragmentTest extends ActivityInstrumentationTestCase2<Event
         itemLists.add(eventItem);
 
         // set adapter
-        adapter = new EventDetailItemListAdapter(activity, itemLists);
+        adapter = new EventDetailItemListAdapter(activity, itemLists, true);
 
         view = adapter.getView(0, null, null);
 

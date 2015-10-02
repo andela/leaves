@@ -5,6 +5,11 @@ import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 
+import com.worldtreeinc.leaves.activity.EventActivity;
+import com.worldtreeinc.leaves.activity.PlannerDashActivity;
+import com.worldtreeinc.leaves.activity.PlannerEventActivity;
+import com.worldtreeinc.leaves.model.EventItem;
+
 public class PlannerDashTest extends ActivityInstrumentationTestCase2<PlannerDashActivity> {
     public PlannerDashTest() {
         super(PlannerDashActivity.class);

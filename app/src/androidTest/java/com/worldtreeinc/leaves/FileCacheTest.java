@@ -3,6 +3,8 @@ package com.worldtreeinc.leaves;
 import android.content.Context;
 import android.test.AndroidTestCase;
 
+import com.worldtreeinc.leaves.utility.FileCache;
+
 import java.io.File;
 
 /**

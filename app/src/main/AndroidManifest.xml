@@ -15,7 +15,7 @@
     <uses-permission android:name="com.worldtreeinc.leaves.permission.C2D_MESSAGE" />
 
     <application
-        android:name=".ParseApplication"
+        android:name=".appConfig.ParseApplication"
         android:allowBackup="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme.Base"
@@ -37,7 +37,7 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -47,70 +47,70 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GetStartedActivity"
+            android:name=".activity.GetStartedActivity"
             android:label="@string/title_activity_get_started"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".activity.WelcomeActivity"
             android:label="@string/welcome_activity_label"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".RoleOptionActivity"
+            android:name=".activity.RoleOptionActivity"
             android:label="@string/title_activity_role_option"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".BidderDashActivity"
+            android:name=".activity.BidderDashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeBidder"
             android:label="@string/title_activity_bidder_dash" >
         </activity>
         <activity
-            android:name=".PlannerDashActivity"
+            android:name=".activity.PlannerDashActivity"
             android:label="@string/title_activity_planner_dash"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.worldtreeinc.leaves.MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:label="@string/title_activity_register"
-            android:parentActivityName=".WelcomeActivity"
+            android:parentActivityName=".activity.WelcomeActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".PlannerEventActivity"
+            android:name=".activity.PlannerEventActivity"
             android:label="@string/title_activity_planner_event"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".BidderEventListActivity"
+            android:name=".activity.BidderEventListActivity"
             android:label="@string/title_activity_bidder_events_tab"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".EventActivity"
+            android:name=".activity.EventActivity"
             android:label="@string/title_activity_create_event"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".PaymentOptionActivity"
+            android:name=".activity.PaymentOptionActivity"
             android:label="@string/title_activity_payment"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".EventDetailsActivity"
+            android:name=".activity.EventDetailsActivity"
             android:label="@string/title_activity_event_details"
-            android:parentActivityName=".PlannerEventActivity"
+            android:parentActivityName=".activity.PlannerEventActivity"
             android:screenOrientation="portrait" >
         </activity>
 

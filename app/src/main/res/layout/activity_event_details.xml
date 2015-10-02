@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.worldtreeinc.leaves.EventDetailsActivity">
+    tools:context="com.worldtreeinc.leaves.activity.EventDetailsActivity">
 
     <FrameLayout
         android:layout_width="fill_parent"
