@@ -12,7 +12,6 @@ import android.view.View;
 import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
 import com.worldtreeinc.leaves.R;
-
 import org.json.JSONObject;
 
 

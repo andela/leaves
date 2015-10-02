@@ -17,7 +17,6 @@ import com.parse.ParseException;
 import com.parse.ParseImageView;
 import com.rey.material.widget.FloatingActionButton;
 import com.rey.material.widget.ProgressView;
-import com.worldtreeinc.leaves.PaymentActivity;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.ItemImage;

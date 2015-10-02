@@ -11,7 +11,7 @@ import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.EventItem;
 import com.worldtreeinc.leaves.model.Payment;
 import com.worldtreeinc.leaves.model.User;
-import com.worldtreeinc.leaves.utility.ContextProvider;
+import com.worldtreeinc.leaves.model.User;
 
 public class ParseApplication extends LeavesApplication {
 

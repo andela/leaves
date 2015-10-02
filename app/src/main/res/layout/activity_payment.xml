@@ -50,4 +50,13 @@
         android:layout_height="wrap_content"
         android:text="@string/paypal_button_string" />
 
+    <TextView
+        android:id="@+id/payment_amount_title"
+        style="@style/payment_activity_text_title_style"
+        android:text="@string/payment_amount_title"/>
+
+    <TextView
+        android:id="@+id/payment_amount"
+        style="@style/payment_activity_text_style"/>
+
 </LinearLayout>

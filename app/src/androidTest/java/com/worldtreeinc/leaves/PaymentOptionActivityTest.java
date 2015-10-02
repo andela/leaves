@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.TextView;
 
-import com.parse.ParseFile;
 import com.worldtreeinc.leaves.activity.PaymentOptionActivity;
 import com.worldtreeinc.leaves.fragment.PaymentOptionFragment;
 import com.worldtreeinc.leaves.model.Event;
