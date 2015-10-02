@@ -71,7 +71,6 @@ public class ItemBidHandler extends Activity{
                 if (performBid(amount)) {
                     dialog.cancel();
                 }
-                dialog.cancel();
             }
         })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
