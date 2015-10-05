@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,9 @@ import com.worldtreeinc.leaves.utility.NetworkUtil;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.fragment.ItemFormFragment;
 import com.worldtreeinc.leaves.fragment.ItemListFragment;
+import com.worldtreeinc.leaves.utility.ParseProxyObject;
+
+import java.io.Serializable;
 
 public class EventDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -217,9 +221,13 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void startPaymentActivity(View v) {
-
         Intent intent = new Intent(getApplicationContext(), PaymentOptionActivity.class);
-        intent.putExtra("event_id", eventId);
+
+        ParseProxyObject proxyObject = new ParseProxyObject(event);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("event", proxyObject);
+
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }
