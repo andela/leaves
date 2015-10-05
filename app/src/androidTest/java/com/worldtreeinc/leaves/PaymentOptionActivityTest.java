@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.parse.ParseFile;
 import com.worldtreeinc.leaves.activity.PaymentOptionActivity;
+import com.worldtreeinc.leaves.fragment.PaymentOptionFragment;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.utility.ParseProxyObject;
 
@@ -92,7 +93,11 @@ public class PaymentOptionActivityTest extends ActivityInstrumentationTestCase2<
     }
 
     public void testFragment_notNull() {
+        PaymentOptionFragment paymentFragment = (PaymentOptionFragment) activity.getFragmentManager()
+                .findFragmentById(R.id.payment_option_container);
+        assertNotNull("PaymentOptionsActivity fragment missing", paymentFragment);
 
-        assertNotNull("PaymentOptionsActivity fragment missing", fragment);
+        // Test fragment visibility
+        assertTrue("PaymentOptionFragment not visible", paymentFragment.isVisible());
     }
 }
