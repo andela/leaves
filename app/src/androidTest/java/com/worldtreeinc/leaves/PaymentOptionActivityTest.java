@@ -90,4 +90,9 @@ public class PaymentOptionActivityTest extends ActivityInstrumentationTestCase2<
 
         assertEquals("Name setting assertion error", expected, actual);
     }
+
+    public void testFragment_notNull() {
+
+        assertNotNull("PaymentOptionsActivity fragment missing", fragment);
+    }
 }
