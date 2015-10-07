@@ -96,13 +96,7 @@ public class ItemBidHandler extends Activity {
             item.setPreviousBid(bid);
             item.setNewBid(amount);
             item.saveInBackground();
-            ParsePush.subscribeInBackground(item.getName() + "-" + item.getObjectId());
-            String message = ParseUser.getCurrentUser().getUsername() +
-                    " placed a bid of " + NumberFormat.getCurrencyInstance().format(amount) + " on " + item.getName();
-            ParsePush push = new ParsePush();
-            push.setChannel(item.getName() + "-" + item.getObjectId());
-            push.setMessage(message);
-            push.sendInBackground();
+            LeavesNotification.sendItemBidNotification(amount, item);
             text = "You have successfully place your Bid";
         } else if (amount <= bid) {
             text = "Your bid must be greater than minimum bid";
@@ -111,4 +105,6 @@ public class ItemBidHandler extends Activity {
         toast.show();
         return isBidded;
     }
+
+
 }
