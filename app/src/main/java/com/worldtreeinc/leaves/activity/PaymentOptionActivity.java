@@ -54,8 +54,10 @@ public class PaymentOptionActivity extends AppCompatActivity {
         paymentAmount.setText(paymentString);
 
         // launch fragment with properties
+        String eventId = event.getObjectId();
         paymentOptionFragment = new PaymentOptionFragment();
         bundle = new Bundle();
+        bundle.putString("eventId", eventId);
         bundle.putString("paymentName", eventName);
         bundle.putDouble("amount", amount);
         paymentOptionFragment.setArguments(bundle);
@@ -92,28 +94,5 @@ public class PaymentOptionActivity extends AppCompatActivity {
     public void onDestroy() {
         stopService(new Intent(this, PayPalService.class));
         super.onDestroy();
-    }
-
-    @Override
-    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-            if (confirm != null) {
-                try {
-                    Log.i("paymentExample", confirm.toJSONObject().toString(4));
-                    // TODO: send 'confirm' to your server for verification.
-                    // see https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
-                    // for more details.
-                } catch (JSONException e) {
-                    Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
-                }
-            }
-        }
-        else if (resultCode == Activity.RESULT_CANCELED) {
-            Log.i("paymentExample", "The user canceled.");
-        }
-        else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-            Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
-        }
     }
 }

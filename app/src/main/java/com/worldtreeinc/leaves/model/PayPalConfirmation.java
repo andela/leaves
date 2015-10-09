@@ -68,7 +68,7 @@ public class PayPalConfirmation {
                 public void onErrorResponse(VolleyError error) {
                     Log.e("Error request", error.toString());
                     // set error message to the user
-
+                    callback.onFailure();
                     requestQueue.stop();
                 }
             }) {
@@ -147,8 +147,10 @@ public class PayPalConfirmation {
             String amount = transactionObject.getString("total");
 
             if (currency.equals("USD") && this.amount == Double.valueOf(amount) && paymentId.equals(responseId)) {
-                callback.done();
+                callback.onSuccess();
             }
+            else
+                callback.onFailure();
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -156,7 +158,9 @@ public class PayPalConfirmation {
     }
 
     public interface ConfirmationCallback {
-        void done();
+        void onSuccess();
+
+        void onFailure();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.worldtreeinc.leaves.fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -17,8 +18,10 @@ import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.activity.EventDetailsActivity;
 import com.worldtreeinc.leaves.model.PayPalConfirmation;
 import com.worldtreeinc.leaves.model.Payment;
+import com.worldtreeinc.leaves.utility.Dialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +38,7 @@ import java.math.BigDecimal;
 public class PaymentOptionFragment extends Fragment implements View.OnClickListener {
 
     private Payment payment;
+    private ProgressDialog progressDialog;
 
     // PayPal Configuration
     private static PayPalConfiguration config = new PayPalConfiguration()
@@ -44,6 +48,7 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
     private Button paypalButton;
     private double amount;
     private String paymentName;
+    private String eventId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,7 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
         if (getArguments() != null) {
             amount = getArguments().getDouble("amount");
             paymentName = getArguments().getString("paymentName");
+            eventId = getArguments().getString("eventId");
         }
     }
 
@@ -83,6 +89,7 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent data) {
+        startProgressDialog();
         if (resultCode == Activity.RESULT_OK) {
             PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
             if (confirm != null) {
@@ -95,8 +102,19 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
                     PayPalConfirmation confirmation = new PayPalConfirmation(getActivity(), paymentID, amount);
                     confirmation.confirmPayment(new PayPalConfirmation.ConfirmationCallback() {
                         @Override
-                        public void done() {
-                            Toast.makeText(getActivity(), "Successful Payment CallBack", Toast.LENGTH_LONG).show();
+                        public void onSuccess() {
+                            // SET PAYMENT LOGIC IN PARSE
+                            Intent intent = new Intent(getActivity(), EventDetailsActivity.class);
+                            intent.putExtra("OBJECT_ID", eventId);
+                            intent.putExtra("IS_PLANNER", false);
+                            startActivity(intent);
+                            stopProgressDialog();
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            new Dialog().dialog(getActivity(), "Payment Error", "Unknown Payment Error. Please Try Again");
+                            stopProgressDialog();
                         }
                     });
 
@@ -105,14 +123,17 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
                     // for more details.
                 } catch (JSONException e) {
                     Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
+                    stopProgressDialog();
                 }
             }
         }
         else if (resultCode == Activity.RESULT_CANCELED) {
             Log.i("paymentExample", "The user canceled.");
+            stopProgressDialog();
         }
         else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
             Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
+            stopProgressDialog();
         }
     }
 
@@ -127,6 +148,20 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
 
         startActivityForResult(intent, 0);
+    }
+
+    private void startProgressDialog() {
+        // Create a progressdialog
+        progressDialog = new ProgressDialog(getActivity());
+        // Set progressdialog message
+        progressDialog.setMessage(getActivity().getString(R.string.event_list_progress_loading));
+        progressDialog.setIndeterminate(false);
+        // Show progressdialog
+        progressDialog.show();
+    }
+
+    private void stopProgressDialog() {
+        progressDialog.dismiss();
     }
 
 }

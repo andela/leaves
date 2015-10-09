@@ -62,7 +62,6 @@ public class ItemListFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             List items = EventItem.getByEventId(eventId);
-            Log.v("List: ", String.valueOf(items));
             listAdapter.clear();
             listAdapter.addAll(items);
             return null;
