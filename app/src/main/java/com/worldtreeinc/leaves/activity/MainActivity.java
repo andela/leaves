@@ -21,30 +21,16 @@ import org.json.JSONObject;
 public class MainActivity extends Activity {
 
     View view;
+    private Bundle extras;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        // check for parse data
-        try {
-            Intent intent = getIntent();
-            Bundle extras = intent.getExtras();
-            if (extras != null) {
-                String jsonData = extras.getString("com.parse.Data");
-                Log.i("TAG", jsonData);
-                JSONObject object = new JSONObject(jsonData);
-                Intent newIntent = new Intent(this, EventDetailsActivity.class);
-                newIntent.putExtra("OBJECT_ID", object.getString("eventId"));
-                newIntent.putExtra("IS_PLANNER", false);
-                startActivity(newIntent);
-                onPause();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         setContentView(R.layout.activity_main);
+        intent = getIntent();
+        extras = intent.getExtras();
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
         Handler handler = new Handler();
@@ -54,14 +40,16 @@ public class MainActivity extends Activity {
             public void run() {
                 // check if user is logged in
                 ParseUser currentUser = ParseUser.getCurrentUser();
-
-                if (currentUser != null) {
+                if (extras != null) {
+                    changeToEventDetails();
+                } else if (currentUser != null) {
                     // call method to change activity to RoleOptionActivity
                     changeToRoleOption(view);
                 } else {
                     // call method to change activity to GetStartedActivity
                     changeToGetStarted(view);
                 }
+
             }
         }, 3000);
 
@@ -103,9 +91,17 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        super.onDestroy();
+    public  void changeToEventDetails(){
+        try {
+            String jsonData = extras.getString("com.parse.Data");
+            Log.i("TAG", jsonData);
+            JSONObject object = new JSONObject(jsonData);
+            Intent newIntent = new Intent(this, EventDetailsActivity.class);
+            newIntent.putExtra("OBJECT_ID", object.getString("eventId"));
+            newIntent.putExtra("IS_PLANNER", false);
+            startActivity(newIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
