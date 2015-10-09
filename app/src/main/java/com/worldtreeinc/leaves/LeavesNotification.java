@@ -35,11 +35,6 @@ public class LeavesNotification {
         ParsePush push = new ParsePush();
         push.setData(data);
         push.setChannel(channel);
-        try {
-            Log.i("TAG: ", data.getString("eventId"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         push.sendInBackground();
     }
 }
