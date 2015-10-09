@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends Activity {
 
-    View view;
+    private View view;
     private Bundle extras;
     private Intent intent;
 
