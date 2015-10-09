@@ -1,17 +1,27 @@
 package com.worldtreeinc.leaves.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.model.PayPalConfirmation;
+import com.worldtreeinc.leaves.model.Payment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
 
@@ -23,6 +33,8 @@ import java.math.BigDecimal;
  * ENVIRONMENT_NO_NETWORK
  */
 public class PaymentOptionFragment extends Fragment implements View.OnClickListener {
+
+    private Payment payment;
 
     // PayPal Configuration
     private static PayPalConfiguration config = new PayPalConfiguration()
@@ -60,6 +72,47 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
             case R.id.paypal_payment_button:
                 payWithPayPal();
                 break;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        getActivity().stopService(new Intent(getActivity(), PayPalService.class));
+        super.onDestroy();
+    }
+
+    @Override
+    public void onActivityResult (int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+            if (confirm != null) {
+                try {
+                    JSONObject responseObject = confirm.toJSONObject().getJSONObject("response");
+                    String paymentID = responseObject.get("id").toString();
+                    Log.i("paymentID", responseObject.get("id").toString());
+
+                    // confirm Payment
+                    PayPalConfirmation confirmation = new PayPalConfirmation(getActivity(), paymentID, amount);
+                    confirmation.confirmPayment(new PayPalConfirmation.ConfirmationCallback() {
+                        @Override
+                        public void done() {
+                            Toast.makeText(getActivity(), "Successful Payment CallBack", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                    // TODO: send 'confirm' to your server for verification.
+                    // see https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
+                    // for more details.
+                } catch (JSONException e) {
+                    Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
+                }
+            }
+        }
+        else if (resultCode == Activity.RESULT_CANCELED) {
+            Log.i("paymentExample", "The user canceled.");
+        }
+        else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+            Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
         }
     }
 
