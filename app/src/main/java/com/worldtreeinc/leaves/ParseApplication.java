@@ -12,6 +12,8 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // PushService.setDefaultPushCallback(this, MainActivity.class);
+
         // Initialize Crash Reporting.
         ParseCrashReporting.enable(this);
         // Enable Local Data store.

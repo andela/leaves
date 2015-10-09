@@ -1,8 +1,12 @@
 package com.worldtreeinc.leaves;
 
-import com.parse.ParseObject;
+import android.util.Log;
+
 import com.parse.ParsePush;
 import com.parse.ParseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.NumberFormat;
 
@@ -15,9 +19,24 @@ public class LeavesNotification {
         ParsePush.subscribeInBackground(item.getName() + "-" + item.getObjectId());
         String message = ParseUser.getCurrentUser().getUsername() +
                 " placed a bid of " + NumberFormat.getCurrencyInstance().format(amount) + " on " + item.getName();
+        String eventId = item.getEventId();
+
+        JSONObject data = new JSONObject();
+        try {
+            data.put("alert", message);
+            data.put("eventId", eventId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         ParsePush push = new ParsePush();
+        push.setData(data);
         push.setChannel(item.getName() + "-" + item.getObjectId());
-        push.setMessage(message);
+            try {
+                Log.i("TAG: ", data.getString("eventId"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         push.sendInBackground();
     }
 }

@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
+
+import org.json.JSONObject;
 
 
 public class MainActivity extends Activity {
@@ -20,8 +23,25 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        // check for parse data
+        try {
+            Intent intent = getIntent();
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                String jsonData = extras.getString("com.parse.Data");
+                Log.i("TAG", jsonData);
+                JSONObject object = new JSONObject(jsonData);
+                Intent newIntent = new Intent(this, EventDetailsActivity.class);
+                newIntent.putExtra("OBJECT_ID", object.getString("eventId"));
+                newIntent.putExtra("IS_PLANNER", false);
+                startActivity(newIntent);
+                onPause();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        setContentView(R.layout.activity_main);
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
         Handler handler = new Handler();
@@ -80,4 +100,9 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        super.onDestroy();
+    }
 }
