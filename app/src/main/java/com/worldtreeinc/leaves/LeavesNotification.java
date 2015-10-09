@@ -20,7 +20,6 @@ public class LeavesNotification {
         String message = ParseUser.getCurrentUser().getUsername() +
                 " placed a bid of " + NumberFormat.getCurrencyInstance().format(amount) + " on " + item.getName();
         String eventId = item.getEventId();
-
         JSONObject data = new JSONObject();
         try {
             data.put("alert", message);
@@ -28,15 +27,19 @@ public class LeavesNotification {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        String channel = item.getName() + "-" + item.getObjectId();
+        pushNotification(channel, data);
+    }
 
+    private static void pushNotification(String channel, JSONObject data){
         ParsePush push = new ParsePush();
         push.setData(data);
-        push.setChannel(item.getName() + "-" + item.getObjectId());
-            try {
-                Log.i("TAG: ", data.getString("eventId"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        push.setChannel(channel);
+        try {
+            Log.i("TAG: ", data.getString("eventId"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         push.sendInBackground();
     }
 }
