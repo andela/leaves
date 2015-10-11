@@ -3,8 +3,6 @@ package com.worldtreeinc.leaves.model;
 import android.content.Context;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,11 +11,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.worldtreeinc.leaves.utility.ContextProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,16 +38,14 @@ public class PayPalConfirmation {
 
     // expected amount and currency
     private double amount;
-    private String currency = "USD";
     private String paymentId;
 
-    private Context context;
+    private Context context = ContextProvider.getContext();
 
-    public PayPalConfirmation(Context context, String paymentId, double amount) {
+    public PayPalConfirmation(String paymentId, double amount) {
         requestQueue = Volley.newRequestQueue(context);
         this.amount = amount;
         this.paymentId = paymentId;
-        this.context = context;
     }
 
     public void confirmPayment(final PayPalConfirmation.ConfirmationCallback callback) {

@@ -2,14 +2,9 @@ package com.worldtreeinc.leaves.utility;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import com.worldtreeinc.leaves.activity.PlannerEventActivity;
-import com.worldtreeinc.leaves.model.Event;
-
-import java.util.List;
 
 /**
  * Created by tunde on 8/11/15.
@@ -17,16 +12,15 @@ import java.util.List;
 public class Dialog {
 
     public Dialog() {}
-    private List<Event> userEventList = null;
 
     public interface CallBack {
         void onFinished();
     }
 
-    public void dialog(Context context, String title, String message,final CallBack... callbacks) {
+    public void dialog(String title, String message,final CallBack... callbacks) {
 //        final Activity eventActivity = activity;
         // build up the dialog
-        new AlertDialog.Builder(context)
+        new AlertDialog.Builder(ContextProvider.getContext())
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {

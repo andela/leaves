@@ -21,6 +21,7 @@ import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.activity.EventDetailsActivity;
 import com.worldtreeinc.leaves.model.PayPalConfirmation;
 import com.worldtreeinc.leaves.model.Payment;
+import com.worldtreeinc.leaves.utility.ContextProvider;
 import com.worldtreeinc.leaves.utility.Dialog;
 
 import org.json.JSONException;
@@ -99,12 +100,12 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
                     Log.i("paymentID", responseObject.get("id").toString());
 
                     // confirm Payment
-                    PayPalConfirmation confirmation = new PayPalConfirmation(getActivity(), paymentID, amount);
+                    PayPalConfirmation confirmation = new PayPalConfirmation(paymentID, amount);
                     confirmation.confirmPayment(new PayPalConfirmation.ConfirmationCallback() {
                         @Override
                         public void onSuccess() {
                             // SET PAYMENT LOGIC IN PARSE
-                            Intent intent = new Intent(getActivity(), EventDetailsActivity.class);
+                            Intent intent = new Intent(ContextProvider.getContext(), EventDetailsActivity.class);
                             intent.putExtra("OBJECT_ID", eventId);
                             intent.putExtra("IS_PLANNER", false);
                             startActivity(intent);
@@ -113,7 +114,7 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
 
                         @Override
                         public void onFailure() {
-                            new Dialog().dialog(getActivity(), "Payment Error", "Unknown Payment Error. Please Try Again");
+                            new Dialog().dialog("Payment Error", "Unknown Payment Error. Please Try Again");
                             stopProgressDialog();
                         }
                     });
