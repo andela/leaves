@@ -94,7 +94,6 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
                 try {
                     JSONObject responseObject = confirm.toJSONObject().getJSONObject("response");
                     String paymentID = responseObject.get("id").toString();
-                    Log.i("paymentID", responseObject.get("id").toString());
 
                     // confirm Payment
                     PayPalConfirmation confirmation = new PayPalConfirmation(paymentID, amount);
