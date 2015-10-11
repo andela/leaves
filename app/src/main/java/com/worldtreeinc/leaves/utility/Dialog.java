@@ -2,6 +2,7 @@ package com.worldtreeinc.leaves.utility;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import com.worldtreeinc.leaves.activity.PlannerEventActivity;
@@ -17,7 +18,7 @@ public class Dialog {
         void onFinished();
     }
 
-    public void dialog(String title, String message,final CallBack... callbacks) {
+    public void dialog(Context context, String title, String message,final CallBack... callbacks) {
 //        final Activity eventActivity = activity;
         // build up the dialog
         new AlertDialog.Builder(ContextProvider.getContext())

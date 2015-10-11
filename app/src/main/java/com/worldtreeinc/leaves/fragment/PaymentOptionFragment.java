@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
@@ -20,7 +19,6 @@ import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.activity.EventDetailsActivity;
 import com.worldtreeinc.leaves.model.PayPalConfirmation;
-import com.worldtreeinc.leaves.model.Payment;
 import com.worldtreeinc.leaves.utility.ContextProvider;
 import com.worldtreeinc.leaves.utility.Dialog;
 
@@ -38,7 +36,6 @@ import java.math.BigDecimal;
  */
 public class PaymentOptionFragment extends Fragment implements View.OnClickListener {
 
-    private Payment payment;
     private ProgressDialog progressDialog;
 
     // PayPal Configuration
@@ -114,7 +111,7 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
 
                         @Override
                         public void onFailure() {
-                            new Dialog().dialog("Payment Error", "Unknown Payment Error. Please Try Again");
+                            new Dialog().dialog(getActivity(), "Payment Error", "Unknown Payment Error. Please Try Again");
                             stopProgressDialog();
                         }
                     });

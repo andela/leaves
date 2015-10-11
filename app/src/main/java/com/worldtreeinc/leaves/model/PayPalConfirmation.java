@@ -56,7 +56,6 @@ public class PayPalConfirmation {
                     REST_API_URL + paymentId, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Log.i("ConfirmationResponse", response.toString());
                     verifyPayment(response, callback);
                 }
             }, new Response.ErrorListener() {
