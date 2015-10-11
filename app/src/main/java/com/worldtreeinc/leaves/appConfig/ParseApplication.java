@@ -8,6 +8,7 @@ import com.parse.ParseCrashReporting;
 import com.parse.ParseObject;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.EventItem;
+import com.worldtreeinc.leaves.model.Payment;
 import com.worldtreeinc.leaves.model.User;
 import com.worldtreeinc.leaves.utility.ContextProvider;
 
@@ -26,6 +27,7 @@ public class ParseApplication extends Application {
         ParseObject.registerSubclass(EventItem.class);
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Event.class);
+        ParseObject.registerSubclass(Payment.class);
 
         // Add your initialization code here
         Parse.initialize(this);
