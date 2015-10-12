@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.utility.ContextProvider;
 
 import org.json.JSONArray;
@@ -48,36 +49,38 @@ public class PayPalConfirmation {
         this.paymentId = paymentId;
     }
 
-    public void confirmPayment(final PayPalConfirmation.ConfirmationCallback callback) {
+    public void confirmPayment(final ConfirmationCallback callback) {
         generateAccessResponse();
-        if (Payment.validId(paymentId)) {
-            // check payment with paypal rest api
-            JsonObjectRequest paymentConfirmationRequest = new JsonObjectRequest(Request.Method.GET,
-                    REST_API_URL + paymentId, null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    verifyPayment(response, callback);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("Error request", error.toString());
-                    // set error message to the user
-                    callback.onFailure();
-                    requestQueue.stop();
-                }
-            }) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("Accept", "application/json");
-                    params.put("Authorization", "Bearer " + token);
-                    return params;
-                }
-            };
+        if (Payment.isValidId(paymentId)) getConfirmationResponse(callback);
+    }
 
-            requestQueue.add(paymentConfirmationRequest);
-        }
+    private void getConfirmationResponse(final ConfirmationCallback callback) {
+        // check payment with paypal rest api
+        JsonObjectRequest paymentConfirmationRequest = new JsonObjectRequest(Request.Method.GET,
+                REST_API_URL + paymentId, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                verifyPayment(response, callback);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error request", error.toString());
+                // set error message to the user
+                callback.onFailure();
+                requestQueue.stop();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", "Bearer " + token);
+                return params;
+            }
+        };
+
+        requestQueue.add(paymentConfirmationRequest);
     }
 
     private String getBase64Authorization() {
@@ -95,7 +98,7 @@ public class PayPalConfirmation {
                 TOKEN_REQUEST_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                generateToken(response);
+                setTokenFromResponse(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -124,7 +127,7 @@ public class PayPalConfirmation {
         requestQueue.add(tokenRequest);
     }
 
-    private void generateToken(String string) {
+    private void setTokenFromResponse(String string) {
         try {
             token = new JSONObject(string).get("access_token").toString();
         } catch (JSONException e) {
@@ -141,7 +144,8 @@ public class PayPalConfirmation {
             String currency = transactionObject.getString("currency");
             String amount = transactionObject.getString("total");
 
-            if (currency.equals("USD") && this.amount == Double.valueOf(amount) && paymentId.equals(responseId)) {
+            if (currency.equals(context.getString(R.string.usd_text)) && this.amount == Double.valueOf(amount)
+                    && paymentId.equals(responseId)) {
                 callback.onSuccess();
             }
             else

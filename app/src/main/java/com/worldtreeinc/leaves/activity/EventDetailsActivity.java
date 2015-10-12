@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,13 +20,13 @@ import com.rey.material.widget.ProgressView;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.ItemImage;
+import com.worldtreeinc.leaves.model.User;
 import com.worldtreeinc.leaves.utility.NetworkUtil;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.fragment.ItemFormFragment;
 import com.worldtreeinc.leaves.fragment.ItemListFragment;
 import com.worldtreeinc.leaves.utility.ParseProxyObject;
 
-import java.io.Serializable;
 
 public class EventDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -69,7 +68,6 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-
     private void init(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             /* If there is no saved instance state, add a fragment representing the
@@ -100,6 +98,11 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
 
     private void checkBidderAccess() {
         addItemButton.setVisibility(View.GONE);
+
+        if (User.isEnteredEvent(eventId)) {
+            //
+            enterEventButton.setVisibility(View.GONE);
+        }
     }
 
     private void flipCard() {

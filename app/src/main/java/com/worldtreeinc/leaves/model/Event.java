@@ -62,6 +62,11 @@ public class Event extends ParseObject {
         put("entryFee", entryFee);
     }
 
+    public void incrementEntries() {
+        increment("entries");
+        saveInBackground();
+    }
+
     public void setEntries() {
         put("entries", 0);
     }
@@ -122,5 +127,4 @@ public class Event extends ParseObject {
             }
         });
     }
-
 }

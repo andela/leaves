@@ -4,6 +4,8 @@ import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +15,8 @@ import java.util.List;
 public class Payment extends ParseObject {
 
 
-    public static boolean validId(String paymentId) {
-        List<Payment> payment = null;
+    public static boolean isValidId(String paymentId) {
+        List<Payment> payment = new ArrayList<>();
         ParseQuery<Payment> query = ParseQuery.getQuery(Payment.class);
         query.whereEqualTo("paymentId", paymentId);
         try {
@@ -22,6 +24,7 @@ public class Payment extends ParseObject {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return (payment == null || payment.size() == 0);
+        return (payment.size() == 0);
     }
+
 }

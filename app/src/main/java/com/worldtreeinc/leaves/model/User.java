@@ -1,24 +1,16 @@
 package com.worldtreeinc.leaves.model;
 
-import android.content.Intent;
-import android.util.Log;
-
-import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseClassName;
-import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.parse.SignUpCallback;
+import com.parse.SaveCallback;
+
+import java.util.List;
 
 /**
  * Created by andela on 8/25/15.
  */
 @ParseClassName("User")
 public class User extends ParseUser {
-    public boolean condition;
-    public String errorMessage = null;
-    private Exception error = null;
 
     public void setUsername(String username) {
         put("username", username);
@@ -36,4 +28,15 @@ public class User extends ParseUser {
         return getString(fieldName);
     }
 
+    public static void enterEvent(String eventId, SaveCallback callback) {
+        ParseUser user = getCurrentUser();
+        user.add("enteredEvents", eventId);
+        user.saveInBackground(callback);
+    }
+
+    public static boolean isEnteredEvent(String eventId) {
+        ParseUser user = getCurrentUser();
+        List<String> eventIds = user.getList("enteredEvents");
+        return eventIds.contains(eventId);
+    }
 }

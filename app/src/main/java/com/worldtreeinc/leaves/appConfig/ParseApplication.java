@@ -12,7 +12,7 @@ import com.worldtreeinc.leaves.model.Payment;
 import com.worldtreeinc.leaves.model.User;
 import com.worldtreeinc.leaves.utility.ContextProvider;
 
-public class ParseApplication extends Application {
+public class ParseApplication extends LeavesApplication {
 
     @Override
     public void onCreate() {
@@ -39,8 +39,6 @@ public class ParseApplication extends Application {
         defaultACL.setPublicWriteAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
 
-        // initialize ContextProvider
-        new ContextProvider(this);
     }
 
 }

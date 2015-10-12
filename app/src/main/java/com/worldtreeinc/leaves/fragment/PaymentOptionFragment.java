@@ -10,7 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -18,7 +22,9 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.activity.EventDetailsActivity;
+import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.PayPalConfirmation;
+import com.worldtreeinc.leaves.model.User;
 import com.worldtreeinc.leaves.utility.ContextProvider;
 import com.worldtreeinc.leaves.utility.Dialog;
 
@@ -41,7 +47,7 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
     // PayPal Configuration
     private static PayPalConfiguration config = new PayPalConfiguration()
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-            .clientId("ATMzxMuhDbJj2r7A2aNNyZSp7irs0opd1kjMVYicHQJ1U_yiH86ozVMyCrvRpFuocOUz3MVncxnZMtrG");
+            .clientId(PayPalConfirmation.PAYPAL_CLIENT_ID);
 
     private Button paypalButton;
     private double amount;
@@ -100,12 +106,7 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
                     confirmation.confirmPayment(new PayPalConfirmation.ConfirmationCallback() {
                         @Override
                         public void onSuccess() {
-                            // SET PAYMENT LOGIC IN PARSE
-                            Intent intent = new Intent(ContextProvider.getContext(), EventDetailsActivity.class);
-                            intent.putExtra("OBJECT_ID", eventId);
-                            intent.putExtra("IS_PLANNER", false);
-                            startActivity(intent);
-                            stopProgressDialog();
+                            setEventAsEntered();
                         }
 
                         @Override
@@ -132,6 +133,27 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
             Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
             stopProgressDialog();
         }
+    }
+
+    private void setEventAsEntered() {
+        // SET PAYMENT LOGIC IN PARSE
+        User.enterEvent(eventId, new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Toast.makeText(getActivity(), "Event entered as array", Toast.LENGTH_LONG).show();
+                Event.getOne(eventId).incrementEntries();
+                startPaidEvent();
+                stopProgressDialog();
+            }
+        });
+
+    }
+
+    private void startPaidEvent() {
+        Intent intent = new Intent(ContextProvider.getContext(), EventDetailsActivity.class);
+        intent.putExtra("OBJECT_ID", eventId);
+        intent.putExtra("IS_PLANNER", false);
+        startActivity(intent);
     }
 
     private void payWithPayPal() {

@@ -18,6 +18,8 @@
              which is used to tint widgets -->
         <item name="colorAccent">@color/colorAccent</item>
 
+        <item name="colorButtonNormal">@color/shinyBrown</item>
+
         <!-- You can also set colorControlNormal, colorControlActivated
              colorControlHighlight & colorSwitchThumbNormal. -->
     </style>
