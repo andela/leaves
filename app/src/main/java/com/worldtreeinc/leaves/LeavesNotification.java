@@ -1,7 +1,5 @@
 package com.worldtreeinc.leaves;
 
-import android.util.Log;
-
 import com.parse.ParsePush;
 import com.parse.ParseUser;
 
@@ -15,7 +13,7 @@ import java.text.NumberFormat;
  */
 public class LeavesNotification {
 
-    public static void sendItemBidNotification(Double amount, EventItem item){
+    public static void sendItemBidNotification(Double amount, EventItem item) {
         ParsePush.subscribeInBackground(item.getName() + "-" + item.getObjectId());
         String message = ParseUser.getCurrentUser().getUsername() +
                 " placed a bid of " + NumberFormat.getCurrencyInstance().format(amount) + " on " + item.getName();
@@ -36,5 +34,9 @@ public class LeavesNotification {
         push.setData(data);
         push.setChannel(channel);
         push.sendInBackground();
+    }
+
+    public static void subscribePlannerToItemChannel(EventItem item) {
+        ParsePush.subscribeInBackground(item.getName() + "-" + item.getObjectId());
     }
 }
