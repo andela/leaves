@@ -5,6 +5,7 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseCrashReporting;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.EventItem;
@@ -17,8 +18,6 @@ public class ParseApplication extends LeavesApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        // PushService.setDefaultPushCallback(this, MainActivity.class);
 
         // Initialize Crash Reporting.
         ParseCrashReporting.enable(this);
@@ -33,6 +32,7 @@ public class ParseApplication extends LeavesApplication {
 
         // Add your initialization code here
         Parse.initialize(this);
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
 
         ParseACL defaultACL = new ParseACL();
