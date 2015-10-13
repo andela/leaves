@@ -203,6 +203,8 @@ public class ItemForm implements View.OnClickListener  {
                 changeToListFragment(itemListFragment);
                 floatingActionButton.setVisibility(View.VISIBLE);
                 progressDialog.dismiss();
+                // subscribe planner to item channel
+                LeavesNotification.subscribePlannerToItemChannel(item);
             }
         };
         itemAsync.execute();
