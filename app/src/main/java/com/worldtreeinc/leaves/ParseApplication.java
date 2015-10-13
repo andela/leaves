@@ -5,14 +5,13 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseCrashReporting;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 
 public class ParseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        // PushService.setDefaultPushCallback(this, MainActivity.class);
 
         // Initialize Crash Reporting.
         ParseCrashReporting.enable(this);
@@ -26,6 +25,7 @@ public class ParseApplication extends Application {
 
         // Add your initialization code here
         Parse.initialize(this);
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
 
         ParseACL defaultACL = new ParseACL();
