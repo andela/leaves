@@ -12,14 +12,13 @@ import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.helper.UserAuthentication;
 
 public class RegisterActivity extends AppCompatActivity {
-    private TextView register_login_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        register_login_button = (TextView) findViewById(R.id.register_login_button);
+        TextView register_login_button = (TextView) findViewById(R.id.register_login_button);
         register_login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

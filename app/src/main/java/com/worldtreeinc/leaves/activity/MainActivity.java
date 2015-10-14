@@ -12,8 +12,6 @@ import android.view.View;
 import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
 import com.worldtreeinc.leaves.R;
-import com.worldtreeinc.leaves.activity.GetStartedActivity;
-import com.worldtreeinc.leaves.activity.RoleOptionActivity;
 
 import org.json.JSONObject;
 
@@ -22,14 +20,13 @@ public class MainActivity extends Activity {
 
     private View view;
     private Bundle extras;
-    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        intent = getIntent();
+        Intent intent = getIntent();
         extras = intent.getExtras();
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
 

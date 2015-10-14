@@ -160,7 +160,7 @@ public class UserAuthentication {
             try {
                 user.signUp();
             }catch (Exception e){
-               message = e.getMessage().toString();
+               message = e.getMessage();
             }
             return message;
         }

@@ -1,7 +1,6 @@
 package com.worldtreeinc.leaves.adapter;
 
-import android.app.*;
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -12,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -21,13 +19,13 @@ import android.widget.Toast;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.rey.material.widget.FloatingActionButton;
-import com.worldtreeinc.leaves.utility.Dialog;
+import com.worldtreeinc.leaves.DialogBox;
+import com.worldtreeinc.leaves.ItemBidHandler;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.fragment.ItemFormFragment;
 import com.worldtreeinc.leaves.model.EventItem;
 
 import java.lang.reflect.Field;
-import java.text.NumberFormat;
 import java.util.List;
 
 public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implements PopupMenu.OnMenuItemClickListener {

@@ -2,13 +2,12 @@ package com.worldtreeinc.leaves;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.view.LayoutInflater;
+
+import com.worldtreeinc.leaves.activity.PlannerEventActivity;
+import com.worldtreeinc.leaves.model.Event;
 
 import java.util.List;
 
@@ -20,12 +19,11 @@ public class DialogBox {
     public DialogBox() {}
     private List<Event> userEventList = null;
 
-    interface CallBack {
+    public interface CallBack {
         void onFinished();
     }
 
     public void dialog(Context context, String title, String message,final CallBack... callbacks) {
-//        final Activity eventActivity = activity;
         // build up the dialogBox
         new AlertDialog.Builder(context)
                 .setTitle(title)

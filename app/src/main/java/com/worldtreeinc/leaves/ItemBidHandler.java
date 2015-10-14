@@ -14,8 +14,7 @@ import android.widget.Toast;
 
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
-import com.parse.ParsePush;
-import com.parse.ParseUser;
+import com.worldtreeinc.leaves.model.EventItem;
 
 import java.text.NumberFormat;
 import java.util.List;

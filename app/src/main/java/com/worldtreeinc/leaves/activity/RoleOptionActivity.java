@@ -12,14 +12,12 @@ import com.worldtreeinc.leaves.R;
 
 public class RoleOptionActivity extends Activity {
 
-    private ParseUser currentUser;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // check if user is logged in
-        currentUser = ParseUser.getCurrentUser();
+        ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser == null) {
             //redirect to get started page
             Intent getStartedIntent = new Intent(this, GetStartedActivity.class);

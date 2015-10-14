@@ -22,8 +22,6 @@ import java.util.ArrayList;
 
 public class BidderDashActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Toolbar mToolbar;
-    private Button browseEvent;
     private ListView eventList;
     private EventsListAdapter listAdapter;
     private ProgressView loader;
@@ -40,12 +38,17 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initialize(){
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        try {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
         setTitle(getString(R.string.bidder_dashboard_title));
 
-        browseEvent = (Button) findViewById(R.id.browse_event_btn);
+        Button browseEvent = (Button) findViewById(R.id.browse_event_btn);
         browseEvent.setOnClickListener(this);
         eventList = (ListView) findViewById(R.id.event_list);
         frame = (FrameLayout)findViewById(R.id.frame_loader);

@@ -16,12 +16,7 @@ public class ParseProxyObject implements Serializable {
     public static final String PARSE_LOCAL_OBJECT = "parse_local_object";
 
     private HashMap<String, Object> values = new HashMap<String, Object>();
-    private HashMap<String, String> fileUrls = new HashMap<String, String>();
-    private HashMap<String, double[]> geoPoints = new HashMap<String, double[]>();
-    private String className;
-    private Date createdAt;
     private String objectId;
-    private Date updatedAt;
 
     public ParseProxyObject(ParseObject parseObject) {
 
@@ -38,17 +33,19 @@ public class ParseProxyObject implements Serializable {
                 values.put(key, parseObject.get(key));
             } else if (classType == ParseFile.class) {
                 // In the case of ParseFile, the url to the file will be retained as a String, since ParseFile is not serializable
+                HashMap<String, String> fileUrls = new HashMap<String, String>();
                 fileUrls.put(key, ((ParseFile) parseObject.get(key)).getUrl());
             } else if (classType == ParseGeoPoint.class) {
                 // In the case of a ParseGeoPoint, the doubles values for lat, long will be retained in a double[], since ParseGeoPoint is not serializable
                 double[] latlong = {((ParseGeoPoint)parseObject.get(key)).getLatitude(), ((ParseGeoPoint)parseObject.get(key)).getLongitude()};
+                HashMap<String, double[]> geoPoints = new HashMap<String, double[]>();
                 geoPoints.put(key, latlong);
             }
 
-            this.className = parseObject.getClassName();
-            this.createdAt = parseObject.getCreatedAt();
+            String className = parseObject.getClassName();
+            Date createdAt = parseObject.getCreatedAt();
             this.objectId = parseObject.getObjectId();
-            this.updatedAt = parseObject.getUpdatedAt();
+            Date updatedAt = parseObject.getUpdatedAt();
         }
     }
 

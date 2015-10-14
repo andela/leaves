@@ -19,7 +19,6 @@ public class Dialog {
     }
 
     public void dialog(Context context, String title, String message,final CallBack... callbacks) {
-//        final Activity eventActivity = activity;
         // build up the dialog
         new AlertDialog.Builder(context)
                 .setTitle(title)

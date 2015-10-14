@@ -164,10 +164,7 @@ public class ImageLoader {
     }
 
     boolean imageViewReused(PhotoToLoad photoToLoad) {
-        String tag = imageViews.get(photoToLoad.imageView);
-        if (tag == null || !tag.equals(photoToLoad.url))
-            return true;
-        return false;
+        return imageViews.get(photoToLoad.imageView) == null || !imageViews.get(photoToLoad.imageView).equals(photoToLoad.url);
     }
 
     // Used to display bitmap in the UI thread

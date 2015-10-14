@@ -1,62 +1,48 @@
 package com.worldtreeinc.leaves.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
 import com.paypal.android.sdk.payments.PayPalService;
-import com.paypal.android.sdk.payments.PaymentActivity;
-import com.paypal.android.sdk.payments.PaymentConfirmation;
-import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.fragment.PaymentOptionFragment;
+import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.utility.ParseProxyObject;
-
-import org.json.JSONException;
 
 
 public class PaymentOptionActivity extends AppCompatActivity {
 
-
-    private double amount;
     private Event event;
-    private ParseProxyObject proxy;
-    private TextView paymentName;
-    private TextView paymentAmount;
-    private String eventName;
-    private PaymentOptionFragment paymentOptionFragment;
-    private Bundle bundle;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        proxy = (ParseProxyObject) getIntent().getSerializableExtra("event");
+        ParseProxyObject proxy = (ParseProxyObject) getIntent().getSerializableExtra("event");
         event = proxy.getParseObject(Event.class);
         init();
     }
 
     private void init() {
-        paymentName = (TextView) findViewById(R.id.payment_name);
-        paymentAmount = (TextView) findViewById(R.id.payment_amount);
+        TextView paymentName = (TextView) findViewById(R.id.payment_name);
+        TextView paymentAmount = (TextView) findViewById(R.id.payment_amount);
 
-        amount = Double.parseDouble(String.valueOf(event.getEntryFee()));
-        eventName = event.getField("eventName");
-        String paymentString = getResources().getString(R.string.payment_amount_text)+amount;
+        double amount = Double.parseDouble(String.valueOf(event.getEntryFee()));
+        String eventName = event.getField("eventName");
+        String paymentString = getResources().getString(R.string.payment_amount_text)+ amount;
 
         paymentName.setText(eventName);
         paymentAmount.setText(paymentString);
 
         // launch fragment with properties
         String eventId = event.getObjectId();
-        paymentOptionFragment = new PaymentOptionFragment();
-        bundle = new Bundle();
+        PaymentOptionFragment paymentOptionFragment = new PaymentOptionFragment();
+        Bundle bundle = new Bundle();
         bundle.putString("eventId", eventId);
         bundle.putString("paymentName", eventName);
         bundle.putDouble("amount", amount);

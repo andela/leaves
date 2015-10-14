@@ -2,6 +2,7 @@ package com.worldtreeinc.leaves;
 
 import com.parse.ParsePush;
 import com.parse.ParseUser;
+import com.worldtreeinc.leaves.model.EventItem;
 
 import org.json.JSONException;
 import org.json.JSONObject;

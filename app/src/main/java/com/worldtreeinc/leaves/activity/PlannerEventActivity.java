@@ -19,7 +19,6 @@ public class PlannerEventActivity extends AppCompatActivity {
     String id;
     ListView listview;
     List<Event> event;
-    private EventLoaderTask eventLoaderTask;
 
 
     @Override
@@ -27,7 +26,7 @@ public class PlannerEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planner_event_list);
 
-        eventLoaderTask = new EventLoaderTask(listview, this, true);
+        EventLoaderTask eventLoaderTask = new EventLoaderTask(listview, this, true);
         eventLoaderTask.fetchEvents(true, null);
     }
 

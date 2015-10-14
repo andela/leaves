@@ -108,8 +108,7 @@ public class Banner {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] parseFile = stream.toByteArray();
-        ParseFile file = new ParseFile(fileName, parseFile);
-        return file;
+        return new ParseFile(fileName, parseFile);
     }
 
     public void setSelected(boolean status, EventForm eventForm) {

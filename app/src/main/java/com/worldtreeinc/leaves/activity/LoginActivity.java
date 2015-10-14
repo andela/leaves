@@ -19,9 +19,6 @@ import com.worldtreeinc.leaves.helper.UserAuthentication;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText mUsername;
     private EditText mPassword;
-    private Button loginButton;
-    private TextView registerUser;
-    private Button FacebookLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,14 +78,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mUsername = (EditText) findViewById(R.id.usernameLoginTextBox);
         mPassword = (EditText) findViewById(R.id.passwordLoginTextBox);
 
-        registerUser = (TextView) findViewById(R.id.registerUser);
+        TextView registerUser = (TextView) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
 
-        loginButton = (Button) findViewById(R.id.loginButton);
+        Button loginButton = (Button) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(this);
 
-        FacebookLoginButton = (Button) findViewById(R.id.FacebookLoginButton);
-        FacebookLoginButton.setOnClickListener(this);
+        Button facebookLoginButton = (Button) findViewById(R.id.FacebookLoginButton);
+        facebookLoginButton.setOnClickListener(this);
     }
 
     @Override
