@@ -3,6 +3,8 @@ package com.worldtreeinc.leaves;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.worldtreeinc.leaves.activity.EventDetailsActivity;
+import com.worldtreeinc.leaves.activity.PlannerEventActivity;
 
 
 /**

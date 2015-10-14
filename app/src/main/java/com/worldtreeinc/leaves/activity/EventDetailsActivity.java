@@ -233,10 +233,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         ParseProxyObject proxyObject = new ParseProxyObject(event);
         Bundle bundle = new Bundle();
         bundle.putSerializable("event", proxyObject);
-
         intent.putExtras(bundle);
-        intent.putExtra("entry_fee", event.getEntryFee());
-        intent.putExtra("payment_type", "TYPE GOES HERE");
         startActivity(intent);
     }
 }

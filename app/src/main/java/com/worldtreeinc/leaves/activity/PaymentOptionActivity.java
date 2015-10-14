@@ -8,14 +8,15 @@ import android.widget.TextView;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.fragment.PaymentOptionFragment;
+import com.worldtreeinc.leaves.utility.ParseProxyObject;
 
 
 public class PaymentOptionActivity extends AppCompatActivity {
 
 
     private double amount;
-    private String eventId;
     private Event event;
+    private ParseProxyObject proxy;
     private TextView paymentName;
     private TextView paymentAmount;
     private String eventName;
@@ -28,8 +29,8 @@ public class PaymentOptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        eventId = getIntent().getExtras().getString("event_id");
-
+        proxy = (ParseProxyObject) getIntent().getSerializableExtra("event");
+        event = proxy.getParseObject(Event.class);
         init();
     }
 
@@ -37,8 +38,7 @@ public class PaymentOptionActivity extends AppCompatActivity {
         paymentName = (TextView) findViewById(R.id.payment_name);
         paymentAmount = (TextView) findViewById(R.id.payment_amount);
 
-        event = Event.getOne(eventId);
-        amount = Integer.parseInt(String.valueOf(event.getEntryFee()));
+        amount = Double.parseDouble(String.valueOf(event.getEntryFee()));
         eventName = event.getField("eventName");
         String paymentString = getResources().getString(R.string.payment_amount_text)+amount;
 
@@ -46,8 +46,10 @@ public class PaymentOptionActivity extends AppCompatActivity {
         paymentAmount.setText(paymentString);
 
         // launch fragment with properties
+        String eventId = event.getObjectId();
         paymentOptionFragment = new PaymentOptionFragment();
         bundle = new Bundle();
+        bundle.putString("eventId", eventId);
         bundle.putString("paymentName", eventName);
         bundle.putDouble("amount", amount);
         paymentOptionFragment.setArguments(bundle);

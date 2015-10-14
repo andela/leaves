@@ -139,7 +139,7 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
         User.enterEvent(eventId, new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                Toast.makeText(getActivity(), "Event entered as array", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Event entered successfully", Toast.LENGTH_LONG).show();
                 Event.getOne(eventId).incrementEntries();
                 startPaidEvent();
                 stopProgressDialog();
