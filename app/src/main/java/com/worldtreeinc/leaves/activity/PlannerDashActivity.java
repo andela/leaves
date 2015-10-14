@@ -58,7 +58,7 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
         protected Void doInBackground(Void... params) {
             EventItem item = EventItem.getFirstByUserId();
             listAdapter.clear();
-            listAdapter.add(item);
+            if (item != null) listAdapter.add(item);
             return null;
         }
 

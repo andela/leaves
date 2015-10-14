@@ -82,7 +82,7 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
         protected Void doInBackground(Void... params) {
             Event event = Event.getFirst();
             listAdapter.clear();
-            listAdapter.add(event);
+            if (event != null) listAdapter.add(event);
             return null;
         }
 

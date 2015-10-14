@@ -15,12 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseFile;
-import com.worldtreeinc.leaves.utility.Dialog;
 import com.worldtreeinc.leaves.helper.ImageLoader;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.activity.EventActivity;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.EventItem;
+import com.worldtreeinc.leaves.utility.DialogBox;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -38,7 +38,7 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
     Event event;
     int currentPosition;
     String eventId;
-    Dialog dialog = new Dialog();
+    DialogBox dialog = new DialogBox();
     boolean isPlanner;
 
     public EventsListAdapter(Context context, List<Event> userEventList, boolean isPlanner) {
@@ -144,7 +144,7 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
         if (event.getEntries() > 0) {
             dialog.dialog(context, context.getString(R.string.delete_event_title), context.getString(R.string.delete_event_error));
         } else {
-            dialog.dialog(context, context.getString(R.string.delete_event_title), context.getString(R.string.delete_event_message), new Dialog.CallBack() {
+            dialog.dialog(context, context.getString(R.string.delete_event_title), context.getString(R.string.delete_event_message), new DialogBox.CallBack() {
                 @Override
                 public void onFinished() {
                     // delete all items related to event

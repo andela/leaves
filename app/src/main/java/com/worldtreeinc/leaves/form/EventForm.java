@@ -22,7 +22,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.rey.material.widget.ProgressView;
 import com.rey.material.widget.Spinner;
-import com.worldtreeinc.leaves.utility.Dialog;
+import com.worldtreeinc.leaves.utility.DialogBox;
 import com.worldtreeinc.leaves.utility.NetworkUtil;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.model.Banner;
@@ -65,7 +65,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     private ParseFile file;
 
-    private Dialog eventFormCancelDialog = new Dialog();
+    private DialogBox eventFormCancelDialog = new DialogBox();
     private Event event = new Event(); // event object
     private Banner banner = new Banner();
 
@@ -328,7 +328,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
             eventFormCancelDialog.backToEventList(activity);
         } else {
             // build up the dialog
-            eventFormCancelDialog.dialog(activity, activity.getString(R.string.cancel_event_title), activity.getString(R.string.cancel_event_message), new Dialog.CallBack() {
+            eventFormCancelDialog.dialog(activity, activity.getString(R.string.cancel_event_title), activity.getString(R.string.cancel_event_message), new DialogBox.CallBack() {
                 @Override
                 public void onFinished() {
                     eventFormCancelDialog.backToEventList(activity);

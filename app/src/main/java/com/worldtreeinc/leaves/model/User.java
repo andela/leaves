@@ -4,6 +4,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +37,8 @@ public class User extends ParseUser {
 
     public static boolean isEnteredEvent(String eventId) {
         ParseUser user = getCurrentUser();
-        List<String> eventIds = user.getList("enteredEvents");
+        List<String> events = user.getList("enteredEvents");
+        List<String> eventIds = (events != null) ? events : new ArrayList<String>();
         return eventIds.contains(eventId);
     }
 }
