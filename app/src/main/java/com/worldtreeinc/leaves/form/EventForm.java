@@ -22,6 +22,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.rey.material.widget.ProgressView;
 import com.rey.material.widget.Spinner;
+import com.worldtreeinc.leaves.helper.LeavesNotification;
 import com.worldtreeinc.leaves.utility.DialogBox;
 import com.worldtreeinc.leaves.utility.NetworkUtil;
 import com.worldtreeinc.leaves.R;
@@ -156,7 +157,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
 
     public void uploadData() {
         // check for internet connection
-        if (NetworkUtil.getConnectivityStatus(activity)) {
+        if (!NetworkUtil.getConnectivityStatus(activity)) {
             Toast.makeText(activity, "No Internet Connection.", Toast.LENGTH_LONG).show();
             return;
         }
@@ -295,6 +296,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 Toast.makeText(activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
                 // finish context and move to plannerEventListActivity
                 eventFormCancelDialog.backToEventList(activity);
+                LeavesNotification.subscribePlannerToEventChannel(event);
             }
         };
         itemAsync.execute();

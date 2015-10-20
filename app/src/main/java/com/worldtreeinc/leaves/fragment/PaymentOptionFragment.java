@@ -21,6 +21,7 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.activity.EventDetailsActivity;
+import com.worldtreeinc.leaves.helper.LeavesNotification;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.PayPalConfirmation;
 import com.worldtreeinc.leaves.model.User;
@@ -106,6 +107,7 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
                         @Override
                         public void onSuccess() {
                             setEventAsEntered();
+                            LeavesNotification.subscribeBidderToEventChannel(eventId);
                         }
 
                         @Override

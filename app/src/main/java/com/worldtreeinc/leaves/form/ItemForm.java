@@ -43,6 +43,7 @@ public class ItemForm implements View.OnClickListener  {
     String descriptionText;
     String startBidText;
     com.rey.material.widget.Button cancelAddItemButton;
+    private String eventName;
     String itemId;
     ProgressDialog progressDialog;
 
@@ -57,12 +58,13 @@ public class ItemForm implements View.OnClickListener  {
 
     View view;
 
-    public ItemForm(Activity activity, View view, String eventId, String userId, FloatingActionButton btn, String itemId) {
+    public ItemForm(Activity activity, View view, String eventId, String userId, FloatingActionButton btn, String itemId, String eventName) {
         this.view = view;
         this.activity = activity;
         this.eventId = eventId;
         this.userId = userId;
         this.floatingActionButton = btn;
+        this.eventName = eventName;
         this.itemId = itemId;
         initialize();
         item = new EventItem();
@@ -206,6 +208,7 @@ public class ItemForm implements View.OnClickListener  {
                 progressDialog.dismiss();
                 // subscribe planner to item channel
                 LeavesNotification.subscribePlannerToItemChannel(item);
+                LeavesNotification.sendItemAddNotification(item, eventName);
             }
         };
         itemAsync.execute();

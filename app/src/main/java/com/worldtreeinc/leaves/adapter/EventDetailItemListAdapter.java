@@ -31,6 +31,7 @@ import java.util.List;
 
 public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implements PopupMenu.OnMenuItemClickListener {
 
+    private final String eventName;
     private Activity activity;
     private List<EventItem> items;
     EventItem item;
@@ -42,11 +43,12 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
     Bundle bundle;
     private boolean isPlanner;
 
-    public EventDetailItemListAdapter(Activity activity, List<EventItem> objects, boolean isPlanner) {
+    public EventDetailItemListAdapter(Activity activity, List<EventItem> objects, boolean isPlanner, String eventName) {
         super(activity, R.layout.event_details_items, objects);
         this.activity = activity;
         this.items = objects;
         this.isPlanner = isPlanner;
+        this.eventName = eventName;
     }
 
     @Override
@@ -101,6 +103,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
 
         bundle = new Bundle();
         bundle.putString("itemId", itemId);
+        bundle.putString("eventName", eventName);
         itemFormFragment.setArguments(bundle);
 
         activity.getFragmentManager()

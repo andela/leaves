@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Intent intent = getIntent();
         extras = intent.getExtras();
         ParseAnalytics.trackAppOpenedInBackground(getIntent());

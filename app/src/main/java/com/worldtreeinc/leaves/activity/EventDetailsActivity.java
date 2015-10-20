@@ -17,17 +17,15 @@ import com.parse.ParseException;
 import com.parse.ParseImageView;
 import com.rey.material.widget.FloatingActionButton;
 import com.rey.material.widget.ProgressView;
+import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.fragment.ItemFormFragment;
+import com.worldtreeinc.leaves.fragment.ItemListFragment;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.ItemImage;
 import com.worldtreeinc.leaves.model.User;
 import com.worldtreeinc.leaves.utility.NetworkUtil;
-import com.worldtreeinc.leaves.R;
-import com.worldtreeinc.leaves.fragment.ItemFormFragment;
-import com.worldtreeinc.leaves.fragment.ItemListFragment;
 import com.worldtreeinc.leaves.utility.ParseProxyObject;
-
-import java.util.Set;
 
 
 public class EventDetailsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,6 +42,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     TextView errorMessageHolder;
     Event event;
     private boolean isPlanner;
+    String eventName;
 
     private static int RESULT_LOAD_IMAGE = 1;
 
@@ -62,16 +61,18 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         itemListFragment = new ItemListFragment();
         bundle.putString("eventId", eventId);
         bundle.putBoolean("isPlanner", isPlanner);
-        itemListFragment.setArguments(bundle);
+
+        // set(eventId, savedInstanceState);
 
         banner = new Banner();
-        set(eventId);
 
 
-        if(NetworkUtil.getConnectivityStatus(this))
-            init(savedInstanceState);
-        else
+        if (NetworkUtil.getConnectivityStatus(this)) {
+            set(eventId, savedInstanceState);
+            // init(savedInstanceState);
+        } else {
             errorMessageHolder.setText(getString(R.string.event_detail_internet_error));
+        }
     }
 
     private void init(Bundle savedInstanceState) {
@@ -92,8 +93,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
 
         if (isPlanner) {
             enterEventButton.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             // call method to check whether bidder has entered the event
             checkBidderAccess();
         }
@@ -154,11 +154,12 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         return super.onOptionsItemSelected(item);
     }
 
-    public void set(final String eventId) {
+    public void set(final String eventId, final Bundle savedInstanceState) {
         final FrameLayout loader_frame = (FrameLayout) findViewById(R.id.event_details_frame_layout);
         final com.rey.material.widget.ProgressView loader = (com.rey.material.widget.ProgressView) findViewById(R.id.event_details_loading);
 
         AsyncTask<Void, Void, Void> getOne = new AsyncTask<Void, Void, Void>() {
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -175,6 +176,11 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 setData(loader_frame, loader);
+                Event newEvent = event;
+                eventName = newEvent.getField("eventName");
+                bundle.putString("eventName", eventName);
+                itemListFragment.setArguments(bundle);
+                init(savedInstanceState);
             }
         };
         getOne.execute();

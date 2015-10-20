@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,9 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.rey.material.widget.ProgressView;
+import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.adapter.EventDetailItemListAdapter;
 import com.worldtreeinc.leaves.model.EventItem;
-import com.worldtreeinc.leaves.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +29,7 @@ public class ItemListFragment extends Fragment {
     ProgressView loader;
     EventDetailItemListAdapter listAdapter;
     String eventId;
+    String eventName;
     boolean isPlanner;
 
     @Override
@@ -38,8 +38,9 @@ public class ItemListFragment extends Fragment {
         try {
             eventId = getArguments().getString("eventId");
             isPlanner = getArguments().getBoolean("isPlanner");
-        } catch (Exception e){
-
+            eventName = getArguments().getString("eventName");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -70,7 +71,7 @@ public class ItemListFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            listAdapter = new EventDetailItemListAdapter(getActivity(), new ArrayList<EventItem>(), isPlanner);
+            listAdapter = new EventDetailItemListAdapter(getActivity(), new ArrayList<EventItem>(), isPlanner, eventName);
             loader.start();
         }
 

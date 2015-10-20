@@ -18,24 +18,24 @@ import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.model.EventItem;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by andela on 9/23/15.
  */
-public class ItemBidHandler extends Activity{
+public class ItemBidHandler extends Activity {
     private Activity activity;
     private List<EventItem> items;
     private EventItem item;
     private int currentPosition;
 
-    public ItemBidHandler(Activity activity, List<EventItem> items, int position){
+    public ItemBidHandler(Activity activity, List<EventItem> items, int position) {
         this.activity = activity;
         this.items = items;
         currentPosition = position;
         item = items.get(position);
     }
+
     public void bidItem() {
         final LayoutInflater inflater = activity.getLayoutInflater();
         View view = inflater.inflate(R.layout.bid_layout, null);
@@ -43,7 +43,7 @@ public class ItemBidHandler extends Activity{
     }
 
 
-    private void setDialogDetails(final ImageView itemImage, TextView minBid, TextView itemName,View view, EditText bidAmount) {
+    private void setDialogDetails(final ImageView itemImage, TextView minBid, TextView itemName, View view, EditText bidAmount) {
         minBid.setText(NumberFormat.getCurrencyInstance().format(item.getNewBid()));
         itemName.setText(item.getName());
         item.getImage().getDataInBackground(new GetDataCallback() {
@@ -64,7 +64,7 @@ public class ItemBidHandler extends Activity{
         setDialogDetails(itemImage, minBid, itemName, view, bidAmount);
     }
 
-    private void showDialog(View view, final EditText bidAmount){
+    private void showDialog(View view, final EditText bidAmount) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity).setView(view);
         builder.setPositiveButton("Bid", new DialogInterface.OnClickListener() {
             @Override
@@ -85,19 +85,21 @@ public class ItemBidHandler extends Activity{
         builder.show();
     }
 
-    private boolean performBid(double amount){
+    private boolean performBid(double amount) {
         double bid = Double.parseDouble(item.getNewBid().toString());
         boolean isBidded = false;
         int duration = Toast.LENGTH_SHORT;
         String text = null;
-        if(amount > bid){
+        if (amount > bid) {
             isBidded = true;
             item = items.get(currentPosition);
             item.setPreviousBid(bid);
             item.setNewBid(amount);
             item.saveInBackground();
             text = "You have successfully place your Bid";
-        }else if(amount <= bid){
+            // subscribe user to item channel
+            LeavesNotification.sendItemBidNotification(amount, item);
+        } else if (amount <= bid) {
             text = "Your bid must be greater than minimum bid";
         }
         Toast toast = Toast.makeText(activity, text, duration);

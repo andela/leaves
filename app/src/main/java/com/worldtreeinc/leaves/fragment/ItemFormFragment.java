@@ -24,12 +24,15 @@ public class ItemFormFragment extends Fragment {
     String userId;
     ItemForm form;
     String itemId;
+    private String eventName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        eventId = getArguments().getString("eventId");
-        itemId = getArguments().getString("itemId");
+        Bundle bundle = this.getArguments();
+        eventId = bundle.getString("eventId");
+        itemId = bundle.getString("itemId");
+        eventName = bundle.getString("eventName");
     }
 
     @Nullable
@@ -38,7 +41,7 @@ public class ItemFormFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.item_form, container, false);
         userId = ParseUser.getCurrentUser().getObjectId();
-        form = new ItemForm(getActivity(), view, eventId, userId, floatingActionButton, itemId);
+        form = new ItemForm(getActivity(), view, eventId, userId, floatingActionButton, itemId, eventName);
 
         return view;
     }
