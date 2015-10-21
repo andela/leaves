@@ -156,6 +156,7 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
         Intent intent = new Intent(ContextProvider.getContext(), EventDetailsActivity.class);
         intent.putExtra("OBJECT_ID", eventId);
         intent.putExtra("IS_PLANNER", false);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
