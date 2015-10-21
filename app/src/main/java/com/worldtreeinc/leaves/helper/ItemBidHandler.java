@@ -3,17 +3,12 @@ package com.worldtreeinc.leaves.helper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.GetDataCallback;
-import com.parse.ParseException;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.model.EventItem;
 
@@ -43,25 +38,17 @@ public class ItemBidHandler extends Activity {
     }
 
 
-    private void setDialogDetails(final ImageView itemImage, TextView minBid, TextView itemName, View view, EditText bidAmount) {
+    private void setDialogDetails(TextView minBid, TextView itemName, View view, EditText bidAmount) {
         minBid.setText(NumberFormat.getCurrencyInstance().format(item.getNewBid()));
         itemName.setText(item.getName());
-        item.getImage().getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] bytes, ParseException e) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                itemImage.setImageBitmap(bitmap);
-            }
-        });
         showDialog(view, bidAmount);
     }
 
     private void setDialogElement(View view) {
-        ImageView itemImage = (ImageView) view.findViewById(R.id.item_image);
         TextView minBid = (TextView) view.findViewById(R.id.min_bid);
         TextView itemName = (TextView) view.findViewById(R.id.item_name);
         EditText bidAmount = (EditText) view.findViewById(R.id.enter_amount);
-        setDialogDetails(itemImage, minBid, itemName, view, bidAmount);
+        setDialogDetails(minBid, itemName, view, bidAmount);
     }
 
     private void showDialog(View view, final EditText bidAmount) {

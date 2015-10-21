@@ -1,7 +1,6 @@
 package com.worldtreeinc.leaves.adapter;
 
-import android.app.*;
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -12,11 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.rey.material.widget.FloatingActionButton;
@@ -25,8 +24,8 @@ import com.worldtreeinc.leaves.fragment.ItemFormFragment;
 import com.worldtreeinc.leaves.helper.ItemBidHandler;
 import com.worldtreeinc.leaves.model.EventItem;
 import com.worldtreeinc.leaves.utility.DialogBox;
+
 import java.lang.reflect.Field;
-import java.text.NumberFormat;
 import java.util.List;
 
 public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implements PopupMenu.OnMenuItemClickListener {
@@ -53,7 +52,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if(convertView == null){
+        if (convertView == null) {
             LayoutInflater listLayoutInflater = LayoutInflater.from(activity);
             convertView = listLayoutInflater.inflate(R.layout.event_details_items, null);
         }
@@ -95,7 +94,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
 
     private void openForm(String itemId) {
 
-        itemFormFragment =  new ItemFormFragment();
+        itemFormFragment = new ItemFormFragment();
 
         addItemButton = (FloatingActionButton) activity.findViewById(R.id.add_item_button);
         addItemButton.setVisibility(View.GONE);
@@ -139,70 +138,6 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         delete.execute();
     }
 
-    private void bidItem() {
-        final LayoutInflater inflater = activity.getLayoutInflater();
-        View view = inflater.inflate(R.layout.bid_layout, null);
-        setDialogElement(view);
-    }
-
-    public void setDialogDetails(final ImageView itemImage, TextView minBid, TextView itemName,View view, EditText bidAmount) {
-        minBid.setText(NumberFormat.getCurrencyInstance().format(item.getPreviousBid()));
-        itemName.setText(item.getName());
-        item.getImage().getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] bytes, ParseException e) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                itemImage.setImageBitmap(bitmap);
-            }
-        });
-        showDialog(view, bidAmount);
-    }
-
-    public void setDialogElement(View view) {
-        ImageView itemImage = (ImageView) view.findViewById(R.id.item_image);
-        TextView minBid = (TextView) view.findViewById(R.id.min_bid);
-        TextView itemName = (TextView) view.findViewById(R.id.item_name);
-        EditText bidAmount = (EditText) view.findViewById(R.id.enter_amount);
-        setDialogDetails(itemImage, minBid, itemName, view, bidAmount);
-    }
-
-    public void showDialog(View view, final EditText bidAmount){
-        final AlertDialog builder = new AlertDialog.Builder(activity).create();
-        builder.setButton(0, "Bid", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                double amount = Double.parseDouble(bidAmount.getText().toString());
-                if (performBid(amount)) {
-                    builder.dismiss();
-                }
-            }
-        });
-        builder.setButton(1,"Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                    builder.dismiss();
-                }
-        });
-
-        builder.show();
-    }
-
-    public boolean performBid(double amount){
-        double bid = Double.parseDouble(item.getNewBid().toString());
-        boolean isBidded = false;
-        int duration = Toast.LENGTH_SHORT;
-        String text = null;
-        Toast toast = Toast.makeText(activity, text, duration);
-        if(amount > bid){
-            isBidded = true;
-            text = "You have successfully place your Bid";
-        }else if(amount <= bid){
-            text = "Your bid must be greater than minimum bid";
-        }
-        toast.show();
-        return isBidded;
-    }
-
     @Override
     public boolean onMenuItemClick(MenuItem popMenuItem) {
         final String itemId;
@@ -236,8 +171,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         popup.setOnMenuItemClickListener(this);
         if (isPlanner) {
             popup.inflate(R.menu.menu_event_list);
-        }
-        else {
+        } else {
             popup.inflate(R.menu.bidder_menu_item_list);
         }
         // Force icons to show
@@ -247,7 +181,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
             Field fMenuHelper = PopupMenu.class.getDeclaredField("mPopup");
             fMenuHelper.setAccessible(true);
             menuHelper = fMenuHelper.get(popup);
-            argTypes = new Class[] { boolean.class };
+            argTypes = new Class[]{boolean.class};
             menuHelper.getClass().getDeclaredMethod("setForceShowIcon", argTypes).invoke(menuHelper, true);
         } catch (Exception e) {
             Log.w("TAG", "error forcing menu icons to show", e);

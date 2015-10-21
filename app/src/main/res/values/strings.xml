@@ -117,6 +117,8 @@
     <string name="payment_name_title">"Name: "</string>
     <string name="payment_amount_title">"Entry Fee: "</string>
     <string name="usd_text">USD</string>
+    <string name="item_bid_hint">Enter Amount</string>
+    <string name="item_bid_minimum_bid_label">Minimum Bid: </string>
 
 </resources>
 
