@@ -3,6 +3,7 @@ package com.worldtreeinc.leaves.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -15,12 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseFile;
+import com.worldtreeinc.leaves.activity.PaymentOptionActivity;
 import com.worldtreeinc.leaves.helper.ImageLoader;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.activity.EventActivity;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.EventItem;
+import com.worldtreeinc.leaves.model.User;
 import com.worldtreeinc.leaves.utility.DialogBox;
+import com.worldtreeinc.leaves.utility.ParseProxyObject;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -62,6 +66,11 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
 
     public View getView(final int position, View view, ViewGroup parent) {
         event = userEventList.get(position);
+
+        // get event Id
+        String eventId = event.getObjectId();
+        boolean isEnteredEvent = User.isEnteredEvent(eventId);
+
         final ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
@@ -75,6 +84,10 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
             holder.eventName = (TextView) view.findViewById(R.id.eventName);
             holder.eventVenue = (TextView) view.findViewById(R.id.eventVenue);
             holder.moreOptionsButton = (ImageView) view.findViewById(R.id.popMenu);
+
+            // condition to check if user is not planner and has entered event
+            if (!isPlanner && isEnteredEvent) holder.moreOptionsButton.setVisibility(View.GONE);
+
             // Locate the ImageView in listview_item.xml
             holder.eventBanner = (com.pkmmte.view.CircularImageView) view.findViewById(R.id.eventBanner);
             view.setTag(holder);
@@ -125,7 +138,14 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
 
     // method to be called when the enterEvent button is clicked
     private void enterEvent() {
-        Toast.makeText(context, "Event Entered!", Toast.LENGTH_LONG).show();
+        event = userEventList.get(currentPosition);
+        Intent intent = new Intent(context, PaymentOptionActivity.class);
+
+        ParseProxyObject proxyObject = new ParseProxyObject(event);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("event", proxyObject);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 
     private void editEvent() {

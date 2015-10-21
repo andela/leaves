@@ -14,6 +14,7 @@ import com.rey.material.widget.ProgressView;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.adapter.EventDetailItemListAdapter;
 import com.worldtreeinc.leaves.model.EventItem;
+import com.worldtreeinc.leaves.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class ItemListFragment extends Fragment {
     String eventId;
     String eventName;
     boolean isPlanner;
+    boolean isEnteredEvent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class ItemListFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        isEnteredEvent = User.isEnteredEvent(eventId);
     }
 
     @Nullable
@@ -71,7 +74,7 @@ public class ItemListFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            listAdapter = new EventDetailItemListAdapter(getActivity(), new ArrayList<EventItem>(), isPlanner, eventName);
+            listAdapter = new EventDetailItemListAdapter(getActivity(), new ArrayList<EventItem>(), isPlanner, isEnteredEvent, eventName);
             loader.start();
         }
 

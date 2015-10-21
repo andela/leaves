@@ -41,12 +41,14 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
     ItemFormFragment itemFormFragment;
     Bundle bundle;
     private boolean isPlanner;
+    private boolean isEnteredEvent;
 
-    public EventDetailItemListAdapter(Activity activity, List<EventItem> objects, boolean isPlanner, String eventName) {
+    public EventDetailItemListAdapter(Activity activity, List<EventItem> objects, boolean isPlanner, boolean isEnteredEvent, String eventName) {
         super(activity, R.layout.event_details_items, objects);
         this.activity = activity;
         this.items = objects;
         this.isPlanner = isPlanner;
+        this.isEnteredEvent = isEnteredEvent;
         this.eventName = eventName;
     }
 
@@ -81,6 +83,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         });
 
         ImageView moreActionButton = (ImageView) convertView.findViewById(R.id.popMenu);
+        if (!isPlanner && !isEnteredEvent) moreActionButton.setVisibility(View.GONE);
 
         moreActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

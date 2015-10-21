@@ -2,6 +2,7 @@ package com.worldtreeinc.leaves.fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -112,7 +113,8 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
 
                         @Override
                         public void onFailure() {
-                            new DialogBox().dialog(getActivity(), "Payment Error", "Unknown Payment Error. Please Try Again");
+                            Context context = getActivity();
+                            new DialogBox().dialog(context, context.getString(R.string.payment_error), context.getString(R.string.payment_error_text));
                             stopProgressDialog();
                         }
                     });
