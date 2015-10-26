@@ -78,7 +78,7 @@ public class ItemListFragmentTest extends ActivityInstrumentationTestCase2<Event
         itemLists.add(eventItem);
 
         // set adapter
-        adapter = new EventDetailItemListAdapter(activity, itemLists, true, "eventName");
+        adapter = new EventDetailItemListAdapter(activity, itemLists, true, true, "eventName");
 
         view = adapter.getView(0, null, null);
 
