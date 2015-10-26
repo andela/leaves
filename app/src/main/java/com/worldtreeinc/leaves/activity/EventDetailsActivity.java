@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseImageView;
+import com.parse.SaveCallback;
 import com.rey.material.widget.FloatingActionButton;
 import com.rey.material.widget.ProgressView;
 import com.worldtreeinc.leaves.R;
@@ -234,12 +235,23 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void startPaymentActivity(View v) {
-        Intent intent = new Intent(getApplicationContext(), PaymentOptionActivity.class);
 
-        ParseProxyObject proxyObject = new ParseProxyObject(event);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("event", proxyObject);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        if ((int) event.getEntryFee() > 0) {
+            Intent intent = new Intent(getApplicationContext(), PaymentOptionActivity.class);
+            ParseProxyObject proxyObject = new ParseProxyObject(event);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("event", proxyObject);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        } else {
+            User.enterEvent(eventId, new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    Toast.makeText(EventDetailsActivity.this, "Event entered successfully", Toast.LENGTH_LONG).show();
+                    Event.getOne(eventId).incrementEntries();
+                    EventDetailsActivity.this.recreate();
+                }
+            });
+        }
     }
 }
