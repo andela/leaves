@@ -9,29 +9,38 @@ import android.widget.Button;
 import com.worldtreeinc.leaves.R;
 
 
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        Button registerBtn = (Button) findViewById(R.id.registerBtn);
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent register = new Intent(WelcomeActivity.this, RegisterActivity.class);
-                startActivity(register);
-            }
-        });
-
-        Button loginBtn = (Button) findViewById(R.id.loginBtn);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent login = new Intent(WelcomeActivity.this, LoginActivity.class);
-                startActivity(login);
-            }
-        });
+        setUpButtons();
     }
+
+    public void setUpButtons() {
+        Button registerBtn = (Button) findViewById(R.id.registerBtn);
+        Button loginBtn = (Button) findViewById(R.id.loginBtn);
+
+        registerBtn.setOnClickListener(this);
+        loginBtn.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view){
+        Intent registerIntent;
+        switch(view.getId()) {
+            case R.id.registerBtn:
+                registerIntent = new Intent(this, RegisterActivity.class);
+                break;
+            case R.id.loginBtn:
+                registerIntent = new Intent(this, LoginActivity.class);
+                break;
+            default:
+                return;
+        }
+        startActivity(registerIntent);
+    }
+
 }

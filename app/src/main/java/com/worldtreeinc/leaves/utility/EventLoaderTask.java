@@ -80,11 +80,11 @@ public class EventLoaderTask {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             Event event = eventsListAdapter.getCurrentEvent(position);
             Intent intent = new Intent(activity.getApplicationContext(), EventDetailsActivity.class);
-            intent.putExtra("OBJECT_ID", event.getObjectId());
+            intent.putExtra(activity.getString(R.string.object_id_reference), event.getObjectId());
             if (isPlanner) {
-                intent.putExtra("IS_PLANNER", true);
+                intent.putExtra(activity.getString(R.string.is_planner_reference), true);
             } else {
-                intent.putExtra("IS_PLANNER", false);
+                intent.putExtra(activity.getString(R.string.is_planner_reference), false);
             }
             activity.startActivity(intent);
         }

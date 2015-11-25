@@ -6,48 +6,57 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.parse.ParseUser;
-import com.worldtreeinc.leaves.appConfig.AppState;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.appConfig.AppState;
+import com.worldtreeinc.leaves.model.User;
 
-public class RoleOptionActivity extends Activity {
+public class RoleOptionActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkLoggedInUser();
+        setContentView(R.layout.activity_role_option);
 
-        // check if user is logged in
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if (currentUser == null) {
+        setUpButtons();
+    }
+
+
+    private void setUpButtons() {
+        Button plannerBtn = (Button) findViewById(R.id.plannerBtn);
+        Button bidderBtn = (Button) findViewById(R.id.bidderBtn);
+
+        plannerBtn.setOnClickListener(this);
+        bidderBtn.setOnClickListener(this);
+    }
+
+    private void checkLoggedInUser() {
+        if (!User.isLoggedIn()) {
             //redirect to get started page
             Intent getStartedIntent = new Intent(this, GetStartedActivity.class);
             startActivity(getStartedIntent);
         }
-
-        setContentView(R.layout.activity_role_option);
-
-        Button bidderBtn = (Button) findViewById(R.id.bidderBtn);
-        bidderBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //redirect to bidder dashboard
-                Intent bidderDash = new Intent(RoleOptionActivity.this, BidderDashActivity.class);
-                startActivity(bidderDash);
-            }
-        });
-        Button plannerBtn = (Button) findViewById(R.id.plannerBtn);
-        plannerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //redirect to bidder dashboard
-                Intent plannerDash = new Intent(RoleOptionActivity.this, PlannerDashActivity.class);
-                startActivity(plannerDash);
-            }
-        });
     }
 
     @Override
     public void onBackPressed() {
         AppState.minimize(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent destinationIntent;
+        int id = view.getId();
+        switch (id) {
+            case R.id.plannerBtn:
+                destinationIntent = new Intent(this, PlannerDashActivity.class);
+                break;
+            case R.id.bidderBtn:
+                destinationIntent = new Intent(this, BidderDashActivity.class);
+                break;
+            default:
+                return;
+        }
+        startActivity(destinationIntent);
     }
 }

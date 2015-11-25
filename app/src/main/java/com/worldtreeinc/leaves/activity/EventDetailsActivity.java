@@ -52,25 +52,24 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
+        initializeFragmentObjects();
+        checkForConnectivity(savedInstanceState);
+    }
+
+    private void initializeFragmentObjects() {
         errorMessageHolder = (TextView) findViewById(R.id.no_internet_error);
 
-
-        bundle = new Bundle();
-        eventId = getIntent().getExtras().getString("OBJECT_ID");
-        isPlanner = getIntent().getExtras().getBoolean("IS_PLANNER");
+        bundle = getIntent().getExtras();
+        eventId = bundle.getString(getString(R.string.object_id_reference));
+        isPlanner = bundle.getBoolean(getString(R.string.is_planner_reference));
 
         itemListFragment = new ItemListFragment();
-        bundle.putString("eventId", eventId);
-        bundle.putBoolean("isPlanner", isPlanner);
-
-        // set(eventId, savedInstanceState);
-
         banner = new Banner();
+    }
 
-
+    private void checkForConnectivity(Bundle savedInstanceState) {
         if (NetworkUtil.getConnectivityStatus(this)) {
             set(eventId, savedInstanceState);
-            // init(savedInstanceState);
         } else {
             errorMessageHolder.setText(getString(R.string.event_detail_internet_error));
         }
@@ -105,7 +104,6 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     private void checkBidderAccess() {
         addItemButton.setVisibility(View.GONE);
         if (User.isEnteredEvent(eventId)) {
-            //
             enterEventButton.setVisibility(View.GONE);
         }
     }
@@ -231,7 +229,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         flipCard();
-        addItemButton.setVisibility(v.GONE);
+        addItemButton.setVisibility(View.GONE);
     }
 
     public void startPaymentActivity(View v) {

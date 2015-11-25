@@ -13,13 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.ParseFile;
-import com.worldtreeinc.leaves.activity.PaymentOptionActivity;
-import com.worldtreeinc.leaves.helper.ImageLoader;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.activity.EventActivity;
+import com.worldtreeinc.leaves.activity.PaymentOptionActivity;
+import com.worldtreeinc.leaves.helper.ImageLoader;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.EventItem;
 import com.worldtreeinc.leaves.model.User;
@@ -64,6 +63,7 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
         ImageView moreOptionsButton;
     }
 
+    @Override
     public View getView(final int position, View view, ViewGroup parent) {
         event = userEventList.get(position);
 
@@ -199,7 +199,6 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
             argTypes = new Class[] { boolean.class };
             menuHelper.getClass().getDeclaredMethod("setForceShowIcon", argTypes).invoke(menuHelper, true);
         } catch (Exception e) {
-            Log.w("TAG", "error forcing menu icons to show", e);
             popup.show();
             return;
         }
