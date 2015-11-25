@@ -11,11 +11,11 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import com.parse.ParseUser;
 import com.rey.material.widget.ProgressView;
-import com.worldtreeinc.leaves.model.EventItem;
-import com.worldtreeinc.leaves.adapter.PlannerDashItemListAdapter;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.adapter.PlannerDashItemListAdapter;
+import com.worldtreeinc.leaves.model.EventItem;
+import com.worldtreeinc.leaves.model.User;
 
 import java.util.ArrayList;
 
@@ -30,23 +30,23 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // check if user is logged in
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if (currentUser == null) {
-            //redirect to get started page
-            Intent getStartedIntent = new Intent(this, GetStartedActivity.class);
-            startActivity(getStartedIntent);
-        }
+        checkLoggedInUser();
         setContentView(R.layout.activity_planner_dash);
         initialize();
         new ItemAsyncTask().execute();
     }
 
-    public void initialize() {
+    private void checkLoggedInUser() {
+        if (!User.isLoggedIn()) {
+            Intent getStartedIntent = new Intent(this, GetStartedActivity.class);
+            startActivity(getStartedIntent);
+        }
+    }
+
+    private void initialize() {
         bidList = (ListView) findViewById(R.id.items_list);
         frame = (FrameLayout)findViewById(R.id.frame_loader);
-        loader = (ProgressView) this.findViewById(R.id.loading);
+        loader = (ProgressView) findViewById(R.id.loading);
         Button createEventBtn = (Button) findViewById(R.id.create_event_btn);
         createEventBtn.setOnClickListener(this);
         Button manageEventBtn = (Button) findViewById(R.id.manage_events_btn);
@@ -58,7 +58,9 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
         protected Void doInBackground(Void... params) {
             EventItem item = EventItem.getFirstByUserId();
             listAdapter.clear();
-            if (item != null) listAdapter.add(item);
+            if (item != null){
+                listAdapter.add(item);
+            }
             return null;
         }
 

@@ -17,7 +17,10 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        registerButton();
+    }
 
+    private void registerButton() {
         TextView register_login_button = (TextView) findViewById(R.id.register_login_button);
         register_login_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,19 +32,14 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_register, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -49,11 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     *
-     * @param view - Calls the register method from the UserAuthentication class
-     *             and registers the user
-     */
+
     public void register(View view) {
         // instantiate register object
         UserAuthentication registerObject = new UserAuthentication(this);

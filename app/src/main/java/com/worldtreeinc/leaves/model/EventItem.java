@@ -42,6 +42,10 @@ public class EventItem extends ParseObject {
         put("newBid", newBid);
     }
 
+    public void setName(String itemName) {
+        put("itemName", itemName);
+    }
+
     public String getName() {
         return getString("itemName");
     }
@@ -49,12 +53,8 @@ public class EventItem extends ParseObject {
     public String getDescription() {
         return getString("itemDescription");
     }
-
     public void setDescription(String itemDescription) {
         put("itemDescription", itemDescription);
-    }
-    public void setName(String itemName) {
-        put("itemName", itemName);
     }
 
     public ParseFile getImage() {
