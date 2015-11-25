@@ -2,6 +2,7 @@ package com.worldtreeinc.leaves;
 
 import android.test.ActivityInstrumentationTestCase2;
 import com.rey.material.widget.ProgressView;
+import com.worldtreeinc.leaves.activity.MainActivity;
 
 
 public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {

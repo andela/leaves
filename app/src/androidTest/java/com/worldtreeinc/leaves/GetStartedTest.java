@@ -5,6 +5,9 @@ import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 
+import com.worldtreeinc.leaves.activity.GetStartedActivity;
+import com.worldtreeinc.leaves.activity.WelcomeActivity;
+
 public class GetStartedTest extends ActivityInstrumentationTestCase2<GetStartedActivity> {
     public GetStartedTest() {
         super(GetStartedActivity.class);

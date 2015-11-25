@@ -4,6 +4,9 @@ import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 
+import com.worldtreeinc.leaves.activity.LoginActivity;
+import com.worldtreeinc.leaves.activity.WelcomeActivity;
+
 /**
  * Created by andela on 7/16/15.
  */

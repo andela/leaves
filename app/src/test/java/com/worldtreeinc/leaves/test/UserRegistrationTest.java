@@ -1,7 +1,7 @@
 package com.worldtreeinc.leaves.test;
 
 
-import com.worldtreeinc.leaves.UserAuthentication;
+import com.worldtreeinc.leaves.helper.UserAuthentication;
 
 import org.junit.Before;
 import org.junit.Test;

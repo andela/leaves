@@ -4,6 +4,9 @@ import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 
+import com.worldtreeinc.leaves.activity.BidderDashActivity;
+import com.worldtreeinc.leaves.activity.BidderEventListActivity;
+
 /**
  * Created by andela on 9/9/15.
  */
