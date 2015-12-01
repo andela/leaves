@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.ProgressView;
 import com.rey.material.widget.Spinner;
+import com.worldtreeinc.leaves.activity.EventActivity;
 
 /**
  * Created by andela on 8/6/15.

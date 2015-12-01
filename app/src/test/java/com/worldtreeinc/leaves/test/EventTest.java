@@ -3,7 +3,7 @@ package com.worldtreeinc.leaves.test;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import com.parse.ParseFile;
-import com.worldtreeinc.leaves.Event;
+import com.worldtreeinc.leaves.model.Event;
 
 import junit.framework.TestCase;
 

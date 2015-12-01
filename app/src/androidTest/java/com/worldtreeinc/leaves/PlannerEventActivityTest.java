@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.parse.ParseFile;
+import com.worldtreeinc.leaves.activity.PlannerEventActivity;
+import com.worldtreeinc.leaves.model.Event;
 
 /**
  * Created by andela on 7/29/15.

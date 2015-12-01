@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.worldtreeinc.leaves.BidderDashActivity">
+    tools:context="com.worldtreeinc.leaves.activity.BidderDashActivity">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -34,7 +34,7 @@
                 android:background="@drawable/latest_bid_list"
                 android:layout_height="170dp"
                 android:padding="3dp"
-                tools:context="com.worldtreeinc.leaves.EventDetailsActivity">
+                tools:context="com.worldtreeinc.leaves.activity.EventDetailsActivity">
 
                 <TextView
                     android:layout_width="wrap_content"

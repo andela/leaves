@@ -2,10 +2,10 @@ package com.worldtreeinc.leaves;
 
 import android.test.InstrumentationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
-import android.util.Log;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.worldtreeinc.leaves.model.EventItem;
 
 /**
  * Created by kamiye on 8/26/15.

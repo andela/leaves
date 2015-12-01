@@ -1,7 +1,9 @@
 package com.worldtreeinc.leaves;
 
-import android.app.Activity;
 import android.test.InstrumentationTestCase;
+
+import com.worldtreeinc.leaves.adapter.EventsListAdapter;
+import com.worldtreeinc.leaves.model.Event;
 
 import java.util.ArrayList;
 import java.util.List;
