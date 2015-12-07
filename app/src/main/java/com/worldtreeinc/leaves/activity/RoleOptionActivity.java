@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.appConfig.AppState;
@@ -23,6 +24,8 @@ public class RoleOptionActivity extends Activity implements View.OnClickListener
 
 
     private void setUpButtons() {
+        TextView logout = (TextView) findViewById(R.id.logout);
+        logout.setOnClickListener(this);
         Button plannerBtn = (Button) findViewById(R.id.plannerBtn);
         Button bidderBtn = (Button) findViewById(R.id.bidderBtn);
 
@@ -53,6 +56,11 @@ public class RoleOptionActivity extends Activity implements View.OnClickListener
                 break;
             case R.id.bidderBtn:
                 destinationIntent = new Intent(this, BidderDashActivity.class);
+                break;
+            case R.id.logout:
+                User.logoutUser();
+                destinationIntent = new Intent(this, WelcomeActivity.class);
+                finish();
                 break;
             default:
                 return;
