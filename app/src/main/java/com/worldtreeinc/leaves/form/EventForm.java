@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.text.Editable;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -28,7 +29,7 @@ import com.worldtreeinc.leaves.utility.NetworkUtil;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.Event;
-
+import android.text.TextWatcher;
 import java.util.Calendar;
 
 /**
@@ -102,6 +103,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         eventCategorySpinner.setOnItemSelectedListener(this);
 
     }
+    
 
     @Override
     public void onItemSelected(Spinner spinner, View view, int i, long l) {
