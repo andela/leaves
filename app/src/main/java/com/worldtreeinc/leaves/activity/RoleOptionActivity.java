@@ -18,17 +18,16 @@ public class RoleOptionActivity extends Activity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         checkLoggedInUser();
         setContentView(R.layout.activity_role_option);
-
         setUpButtons();
     }
 
 
     private void setUpButtons() {
         TextView logout = (TextView) findViewById(R.id.logout);
-        logout.setOnClickListener(this);
         Button plannerBtn = (Button) findViewById(R.id.plannerBtn);
         Button bidderBtn = (Button) findViewById(R.id.bidderBtn);
 
+        logout.setOnClickListener(this);
         plannerBtn.setOnClickListener(this);
         bidderBtn.setOnClickListener(this);
     }
@@ -58,13 +57,13 @@ public class RoleOptionActivity extends Activity implements View.OnClickListener
                 destinationIntent = new Intent(this, BidderDashActivity.class);
                 break;
             case R.id.logout:
-                User.logoutUser();
+                User.logout();
                 destinationIntent = new Intent(this, WelcomeActivity.class);
-                finish();
                 break;
             default:
                 return;
         }
         startActivity(destinationIntent);
+        finish();
     }
 }
