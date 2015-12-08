@@ -8,6 +8,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -31,6 +34,7 @@ import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.Event;
 import android.text.TextWatcher;
 import java.util.Calendar;
+
 
 /**
  * Created by andela on 8/11/15.
@@ -74,6 +78,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
     public EventForm(Activity activity) {
         this.activity = activity;
         initialize();
+        filterEntryFee();
     }
 
     private void initialize() {
@@ -103,7 +108,6 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         eventCategorySpinner.setOnItemSelectedListener(this);
 
     }
-    
 
     @Override
     public void onItemSelected(Spinner spinner, View view, int i, long l) {
@@ -123,6 +127,39 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 break;
         }
     }
+
+    private void filterEntryFee() {
+
+        eventEntryFeeEditText.setFilters(new InputFilter[]{
+                new DigitsKeyListener(Boolean.FALSE, Boolean.TRUE) {
+                    int beforeDecimal = 5, afterDecimal = 2;
+
+                    @Override
+                    public CharSequence filter(CharSequence source, int start, int end,
+                                               Spanned dest, int dstart, int dend) {
+                        String temp = eventEntryFeeEditText.getText() + source.toString();
+
+                        if (temp.equals(".")) {
+                            return "0.";
+                        } else if (temp.toString().indexOf(".") == -1) {
+                            // no decimal point placed yet
+                            if (temp.length() > beforeDecimal) {
+                                return "";
+                            }
+                        } else {
+                            temp = temp.substring(temp.indexOf(".") + 1);
+                            if (temp.length() > afterDecimal) {
+                                return "";
+                            }
+                        }
+
+                        return super.filter(source, start, end, dest, dstart, dend);
+                    }
+                }
+        });
+
+    }
+
 
     // method to get all form data.
     public void getData() {
