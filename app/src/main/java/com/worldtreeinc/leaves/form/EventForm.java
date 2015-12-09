@@ -7,6 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -22,14 +26,18 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.rey.material.widget.ProgressView;
 import com.rey.material.widget.Spinner;
+import com.worldtreeinc.leaves.activity.EntryFeeWatcher;
 import com.worldtreeinc.leaves.helper.LeavesNotification;
 import com.worldtreeinc.leaves.utility.DialogBox;
 import com.worldtreeinc.leaves.utility.NetworkUtil;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.Event;
-
+import android.text.TextWatcher;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 /**
  * Created by andela on 8/11/15.
@@ -81,6 +89,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         eventDateEditText = (EditText) activity.findViewById(R.id.event_date);
         eventVenueEditText = (EditText) activity.findViewById(R.id.event_venue);
         eventEntryFeeEditText = (EditText) activity.findViewById(R.id.event_entry_fee);
+        eventEntryFeeEditText.setFilters(new InputFilter[] {new EntryFeeWatcher(2)});
         eventDescriptionEditText = (EditText) activity.findViewById(R.id.event_description);
         eventBannerImageView = (ImageView) activity.findViewById(R.id.event_banner);
         ImageButton datePicker = (ImageButton) activity.findViewById(R.id.date_picker);
