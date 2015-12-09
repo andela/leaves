@@ -3,9 +3,6 @@ package com.worldtreeinc.leaves.activity;
 import android.text.InputFilter;
 import android.text.Spanned;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Created by chidi on 12/9/15.
  */
