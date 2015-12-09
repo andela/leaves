@@ -26,6 +26,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.rey.material.widget.ProgressView;
 import com.rey.material.widget.Spinner;
+import com.worldtreeinc.leaves.activity.EntryFeeWatcher;
 import com.worldtreeinc.leaves.helper.LeavesNotification;
 import com.worldtreeinc.leaves.utility.DialogBox;
 import com.worldtreeinc.leaves.utility.NetworkUtil;
@@ -34,6 +35,8 @@ import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.Event;
 import android.text.TextWatcher;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -78,7 +81,6 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
     public EventForm(Activity activity) {
         this.activity = activity;
         initialize();
-        filterEntryFee();
     }
 
     private void initialize() {
@@ -87,6 +89,9 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         eventDateEditText = (EditText) activity.findViewById(R.id.event_date);
         eventVenueEditText = (EditText) activity.findViewById(R.id.event_venue);
         eventEntryFeeEditText = (EditText) activity.findViewById(R.id.event_entry_fee);
+
+        eventEntryFeeEditText.setFilters(new InputFilter[] {new EntryFeeWatcher(2)});
+
         eventDescriptionEditText = (EditText) activity.findViewById(R.id.event_description);
         eventBannerImageView = (ImageView) activity.findViewById(R.id.event_banner);
         ImageButton datePicker = (ImageButton) activity.findViewById(R.id.date_picker);
@@ -127,39 +132,6 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                 break;
         }
     }
-
-    private void filterEntryFee() {
-
-        eventEntryFeeEditText.setFilters(new InputFilter[]{
-                new DigitsKeyListener(Boolean.FALSE, Boolean.TRUE) {
-                    int beforeDecimal = 5, afterDecimal = 2;
-
-                    @Override
-                    public CharSequence filter(CharSequence source, int start, int end,
-                                               Spanned dest, int dstart, int dend) {
-                        String temp = eventEntryFeeEditText.getText() + source.toString();
-
-                        if (temp.equals(".")) {
-                            return "0.";
-                        } else if (temp.toString().indexOf(".") == -1) {
-                            // no decimal point placed yet
-                            if (temp.length() > beforeDecimal) {
-                                return "";
-                            }
-                        } else {
-                            temp = temp.substring(temp.indexOf(".") + 1);
-                            if (temp.length() > afterDecimal) {
-                                return "";
-                            }
-                        }
-
-                        return super.filter(source, start, end, dest, dstart, dend);
-                    }
-                }
-        });
-
-    }
-
 
     // method to get all form data.
     public void getData() {
