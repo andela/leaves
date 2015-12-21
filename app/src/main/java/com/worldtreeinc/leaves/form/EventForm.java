@@ -29,7 +29,7 @@ import com.worldtreeinc.leaves.utility.NetworkUtil;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.Event;
-
+import com.worldtreeinc.leaves.activity.EntryFeeWatcher;
 import java.util.Calendar;
 
 /**
