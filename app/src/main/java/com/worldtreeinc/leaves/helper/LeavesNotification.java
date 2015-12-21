@@ -28,6 +28,7 @@ public class LeavesNotification {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         pushNotification(channel, data);
     }
 

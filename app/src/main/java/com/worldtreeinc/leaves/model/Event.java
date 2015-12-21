@@ -58,7 +58,7 @@ public class Event extends ParseObject {
         put("userId", userId);
     }
 
-    public void setEntryFee(int entryFee) {
+    public void setEntryFee(Double entryFee) {
         put("entryFee", entryFee);
     }
 
