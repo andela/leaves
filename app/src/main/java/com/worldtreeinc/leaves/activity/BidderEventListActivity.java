@@ -48,6 +48,13 @@ public class BidderEventListActivity extends AppCompatActivity {
                 refreshList(selectedCategory);
             }
         });
+<<<<<<< Updated upstream
+=======
+
+        //eventLoaderTask = new EventLoaderTask(listView, this, false);
+        String defaultCategory = getResources().getStringArray(R.array.events_categories)[0];
+        eventLoaderTask.fetchEvents(false, defaultCategory);
+>>>>>>> Stashed changes
     }
 
     @Override
