@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -81,6 +82,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         eventDateEditText = (EditText) activity.findViewById(R.id.event_date);
         eventVenueEditText = (EditText) activity.findViewById(R.id.event_venue);
         eventEntryFeeEditText = (EditText) activity.findViewById(R.id.event_entry_fee);
+        eventEntryFeeEditText.setFilters(new InputFilter[] {new EntryFeeWatcher(2)});
         eventDescriptionEditText = (EditText) activity.findViewById(R.id.event_description);
         eventBannerImageView = (ImageView) activity.findViewById(R.id.event_banner);
         ImageButton datePicker = (ImageButton) activity.findViewById(R.id.date_picker);
