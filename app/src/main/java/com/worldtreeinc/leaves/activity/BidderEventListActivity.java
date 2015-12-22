@@ -48,13 +48,10 @@ public class BidderEventListActivity extends AppCompatActivity {
                 refreshList(selectedCategory);
             }
         });
-<<<<<<< Updated upstream
-=======
 
-        //eventLoaderTask = new EventLoaderTask(listView, this, false);
+        eventLoaderTask = new EventLoaderTask(listView, this, false);
         String defaultCategory = getResources().getStringArray(R.array.events_categories)[0];
         eventLoaderTask.fetchEvents(false, defaultCategory);
->>>>>>> Stashed changes
     }
 
     @Override
@@ -70,12 +67,8 @@ public class BidderEventListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
