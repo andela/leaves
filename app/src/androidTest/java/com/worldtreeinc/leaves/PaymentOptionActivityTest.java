@@ -36,7 +36,7 @@ public class PaymentOptionActivityTest extends ActivityInstrumentationTestCase2<
     private void setUpEventObject() {
         event = new Event();
         event.setName("TestEvent");
-        event.setEntryFee(100);
+        event.setEntryFee(100.0);
     }
 
     @Override

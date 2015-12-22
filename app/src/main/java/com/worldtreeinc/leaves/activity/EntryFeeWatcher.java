@@ -9,12 +9,12 @@ import android.text.Spanned;
 public class EntryFeeWatcher implements InputFilter {
     private final int decimaldigits;
 
-    public EntryFeeWatcher(int numberofdecimaldigits) {
-        this.decimaldigits = numberofdecimaldigits;
+    public EntryFeeWatcher(int numberOfDecimalDigits) {
+        this.decimaldigits = numberOfDecimalDigits;
     }
 
     @Override
-    public CharSequence filter(CharSequence source,int start, int end, Spanned dest,int dstart,int dend) {
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         int periodPosition = -1, destlen = dest.length();
 
         for (int i = 0; i < destlen; i++) {
@@ -30,8 +30,7 @@ public class EntryFeeWatcher implements InputFilter {
                 return "";
             } else if (dend <= periodPosition) {
                 return null;
-            }
-            else if (destlen - periodPosition > decimaldigits) {
+            } else if (destlen - periodPosition > decimaldigits) {
                 return "";
             }
         }

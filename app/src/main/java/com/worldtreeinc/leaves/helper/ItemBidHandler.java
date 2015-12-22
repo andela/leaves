@@ -3,18 +3,13 @@ package com.worldtreeinc.leaves.helper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.GetDataCallback;
-import com.parse.ParseException;
-import com.worldtreeinc.leaves.*;
+import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.model.EventItem;
 
 import java.text.NumberFormat;
@@ -23,6 +18,11 @@ import java.util.List;
 /**
  * Created by andela on 9/23/15.
  */
+
+
+
+
+
 public class ItemBidHandler extends Activity {
     private Activity activity;
     private List<EventItem> items;
@@ -32,7 +32,7 @@ public class ItemBidHandler extends Activity {
     public ItemBidHandler(Activity activity, List<EventItem> items, int position) {
         this.activity = activity;
         this.items = items;
-        this.currentPosition = position;
+        currentPosition = position;
         item = items.get(position);
     }
 
@@ -43,25 +43,17 @@ public class ItemBidHandler extends Activity {
     }
 
 
-    private void setDialogDetails(final ImageView itemImage, TextView minBid, TextView itemName, View view, EditText bidAmount) {
+    private void setDialogDetails(TextView minBid, TextView itemName, View view, EditText bidAmount) {
         minBid.setText(NumberFormat.getCurrencyInstance().format(item.getNewBid()));
         itemName.setText(item.getName());
-        item.getImage().getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] bytes, ParseException e) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                itemImage.setImageBitmap(bitmap);
-            }
-        });
         showDialog(view, bidAmount);
     }
 
     private void setDialogElement(View view) {
-        ImageView itemImage = (ImageView) view.findViewById(R.id.item_image);
         TextView minBid = (TextView) view.findViewById(R.id.min_bid);
         TextView itemName = (TextView) view.findViewById(R.id.item_name);
         EditText bidAmount = (EditText) view.findViewById(R.id.enter_amount);
-        setDialogDetails(itemImage, minBid, itemName, view, bidAmount);
+        setDialogDetails(minBid, itemName, view, bidAmount);
     }
 
     private void showDialog(View view, final EditText bidAmount) {
@@ -96,8 +88,9 @@ public class ItemBidHandler extends Activity {
             item.setPreviousBid(bid);
             item.setNewBid(amount);
             item.saveInBackground();
-            com.worldtreeinc.leaves.LeavesNotification.sendItemBidNotification(amount, item);
             text = "You have successfully place your Bid";
+            // subscribe user to item channel
+            LeavesNotification.sendItemBidNotification(amount, item);
         } else if (amount <= bid) {
             text = "Your bid must be greater than minimum bid";
         }

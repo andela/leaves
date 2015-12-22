@@ -31,7 +31,6 @@ import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.activity.EntryFeeWatcher;
-
 import java.util.Calendar;
 
 
@@ -83,7 +82,8 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         // find all UI element by ID
         eventNameEditText = (EditText) activity.findViewById(R.id.event_name);
         eventDateEditText = (EditText) activity.findViewById(R.id.event_date);
-        eventVenueEditText = (EditText) activity.findViewById(R.id.event_venue);eventEntryFeeEditText = (EditText) activity.findViewById(R.id.event_entry_fee);
+        eventVenueEditText = (EditText) activity.findViewById(R.id.event_venue);
+        eventEntryFeeEditText = (EditText) activity.findViewById(R.id.event_entry_fee);
         eventEntryFeeEditText.setFilters(new InputFilter[] {new EntryFeeWatcher(2)});
         eventDescriptionEditText = (EditText) activity.findViewById(R.id.event_description);
         eventBannerImageView = (ImageView) activity.findViewById(R.id.event_banner);

@@ -1,7 +1,6 @@
 package com.worldtreeinc.leaves.adapter;
 
-import android.app.*;
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -11,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -27,8 +25,10 @@ import com.worldtreeinc.leaves.model.EventItem;
 import com.worldtreeinc.leaves.utility.DialogBox;
 
 import java.lang.reflect.Field;
-import java.text.NumberFormat;
 import java.util.List;
+
+
+
 
 public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implements PopupMenu.OnMenuItemClickListener {
 
@@ -38,6 +38,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
     EventItem item;
     FloatingActionButton addItemButton;
     int currentPosition;
+    private TextView itemName;
 
     ItemFormFragment itemFormFragment;
     Bundle bundle;
@@ -142,7 +143,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         delete.execute();
     }
 
-     @Override
+    @Override
     public boolean onMenuItemClick(MenuItem popMenuItem) {
         final String itemId;
         switch (popMenuItem.getItemId()) {
