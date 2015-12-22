@@ -41,4 +41,12 @@ public class User extends ParseUser {
         List<String> eventIds = (events != null) ? events : new ArrayList<String>();
         return eventIds.contains(eventId);
     }
+
+    public static boolean isLoggedIn() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        return (currentUser != null);
+    }
+    public static void logout(){
+        ParseUser.logOut();
+    }
 }

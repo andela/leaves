@@ -24,6 +24,17 @@ public class BidderEventListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bidder_event_list);
 
+        initializeSpinner();
+        initializeEventLoaderTask();
+    }
+
+    private void initializeEventLoaderTask() {
+        eventLoaderTask = new EventLoaderTask(listView, this, false);
+        String defaultCategory = getResources().getStringArray(R.array.events_categories)[0];
+        eventLoaderTask.fetchEvents(false, defaultCategory);
+    }
+
+    private void initializeSpinner() {
         Spinner eventCategories = (Spinner) findViewById(R.id.bidder_events_categories_spinner);
 
         // simple_spinner_dropdown_item
@@ -37,10 +48,6 @@ public class BidderEventListActivity extends AppCompatActivity {
                 refreshList(selectedCategory);
             }
         });
-
-        eventLoaderTask = new EventLoaderTask(listView, this, false);
-        String defaultCategory = getResources().getStringArray(R.array.events_categories)[0];
-        eventLoaderTask.fetchEvents(false, defaultCategory);
     }
 
     @Override

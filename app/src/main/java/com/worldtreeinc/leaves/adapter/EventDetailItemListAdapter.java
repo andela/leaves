@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +34,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
 
     private final String eventName;
     private Activity activity;
-    private List<EventItem> items;
+    private List<EventItem> eventItemList;
     EventItem item;
     FloatingActionButton addItemButton;
     int currentPosition;
@@ -45,10 +44,10 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
     private boolean isPlanner;
     private boolean isEnteredEvent;
 
-    public EventDetailItemListAdapter(Activity activity, List<EventItem> objects, boolean isPlanner, boolean isEnteredEvent, String eventName) {
-        super(activity, R.layout.event_details_items, objects);
+    public EventDetailItemListAdapter(Activity activity, List<EventItem> eventItemList, boolean isPlanner, boolean isEnteredEvent, String eventName) {
+        super(activity, R.layout.event_details_items, eventItemList);
         this.activity = activity;
-        this.items = objects;
+        this.eventItemList = eventItemList;
         this.isPlanner = isPlanner;
         this.isEnteredEvent = isEnteredEvent;
         this.eventName = eventName;
@@ -61,7 +60,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
             convertView = listLayoutInflater.inflate(R.layout.event_details_items, null);
         }
 
-        item = items.get(position);
+        item = eventItemList.get(position);
 
         TextView itemName = (TextView) convertView.findViewById(R.id.event_details_item_name);
         itemName.setText(item.getName());
@@ -143,17 +142,17 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         delete.execute();
     }
 
-    @Override
+     @Override
     public boolean onMenuItemClick(MenuItem popMenuItem) {
         final String itemId;
         switch (popMenuItem.getItemId()) {
             case R.id.editEvent:
-                item = items.get(currentPosition);
+                item = eventItemList.get(currentPosition);
                 itemId = item.getObjectId();
                 openForm(itemId);
                 return true;
             case R.id.deleteEvent:
-                item = items.get(currentPosition);
+                item = eventItemList.get(currentPosition);
                 itemId = item.getObjectId();
                 new DialogBox().dialog(activity, activity.getString(R.string.delete_item_title), activity.getString(R.string.delete_item_message), new DialogBox.CallBack() {
                     @Override
@@ -164,7 +163,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
 
                 return true;
             case R.id.bidItem:
-                new ItemBidHandler(activity, items, currentPosition).bidItem();
+                new ItemBidHandler(activity, eventItemList, currentPosition).bidItem();
                 return true;
             default:
                 return false;
@@ -189,7 +188,6 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
             argTypes = new Class[]{boolean.class};
             menuHelper.getClass().getDeclaredMethod("setForceShowIcon", argTypes).invoke(menuHelper, true);
         } catch (Exception e) {
-            Log.w("TAG", "error forcing menu icons to show", e);
             popup.show();
             return;
         }

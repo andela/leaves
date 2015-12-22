@@ -121,6 +121,10 @@
     <string name="item_bid_minimum_bid_label">Minimum Bid: </string>
     <string name="payment_error_text">Unknown Payment Error. Please Try Again</string>
     <string name="payment_error">Payment Error</string>
+    <string name="object_id_reference">OBJECT_ID</string>
+    <string name="is_planner_reference">IS_PLANNER</string>
+    <string name="eventId_reference">eventId</string>
+    <string name="isPlanner_reference">isPlanner</string>
 
 </resources>
 

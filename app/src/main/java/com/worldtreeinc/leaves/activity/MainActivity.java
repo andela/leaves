@@ -4,14 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.parse.ParseAnalytics;
-import com.parse.ParseUser;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.model.User;
+
 import org.json.JSONObject;
 
 import org.json.JSONObject;
@@ -28,6 +26,7 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         intent = getIntent();
         extras = intent.getExtras();
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
@@ -38,10 +37,9 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 // check if user is logged in
-                ParseUser currentUser = ParseUser.getCurrentUser();
                 if (extras != null) {
                     changeToEventDetails();
-                } else if (currentUser != null) {
+                } else if (User.isLoggedIn()) {
                     // call method to change activity to RoleOptionActivity
                     changeToRoleOption(view);
                 } else {
@@ -52,28 +50,6 @@ public class MainActivity extends Activity {
             }
         }, 3000);
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     // method to move to the GetStarted Activity
@@ -93,11 +69,11 @@ public class MainActivity extends Activity {
     public  void changeToEventDetails(){
         try {
             String jsonData = extras.getString("com.parse.Data");
-            Log.i("TAG", jsonData);
+
             JSONObject object = new JSONObject(jsonData);
             Intent newIntent = new Intent(this, EventDetailsActivity.class);
-            newIntent.putExtra("OBJECT_ID", object.getString("eventId"));
-            newIntent.putExtra("IS_PLANNER", false);
+            newIntent.putExtra(getString(R.string.object_id_reference), object.getString("eventId"));
+            newIntent.putExtra(getString(R.string.is_planner_reference), false);
             startActivity(newIntent);
         } catch (Exception e) {
             e.printStackTrace();
