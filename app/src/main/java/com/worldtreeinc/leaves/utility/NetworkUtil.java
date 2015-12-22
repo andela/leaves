@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
  */
 public class NetworkUtil {
 
-
     public static boolean getConnectivityStatus(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);

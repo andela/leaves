@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.GetDataCallback;
@@ -259,6 +260,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                     save();
                 } else {
                     // display error message
+                    e.printStackTrace();
                 }
             }
         });

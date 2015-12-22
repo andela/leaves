@@ -14,19 +14,21 @@ import com.parse.ParseUser;
 import com.worldtreeinc.leaves.R;
 import org.json.JSONObject;
 
+import org.json.JSONObject;
+
 
 public class MainActivity extends Activity {
 
     private View view;
     private Bundle extras;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Intent intent = getIntent();
+        intent = getIntent();
         extras = intent.getExtras();
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
 

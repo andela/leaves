@@ -208,7 +208,7 @@ public class ItemForm implements View.OnClickListener  {
                 progressDialog.dismiss();
                 // subscribe planner to item channel
                 LeavesNotification.subscribePlannerToItemChannel(item);
-                LeavesNotification.sendItemAddNotification(item, eventName);
+                //LeavesNotification.sendItemAddNotification(item, eventName);
             }
         };
         itemAsync.execute();

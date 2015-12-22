@@ -1,4 +1,4 @@
-package com.worldtreeinc.leaves.helper;
+package com.worldtreeinc.leaves;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,7 +14,8 @@ import android.widget.Toast;
 
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
-import com.worldtreeinc.leaves.*;
+import com.parse.ParsePush;
+import com.parse.ParseUser;
 import com.worldtreeinc.leaves.model.EventItem;
 
 import java.text.NumberFormat;
@@ -32,7 +33,7 @@ public class ItemBidHandler extends Activity {
     public ItemBidHandler(Activity activity, List<EventItem> items, int position) {
         this.activity = activity;
         this.items = items;
-        this.currentPosition = position;
+        currentPosition = position;
         item = items.get(position);
     }
 
@@ -96,7 +97,7 @@ public class ItemBidHandler extends Activity {
             item.setPreviousBid(bid);
             item.setNewBid(amount);
             item.saveInBackground();
-            com.worldtreeinc.leaves.LeavesNotification.sendItemBidNotification(amount, item);
+            LeavesNotification.sendItemBidNotification(amount, item);
             text = "You have successfully place your Bid";
         } else if (amount <= bid) {
             text = "Your bid must be greater than minimum bid";
