@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String username = mUsername.getText().toString().trim();
             String password = mPassword.getText().toString().trim();
             UserAuthentication userAuthentication = new UserAuthentication(LoginActivity.this, username, password);
+
             switch (v.getId()){
                 case R.id.loginButton:
                    userAuthentication.login();
@@ -45,7 +46,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 case R.id.FacebookLoginButton:
                     userAuthentication.FacebookLogin();
                     break;
-            }
+                case R.id.resetPassword:
+                    Intent resetPassword = new Intent(this, ResetPasswordActivity.class);
+                    startActivity(resetPassword);
+                 }
 
         } catch(Exception e){
             e.printStackTrace();
@@ -56,6 +60,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mUsername = (EditText) findViewById(R.id.usernameLoginTextBox);
         mPassword = (EditText) findViewById(R.id.passwordLoginTextBox);
 
+        TextView resetPassword = (TextView) findViewById(R.id.resetPassword);
+        resetPassword.setOnClickListener(this);
+
         TextView registerUser = (TextView) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
 
@@ -64,7 +71,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Button facebookLoginButton = (Button) findViewById(R.id.FacebookLoginButton);
         facebookLoginButton.setOnClickListener(this);
+
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -11,16 +11,16 @@
     tools:context="com.worldtreeinc.leaves.activity.LoginActivity">
 
     <com.rey.material.widget.ProgressView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         app:pv_autostart="false"
         app:pv_circular="true"
         app:pv_progressStyle="@style/Material.Drawable.CircularProgress"
         app:pv_progressMode="indeterminate"
-        android:layout_marginBottom="5dp"
         android:id="@+id/loading"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginBottom="0dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -99,26 +99,15 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:background="@drawable/abc_list_divider_mtrl_alpha">
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="3dp"
-            android:background="#ffd8d7db"
-            android:layout_gravity="left" />
 
         <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:text="@string/or"
-            android:textColor="#ff676668"
-            android:textAlignment="center"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="2dp"
-            android:background="#ffd8d7db"
-            android:layout_gravity="right" />
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="@string/forgot_passwordTV"
+            android:id="@+id/resetPassword"
+            android:textColor="#00838F"
+            android:layout_centerHorizontal="true" />
 
     </LinearLayout>
      <Button
@@ -132,7 +121,8 @@
         android:layout_below="@+id/orLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-    <TextView
+
+    <!--<TextView
         android:id="@+id/forgotPassword"
         android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
@@ -144,7 +134,7 @@
         android:text="Forgot Password?"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ff676668"
-        android:textSize="13sp" />
+        android:textSize="13sp" /-->
 
 
 </RelativeLayout>
