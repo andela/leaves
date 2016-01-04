@@ -46,4 +46,5 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.3'
     androidTestCompile 'com.android.support.test:rules:0.3'
     compile files('libs/PayPalAndroidSDK-2.10.0.jar')
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }

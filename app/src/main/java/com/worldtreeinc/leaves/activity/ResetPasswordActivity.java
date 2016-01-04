@@ -1,13 +1,18 @@
 package com.worldtreeinc.leaves.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.RequestPasswordResetCallback;
@@ -32,21 +37,22 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.resetPasswordButton) {
+        if (v.getId() == R.id.resetPasswordButton) {
             resetPassword();
         }
     }
 
-    public void resetPassword(){
-        String email =  resetEmail.getText().toString().trim();
+    public void resetPassword() {
+        String email = resetEmail.getText().toString().trim();
         ParseUser.requestPasswordResetInBackground(email, new RequestPasswordResetCallback() {
             public void done(ParseException e) {
                 if (e == null) {
                     // An email was successfully sent with reset instructions.
+                    Toast.makeText(ResetPasswordActivity.this, getString(R.string.resetPasswordSuccessToast), Toast.LENGTH_LONG).show();
                     switchToLogin();
                 } else {
                     // Something went wrong. Look at the ParseException to see what's up.
-                    System.out.println("Something went wrong. Look at the ParseException to see what's up.");
+                    Toast.makeText(ResetPasswordActivity.this, getString(R.string.resetPasswordErrorToast), Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
             }
@@ -58,4 +64,5 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
 }
