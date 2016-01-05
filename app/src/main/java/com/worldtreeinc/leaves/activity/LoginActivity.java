@@ -40,20 +40,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                    userAuthentication.login();
                     break;
                 case R.id.registerUser:
-                    Intent register = new Intent(this, RegisterActivity.class);
-                    startActivity(register);
+                    runIntent(v.getId());
                     break;
                 case R.id.FacebookLoginButton:
                     userAuthentication.FacebookLogin();
                     break;
                 case R.id.resetPassword:
-                    Intent resetPassword = new Intent(this, ResetPasswordActivity.class);
-                    startActivity(resetPassword);
-                 }
-
+                    runIntent(v.getId());
+                    break;
+            }
         } catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void runIntent(int activityId) {
+        Intent intent ;
+        if (activityId == R.id.resetPassword){
+            intent = new Intent(this, ResetPasswordActivity.class);
+        } else {
+            intent = new Intent(this, RegisterActivity.class);
+        }
+        startActivity(intent);
     }
 
     private void initialise() {
@@ -74,7 +82,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -84,17 +91,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-
-        // Logs 'install' and 'app activate' App Events.
         AppEventsLogger.activateApp(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
-        // Logs 'app deactivate' App Event.
         AppEventsLogger.deactivateApp(this);
     }
-
 }

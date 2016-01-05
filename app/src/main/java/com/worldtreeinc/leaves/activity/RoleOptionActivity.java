@@ -21,7 +21,6 @@ public class RoleOptionActivity extends Activity implements View.OnClickListener
         setUpButtons();
     }
 
-
     private void setUpButtons() {
         TextView logout = (TextView) findViewById(R.id.logout);
         Button plannerBtn = (Button) findViewById(R.id.plannerBtn);
@@ -32,10 +31,8 @@ public class RoleOptionActivity extends Activity implements View.OnClickListener
         bidderBtn.setOnClickListener(this);
     }
 
-
     private void checkLoggedInUser() {
         if (!User.isLoggedIn()) {
-            //redirect to get started page
             Intent getStartedIntent = new Intent(this, GetStartedActivity.class);
             startActivity(getStartedIntent);
         }
