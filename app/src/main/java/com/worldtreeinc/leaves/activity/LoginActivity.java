@@ -39,12 +39,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 case R.id.loginButton:
                    userAuthentication.login();
                     break;
-                case R.id.registerUser:
-                    runIntent(v.getId());
-                    break;
                 case R.id.FacebookLoginButton:
                     userAuthentication.FacebookLogin();
                     break;
+                case R.id.registerUser:
                 case R.id.resetPassword:
                     runIntent(v.getId());
                     break;
