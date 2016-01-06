@@ -21,7 +21,6 @@ public class RoleOptionActivity extends Activity implements View.OnClickListener
         setUpButtons();
     }
 
-
     private void setUpButtons() {
         TextView logout = (TextView) findViewById(R.id.logout);
         Button plannerBtn = (Button) findViewById(R.id.plannerBtn);
@@ -32,10 +31,8 @@ public class RoleOptionActivity extends Activity implements View.OnClickListener
         bidderBtn.setOnClickListener(this);
     }
 
-
     private void checkLoggedInUser() {
         if (!User.isLoggedIn()) {
-            //redirect to get started page
             Intent getStartedIntent = new Intent(this, GetStartedActivity.class);
             startActivity(getStartedIntent);
         }
@@ -47,22 +44,19 @@ public class RoleOptionActivity extends Activity implements View.OnClickListener
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View v) {
+        destinationIntent(v.getId());
+    }
+
+    private void destinationIntent(int buttonId){
         Intent destinationIntent;
-        int id = view.getId();
-        switch (id) {
-            case R.id.plannerBtn:
-                destinationIntent = new Intent(this, PlannerDashActivity.class);
-                break;
-            case R.id.bidderBtn:
-                destinationIntent = new Intent(this, BidderDashActivity.class);
-                break;
-            case R.id.logout:
-                User.logout();
-                destinationIntent = new Intent(this, WelcomeActivity.class);
-                break;
-            default:
-                return;
+        if (buttonId == R.id.plannerBtn ){
+            destinationIntent = new Intent(this, PlannerDashActivity.class);
+        } else if (buttonId == R.id.bidderBtn ) {
+            destinationIntent = new Intent(this, BidderDashActivity.class);
+        } else {
+            User.logout();
+            destinationIntent = new Intent(this, WelcomeActivity.class);
         }
         startActivity(destinationIntent);
         finish();

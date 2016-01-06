@@ -34,7 +34,6 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
         reset_password_button.setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.resetPasswordButton) {
@@ -44,14 +43,13 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
 
     public void resetPassword() {
         String email = resetEmail.getText().toString().trim();
+
         ParseUser.requestPasswordResetInBackground(email, new RequestPasswordResetCallback() {
             public void done(ParseException e) {
                 if (e == null) {
-                    // An email was successfully sent with reset instructions.
                     Toast.makeText(ResetPasswordActivity.this, getString(R.string.resetPasswordSuccessToast), Toast.LENGTH_LONG).show();
                     switchToLogin();
                 } else {
-                    // Something went wrong. Look at the ParseException to see what's up.
                     Toast.makeText(ResetPasswordActivity.this, getString(R.string.resetPasswordErrorToast), Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
@@ -60,9 +58,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
     }
 
     public void switchToLogin() {
-        // switch to the login activity after the password reset link has been sent
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
-
 }
