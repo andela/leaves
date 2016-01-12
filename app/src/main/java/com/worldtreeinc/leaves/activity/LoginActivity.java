@@ -12,6 +12,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.parse.ParseFacebookUtils;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.appConfig.AppState;
 import com.worldtreeinc.leaves.helper.UserAuthentication;
 import com.worldtreeinc.leaves.utility.ActivityLauncher;
 
@@ -90,5 +91,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onPause() {
         super.onPause();
         AppEventsLogger.deactivateApp(this);
+    }
+    @Override
+    public void onBackPressed() {
+        AppState.minimize(this);
     }
 }

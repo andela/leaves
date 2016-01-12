@@ -11,11 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.rey.material.widget.ProgressView;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.adapter.EventsListAdapter;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.model.User;
+import com.worldtreeinc.leaves.utility.ActivityLauncher;
 
 import java.util.ArrayList;
 
@@ -30,6 +33,7 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkLoggedInUser();
         setContentView(R.layout.activity_bidder_dash);
 
         initialize();
@@ -72,6 +76,11 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == R.id.action_logout){
+            Toast.makeText(this, "Logging out", Toast.LENGTH_SHORT).show();
+            User.logout();
+            ActivityLauncher.runIntent(this, WelcomeActivity.class);
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -109,5 +118,13 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
     }
+
+    private void checkLoggedInUser() {
+        if (!User.isLoggedIn()) {
+            Intent getStartedIntent = new Intent(this, GetStartedActivity.class);
+            startActivity(getStartedIntent);
+        }
+    }
+
 
 }
