@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.worldtreeinc.leaves.Event;
-import com.worldtreeinc.leaves.EventsListAdapter;
+import com.worldtreeinc.leaves.model.Event;
+import com.worldtreeinc.leaves.adapter.EventsListAdapter;
 import com.worldtreeinc.leaves.R;
 
 import java.util.ArrayList;

@@ -6,6 +6,8 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 import android.widget.ImageView;
 import com.rey.material.widget.Button;
+import com.worldtreeinc.leaves.activity.EventDetailsActivity;
+import com.worldtreeinc.leaves.fragment.ItemFormFragment;
 
 
 /**

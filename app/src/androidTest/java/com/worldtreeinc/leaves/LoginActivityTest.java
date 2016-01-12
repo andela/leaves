@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.worldtreeinc.leaves.activity.LoginActivity;
+
 public class LoginActivityTest extends ActivityInstrumentationTestCase2<LoginActivity> {
     public LoginActivityTest() {
         super(LoginActivity.class);

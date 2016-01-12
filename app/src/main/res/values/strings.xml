@@ -35,6 +35,12 @@
     <string name="register_login">Login</string>
     <string name="register_btn">Register</string>
 
+    //reset password activity
+    <string name="reset_password_email_box">Enter Your Email</string>
+    <string name="reset_button">Reset Password</string>
+    <string name="forgot_passwordTV">Forgot Password?</string>
+
+
     //role option activity
     <string name="title_activity_role_option">RoleOptionActivity</string>
     <string name="bidder_btn">I am a Bidder</string>
@@ -98,11 +104,35 @@
     <string name="delete_item_message">This can not be reversed if you choose to continue</string>
     <string name="delete_event_toast_message">Event Deleted</string>
     <string name="title_activity_bidder_event_list">Events</string>
+    <string name="bidder_event_list_dialog">" events"</string>
     <string name="event_search_hint">Search Events</string>
     <string name="title_activity_bidder_events_tab">Events</string>
     <string name="bidder_dashboard_title">Dashboard</string>
     <string name="Event_list_progress_dialog">My event list</string>
     <string name="event_list_progress_loading">Loading...</string>
+    <string name="event_list_progress_saving">Saving...</string>
+    <string name="enter_event_button_text">Enter Event</string>
+    <string name="title_activity_payment">Select Payment</string>
+    <string name="paypal_button_string">Pay With PayPal</string>
+    <string name="square_button_string">Pay With Square</string>
+    <string name="stripe_button_string">Pay With Stripe</string>
+    <string name="payment_amount_text">$</string>
+    <string name="payment_success_text">You have successfully made entry payment for the above event</string>
+    <string name="payment_success_title">Payment Success</string>
+    <string name="proceed_button_text">Proceed</string>
+    <string name="payment_name_title">"Name: "</string>
+    <string name="payment_amount_title">"Entry Fee: "</string>
+    <string name="usd_text">USD</string>
+    <string name="item_bid_hint">Enter Amount</string>
+    <string name="item_bid_minimum_bid_label">Minimum Bid: </string>
+    <string name="payment_error_text">Unknown Payment Error. Please Try Again</string>
+    <string name="payment_error">Payment Error</string>
+    <string name="object_id_reference">OBJECT_ID</string>
+    <string name="is_planner_reference">IS_PLANNER</string>
+    <string name="eventId_reference">eventId</string>
+    <string name="isPlanner_reference">isPlanner</string>
+    <string name="resetPasswordErrorToast">Something went wrong</string>
+    <string name="resetPasswordSuccessToast">Reset link sent to your email</string>
 
 </resources>
 
