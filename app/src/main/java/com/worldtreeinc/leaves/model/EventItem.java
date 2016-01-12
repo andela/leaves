@@ -1,5 +1,6 @@
 package com.worldtreeinc.leaves.model;
 
+import com.parse.GetCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -104,5 +105,18 @@ public class EventItem extends ParseObject {
             item = null;
         }
         return item;
+    }
+
+    public void refreshItem(final EventItem.ItemRefreshCallBack callback){
+        fetchInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                callback.onRefresh((EventItem) parseObject);
+            }
+        });
+    }
+
+    public interface ItemRefreshCallBack{
+        void onRefresh(EventItem item);
     }
 }
