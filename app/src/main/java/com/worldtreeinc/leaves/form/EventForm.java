@@ -7,12 +7,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.GetDataCallback;
@@ -28,8 +30,9 @@ import com.worldtreeinc.leaves.utility.NetworkUtil;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.Event;
-
+import com.worldtreeinc.leaves.activity.EntryFeeWatcher;
 import java.util.Calendar;
+
 
 /**
  * Created by andela on 8/11/15.
@@ -81,6 +84,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
         eventDateEditText = (EditText) activity.findViewById(R.id.event_date);
         eventVenueEditText = (EditText) activity.findViewById(R.id.event_venue);
         eventEntryFeeEditText = (EditText) activity.findViewById(R.id.event_entry_fee);
+        eventEntryFeeEditText.setFilters(new InputFilter[] {new EntryFeeWatcher(2)});
         eventDescriptionEditText = (EditText) activity.findViewById(R.id.event_description);
         eventBannerImageView = (ImageView) activity.findViewById(R.id.event_banner);
         ImageButton datePicker = (ImageButton) activity.findViewById(R.id.date_picker);
@@ -256,6 +260,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
                     save();
                 } else {
                     // display error message
+                    e.printStackTrace();
                 }
             }
         });
@@ -305,7 +310,7 @@ public class EventForm implements View.OnClickListener, Spinner.OnItemSelectedLi
     public void compileEventData() {
         event.setName(eventName);
         event.setCategory(eventCategory);
-        event.setEntryFee(Integer.parseInt(eventEntryFee));
+        event.setEntryFee(Double.parseDouble(eventEntryFee));
         event.setDate(eventDate);
         event.setVenue(eventVenue);
         event.setDescription(eventDescription);

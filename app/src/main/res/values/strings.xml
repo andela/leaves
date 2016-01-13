@@ -35,6 +35,12 @@
     <string name="register_login">Login</string>
     <string name="register_btn">Register</string>
 
+    //reset password activity
+    <string name="reset_password_email_box">Enter Your Email</string>
+    <string name="reset_button">Reset Password</string>
+    <string name="forgot_passwordTV">Forgot Password?</string>
+
+
     //role option activity
     <string name="title_activity_role_option">RoleOptionActivity</string>
     <string name="bidder_btn">I am a Bidder</string>
@@ -125,6 +131,8 @@
     <string name="is_planner_reference">IS_PLANNER</string>
     <string name="eventId_reference">eventId</string>
     <string name="isPlanner_reference">isPlanner</string>
+    <string name="resetPasswordErrorToast">Something went wrong</string>
+    <string name="resetPasswordSuccessToast">Reset link sent to your email</string>
 
 </resources>
 

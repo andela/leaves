@@ -6,46 +6,64 @@
     android:theme="@style/Theme.AppCompat.NoActionBar"
     tools:context="com.worldtreeinc.leaves.activity.GetStartedActivity">
 
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="#8000838F"
-        android:id="@+id/linearLayout">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/project_name"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="100dp"
+            android:text="@string/project_name"
             android:textColor="#fff"
-            android:textSize="@dimen/abc_text_size_display_1_material"
-            android:layout_gravity="center_horizontal" />
+            android:textSize="@dimen/abc_text_size_display_1_material" />
 
         <Button
-            android:id ="@+id/bidderBtn"
+            android:id="@+id/bidderBtn"
             android:layout_width="250dp"
             android:layout_height="60dp"
-            android:textColor="#fff"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="200dp"
-            android:text="@string/bidder_btn"
-            android:textSize="20sp"
             android:background="@drawable/button_transparent_white_border"
             android:padding="15dp"
-            android:layout_gravity="center_horizontal" />
+            android:text="@string/bidder_btn"
+            android:textColor="#fff"
+            android:textSize="20sp" />
 
         <Button
-            android:id ="@+id/plannerBtn"
+            android:id="@+id/plannerBtn"
             android:layout_width="250dp"
             android:layout_height="60dp"
-            android:textColor="#fff"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:text="@string/planner_btn"
-            android:textSize="20sp"
             android:background="@drawable/button_transparent_white_border"
             android:padding="15dp"
-            android:layout_gravity="center_horizontal"/>
+            android:text="@string/planner_btn"
+            android:textColor="#fff"
+            android:textSize="20sp" />
 
     </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="right"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:text="Logout"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
+
+
 
 </RelativeLayout>

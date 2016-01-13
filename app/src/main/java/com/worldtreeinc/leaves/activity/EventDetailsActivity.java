@@ -59,11 +59,14 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     private void initializeFragmentObjects() {
         errorMessageHolder = (TextView) findViewById(R.id.no_internet_error);
 
+        bundle = new Bundle();
         bundle = getIntent().getExtras();
         eventId = bundle.getString(getString(R.string.object_id_reference));
         isPlanner = bundle.getBoolean(getString(R.string.is_planner_reference));
 
         itemListFragment = new ItemListFragment();
+        bundle.putString("eventId", eventId);
+        bundle.putBoolean("isPlanner", isPlanner);
         banner = new Banner();
     }
 

@@ -18,6 +18,11 @@ import java.util.List;
 /**
  * Created by andela on 9/23/15.
  */
+
+
+
+
+
 public class ItemBidHandler extends Activity {
     private Activity activity;
     private List<EventItem> items;

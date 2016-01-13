@@ -12,11 +12,14 @@ import com.worldtreeinc.leaves.model.User;
 
 import org.json.JSONObject;
 
+import org.json.JSONObject;
+
 
 public class MainActivity extends Activity {
 
     private View view;
     private Bundle extras;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +27,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        extras = getIntent().getExtras();
+        intent = getIntent();
+        extras = intent.getExtras();
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
         Handler handler = new Handler();

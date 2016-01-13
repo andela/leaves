@@ -15,8 +15,9 @@ import java.util.List;
 
 
 public class PlannerEventActivity extends AppCompatActivity {
-
+    String id;
     private ListView listview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

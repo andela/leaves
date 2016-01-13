@@ -34,27 +34,40 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String username = mUsername.getText().toString().trim();
             String password = mPassword.getText().toString().trim();
             UserAuthentication userAuthentication = new UserAuthentication(LoginActivity.this, username, password);
+
             switch (v.getId()){
                 case R.id.loginButton:
                    userAuthentication.login();
                     break;
-                case R.id.registerUser:
-                    Intent register = new Intent(this, RegisterActivity.class);
-                    startActivity(register);
-                    break;
                 case R.id.FacebookLoginButton:
                     userAuthentication.FacebookLogin();
                     break;
+                case R.id.registerUser:
+                case R.id.resetPassword:
+                    runIntent(v.getId());
+                    break;
             }
-
         } catch(Exception e){
             e.printStackTrace();
         }
     }
 
+    private void runIntent(int activityId) {
+        Intent intent ;
+        if (activityId == R.id.resetPassword){
+            intent = new Intent(this, ResetPasswordActivity.class);
+        } else {
+            intent = new Intent(this, RegisterActivity.class);
+        }
+        startActivity(intent);
+    }
+
     private void initialise() {
         mUsername = (EditText) findViewById(R.id.usernameLoginTextBox);
         mPassword = (EditText) findViewById(R.id.passwordLoginTextBox);
+
+        TextView resetPassword = (TextView) findViewById(R.id.resetPassword);
+        resetPassword.setOnClickListener(this);
 
         TextView registerUser = (TextView) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
@@ -64,6 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Button facebookLoginButton = (Button) findViewById(R.id.FacebookLoginButton);
         facebookLoginButton.setOnClickListener(this);
+
     }
 
     @Override
@@ -75,17 +89,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-
-        // Logs 'install' and 'app activate' App Events.
         AppEventsLogger.activateApp(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
-        // Logs 'app deactivate' App Event.
         AppEventsLogger.deactivateApp(this);
     }
-
 }
