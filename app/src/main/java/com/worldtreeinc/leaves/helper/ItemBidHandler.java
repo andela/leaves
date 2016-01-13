@@ -61,9 +61,12 @@ public class ItemBidHandler extends Activity {
         builder.setPositiveButton("Bid", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                double amount = Double.parseDouble(bidAmount.getText().toString());
-                if (performBid(amount)) {
-                    dialog.cancel();
+                if(!bidAmount.getText().toString().matches("")){
+                    double amount = Double.parseDouble(bidAmount.getText().toString());
+                    performBid(amount, dialog);
+                } else {
+                    Toast toast = Toast.makeText(activity, "Enter a number", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         })
@@ -77,25 +80,35 @@ public class ItemBidHandler extends Activity {
         builder.show();
     }
 
-    private boolean performBid(double amount) {
-        double bid = Double.parseDouble(item.getNewBid().toString());
-        boolean isBidded = false;
-        int duration = Toast.LENGTH_SHORT;
-        String text = null;
-        if (amount > bid) {
-            isBidded = true;
-            item = items.get(currentPosition);
-            item.setPreviousBid(bid);
-            item.setNewBid(amount);
-            item.saveInBackground();
-            text = "You have successfully place your Bid";
-            // subscribe user to item channel
-            LeavesNotification.sendItemBidNotification(amount, item);
-        } else if (amount <= bid) {
-            text = "Your bid must be greater than minimum bid";
-        }
-        Toast toast = Toast.makeText(activity, text, duration);
-        toast.show();
-        return isBidded;
+    private void performBid(final double amount, final DialogInterface dialog) {
+        item = items.get(currentPosition);
+        item.refreshItem(new EventItem.ItemRefreshCallBack() {
+            @Override
+            public void onRefresh(EventItem item) {
+                double bid = Double.parseDouble(item.getNewBid().toString());
+                //boolean isBidded = false;
+                int duration = Toast.LENGTH_SHORT;
+                String text = null;
+                    if (amount > bid) {
+                        //isBidded = true;
+                        item = items.get(currentPosition);
+                        item.setPreviousBid(bid);
+                        item.setNewBid(amount);
+                        item.saveInBackground();
+                        text = "You have successfully place your Bid";
+                        // subscribe user to item channel
+                        LeavesNotification.sendItemBidNotification(amount, item);
+                    } else if (amount <= bid) {
+                        text = "Your bid must be greater than minimum bid";
+                    }
+                Toast toast = Toast.makeText(activity, text, duration);
+                toast.show();
+                dialog.cancel();
+
+                //return isBidded;
+            }
+        });
+
     }
+
 }

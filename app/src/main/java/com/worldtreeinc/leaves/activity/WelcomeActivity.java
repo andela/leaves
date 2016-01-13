@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.appConfig.AppState;
 
 
 public class WelcomeActivity extends Activity implements View.OnClickListener {
@@ -41,6 +42,10 @@ public class WelcomeActivity extends Activity implements View.OnClickListener {
                 return;
         }
         startActivity(registerIntent);
+    }
+    @Override
+    public void onBackPressed() {
+        AppState.minimize(this);
     }
 
 }
