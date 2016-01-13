@@ -5,6 +5,7 @@
     <string name="parse_id">9nVNaNK86PKvBAwoChfqIbiHJO5Yjw2x4DuplQVe</string>
     <string name="parse_secret">dRuzXLKeMv5GBhDg1RM6LmyekR2WVNW7BfEX2U3p</string>
     <string name="project_name">LEAVES</string>
+    <string name="action_logout">Logout</string>
 
     //get started activity
     <string name="title_activity_get_started">GetStartedActivity</string>
