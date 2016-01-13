@@ -10,12 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.rey.material.widget.ProgressView;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.adapter.PlannerDashItemListAdapter;
 import com.worldtreeinc.leaves.model.EventItem;
 import com.worldtreeinc.leaves.model.User;
+import com.worldtreeinc.leaves.utility.ActivityLauncher;
 
 import java.util.ArrayList;
 
@@ -96,6 +98,11 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == R.id.action_logout) {
+            Toast.makeText(this, "You are logged out", Toast.LENGTH_SHORT).show();
+
+            User.logout();
+            ActivityLauncher.runIntent(this, WelcomeActivity.class);
         }
 
         return super.onOptionsItemSelected(item);

@@ -12,7 +12,9 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.parse.ParseFacebookUtils;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.appConfig.AppState;
 import com.worldtreeinc.leaves.helper.UserAuthentication;
+import com.worldtreeinc.leaves.utility.ActivityLauncher;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText mUsername;
@@ -43,8 +45,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     userAuthentication.FacebookLogin();
                     break;
                 case R.id.registerUser:
+                    ActivityLauncher.runIntent(this, RegisterActivity.class);
+                    break;
                 case R.id.resetPassword:
-                    runIntent(v.getId());
+                    ActivityLauncher.runIntent(this, ResetPasswordActivity.class);
                     break;
             }
         } catch(Exception e){
@@ -52,15 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void runIntent(int activityId) {
-        Intent intent ;
-        if (activityId == R.id.resetPassword){
-            intent = new Intent(this, ResetPasswordActivity.class);
-        } else {
-            intent = new Intent(this, RegisterActivity.class);
-        }
-        startActivity(intent);
-    }
+
 
     private void initialise() {
         mUsername = (EditText) findViewById(R.id.usernameLoginTextBox);
@@ -77,7 +73,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Button facebookLoginButton = (Button) findViewById(R.id.FacebookLoginButton);
         facebookLoginButton.setOnClickListener(this);
-
     }
 
     @Override
@@ -96,5 +91,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onPause() {
         super.onPause();
         AppEventsLogger.deactivateApp(this);
+    }
+    @Override
+    public void onBackPressed() {
+        AppState.minimize(this);
     }
 }

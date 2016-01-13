@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.appConfig.AppState;
 import com.worldtreeinc.leaves.model.User;
+import com.worldtreeinc.leaves.utility.ActivityLauncher;
 
 public class RoleOptionActivity extends Activity implements View.OnClickListener {
 
@@ -45,20 +46,18 @@ public class RoleOptionActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        destinationIntent(v.getId());
+        switch(v.getId()) {
+            case R.id.plannerBtn:
+                ActivityLauncher.runIntent(this, PlannerDashActivity.class);
+                break;
+            case R.id.bidderBtn:
+                ActivityLauncher.runIntent(this, BidderDashActivity.class);
+                break;
+            case R.id.logout:
+                User.logout();
+                ActivityLauncher.runIntent(this, WelcomeActivity.class);
+                break;
+        }
     }
 
-    private void destinationIntent(int buttonId){
-        Intent destinationIntent;
-        if (buttonId == R.id.plannerBtn ){
-            destinationIntent = new Intent(this, PlannerDashActivity.class);
-        } else if (buttonId == R.id.bidderBtn ) {
-            destinationIntent = new Intent(this, BidderDashActivity.class);
-        } else {
-            User.logout();
-            destinationIntent = new Intent(this, WelcomeActivity.class);
-        }
-        startActivity(destinationIntent);
-        finish();
-    }
 }
