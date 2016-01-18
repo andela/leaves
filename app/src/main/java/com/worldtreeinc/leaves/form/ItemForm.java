@@ -80,8 +80,9 @@ public class ItemForm implements View.OnClickListener  {
 
         confirmAddBtn = (com.rey.material.widget.Button) view.findViewById(R.id.confirm_add_item_button);
         image = (ImageView) view.findViewById(R.id.new_item_image);
-        imageSelectBtn = (ImageButton) view.findViewById(R.id.item_image_select_icon);
-        imageSelectBtn.setOnClickListener(this);
+        //imageSelectBtn = (ImageButton) view.findViewById(R.id.item_image_select_icon);
+        //imageSelectBtn.setOnClickListener(this);
+        image.setOnClickListener(this);
         confirmAddBtn.setOnClickListener(this);
 
         cancelAddItemButton = (com.rey.material.widget.Button) view.findViewById(R.id.cancel_add_item_button);
@@ -116,7 +117,8 @@ public class ItemForm implements View.OnClickListener  {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.item_image_select_icon:
+            //case R.id.item_image_select_icon:
+            case R.id.new_item_image:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {

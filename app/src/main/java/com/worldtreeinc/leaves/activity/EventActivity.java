@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+//import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.rey.material.widget.Button;
 import com.worldtreeinc.leaves.model.Banner;
@@ -32,8 +33,11 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
         setupEdit();
 
         eventButton.setOnClickListener(this);
-        ImageButton openGalleryButton = (ImageButton) findViewById(R.id.banner_select_icon);
-        openGalleryButton.setOnClickListener(this);
+
+        //ImageButton openGalleryButton = (ImageButton) findViewById(R.id.banner_select_icon);
+
+        ImageView openGallery = (ImageView) findViewById(R.id.event_banner);
+        openGallery.setOnClickListener(this);
     }
 
     @Override
@@ -74,7 +78,8 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
                     newEventForm.create();
                 }
                 break;
-            case R.id.banner_select_icon:
+            case R.id.event_banner:
+            //case R.id.banner_select_icon:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
