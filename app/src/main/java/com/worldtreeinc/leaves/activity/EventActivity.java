@@ -2,11 +2,12 @@ package com.worldtreeinc.leaves.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-//import android.widget.ImageButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.rey.material.widget.Button;
@@ -22,6 +23,7 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
     Banner banner = new Banner();
     String eventId;
     Button eventButton;
+    private static int REQUEST_CAMERA = 3401;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,9 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
 
         eventButton.setOnClickListener(this);
 
-        //ImageButton openGalleryButton = (ImageButton) findViewById(R.id.banner_select_icon);
+        //get the image button id and set listener on it
+        ImageButton openGalleryButton = (ImageButton) findViewById(R.id.banner_select_icon);
+        openGalleryButton.setOnClickListener(this);
 
         ImageView openGallery = (ImageView) findViewById(R.id.event_banner);
         openGallery.setOnClickListener(this);
@@ -87,23 +91,34 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
                     }
                 }).start();
                 break;
+            case R.id.banner_select_icon:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        captureImage();
+                    }
+                }).start();
+                break;
         }
     }
 
     // method to open gallery
     public void openGallery() {
-        // Create intent to Open Image applications like Gallery, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        // Start the Intent
         startActivityForResult(galleryIntent, RESULT_LOAD);
 
     }
+    public void captureImage(){
+        Intent getImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(getImage, REQUEST_CAMERA);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        banner.processSelectedImage(EventActivity.this, requestCode, resultCode, data, newEventForm, RESULT_LOAD);
+        banner.processSelectedImage(EventActivity.this, requestCode, resultCode, data, newEventForm,requestCode);
     }
 
     protected void setupEdit() {
