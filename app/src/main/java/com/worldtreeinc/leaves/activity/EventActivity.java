@@ -83,7 +83,6 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
                 }
                 break;
             case R.id.event_banner:
-            //case R.id.banner_select_icon:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
