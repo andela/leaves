@@ -5,8 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,6 +26,9 @@ import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.fragment.ItemListFragment;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.EventItem;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by andela on 8/24/15.
@@ -55,6 +62,7 @@ public class ItemForm implements View.OnClickListener  {
     Bundle bundle;
 
     private static int RESULT_LOAD = 1;
+    private static int IMAGE_CAPTURE = 3401;
 
     View view;
 
@@ -79,10 +87,11 @@ public class ItemForm implements View.OnClickListener  {
         startBid = (EditText) view.findViewById(R.id.new_item_start_bid);
 
         confirmAddBtn = (com.rey.material.widget.Button) view.findViewById(R.id.confirm_add_item_button);
+        confirmAddBtn.setOnClickListener(this);
         image = (ImageView) view.findViewById(R.id.new_item_image);
+        image.setOnClickListener(this);
         imageSelectBtn = (ImageButton) view.findViewById(R.id.item_image_select_icon);
         imageSelectBtn.setOnClickListener(this);
-        confirmAddBtn.setOnClickListener(this);
 
         cancelAddItemButton = (com.rey.material.widget.Button) view.findViewById(R.id.cancel_add_item_button);
         cancelAddItemButton.setOnClickListener(this);
@@ -117,6 +126,15 @@ public class ItemForm implements View.OnClickListener  {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.item_image_select_icon:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                            captureImage();
+
+                    }
+                }).start();
+                break;
+            case R.id.new_item_image:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -231,6 +249,11 @@ public class ItemForm implements View.OnClickListener  {
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         // Start the Intent
         activity.startActivityForResult(galleryIntent, RESULT_LOAD);
+    }
+    // method for capturing image
+    public void captureImage(){
+        Intent getImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        activity.startActivityForResult(getImage, IMAGE_CAPTURE);
     }
 
     public boolean isValid() {

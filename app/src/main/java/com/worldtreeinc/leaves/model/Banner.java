@@ -33,13 +33,12 @@ public class Banner {
 
     public void processSelectedImage(Activity activity, int requestCode, int resultCode, Intent data, EventForm newEventForm, int RESULT_LOAD) {
         try {
+
             // When an Image is picked
             if (requestCode == RESULT_LOAD && resultCode == activity.RESULT_OK && null != data) {
                 // Get the Image from data
-
                 Uri selectedImage = data.getData();
                 String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
                 // Get the cursor
                 Cursor cursor = activity.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
                 // Move to first row
