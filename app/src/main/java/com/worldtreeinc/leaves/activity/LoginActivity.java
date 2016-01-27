@@ -29,7 +29,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         initialise();
         FacebookSdk.sdkInitialize(getApplicationContext());
         ParseFacebookUtils.initialize(this.getApplicationContext());
-
         ParseTwitterUtils.initialize("WTJlmcbcnpMQTBgZ4vdiihvse", "0fx5LkemRwZKEatJklRlKHxIX0UTCza7VsadoaEKDfcG52rAmk");
     }
 
@@ -61,8 +60,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             e.printStackTrace();
         }
     }
-
-
 
     private void initialise() {
         mUsername = (EditText) findViewById(R.id.usernameLoginTextBox);

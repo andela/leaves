@@ -230,7 +230,6 @@ public class UserAuthentication {
             }
         };
         LoginAsyncTask.execute();
-
     }
 
     public void register() {
@@ -252,7 +251,7 @@ public class UserAuthentication {
         ParseFacebookUtils.logInWithReadPermissionsInBackground(activity, permissions, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException err) {
-                sendToParse(user, "Your account has been created!", activity);
+                processUser(user, "Your account has been created!", activity);
             }
         });
     }
@@ -262,12 +261,12 @@ public class UserAuthentication {
         ParseTwitterUtils.logIn(activity, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException err) {
-                sendToParse(user, "Your account has been created", activity);
+                processUser(user, "Your account has been created", activity);
             }
         });
     }
 
-    private void sendToParse(ParseUser user, String message2, Activity activity) {
+    private void processUser(ParseUser user, String message2, Activity activity) {
         Class activitySwitch;
         loader.stop();
         if (user == null) {
