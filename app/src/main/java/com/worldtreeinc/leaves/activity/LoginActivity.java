@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseTwitterUtils;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.appConfig.AppState;
 import com.worldtreeinc.leaves.helper.UserAuthentication;
@@ -28,6 +29,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         initialise();
         FacebookSdk.sdkInitialize(getApplicationContext());
         ParseFacebookUtils.initialize(this.getApplicationContext());
+
+        ParseTwitterUtils.initialize("YOUR CONSUMER KEY", "YOUR CONSUMER SECRET");
     }
 
     @Override
@@ -43,6 +46,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     break;
                 case R.id.FacebookLoginButton:
                     userAuthentication.FacebookLogin();
+                    break;
+                case R.id.TwitterLoginButton:
+                    userAuthentication.twitterLogin();
                     break;
                 case R.id.registerUser:
                     ActivityLauncher.runIntent(this, RegisterActivity.class);
@@ -73,6 +79,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Button facebookLoginButton = (Button) findViewById(R.id.FacebookLoginButton);
         facebookLoginButton.setOnClickListener(this);
+
+        Button twitterLoginButton = (Button) findViewById(R.id.TwitterLoginButton);
+        twitterLoginButton.setOnClickListener(this);
     }
 
     @Override
