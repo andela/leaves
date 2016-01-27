@@ -5,9 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -23,6 +26,9 @@ import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.fragment.ItemListFragment;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.EventItem;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by andela on 8/24/15.
@@ -56,7 +62,7 @@ public class ItemForm implements View.OnClickListener  {
     Bundle bundle;
 
     private static int RESULT_LOAD = 1;
-    private static int IMAGE_CAPTURE = 3041;
+    private static int IMAGE_CAPTURE = 3401;
 
     View view;
 
@@ -123,7 +129,8 @@ public class ItemForm implements View.OnClickListener  {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        captureImage();
+                            captureImage();
+
                     }
                 }).start();
                 break;
