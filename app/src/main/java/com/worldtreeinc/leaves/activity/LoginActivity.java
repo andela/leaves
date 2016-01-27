@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FacebookSdk.sdkInitialize(getApplicationContext());
         ParseFacebookUtils.initialize(this.getApplicationContext());
 
-        ParseTwitterUtils.initialize("YOUR CONSUMER KEY", "YOUR CONSUMER SECRET");
+        ParseTwitterUtils.initialize("WTJlmcbcnpMQTBgZ4vdiihvse", "0fx5LkemRwZKEatJklRlKHxIX0UTCza7VsadoaEKDfcG52rAmk");
     }
 
     @Override

@@ -11,7 +11,6 @@ import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
-import com.parse.RequestPasswordResetCallback;
 import com.rey.material.widget.ProgressView;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.activity.RoleOptionActivity;
@@ -253,21 +252,7 @@ public class UserAuthentication {
         ParseFacebookUtils.logInWithReadPermissionsInBackground(activity, permissions, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException err) {
-                Class activitySwitch;
-                loader.stop();
-                if (user == null) {
-                    setToastMessage("Login failed");
-                    return;
-                } else if (user.isNew()) {
-                    setToastMessage("Your account has been created!");
-                    activitySwitch = RoleOptionActivity.class;
-                } else {
-                    setToastMessage("You are logged in");
-                    activitySwitch = RoleOptionActivity.class;
-                }
-                Intent intent = new Intent(activity, activitySwitch);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                activity.startActivity(intent);
+                sendToParse(user, "Your account has been created!", activity);
             }
         });
     }
@@ -277,23 +262,26 @@ public class UserAuthentication {
         ParseTwitterUtils.logIn(activity, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException err) {
-                Class activitySwitch;
-                loader.stop();
-                if (user == null) {
-                   setToastMessage("Login failed");
-                    return;
-                } else if (user.isNew()) {
-                    setToastMessage("Your account has been created");
-                    activitySwitch = RoleOptionActivity.class;
-
-                } else {
-                    setToastMessage("You are logged in");
-                    activitySwitch = RoleOptionActivity.class;
-                }
-                Intent intent = new Intent(activity, activitySwitch);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                activity.startActivity(intent);
+                sendToParse(user, "Your account has been created", activity);
             }
         });
+    }
+
+    private void sendToParse(ParseUser user, String message2, Activity activity) {
+        Class activitySwitch;
+        loader.stop();
+        if (user == null) {
+            setToastMessage("Login failed");
+            return;
+        } else if (user.isNew()) {
+            setToastMessage(message2);
+            activitySwitch = RoleOptionActivity.class;
+        } else {
+            setToastMessage("You are logged in");
+            activitySwitch = RoleOptionActivity.class;
+        }
+        Intent intent = new Intent(activity, activitySwitch);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
     }
 }
