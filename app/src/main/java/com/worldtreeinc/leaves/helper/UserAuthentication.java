@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
 import com.parse.RequestPasswordResetCallback;
 import com.rey.material.widget.ProgressView;
@@ -260,6 +261,31 @@ public class UserAuthentication {
                 } else if (user.isNew()) {
                     setToastMessage("Your account has been created!");
                     activitySwitch = RoleOptionActivity.class;
+                } else {
+                    setToastMessage("You are logged in");
+                    activitySwitch = RoleOptionActivity.class;
+                }
+                Intent intent = new Intent(activity, activitySwitch);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                activity.startActivity(intent);
+            }
+        });
+    }
+
+    public void twitterLogin(){
+        loader.start();
+        ParseTwitterUtils.logIn(activity, new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException err) {
+                Class activitySwitch;
+                loader.stop();
+                if (user == null) {
+                   setToastMessage("Login failed");
+                    return;
+                } else if (user.isNew()) {
+                    setToastMessage("Your account has been created");
+                    activitySwitch = RoleOptionActivity.class;
+
                 } else {
                     setToastMessage("You are logged in");
                     activitySwitch = RoleOptionActivity.class;
