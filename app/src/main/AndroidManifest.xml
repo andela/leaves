@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.worldtreeinc.leaves">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -110,6 +111,7 @@
         <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
         <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
         <activity
+            tools:replace="android:configChanges"
             android:name="io.card.payment.CardIOActivity"
             android:configChanges="orientation" />
         <activity
