@@ -34,30 +34,27 @@ public class ItemForm implements View.OnClickListener  {
     String userId;
     FloatingActionButton floatingActionButton;
     private boolean mShowingBack = false;
-
     EditText name;
     EditText description;
     EditText startBid;
+    EditText increment;
     com.rey.material.widget.Button confirmAddBtn;
     ImageButton imageSelectBtn;
     String nameText;
     String descriptionText;
     String startBidText;
+    String incrementText;
     com.rey.material.widget.Button cancelAddItemButton;
     private String eventName;
     String itemId;
     ProgressDialog progressDialog;
-
     public static ImageView image;
     public static ParseFile file;
-
     EventItem item;
     ItemListFragment itemListFragment;
     Bundle bundle;
-
     private static int RESULT_LOAD = 1;
     private static int IMAGE_CAPTURE = 3041;
-
     View view;
 
     public ItemForm(Activity activity, View view, String eventId, String userId, FloatingActionButton btn, String itemId, String eventName) {
@@ -79,6 +76,7 @@ public class ItemForm implements View.OnClickListener  {
         name = (EditText) view.findViewById(R.id.new_item_name);
         description = (EditText) view.findViewById(R.id.new_item_description);
         startBid = (EditText) view.findViewById(R.id.new_item_start_bid);
+        increment = (EditText) view.findViewById(R.id.increment);
 
         confirmAddBtn = (com.rey.material.widget.Button) view.findViewById(R.id.confirm_add_item_button);
         confirmAddBtn.setOnClickListener(this);
@@ -90,7 +88,6 @@ public class ItemForm implements View.OnClickListener  {
         cancelAddItemButton = (com.rey.material.widget.Button) view.findViewById(R.id.cancel_add_item_button);
         cancelAddItemButton.setOnClickListener(this);
 
-
     }
 
     private void setData() {
@@ -100,6 +97,7 @@ public class ItemForm implements View.OnClickListener  {
         name.setText(items.getName());
         description.setText(items.getDescription());
         startBid.setText(items.getPreviousBid().toString());
+        increment.setText(items.getIncrement().toString());
         items.getImage().getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] bytes, ParseException e) {
@@ -114,6 +112,7 @@ public class ItemForm implements View.OnClickListener  {
         nameText = name.getText().toString().trim();
         descriptionText = description.getText().toString().trim();
         startBidText = startBid.getText().toString().trim();
+        incrementText = increment.getText().toString().trim();
     }
 
     @Override
@@ -164,7 +163,6 @@ public class ItemForm implements View.OnClickListener  {
         }
 
         mShowingBack = true;
-
         ItemListFragment itemListFragment = new ItemListFragment();
         changeToListFragment(itemListFragment);
 
@@ -230,17 +228,15 @@ public class ItemForm implements View.OnClickListener  {
         item.setDescription(descriptionText);
         item.setPreviousBid(Double.parseDouble(startBidText));
         item.setNewBid(Double.parseDouble(startBidText));
+        item.setIncrement(Double.parseDouble(incrementText));
         item.setImage(file);
         item.setEventId(eventId);
         item.setUserId(userId);
     }
 
-    // method to open gallery
     public void openGallery() {
-        // Create intent to Open Image applications like Gallery, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        // Start the Intent
         activity.startActivityForResult(galleryIntent, RESULT_LOAD);
     }
     // method for capturing image
@@ -262,6 +258,10 @@ public class ItemForm implements View.OnClickListener  {
         }
         if (startBidText.equals("")) {
             startBid.setError("Start Bid is required!");
+            valid = false;
+        }
+        if (incrementText.equals("")) {
+            increment.setError("Increment Value is required!");
             valid = false;
         }
         if(file == null){
