@@ -11,6 +11,10 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
+    <!--Access camera permissions -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <permission
         android:name="com.worldtreeinc.leaves.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />

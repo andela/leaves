@@ -31,7 +31,6 @@ import com.worldtreeinc.leaves.utility.ParseProxyObject;
 
 public class EventDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    // declare class variables
     String eventId;
     FloatingActionButton addItemButton;
     Button enterEventButton;
@@ -46,6 +45,8 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     String eventName;
 
     private static int RESULT_LOAD_IMAGE = 1;
+    private static int IMAGE_CAPTURE = 3401;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +81,6 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
 
     private void init(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            /* If there is no saved instance state, add a fragment representing the
-              front of the card to this activity. If there is saved instance state,
-             this fragment will have already been added to the activity. */
             getFragmentManager()
                     .beginTransaction()
                     .add(R.id.container, itemListFragment)
@@ -97,7 +95,6 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         if (isPlanner) {
             enterEventButton.setVisibility(View.GONE);
         } else {
-            // call method to check whether bidder has entered the event
             checkBidderAccess();
         }
 
@@ -140,7 +137,6 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_event_details, menu);
         return true;
     }
@@ -149,7 +145,6 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -190,17 +185,14 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
 
     private void setData(final FrameLayout loader_frame, final ProgressView loader) {
         if (event != null) {
-            // set Activity title to event title
             setTitle(event.getString("eventName"));
 
-            // set other textview details
             TextView category = (TextView) findViewById(R.id.ed_category_text);
             setViewText(category, event, "eventCategory");
             TextView location = (TextView) findViewById(R.id.ed_location_text);
             setViewText(location, event, "eventVenue");
             TextView date = (TextView) findViewById(R.id.ed_date_text);
             setViewText(date, event, "eventDate");
-            // set banner image
             ParseImageView banner = (ParseImageView) findViewById(R.id.event_details_banner);
 
             banner.setParseFile(event.getBanner());
@@ -219,7 +211,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            if ((requestCode == RESULT_LOAD_IMAGE || requestCode == IMAGE_CAPTURE) && resultCode == RESULT_OK && data != null) {
                 new ItemImage().set(this, data.getData());
             }
         } catch (Exception e) {
