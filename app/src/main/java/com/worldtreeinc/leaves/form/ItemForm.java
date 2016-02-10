@@ -208,12 +208,9 @@ public class ItemForm implements View.OnClickListener  {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                // Create a progressdialog
                 progressDialog = new ProgressDialog(activity);
-                // Set progressdialog message
                 progressDialog.setMessage(activity.getString(R.string.event_list_progress_saving));
                 progressDialog.setIndeterminate(false);
-                // Show progressdialog
                 progressDialog.show();
             }
 
@@ -224,9 +221,7 @@ public class ItemForm implements View.OnClickListener  {
                 changeToListFragment(itemListFragment);
                 floatingActionButton.setVisibility(View.VISIBLE);
                 progressDialog.dismiss();
-                // subscribe planner to item channel
                 LeavesNotification.subscribePlannerToItemChannel(item);
-                //LeavesNotification.sendItemAddNotification(item, eventName);
             }
         };
         itemAsync.execute();
@@ -242,16 +237,12 @@ public class ItemForm implements View.OnClickListener  {
         item.setUserId(userId);
     }
 
-    // method to open gallery
     public void openGallery() {
-        // Create intent to Open Image applications like Gallery, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        // Start the Intent
         activity.startActivityForResult(galleryIntent, RESULT_LOAD);
     }
-    // method for capturing image
-    public void captureImage(){
+    public void captureImage() {
         Intent getImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         activity.startActivityForResult(getImage, IMAGE_CAPTURE);
     }
@@ -271,7 +262,7 @@ public class ItemForm implements View.OnClickListener  {
             startBid.setError("Start Bid is required!");
             valid = false;
         }
-        if(file == null){
+        if(file == null) {
             Toast.makeText(activity, "Add an image first", Toast.LENGTH_LONG).show();
             valid = false;
         }

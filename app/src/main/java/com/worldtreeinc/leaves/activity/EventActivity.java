@@ -17,7 +17,6 @@ import com.worldtreeinc.leaves.R;
 
 public class EventActivity extends AppCompatActivity  implements View.OnClickListener {
 
-    // global variables to be used in multiple methods.
     private static int RESULT_LOAD = 1;
     EventForm newEventForm;
     Banner banner = new Banner();
@@ -36,7 +35,6 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
 
         eventButton.setOnClickListener(this);
 
-        //get the image button id and set listener on it
         ImageButton openGalleryButton = (ImageButton) findViewById(R.id.banner_select_icon);
         openGalleryButton.setOnClickListener(this);
 
@@ -46,19 +44,14 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_event, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.create_event_cancel) {
             newEventForm.cancelEvent();
         }
@@ -101,14 +94,13 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
         }
     }
 
-    // method to open gallery
     public void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, RESULT_LOAD);
 
     }
-    public void captureImage(){
+    public void captureImage() {
         Intent getImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (getImage.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(getImage, REQUEST_CAMERA);
@@ -128,7 +120,6 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
 
             eventButton.setText("Update Event");
             setTitle("Edit Event");
-            // call the set fields method to prefill the form fields
             newEventForm.setData(eventId);
         }
         catch (Exception e) {
