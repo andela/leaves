@@ -20,6 +20,7 @@ import com.parse.ParseFile;
 import com.worldtreeinc.leaves.utility.EventBannerCompressor;
 import com.worldtreeinc.leaves.form.EventForm;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.utility.GetImageFromCamera;
 
 import java.io.ByteArrayOutputStream;
 
@@ -49,14 +50,9 @@ public class Banner {
         try {
 
             if (requestCode == RESULT_LOAD && resultCode == activity.RESULT_OK && data != null) {
-
-                Bundle extras = data.getExtras();
-                Bitmap imageBitMap = (Bitmap) extras.get("data");
-
-                Uri selectedImage = getImageUri(activity, imageBitMap);
                 String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-                Cursor cursor = activity.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                Cursor cursor = activity.getContentResolver().query(GetImageFromCamera.getUri(activity, data), filePathColumn, null, null, null);
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
@@ -72,13 +68,6 @@ public class Banner {
             Toast.makeText(activity, "Please select an image!", Toast.LENGTH_LONG)
                     .show();
         }
-    }
-
-    private Uri getImageUri(Context inContext, Bitmap inImage){
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage,"Title", null);
-        return Uri.parse(path);
     }
 
     public void set(ImageView eventBannerImageView, String imagePath) {

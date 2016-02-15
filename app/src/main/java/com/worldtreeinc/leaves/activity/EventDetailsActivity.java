@@ -29,6 +29,7 @@ import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.ItemImage;
 import com.worldtreeinc.leaves.model.User;
+import com.worldtreeinc.leaves.utility.GetImageFromCamera;
 import com.worldtreeinc.leaves.utility.NetworkUtil;
 import com.worldtreeinc.leaves.utility.ParseProxyObject;
 
@@ -227,26 +228,15 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            if ((requestCode == RESULT_LOAD_IMAGE || requestCode == IMAGE_CAPTURE) && resultCode == RESULT_OK && data != null) {
-
-                Bundle extras = data.getExtras();
-                Bitmap imageBitMap = (Bitmap) extras.get("data");
-
-                Uri selectedImage = getImageUri(this, imageBitMap);
-                new ItemImage().set(this, selectedImage);
+            if ((requestCode == RESULT_LOAD_IMAGE || requestCode == IMAGE_CAPTURE)
+                    && resultCode == RESULT_OK && data != null) {
+                new ItemImage().set(this, GetImageFromCamera.getUri(this, data));
             }
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Please select an image!", Toast.LENGTH_LONG)
                     .show();
         }
-    }
-
-    private Uri getImageUri(Context inContext, Bitmap inImage){
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage,"Title", null);
-        return Uri.parse(path);
     }
 
     @Override
