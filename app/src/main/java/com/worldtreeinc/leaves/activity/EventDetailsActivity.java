@@ -1,8 +1,12 @@
 package com.worldtreeinc.leaves.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +31,8 @@ import com.worldtreeinc.leaves.model.ItemImage;
 import com.worldtreeinc.leaves.model.User;
 import com.worldtreeinc.leaves.utility.NetworkUtil;
 import com.worldtreeinc.leaves.utility.ParseProxyObject;
+
+import java.io.ByteArrayOutputStream;
 
 
 public class EventDetailsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -222,13 +228,25 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         super.onActivityResult(requestCode, resultCode, data);
         try {
             if ((requestCode == RESULT_LOAD_IMAGE || requestCode == IMAGE_CAPTURE) && resultCode == RESULT_OK && data != null) {
-                new ItemImage().set(this, data.getData());
+
+                Bundle extras = data.getExtras();
+                Bitmap imageBitMap = (Bitmap) extras.get("data");
+
+                Uri selectedImage = getImageUri(this, imageBitMap);
+                new ItemImage().set(this, selectedImage);
             }
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Please select an image!", Toast.LENGTH_LONG)
                     .show();
         }
+    }
+
+    private Uri getImageUri(Context inContext, Bitmap inImage){
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage,"Title", null);
+        return Uri.parse(path);
     }
 
     @Override
