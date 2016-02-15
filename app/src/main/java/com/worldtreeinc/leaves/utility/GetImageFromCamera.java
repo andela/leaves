@@ -14,7 +14,10 @@ import java.io.ByteArrayOutputStream;
  */
 public class GetImageFromCamera {
 
-    public static Uri getUri(Context inContext, Intent data){
+    public static Uri getUri(Context inContext, Intent data, int requestCode){
+        if(requestCode == 1){
+            return data.getData();
+        }
         Bundle extras = data.getExtras();
         Bitmap imageBitMap = (Bitmap) extras.get("data");
         Uri selectedImage = getImageUri(inContext, imageBitMap);

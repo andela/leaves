@@ -52,7 +52,7 @@ public class Banner {
             if (requestCode == RESULT_LOAD && resultCode == activity.RESULT_OK && data != null) {
                 String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-                Cursor cursor = activity.getContentResolver().query(GetImageFromCamera.getUri(activity, data), filePathColumn, null, null, null);
+                Cursor cursor = activity.getContentResolver().query(GetImageFromCamera.getUri(activity, data,requestCode), filePathColumn, null, null, null);
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);

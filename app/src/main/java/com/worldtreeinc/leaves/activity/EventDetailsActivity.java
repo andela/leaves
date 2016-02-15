@@ -230,7 +230,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         try {
             if ((requestCode == RESULT_LOAD_IMAGE || requestCode == IMAGE_CAPTURE)
                     && resultCode == RESULT_OK && data != null) {
-                new ItemImage().set(this, GetImageFromCamera.getUri(this, data));
+                new ItemImage().set(this, GetImageFromCamera.getUri(this, data,requestCode));
             }
         } catch (Exception e) {
             e.printStackTrace();
