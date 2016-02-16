@@ -1,15 +1,12 @@
 package com.worldtreeinc.leaves.model;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ImageView;
@@ -20,7 +17,7 @@ import com.parse.ParseFile;
 import com.worldtreeinc.leaves.utility.EventBannerCompressor;
 import com.worldtreeinc.leaves.form.EventForm;
 import com.worldtreeinc.leaves.R;
-import com.worldtreeinc.leaves.utility.GetImageFromCamera;
+import com.worldtreeinc.leaves.utility.CameraManager;
 
 import java.io.ByteArrayOutputStream;
 
@@ -52,7 +49,7 @@ public class Banner {
             if (requestCode == RESULT_LOAD && resultCode == activity.RESULT_OK && data != null) {
                 String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-                Cursor cursor = activity.getContentResolver().query(GetImageFromCamera.getUri(activity, data,requestCode), filePathColumn, null, null, null);
+                Cursor cursor = activity.getContentResolver().query(CameraManager.getUri(activity, data, requestCode), filePathColumn, null, null, null);
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);

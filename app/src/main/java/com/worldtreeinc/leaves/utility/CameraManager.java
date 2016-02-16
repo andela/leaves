@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream;
 /**
  * Created by suadahaji on 2/15/16.
  */
-public class GetImageFromCamera {
+public class CameraManager {
 
     public static Uri getUri(Context inContext, Intent data, int requestCode){
         if(requestCode == 1){

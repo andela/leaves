@@ -1,12 +1,8 @@
 package com.worldtreeinc.leaves.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,11 +25,9 @@ import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.ItemImage;
 import com.worldtreeinc.leaves.model.User;
-import com.worldtreeinc.leaves.utility.GetImageFromCamera;
+import com.worldtreeinc.leaves.utility.CameraManager;
 import com.worldtreeinc.leaves.utility.NetworkUtil;
 import com.worldtreeinc.leaves.utility.ParseProxyObject;
-
-import java.io.ByteArrayOutputStream;
 
 
 public class EventDetailsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -230,7 +224,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         try {
             if ((requestCode == RESULT_LOAD_IMAGE || requestCode == IMAGE_CAPTURE)
                     && resultCode == RESULT_OK && data != null) {
-                new ItemImage().set(this, GetImageFromCamera.getUri(this, data,requestCode));
+                new ItemImage().set(this, CameraManager.getUri(this, data, requestCode));
             }
         } catch (Exception e) {
             e.printStackTrace();
