@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.worldtreeinc.leaves">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,6 +11,10 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <!--Access camera permissions -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <permission
         android:name="com.worldtreeinc.leaves.permission.C2D_MESSAGE"
@@ -110,6 +115,7 @@
         <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
         <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
         <activity
+            tools:replace="android:configChanges"
             android:name="io.card.payment.CardIOActivity"
             android:configChanges="orientation" />
         <activity

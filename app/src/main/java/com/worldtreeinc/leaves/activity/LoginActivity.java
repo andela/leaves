@@ -11,89 +11,96 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseTwitterUtils;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.appConfig.AppState;
 import com.worldtreeinc.leaves.helper.UserAuthentication;
 import com.worldtreeinc.leaves.utility.ActivityLauncher;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
-    private EditText mUsername;
-    private EditText mPassword;
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+  private EditText mUsername;
+  private EditText mPassword;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_login);
 
-        initialise();
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        ParseFacebookUtils.initialize(this.getApplicationContext());
+    initialise();
+    FacebookSdk.sdkInitialize(getApplicationContext());
+    ParseFacebookUtils.initialize(this.getApplicationContext());
+    ParseTwitterUtils.initialize("WTJlmcbcnpMQTBgZ4vdiihvse", "0fx5LkemRwZKEatJklRlKHxIX0UTCza7VsadoaEKDfcG52rAmk");
+  }
+
+  @Override
+  public void onClick(View v) {
+    try {
+      String username = mUsername.getText().toString().trim().toLowerCase();
+      String password = mPassword.getText().toString().trim();
+      UserAuthentication userAuthentication = new UserAuthentication(LoginActivity.this, username, password);
+
+      switch (v.getId()) {
+        case R.id.loginButton:
+          userAuthentication.login();
+          break;
+        case R.id.FacebookLoginButton:
+          userAuthentication.FacebookLogin();
+          break;
+        case R.id.TwitterLoginButton:
+          userAuthentication.twitterLogin();
+          break;
+        case R.id.registerUser:
+          ActivityLauncher.runIntent(this, RegisterActivity.class);
+          break;
+        case R.id.resetPassword:
+          ActivityLauncher.runIntent(this, ResetPasswordActivity.class);
+          break;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+  }
 
-    @Override
-    public void onClick(View v) {
-        try {
-            String username = mUsername.getText().toString().trim();
-            String password = mPassword.getText().toString().trim();
-            UserAuthentication userAuthentication = new UserAuthentication(LoginActivity.this, username, password);
+  private void initialise() {
+    mUsername = (EditText) findViewById(R.id.usernameLoginTextBox);
+    mPassword = (EditText) findViewById(R.id.passwordLoginTextBox);
 
-            switch (v.getId()){
-                case R.id.loginButton:
-                   userAuthentication.login();
-                    break;
-                case R.id.FacebookLoginButton:
-                    userAuthentication.FacebookLogin();
-                    break;
-                case R.id.registerUser:
-                    ActivityLauncher.runIntent(this, RegisterActivity.class);
-                    break;
-                case R.id.resetPassword:
-                    ActivityLauncher.runIntent(this, ResetPasswordActivity.class);
-                    break;
-            }
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+    TextView resetPassword = (TextView) findViewById(R.id.resetPassword);
+    resetPassword.setOnClickListener(this);
 
+    TextView registerUser = (TextView) findViewById(R.id.registerUser);
+    registerUser.setOnClickListener(this);
 
+    Button loginButton = (Button) findViewById(R.id.loginButton);
+    loginButton.setOnClickListener(this);
 
-    private void initialise() {
-        mUsername = (EditText) findViewById(R.id.usernameLoginTextBox);
-        mPassword = (EditText) findViewById(R.id.passwordLoginTextBox);
+    Button facebookLoginButton = (Button) findViewById(R.id.FacebookLoginButton);
+    facebookLoginButton.setOnClickListener(this);
 
-        TextView resetPassword = (TextView) findViewById(R.id.resetPassword);
-        resetPassword.setOnClickListener(this);
+    Button twitterLoginButton = (Button) findViewById(R.id.TwitterLoginButton);
+    twitterLoginButton.setOnClickListener(this);
+  }
 
-        TextView registerUser = (TextView) findViewById(R.id.registerUser);
-        registerUser.setOnClickListener(this);
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
+  }
 
-        Button loginButton = (Button) findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(this);
+  @Override
+  protected void onResume() {
+    super.onResume();
+    AppEventsLogger.activateApp(this);
+  }
 
-        Button facebookLoginButton = (Button) findViewById(R.id.FacebookLoginButton);
-        facebookLoginButton.setOnClickListener(this);
-    }
+  @Override
+  protected void onPause() {
+    super.onPause();
+    AppEventsLogger.deactivateApp(this);
+  }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AppEventsLogger.activateApp(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        AppEventsLogger.deactivateApp(this);
-    }
-    @Override
-    public void onBackPressed() {
-        AppState.minimize(this);
-    }
+  @Override
+  public void onBackPressed() {
+    AppState.minimize(this);
+  }
 }

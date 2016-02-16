@@ -35,6 +35,14 @@ public class EventItem extends ParseObject {
         put("previousBid", previousBid);
     }
 
+    public Number getIncrement() {
+        return getNumber("increment");
+    }
+
+    public void setIncrement(Number increment) {
+        put("increment", increment);
+    }
+
     public Number getNewBid() {
         return getNumber("newBid");
     }
@@ -54,6 +62,7 @@ public class EventItem extends ParseObject {
     public String getDescription() {
         return getString("itemDescription");
     }
+
     public void setDescription(String itemDescription) {
         put("itemDescription", itemDescription);
     }

@@ -5,8 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -23,6 +27,9 @@ import com.worldtreeinc.leaves.fragment.ItemListFragment;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.EventItem;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Created by andela on 8/24/15.
  */
@@ -33,29 +40,27 @@ public class ItemForm implements View.OnClickListener  {
     String userId;
     FloatingActionButton floatingActionButton;
     private boolean mShowingBack = false;
-
     EditText name;
     EditText description;
     EditText startBid;
+    EditText increment;
     com.rey.material.widget.Button confirmAddBtn;
     ImageButton imageSelectBtn;
     String nameText;
     String descriptionText;
     String startBidText;
+    String incrementText;
     com.rey.material.widget.Button cancelAddItemButton;
     private String eventName;
     String itemId;
     ProgressDialog progressDialog;
-
     public static ImageView image;
     public static ParseFile file;
-
     EventItem item;
     ItemListFragment itemListFragment;
     Bundle bundle;
-
     private static int RESULT_LOAD = 1;
-
+    private static int IMAGE_CAPTURE = 3401;
     View view;
 
     public ItemForm(Activity activity, View view, String eventId, String userId, FloatingActionButton btn, String itemId, String eventName) {
@@ -77,16 +82,17 @@ public class ItemForm implements View.OnClickListener  {
         name = (EditText) view.findViewById(R.id.new_item_name);
         description = (EditText) view.findViewById(R.id.new_item_description);
         startBid = (EditText) view.findViewById(R.id.new_item_start_bid);
+        increment = (EditText) view.findViewById(R.id.increment);
 
         confirmAddBtn = (com.rey.material.widget.Button) view.findViewById(R.id.confirm_add_item_button);
+        confirmAddBtn.setOnClickListener(this);
         image = (ImageView) view.findViewById(R.id.new_item_image);
+        image.setOnClickListener(this);
         imageSelectBtn = (ImageButton) view.findViewById(R.id.item_image_select_icon);
         imageSelectBtn.setOnClickListener(this);
-        confirmAddBtn.setOnClickListener(this);
 
         cancelAddItemButton = (com.rey.material.widget.Button) view.findViewById(R.id.cancel_add_item_button);
         cancelAddItemButton.setOnClickListener(this);
-
 
     }
 
@@ -97,6 +103,7 @@ public class ItemForm implements View.OnClickListener  {
         name.setText(items.getName());
         description.setText(items.getDescription());
         startBid.setText(items.getPreviousBid().toString());
+        increment.setText(items.getIncrement().toString());
         items.getImage().getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] bytes, ParseException e) {
@@ -111,12 +118,22 @@ public class ItemForm implements View.OnClickListener  {
         nameText = name.getText().toString().trim();
         descriptionText = description.getText().toString().trim();
         startBidText = startBid.getText().toString().trim();
+        incrementText = increment.getText().toString().trim();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.item_image_select_icon:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                            captureImage();
+
+                    }
+                }).start();
+                break;
+            case R.id.new_item_image:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -153,7 +170,6 @@ public class ItemForm implements View.OnClickListener  {
         }
 
         mShowingBack = true;
-
         ItemListFragment itemListFragment = new ItemListFragment();
         changeToListFragment(itemListFragment);
 
@@ -190,12 +206,9 @@ public class ItemForm implements View.OnClickListener  {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                // Create a progressdialog
                 progressDialog = new ProgressDialog(activity);
-                // Set progressdialog message
                 progressDialog.setMessage(activity.getString(R.string.event_list_progress_saving));
                 progressDialog.setIndeterminate(false);
-                // Show progressdialog
                 progressDialog.show();
             }
 
@@ -206,9 +219,7 @@ public class ItemForm implements View.OnClickListener  {
                 changeToListFragment(itemListFragment);
                 floatingActionButton.setVisibility(View.VISIBLE);
                 progressDialog.dismiss();
-                // subscribe planner to item channel
                 LeavesNotification.subscribePlannerToItemChannel(item);
-                //LeavesNotification.sendItemAddNotification(item, eventName);
             }
         };
         itemAsync.execute();
@@ -219,18 +230,21 @@ public class ItemForm implements View.OnClickListener  {
         item.setDescription(descriptionText);
         item.setPreviousBid(Double.parseDouble(startBidText));
         item.setNewBid(Double.parseDouble(startBidText));
+        item.setIncrement(Double.parseDouble(incrementText));
         item.setImage(file);
         item.setEventId(eventId);
         item.setUserId(userId);
     }
 
-    // method to open gallery
     public void openGallery() {
-        // Create intent to Open Image applications like Gallery, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        // Start the Intent
         activity.startActivityForResult(galleryIntent, RESULT_LOAD);
+    }
+
+    public void captureImage(){
+        Intent getImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        activity.startActivityForResult(getImage, IMAGE_CAPTURE);
     }
 
     public boolean isValid() {
@@ -246,6 +260,10 @@ public class ItemForm implements View.OnClickListener  {
         }
         if (startBidText.equals("")) {
             startBid.setError("Start Bid is required!");
+            valid = false;
+        }
+        if (incrementText.equals("")) {
+            increment.setError("Increment Value is required!");
             valid = false;
         }
         if(file == null){

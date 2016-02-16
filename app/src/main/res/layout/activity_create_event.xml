@@ -106,6 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:cropToPadding="true"
+                android:background="@android:color/transparent"
                 android:src="@drawable/calendar_icon"
                 />
 
@@ -174,6 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/gallery_icon"
+                android:background="@android:color/transparent"
                 android:layout_gravity="right|bottom" />
 
             <ImageButton
@@ -181,6 +183,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/cancel_icon_dark"
+                android:background="@android:color/transparent"
                 android:layout_gravity="left|bottom" />
 
         </FrameLayout>

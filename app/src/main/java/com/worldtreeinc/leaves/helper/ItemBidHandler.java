@@ -19,10 +19,6 @@ import java.util.List;
  * Created by andela on 9/23/15.
  */
 
-
-
-
-
 public class ItemBidHandler extends Activity {
     private Activity activity;
     private List<EventItem> items;
@@ -42,9 +38,8 @@ public class ItemBidHandler extends Activity {
         setDialogElement(view);
     }
 
-
     private void setDialogDetails(TextView minBid, TextView itemName, View view, EditText bidAmount) {
-        minBid.setText(NumberFormat.getCurrencyInstance().format(item.getNewBid()));
+        minBid.setText(NumberFormat.getCurrencyInstance().format((Integer)item.getNewBid() + (Integer)item.getIncrement()));
         itemName.setText(item.getName());
         showDialog(view, bidAmount);
     }
@@ -76,7 +71,6 @@ public class ItemBidHandler extends Activity {
                         dialog.cancel();
                     }
                 });
-
         builder.show();
     }
 
@@ -85,27 +79,26 @@ public class ItemBidHandler extends Activity {
         item.refreshItem(new EventItem.ItemRefreshCallBack() {
             @Override
             public void onRefresh(EventItem item) {
-                double bid = Double.parseDouble(item.getNewBid().toString());
-                //boolean isBidded = false;
+                double get_bid = Double.parseDouble(item.getNewBid().toString());
+                double incrementValue = Double.parseDouble(item.getIncrement().toString());
+                double bid = get_bid + incrementValue;
+
                 int duration = Toast.LENGTH_SHORT;
                 String text = null;
-                    if (amount > bid) {
-                        //isBidded = true;
-                        item = items.get(currentPosition);
-                        item.setPreviousBid(bid);
-                        item.setNewBid(amount);
-                        item.saveInBackground();
-                        text = "You have successfully place your Bid";
-                        // subscribe user to item channel
-                        LeavesNotification.sendItemBidNotification(amount, item);
-                    } else if (amount <= bid) {
-                        text = "Your bid must be greater than minimum bid";
-                    }
+                if (amount > bid) {
+                    item = items.get(currentPosition);
+                    item.setPreviousBid(bid);
+                    item.setNewBid(amount);
+                    item.saveInBackground();
+                    text = "You have successfully place your Bid";
+                    // subscribe user to item channel
+                    LeavesNotification.sendItemBidNotification(amount, item);
+                } else if (amount <= bid) {
+                    text = "Your bid must be greater than minimum bid";
+                }
                 Toast toast = Toast.makeText(activity, text, duration);
                 toast.show();
                 dialog.cancel();
-
-                //return isBidded;
             }
         });
 
