@@ -25,6 +25,7 @@ import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.ItemImage;
 import com.worldtreeinc.leaves.model.User;
+import com.worldtreeinc.leaves.utility.CameraManager;
 import com.worldtreeinc.leaves.utility.NetworkUtil;
 import com.worldtreeinc.leaves.utility.ParseProxyObject;
 
@@ -46,6 +47,8 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     String eventName;
 
     private static int RESULT_LOAD_IMAGE = 1;
+    private static int IMAGE_CAPTURE = 3401;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,8 +222,9 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-                new ItemImage().set(this, data.getData());
+            if ((requestCode == RESULT_LOAD_IMAGE || requestCode == IMAGE_CAPTURE)
+                    && resultCode == RESULT_OK && data != null) {
+                new ItemImage().set(this, CameraManager.getUri(this, data, requestCode));
             }
         } catch (Exception e) {
             e.printStackTrace();

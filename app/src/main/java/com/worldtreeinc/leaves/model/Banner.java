@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ImageView;
@@ -18,6 +17,7 @@ import com.parse.ParseFile;
 import com.worldtreeinc.leaves.utility.EventBannerCompressor;
 import com.worldtreeinc.leaves.form.EventForm;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.utility.CameraManager;
 
 import java.io.ByteArrayOutputStream;
 
@@ -31,25 +31,31 @@ public class Banner {
     public Banner() {
     }
 
+    /**
+     *
+     * @param activity This is a reference to the Activity that calls this method, activity is passed
+     *                 into getImageUri() method since it's a sub class of Context
+     * @param requestCode The Request code is the code set by the class that called this
+     * @param resultCode The result code is Android activity.RESULT_OK which is mostly -1
+     * @param data This is the data passed from the Camera intent. We call
+     *             data.getExtras() to get the Bundle and fit
+     * @param newEventForm
+     * @param RESULT_LOAD
+     * We get the Image uri here, get the cursor and set the image.
+     */
     public void processSelectedImage(Activity activity, int requestCode, int resultCode, Intent data, EventForm newEventForm, int RESULT_LOAD) {
         try {
-            // When an Image is picked
-            if (requestCode == RESULT_LOAD && resultCode == activity.RESULT_OK && null != data) {
-                // Get the Image from data
 
-                Uri selectedImage = data.getData();
+            if (requestCode == RESULT_LOAD && resultCode == activity.RESULT_OK && data != null) {
                 String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-                // Get the cursor
-                Cursor cursor = activity.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                // Move to first row
+                Cursor cursor = activity.getContentResolver().query(CameraManager.getUri(activity, data, requestCode), filePathColumn, null, null, null);
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 imagePath = cursor.getString(columnIndex);
                 cursor.close();
 
-                // set the imageView to the selected image
                 set(newEventForm.eventBannerImageView, imagePath);
                 setSelected(true, newEventForm);
                 setPath(imagePath, newEventForm);
@@ -60,7 +66,6 @@ public class Banner {
                     .show();
         }
     }
-
 
     public void set(ImageView eventBannerImageView, String imagePath) {
         eventBannerImageView.setImageBitmap(new EventBannerCompressor().getCompressed(imagePath, 450, 900));

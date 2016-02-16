@@ -5,9 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -23,6 +26,9 @@ import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.fragment.ItemListFragment;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.EventItem;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by andela on 8/24/15.
@@ -54,7 +60,7 @@ public class ItemForm implements View.OnClickListener  {
     ItemListFragment itemListFragment;
     Bundle bundle;
     private static int RESULT_LOAD = 1;
-    private static int IMAGE_CAPTURE = 3041;
+    private static int IMAGE_CAPTURE = 3401;
     View view;
 
     public ItemForm(Activity activity, View view, String eventId, String userId, FloatingActionButton btn, String itemId, String eventName) {
@@ -122,7 +128,8 @@ public class ItemForm implements View.OnClickListener  {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        captureImage();
+                            captureImage();
+
                     }
                 }).start();
                 break;
@@ -199,12 +206,9 @@ public class ItemForm implements View.OnClickListener  {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                // Create a progressdialog
                 progressDialog = new ProgressDialog(activity);
-                // Set progressdialog message
                 progressDialog.setMessage(activity.getString(R.string.event_list_progress_saving));
                 progressDialog.setIndeterminate(false);
-                // Show progressdialog
                 progressDialog.show();
             }
 
@@ -215,9 +219,7 @@ public class ItemForm implements View.OnClickListener  {
                 changeToListFragment(itemListFragment);
                 floatingActionButton.setVisibility(View.VISIBLE);
                 progressDialog.dismiss();
-                // subscribe planner to item channel
                 LeavesNotification.subscribePlannerToItemChannel(item);
-                //LeavesNotification.sendItemAddNotification(item, eventName);
             }
         };
         itemAsync.execute();
@@ -239,7 +241,7 @@ public class ItemForm implements View.OnClickListener  {
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         activity.startActivityForResult(galleryIntent, RESULT_LOAD);
     }
-    // method for capturing image
+
     public void captureImage(){
         Intent getImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         activity.startActivityForResult(getImage, IMAGE_CAPTURE);
