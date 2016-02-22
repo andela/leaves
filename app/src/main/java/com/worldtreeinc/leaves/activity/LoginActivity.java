@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
@@ -43,10 +44,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         case R.id.loginButton:
           userAuthentication.login();
           break;
-        case R.id.FacebookLoginButton:
+        case R.id.facebookloginbutton:
           userAuthentication.FacebookLogin();
           break;
-        case R.id.TwitterLoginButton:
+        case R.id.twitterloginbutton:
           userAuthentication.twitterLogin();
           break;
         case R.id.registerUser:
@@ -74,10 +75,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button loginButton = (Button) findViewById(R.id.loginButton);
     loginButton.setOnClickListener(this);
 
-    Button facebookLoginButton = (Button) findViewById(R.id.FacebookLoginButton);
+    ImageButton facebookLoginButton = (ImageButton) findViewById(R.id.facebookloginbutton);
     facebookLoginButton.setOnClickListener(this);
 
-    Button twitterLoginButton = (Button) findViewById(R.id.TwitterLoginButton);
+    ImageButton twitterLoginButton = (ImageButton) findViewById(R.id.twitterloginbutton);
     twitterLoginButton.setOnClickListener(this);
   }
 
