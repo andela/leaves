@@ -75,6 +75,14 @@ public class EventItem extends ParseObject {
         put("itemImage", image);
     }
 
+    public void setItemDetail(ParseObject itemDetails) {
+        put("itemDetails", itemDetails);
+    }
+
+    public ParseObject getItemDetail() {
+        return getParseObject("itemDetails");
+    }
+
     public static EventItem getOne(String itemId) {
         EventItem item;
         ParseQuery<EventItem> query = ParseQuery.getQuery(EventItem.class);
