@@ -110,30 +110,41 @@
             android:layout_centerHorizontal="true" />
 
     </LinearLayout>
-     <Button
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/login_with_facebook"
-        android:id="@+id/FacebookLoginButton"
-        android:textColor="#ffffff"
-        android:background="#008"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/orLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true">
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rsz_facebookloginbutton"
+            android:background="@android:color/transparent"
+            android:id="@+id/facebookloginbutton"
+            android:layout_weight="1"
+            />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login with Twitter"
-        android:id="@+id/TwitterLoginButton"
-        android:textColor="#ffffff"
-        android:background="#4099ff"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/FacebookLoginButton"
-        />
-
-
-
+        <ImageButton
+            android:layout_marginLeft="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/twitterloginbutton"
+            android:background="@android:color/transparent"
+            android:src="@drawable/rsz_twitterloginbutton"
+            android:layout_weight= "1"
+            />
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/GoogleLoginButton"
+            android:background="@android:color/transparent"
+            android:src="@drawable/rsz_googleloginbutton"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
 
 </RelativeLayout>
