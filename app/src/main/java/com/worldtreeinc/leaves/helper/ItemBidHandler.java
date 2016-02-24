@@ -3,6 +3,7 @@ package com.worldtreeinc.leaves.helper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -102,6 +103,14 @@ public class ItemBidHandler extends Activity {
             }
         });
 
+       refreshActivity();
+    }
+
+    private void refreshActivity(){
+        Intent intent = activity.getIntent();
+        activity.finish();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        activity.startActivity(intent);
     }
 
 }
