@@ -30,7 +30,6 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
     EventItem item;
     FloatingActionButton addItemButton;
     int currentPosition;
-    private TextView itemName;
     ItemFormFragment itemFormFragment;
     Bundle bundle;
     private boolean isPlanner;
