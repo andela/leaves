@@ -113,7 +113,11 @@
         <activity
             android:name=".activity.EventActivity"
             android:label="@string/title_activity_create_event"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PlannerDashActivity" />
+        </activity>
         <activity
             android:name=".activity.PaymentOptionActivity"
             android:label="@string/title_activity_payment"
@@ -121,8 +125,11 @@
         <activity
             android:name=".activity.EventDetailsActivity"
             android:label="@string/title_activity_event_details"
-            android:parentActivityName=".activity.PlannerEventActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PlannerDashActivity" />
+        </activity>
         <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
         <activity android:name="com.paypal.android.sdk.payments.LoginActivity" />
         <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />

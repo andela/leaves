@@ -32,7 +32,6 @@ import com.worldtreeinc.leaves.utility.ParseProxyObject;
 
 public class EventDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    // declare class variables
     String eventId;
     FloatingActionButton addItemButton;
     Button enterEventButton;
@@ -93,17 +92,14 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         } else {
             mShowingBack = (getFragmentManager().getBackStackEntryCount() > 0);
         }
-
         addItemButton = (FloatingActionButton) findViewById(R.id.add_item_button);
         enterEventButton = (Button) findViewById(R.id.enterEventButton);
 
         if (isPlanner) {
             enterEventButton.setVisibility(View.GONE);
         } else {
-            // call method to check whether bidder has entered the event
             checkBidderAccess();
         }
-
         addItemButton.setOnClickListener(this);
     }
 
@@ -140,10 +136,8 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
         textView.setText(event.getField(fieldName));
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_event_details, menu);
         return true;
     }
@@ -151,8 +145,6 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -193,17 +185,15 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
 
     private void setData(final FrameLayout loader_frame, final ProgressView loader) {
         if (event != null) {
-            // set Activity title to event title
             setTitle(event.getString("eventName"));
 
-            // set other textview details
             TextView category = (TextView) findViewById(R.id.ed_category_text);
             setViewText(category, event, "eventCategory");
             TextView location = (TextView) findViewById(R.id.ed_location_text);
             setViewText(location, event, "eventVenue");
             TextView date = (TextView) findViewById(R.id.ed_date_text);
             setViewText(date, event, "eventDate");
-            // set banner image
+
             ParseImageView banner = (ParseImageView) findViewById(R.id.event_details_banner);
 
             banner.setParseFile(event.getBanner());

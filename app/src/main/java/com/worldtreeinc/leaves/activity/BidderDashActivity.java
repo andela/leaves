@@ -37,7 +37,6 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_bidder_dash);
 
         initialize();
-
         new ItemAsyncTask().execute();
     }
 
@@ -60,7 +59,6 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_bidder_dash, menu);
         return true;
     }
@@ -72,12 +70,10 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
         if (id == R.id.action_settings) {
             return true;
         }else if(id == R.id.action_logout){
-            Toast.makeText(this, "Logging out", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Logging out", Toast.LENGTH_LONG).show();
             User.logout();
             ActivityLauncher.runIntent(this, WelcomeActivity.class);
-
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -120,6 +116,4 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
             startActivity(getStartedIntent);
         }
     }
-
-
 }
