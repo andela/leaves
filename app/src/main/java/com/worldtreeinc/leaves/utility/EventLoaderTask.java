@@ -116,13 +116,17 @@ public class EventLoaderTask {
     }
 
     public void runningSearch(final String query, final String category) {
-        // check if query matches what is in the list of events to load
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(activity, "Typing..."+query + " "+category, Toast.LENGTH_LONG).show();
+        final List<Event> events = Event.getAll(objectReferrence, category);
+        final List<Event> matchedEvents = new ArrayList<Event>();
+        for (Event event: events) {
+            String name = event.getField("eventName");
+            if(name.contains(query)) {
+                matchedEvents.add(event);
             }
-        });
-        thread.run();
+        }
+        eventsListAdapter = new EventsListAdapter(activity,matchedEvents, isPlanner);
+        listView = (ListView) activity.findViewById(R.id.listView);
+        listView.setAdapter(eventsListAdapter);
+        eventsListAdapter.notifyDataSetChanged();
     }
 }
