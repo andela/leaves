@@ -119,13 +119,13 @@ public class EventLoaderTask {
         final List<Event> events = Event.getAll(objectReferrence, category);
         final List<Event> matchedEvents = new ArrayList<Event>();
         for (Event event: events) {
-            String name = event.getField("eventName");
-            if(name.contains(query)) {
+            String name = event.getField("eventName").toLowerCase();
+            if(name.contains(query.toLowerCase())) {
                 matchedEvents.add(event);
             }
         }
         eventsListAdapter = new EventsListAdapter(activity,matchedEvents, isPlanner);
-        listView = (ListView) activity.findViewById(R.id.listView);
+        //listView = (ListView) activity.findViewById(R.id.listView);
         listView.setAdapter(eventsListAdapter);
         eventsListAdapter.notifyDataSetChanged();
     }

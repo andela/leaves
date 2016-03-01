@@ -91,8 +91,14 @@ public class BidderEventListActivity extends AppCompatActivity implements Search
     }
 
     @Override
-    public boolean onQueryTextChange(String newText) {
-        eventLoaderTask.runningSearch(newText, selectedCategory);
+    public boolean onQueryTextChange(final String newText) {
+        Thread searchThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                eventLoaderTask.runningSearch(newText, selectedCategory);
+            }
+        });
+        searchThread.run();
         return true;
     }
 }
