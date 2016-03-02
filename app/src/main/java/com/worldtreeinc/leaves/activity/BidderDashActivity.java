@@ -44,7 +44,7 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
     private void initialize(){
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        MyToolbar.setTootbar(this);
+        MyToolbar.setToolbar(this);
 
         setTitle(getString(R.string.bidder_dashboard_title));
 

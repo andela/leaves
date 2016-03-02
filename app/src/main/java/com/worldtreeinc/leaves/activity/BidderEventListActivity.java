@@ -54,7 +54,7 @@ public class BidderEventListActivity extends AppCompatActivity {
         String defaultCategory = getResources().getStringArray(R.array.events_categories)[0];
         eventLoaderTask.fetchEvents(false, defaultCategory);
 
-        MyToolbar.setTootbar(this);
+        MyToolbar.setToolbar(this);
     }
 
     @Override

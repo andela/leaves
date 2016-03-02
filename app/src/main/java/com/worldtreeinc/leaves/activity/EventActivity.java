@@ -41,7 +41,7 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
         ImageView openGallery = (ImageView) findViewById(R.id.event_banner);
         openGallery.setOnClickListener(this);
 
-        MyToolbar.setTootbar(this);
+        MyToolbar.setToolbar(this);
     }
 
     @Override

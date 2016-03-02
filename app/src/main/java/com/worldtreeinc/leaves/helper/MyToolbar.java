@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
  */
 public class MyToolbar {
 
-    public static void setTootbar(AppCompatActivity activity) {
+    public static void setToolbar(AppCompatActivity activity) {
         if (activity.getSupportActionBar() != null){
             activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
