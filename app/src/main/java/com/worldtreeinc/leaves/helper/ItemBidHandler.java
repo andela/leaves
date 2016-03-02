@@ -4,14 +4,18 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.model.EventItem;
+import com.worldtreeinc.leaves.model.User;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -92,8 +96,16 @@ public class ItemBidHandler extends Activity {
                     item.setNewBid(amount);
                     item.saveInBackground();
                     text = "You have successfully place your Bid";
-                    // subscribe user to item channel
+
                     LeavesNotification.sendItemBidNotification(amount, item);
+
+                    User.setItemsBiddedOn(item.getObjectId(), new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            Log.e("ParseException: ", e.getMessage());
+                        }
+                    });
+
                 } else if (amount <= bid) {
                     text = "Your bid must be greater than minimum bid";
                 }
