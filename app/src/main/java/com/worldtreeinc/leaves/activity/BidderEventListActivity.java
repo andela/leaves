@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.rey.material.widget.Spinner;
+import com.worldtreeinc.leaves.helper.MyToolbar;
 import com.worldtreeinc.leaves.utility.EventLoaderTask;
 import com.worldtreeinc.leaves.R;
 
@@ -51,11 +52,12 @@ public class BidderEventListActivity extends AppCompatActivity {
         eventLoaderTask = new EventLoaderTask(listView, this, false);
         String defaultCategory = getResources().getStringArray(R.array.events_categories)[0];
         eventLoaderTask.fetchEvents(false, defaultCategory);
+
+        MyToolbar.setToolbar(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_bidder_event_list, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_new_search);

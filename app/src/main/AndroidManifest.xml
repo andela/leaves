@@ -74,15 +74,20 @@
             android:name=".activity.BidderDashActivity"
             android:label="@string/title_activity_bidder_dash"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeBidder"></activity>
+            android:parentActivityName=".activity.RoleOptionActivity"
+            android:theme="@style/AppThemeBidder">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.RoleOptionActivity" />
+        </activity>
         <activity
             android:name=".activity.PlannerDashActivity"
             android:label="@string/title_activity_planner_dash"
-            android:parentActivityName=".activity.MainActivity"
+            android:parentActivityName=".activity.RoleOptionActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+                android:value=".activity.RoleOptionActivity" />
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
@@ -92,15 +97,27 @@
         <activity
             android:name=".activity.PlannerEventActivity"
             android:label="@string/title_activity_planner_event"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PlannerDashActivity" />
+        </activity>
         <activity
             android:name=".activity.BidderEventListActivity"
             android:label="@string/title_activity_bidder_events_tab"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.BidderDashActivity" />
+        </activity>
         <activity
             android:name=".activity.EventActivity"
             android:label="@string/title_activity_create_event"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PlannerDashActivity" />
+        </activity>
         <activity
             android:name=".activity.PaymentOptionActivity"
             android:label="@string/title_activity_payment"
@@ -108,8 +125,11 @@
         <activity
             android:name=".activity.EventDetailsActivity"
             android:label="@string/title_activity_event_details"
-            android:parentActivityName=".activity.PlannerEventActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PlannerDashActivity" />
+        </activity>
         <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
         <activity android:name="com.paypal.android.sdk.payments.LoginActivity" />
         <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />

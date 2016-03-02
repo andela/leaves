@@ -108,7 +108,7 @@
     <string name="bidder_event_list_dialog">" events"</string>
     <string name="event_search_hint">Search Events</string>
     <string name="title_activity_bidder_events_tab">Events</string>
-    <string name="bidder_dashboard_title">Dashboard</string>
+    <string name="bidder_dashboard_title">Bidder Dashboard</string>
     <string name="Event_list_progress_dialog">My event list</string>
     <string name="event_list_progress_loading">Loading...</string>
     <string name="event_list_progress_saving">Saving...</string>

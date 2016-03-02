@@ -14,9 +14,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.rey.material.widget.ProgressView;
-import com.worldtreeinc.leaves.model.Event;
-import com.worldtreeinc.leaves.adapter.EventsListAdapter;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.adapter.EventsListAdapter;
+import com.worldtreeinc.leaves.helper.MyToolbar;
+import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.User;
 import com.worldtreeinc.leaves.utility.ActivityLauncher;
 
@@ -37,18 +38,13 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_bidder_dash);
 
         initialize();
-
         new ItemAsyncTask().execute();
     }
 
     private void initialize(){
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        try {
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+        MyToolbar.setToolbar(this);
 
         setTitle(getString(R.string.bidder_dashboard_title));
 
@@ -61,29 +57,25 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_bidder_dash, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }else if(id == R.id.action_logout){
-            Toast.makeText(this, "Logging out", Toast.LENGTH_SHORT).show();
-            User.logout();
-            ActivityLauncher.runIntent(this, WelcomeActivity.class);
-
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.action_logout:
+                Toast.makeText(this, "Logging out", Toast.LENGTH_LONG).show();
+                User.logout();
+                ActivityLauncher.runIntent(this, WelcomeActivity.class);
+                return true;
+            default:
+                return false;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private class ItemAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -125,6 +117,4 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
             startActivity(getStartedIntent);
         }
     }
-
-
 }
