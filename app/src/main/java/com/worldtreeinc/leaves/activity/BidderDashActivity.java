@@ -14,9 +14,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.rey.material.widget.ProgressView;
-import com.worldtreeinc.leaves.model.Event;
-import com.worldtreeinc.leaves.adapter.EventsListAdapter;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.adapter.EventsListAdapter;
+import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.User;
 import com.worldtreeinc.leaves.utility.ActivityLauncher;
 
@@ -67,14 +67,17 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
-        }else if(id == R.id.action_logout){
-            Toast.makeText(this, "Logging out", Toast.LENGTH_LONG).show();
-            User.logout();
-            ActivityLauncher.runIntent(this, WelcomeActivity.class);
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.action_logout:
+                Toast.makeText(this, "Logging out", Toast.LENGTH_LONG).show();
+                User.logout();
+                ActivityLauncher.runIntent(this, WelcomeActivity.class);
+                return true;
+            default:
+                return false;
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private class ItemAsyncTask extends AsyncTask<Void, Void, Void> {
