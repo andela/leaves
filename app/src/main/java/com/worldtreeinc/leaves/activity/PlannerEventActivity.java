@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.helper.MyToolbar;
 import com.worldtreeinc.leaves.utility.EventLoaderTask;
 
 
@@ -24,10 +25,7 @@ public class PlannerEventActivity extends AppCompatActivity {
         EventLoaderTask eventLoaderTask = new EventLoaderTask(listview, this, true);
         eventLoaderTask.fetchEvents(true, null);
 
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        MyToolbar.setToolbar(this);
     }
 
     @Override
