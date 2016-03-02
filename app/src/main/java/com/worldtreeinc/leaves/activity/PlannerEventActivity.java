@@ -7,11 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.worldtreeinc.leaves.model.Event;
-import com.worldtreeinc.leaves.utility.EventLoaderTask;
 import com.worldtreeinc.leaves.R;
-
-import java.util.List;
+import com.worldtreeinc.leaves.utility.EventLoaderTask;
 
 
 public class PlannerEventActivity extends AppCompatActivity {
@@ -26,27 +23,26 @@ public class PlannerEventActivity extends AppCompatActivity {
 
         EventLoaderTask eventLoaderTask = new EventLoaderTask(listview, this, true);
         eventLoaderTask.fetchEvents(true, null);
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_planner_event, menu);
+      getMenuInflater().inflate(R.menu.menu_planner_event, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

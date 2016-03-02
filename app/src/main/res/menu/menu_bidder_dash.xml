@@ -18,12 +18,12 @@
         android:title="bidder_cart"
         android:orderInCategory="100"
         android:icon="@drawable/ic_shopping_cart_white_24dp"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_message"
         android:title="bidder_message"
         android:orderInCategory="100"
         android:icon="@drawable/ic_message_white_24dp"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 </menu>

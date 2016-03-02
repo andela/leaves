@@ -37,17 +37,15 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_bidder_dash);
 
         initialize();
-
         new ItemAsyncTask().execute();
     }
 
     private void initialize(){
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        try {
+        if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         setTitle(getString(R.string.bidder_dashboard_title));
@@ -61,28 +59,21 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_bidder_dash, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }else if(id == R.id.action_logout){
-            Toast.makeText(this, "Logging out", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Logging out", Toast.LENGTH_LONG).show();
             User.logout();
             ActivityLauncher.runIntent(this, WelcomeActivity.class);
-
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -125,6 +116,4 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
             startActivity(getStartedIntent);
         }
     }
-
-
 }
