@@ -3,6 +3,7 @@ package com.worldtreeinc.leaves.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +14,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.SaveCallback;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.activity.EventActivity;
+import com.worldtreeinc.leaves.activity.EventDetailsActivity;
 import com.worldtreeinc.leaves.activity.PaymentOptionActivity;
 import com.worldtreeinc.leaves.helper.ImageLoader;
 import com.worldtreeinc.leaves.model.Event;
@@ -139,13 +144,19 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
     // method to be called when the enterEvent button is clicked
     private void enterEvent() {
         event = userEventList.get(currentPosition);
-        Intent intent = new Intent(context, PaymentOptionActivity.class);
-
-        ParseProxyObject proxyObject = new ParseProxyObject(event);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("event", proxyObject);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
+        if ((int) event.getEntryFee() > 0) {
+            Intent intent = new Intent(context, PaymentOptionActivity.class);
+            ParseProxyObject proxyObject = new ParseProxyObject(event);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("event", proxyObject);
+            intent.putExtras(bundle);
+            context.startActivity(intent);
+        } else {
+            Intent intent = new Intent(context.getApplicationContext(), EventDetailsActivity.class);
+            intent.putExtra(context.getString(R.string.object_id_reference), event.getObjectId());
+            intent.putExtra(context.getString(R.string.is_planner_reference), false);
+            context.startActivity(intent);
+        }
     }
 
     private void editEvent() {
