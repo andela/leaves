@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.rey.material.widget.ProgressView;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.adapter.EventsListAdapter;
+import com.worldtreeinc.leaves.helper.MyToolbar;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.User;
 import com.worldtreeinc.leaves.utility.ActivityLauncher;
@@ -43,10 +44,7 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
     private void initialize(){
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        MyToolbar.setTootbar(this);
 
         setTitle(getString(R.string.bidder_dashboard_title));
 

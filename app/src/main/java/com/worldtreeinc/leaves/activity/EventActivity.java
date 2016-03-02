@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.rey.material.widget.Button;
+import com.worldtreeinc.leaves.helper.MyToolbar;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.form.EventForm;
 import com.worldtreeinc.leaves.R;
@@ -40,10 +41,7 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
         ImageView openGallery = (ImageView) findViewById(R.id.event_banner);
         openGallery.setOnClickListener(this);
 
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        MyToolbar.setTootbar(this);
     }
 
     @Override

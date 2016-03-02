@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.rey.material.widget.Spinner;
+import com.worldtreeinc.leaves.helper.MyToolbar;
 import com.worldtreeinc.leaves.utility.EventLoaderTask;
 import com.worldtreeinc.leaves.R;
 
@@ -53,10 +54,7 @@ public class BidderEventListActivity extends AppCompatActivity {
         String defaultCategory = getResources().getStringArray(R.array.events_categories)[0];
         eventLoaderTask.fetchEvents(false, defaultCategory);
 
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        MyToolbar.setTootbar(this);
     }
 
     @Override
