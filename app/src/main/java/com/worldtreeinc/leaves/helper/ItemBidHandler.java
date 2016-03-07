@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -102,7 +101,7 @@ public class ItemBidHandler extends Activity {
                     User.setItemsBiddedOn(item.getObjectId(), new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
-                            Log.e("ParseException: ", e.getMessage());
+
                         }
                     });
 

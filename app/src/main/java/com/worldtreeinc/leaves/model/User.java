@@ -57,7 +57,7 @@ public class User extends ParseUser {
         if(ids == null) {
             currentUser.add("itemsBiddedOnId", itemsId);
         } else {
-            if (!(ids.contains(itemsId))){
+            if ((ids.contains(itemsId))){
                 return;
             } else {
                 currentUser.add("itemsBiddedOnId", itemsId);
