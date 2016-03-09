@@ -1,4 +1,5 @@
 <resources>
+
     <style name="AppThemeBidder" parent="AppTheme.Base">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -61,5 +62,14 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="AppTheme.Base.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.Base.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.Base.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
