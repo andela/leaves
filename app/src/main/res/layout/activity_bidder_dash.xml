@@ -138,4 +138,4 @@
         android:layout_margin="18sp"
         app:headerLayout="@layout/activity_drawer_header"
         app:menu="@menu/menu_bidder_drawer"/>
-    </android.support.v4.widget.DrawerLayout>
+</android.support.v4.widget.DrawerLayout>
