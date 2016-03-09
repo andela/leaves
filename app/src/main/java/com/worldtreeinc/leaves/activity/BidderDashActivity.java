@@ -3,6 +3,10 @@ package com.worldtreeinc.leaves.activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -23,12 +27,14 @@ import com.worldtreeinc.leaves.utility.ActivityLauncher;
 import java.util.ArrayList;
 
 
-public class BidderDashActivity extends AppCompatActivity implements View.OnClickListener{
+public class BidderDashActivity extends AppCompatActivity implements View.OnClickListener,
+    NavigationView.OnNavigationItemSelectedListener{
 
     private ListView eventList;
     private EventsListAdapter listAdapter;
     private ProgressView loader;
     private FrameLayout frame;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +46,7 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initialize(){
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         try {
@@ -49,6 +55,7 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
             e.printStackTrace();
         }
 
+        setUpNavigationDrawer();
         setTitle(getString(R.string.bidder_dashboard_title));
 
         Button browseEvent = (Button) findViewById(R.id.browse_event_btn);
@@ -78,6 +85,20 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.nav_planner) {
+            ActivityLauncher.runIntent(this, PlannerDashActivity.class);
+        } else if (id == R.id.nav_logout) {
+            User.logout();
+            ActivityLauncher.runIntent(this, WelcomeActivity.class);
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     private class ItemAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -118,6 +139,17 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
             Intent getStartedIntent = new Intent(this, GetStartedActivity.class);
             startActivity(getStartedIntent);
         }
+    }
+
+    private void setUpNavigationDrawer() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+            this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
 
