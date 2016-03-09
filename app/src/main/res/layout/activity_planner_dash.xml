@@ -1,115 +1,144 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.worldtreeinc.leaves.activity.PlannerDashActivity">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.worldtreeinc.leaves.activity.PlannerDashActivity"
+    tools:openDrawer="start">
 
-    <!--<LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:id="@+id/toolbar_layout">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
-    </LinearLayout>-->
-
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/latest_bid_list"
-            android:layout_height="170dp"
-            android:padding="3dp"
-            tools:context="com.worldtreeinc.leaves.activity.EventDetailsActivity">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      xmlns:app="http://schemas.android.com/apk/res-auto"
+                      xmlns:tools="http://schemas.android.com/tools"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/planner_dash_latest_bids"
-                android:textSize="20sp"
-                android:drawableBottom="@android:drawable/divider_horizontal_bright"
-                android:paddingBottom="5dp"
-                android:textColor="#006064"
-                android:layout_gravity="center_horizontal" />
-            <FrameLayout
+            <LinearLayout
+                android:id="@+id/toolbar_layout"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/frame_loader">
-
-                <com.rey.material.widget.ProgressView
-                    android:layout_width="wrap_content"
-                    android:layout_height="70dp"
-                    app:pv_autostart="false"
-                    app:pv_circular="true"
-                    app:pv_progressStyle="@style/Material.Drawable.CircularProgress"
-                    app:pv_progressMode="indeterminate"
-                    android:layout_marginBottom="10dp"
-                    android:id="@+id/loading"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center" />
-
-            </FrameLayout>
-
-            <ListView
-                android:id="@+id/items_list"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-            </ListView>
+                android:layout_alignParentTop="true"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/planner_toolbar"
+                    layout="@layout/toolbar"/>
+            </LinearLayout>
+
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:background="@drawable/latest_bid_list"
+                        android:orientation="vertical"
+                        android:padding="3dp"
+                        tools:context="com.worldtreeinc.leaves.activity.EventDetailsActivity">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:drawableBottom="@android:drawable/divider_horizontal_bright"
+                            android:paddingBottom="5dp"
+                            android:text="@string/planner_dash_latest_bids"
+                            android:textColor="#006064"
+                            android:textSize="20sp"/>
+
+                        <FrameLayout
+                            android:id="@+id/frame_loader"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <com.rey.material.widget.ProgressView
+                                android:id="@+id/loading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="70dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="10dp"
+                                app:pv_autostart="false"
+                                app:pv_circular="true"
+                                app:pv_progressMode="indeterminate"
+                                app:pv_progressStyle="@style/Material.Drawable.CircularProgress"/>
+
+                        </FrameLayout>
+
+                        <ListView
+                            android:id="@+id/items_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+                        </ListView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/create_event_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/dash_button_transparent_white_border"
+                            android:drawableTop="@android:drawable/ic_menu_add"
+                            android:padding="15dp"
+                            android:text="@string/planner_dash_create_event"
+                            android:textColor="#fff"
+                            android:textSize="20sp"/>
+
+                        <Button
+                            android:id="@+id/manage_events_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/dash_button_transparent_white_border"
+                            android:drawableTop="@android:drawable/ic_menu_preferences"
+                            android:padding="15dp"
+                            android:text="@string/planner_dash_manage_events"
+                            android:textColor="#fff"
+                            android:textSize="20sp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
 
         </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Button
-                android:id ="@+id/create_event_btn"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:textColor="#fff"
-                android:layout_marginTop="20dp"
-                android:drawableTop="@android:drawable/ic_menu_add"
-                android:text="@string/planner_dash_create_event"
-                android:textSize="20sp"
-                android:background="@drawable/dash_button_transparent_white_border"
-                android:padding="15dp"
-                android:layout_gravity="center_horizontal" />
-
-            <Button
-                android:id ="@+id/manage_events_btn"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:textColor="#fff"
-                android:layout_marginTop="10dp"
-                android:drawableTop="@android:drawable/ic_menu_preferences"
-                android:text="@string/planner_dash_manage_events"
-                android:textSize="20sp"
-                android:background="@drawable/dash_button_transparent_white_border"
-                android:padding="15dp"
-                android:layout_gravity="center_horizontal"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    </ScrollView>
-
-</LinearLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:layout_margin="18sp"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/activity_drawer_header"
+        app:menu="@menu/menu_bidder_drawer"/>
+</android.support.v4.widget.DrawerLayout>

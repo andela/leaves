@@ -76,18 +76,12 @@
             android:screenOrientation="portrait"
             android:parentActivityName=".activity.RoleOptionActivity"
             android:theme="@style/AppThemeBidder">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.RoleOptionActivity" />
         </activity>
         <activity
             android:name=".activity.PlannerDashActivity"
             android:label="@string/title_activity_planner_dash"
             android:parentActivityName=".activity.RoleOptionActivity"
             android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.RoleOptionActivity" />
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
