@@ -152,4 +152,16 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        minimizeApp();
+    }
+
+    private void minimizeApp() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
 }
