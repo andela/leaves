@@ -38,7 +38,6 @@ import java.util.List;
  */
 public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.OnMenuItemClickListener {
 
-    // Declare Variables
     Context context;
     LayoutInflater inflater;
     ImageLoader imageLoader;
@@ -72,7 +71,6 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
     public View getView(final int position, View view, ViewGroup parent) {
         event = userEventList.get(position);
 
-        // get event Id
         String eventId = event.getObjectId();
         boolean isEnteredEvent = User.isEnteredEvent(eventId);
 
@@ -82,7 +80,6 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
 
             view = inflater.inflate(R.layout.event_list_item, parent, false);
 
-            // Locate the TextViews in listview_item.xml
             holder.eventDescription = (TextView) view.findViewById(R.id.eventDescription);
             holder.eventDate = (TextView) view.findViewById(R.id.eventDate);
             holder.eventCategory = (TextView) view.findViewById(R.id.eventCategory);
@@ -141,7 +138,6 @@ public class EventsListAdapter extends ArrayAdapter<Event> implements PopupMenu.
         }
     }
 
-    // method to be called when the enterEvent button is clicked
     private void enterEvent() {
         event = userEventList.get(currentPosition);
         if ((int) event.getEntryFee() > 0) {

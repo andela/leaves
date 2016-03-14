@@ -2,15 +2,18 @@ package com.worldtreeinc.leaves.utility;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.activity.BidderEventListActivity;
 import com.worldtreeinc.leaves.activity.EventDetailsActivity;
 import com.worldtreeinc.leaves.adapter.EventsListAdapter;
 import com.worldtreeinc.leaves.model.Event;
@@ -51,12 +54,9 @@ public class EventLoaderTask {
 
     public void updateEventList(final String category) {
         mProgressDialog = new ProgressDialog(activity);
-        // Set progressdialog title
         mProgressDialog.setTitle(category + activity.getString(R.string.bidder_event_list_dialog));
-        // Set progressdialog message
         mProgressDialog.setMessage(activity.getString(R.string.event_list_progress_loading));
         mProgressDialog.setIndeterminate(false);
-        // Show progressdialog
         mProgressDialog.show();
         eventsListAdapter.clear();
         new Thread(new Runnable() {
@@ -75,7 +75,6 @@ public class EventLoaderTask {
         }).start();
 
     }
-
 
     private ListView.OnItemClickListener mMessageClickedHandler = new ListView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
@@ -101,24 +100,33 @@ public class EventLoaderTask {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Create a progressdialog
             mProgressDialog = new ProgressDialog(activity);
-            // Set progressdialog message
             mProgressDialog.setMessage(activity.getString(R.string.event_list_progress_loading));
             mProgressDialog.setIndeterminate(false);
-            // Show progressdialog
             mProgressDialog.show();
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            // Locate the listview in listview_main.xml
             listView = (ListView) activity.findViewById(R.id.listView);
-            // Binds the Adapter to the ListView
             listView.setAdapter(eventsListAdapter);
             listView.setOnItemClickListener(mMessageClickedHandler);
-            // Close the progressdialog
             mProgressDialog.dismiss();
         }
+    }
+
+    public void runningSearch(final String query, final String category) {
+        final List<Event> events = Event.getAll(objectReferrence, category);
+        final List<Event> matchedEvents = new ArrayList<Event>();
+        for (Event event: events) {
+            String name = event.getField("eventName").toLowerCase();
+            if(name.contains(query.toLowerCase())) {
+                matchedEvents.add(event);
+            }
+        }
+        eventsListAdapter = new EventsListAdapter(activity,matchedEvents, isPlanner);
+        //listView = (ListView) activity.findViewById(R.id.listView);
+        listView.setAdapter(eventsListAdapter);
+        eventsListAdapter.notifyDataSetChanged();
     }
 }
