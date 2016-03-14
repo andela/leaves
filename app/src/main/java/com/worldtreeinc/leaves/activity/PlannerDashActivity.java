@@ -41,7 +41,7 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         checkLoggedInUser();
         setContentView(R.layout.activity_planner_dash);
-        setUpNavigationDrawer();
+        setTitle("Planner Dashboard");
         initialize();
         new ItemAsyncTask().execute();
     }
@@ -55,6 +55,8 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
 
     private void initialize() {
         mToolbar = (Toolbar) findViewById(R.id.planner_toolbar);
+        setSupportActionBar(mToolbar);
+        setUpNavigationDrawer();
         bidList = (ListView) findViewById(R.id.items_list);
         frame = (FrameLayout)findViewById(R.id.frame_loader);
         loader = (ProgressView) findViewById(R.id.loading);

@@ -96,7 +96,6 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
             User.logout();
             ActivityLauncher.runIntent(this, WelcomeActivity.class);
         }
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
@@ -143,6 +142,7 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setUpNavigationDrawer() {
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
