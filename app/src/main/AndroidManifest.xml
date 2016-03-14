@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-    <!--Access camera permissions -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
@@ -57,19 +56,19 @@
         <activity
             android:name=".activity.GetStartedActivity"
             android:label="@string/title_activity_get_started"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.WelcomeActivity"
             android:label="@string/welcome_activity_label"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.RoleOptionActivity"
             android:label="@string/title_activity_role_option"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.BidderDashActivity"
             android:label="@string/title_activity_bidder_dash"
@@ -79,15 +78,14 @@
         </activity>
         <activity
             android:name=".activity.PlannerDashActivity"
-            android:label="@string/title_activity_planner_dash"
-            android:parentActivityName=".activity.RoleOptionActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeBidder">
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
             android:label="@string/title_activity_register"
             android:parentActivityName=".activity.WelcomeActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.PlannerEventActivity"
             android:label="@string/title_activity_planner_event"
@@ -115,7 +113,7 @@
         <activity
             android:name=".activity.PaymentOptionActivity"
             android:label="@string/title_activity_payment"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.EventDetailsActivity"
             android:label="@string/title_activity_event_details"
@@ -172,8 +170,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
