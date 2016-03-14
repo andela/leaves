@@ -134,7 +134,7 @@
     <string name="isPlanner_reference">isPlanner</string>
     <string name="resetPasswordErrorToast">Something went wrong</string>
     <string name="resetPasswordSuccessToast">Reset link sent to your email</string>
-    <string name="title_activity_my_bid">MyBidActivity</string>
+    <string name="title_activity_my_bid">My Bids</string>
 
 </resources>
 

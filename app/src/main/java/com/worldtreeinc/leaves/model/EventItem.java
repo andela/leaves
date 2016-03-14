@@ -8,6 +8,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ParseClassName("Items")
@@ -114,6 +115,23 @@ public class EventItem extends ParseObject {
             item = null;
         }
         return item;
+    }
+
+    public static List<EventItem> getItemsBiddedOn(List<String> itemsIds){
+        List<EventItem> items = new ArrayList<>();
+        ParseQuery<EventItem> query = ParseQuery.getQuery(EventItem.class);
+        for(String s : itemsIds){
+            query.whereEqualTo("objectId", s);
+            try {
+                EventItem item = query.getFirst();
+                items.add(item);
+            }
+            catch (ParseException e) {
+                e.printStackTrace();
+                items = null;
+            }
+        }
+        return items;
     }
 
     public void refreshItem(final EventItem.ItemRefreshCallBack callback){

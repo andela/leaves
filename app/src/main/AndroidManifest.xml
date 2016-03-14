@@ -189,7 +189,11 @@
         <activity
             android:name=".activity.MyBidActivity"
             android:label="@string/title_activity_my_bid"
-            android:theme="@style/AppTheme.Base.NoActionBar"></activity>
+            android:theme="@style/AppTheme.Base.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.BidderDashActivity" />
+        </activity>
     </application>
 
 </manifest>
