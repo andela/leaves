@@ -119,9 +119,6 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
                         }
                     });
 
-                    // TODO: send 'confirm' to your server for verification.
-                    // see https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
-                    // for more details.
                 } catch (JSONException e) {
                     Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
                     stopProgressDialog();
@@ -174,12 +171,9 @@ public class PaymentOptionFragment extends Fragment implements View.OnClickListe
     }
 
     private void startProgressDialog() {
-        // Create a progressdialog
         progressDialog = new ProgressDialog(getActivity());
-        // Set progressdialog message
         progressDialog.setMessage(getActivity().getString(R.string.event_list_progress_loading));
         progressDialog.setIndeterminate(false);
-        // Show progressdialog
         progressDialog.show();
     }
 
