@@ -64,7 +64,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         item.getImage().getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] bytes, ParseException e) {
-                if (bytes.length != 0){
+                if (bytes  != null){
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     itemImage.setImageBitmap(bitmap);
                 }
@@ -158,7 +158,6 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         } else {
             popup.inflate(R.menu.bidder_menu_item_list);
         }
-        // Force icons to show
         Object menuHelper;
         Class[] argTypes;
         try {
