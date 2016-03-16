@@ -158,7 +158,6 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         } else {
             popup.inflate(R.menu.bidder_menu_item_list);
         }
-        // Force icons to show
         Object menuHelper;
         Class[] argTypes;
         try {
