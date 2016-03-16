@@ -132,7 +132,7 @@
     <string name="is_planner_reference">IS_PLANNER</string>
     <string name="eventId_reference">eventId</string>
     <string name="isPlanner_reference">isPlanner</string>
-    <string name="resetPasswordErrorToast">Something went wrong</string>
+    <string name="resetPasswordErrorToast">Please enter a valid email address</string>
     <string name="resetPasswordSuccessToast">Reset link sent to your email</string>
 
 </resources>
