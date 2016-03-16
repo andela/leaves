@@ -17,6 +17,7 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.RequestPasswordResetCallback;
 import com.worldtreeinc.leaves.R;
+import com.worldtreeinc.leaves.helper.MyToolbar;
 
 public class ResetPasswordActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText resetEmail;
@@ -32,6 +33,8 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
         resetEmail = (EditText) findViewById(R.id.resetPasswordTextBox);
         TextView reset_password_button = (TextView) findViewById(R.id.resetPasswordButton);
         reset_password_button.setOnClickListener(this);
+
+        MyToolbar.setToolbar(this);
     }
 
     @Override
