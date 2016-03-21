@@ -35,7 +35,7 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
     private EventsListAdapter listAdapter;
     private ProgressView loader;
     private FrameLayout frame;
-    private Toolbar mToolbar;
+    private Toolbar mBidderToolbar;
     private DrawerLayout drawer;
 
     @Override
@@ -49,8 +49,8 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initialize(){
-        mToolbar = (Toolbar) findViewById(R.id.bidder_toolbar);
-        setSupportActionBar(mToolbar);
+        mBidderToolbar = (Toolbar) findViewById(R.id.bidder_toolbar);
+        setSupportActionBar(mBidderToolbar);
         MyToolbar.setToolbar(this);
 
         setUpNavigationDrawer();
@@ -144,7 +144,7 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
     private void setUpNavigationDrawer() {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-            this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            this, drawer, mBidderToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 

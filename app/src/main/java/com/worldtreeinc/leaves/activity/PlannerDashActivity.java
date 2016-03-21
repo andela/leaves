@@ -34,7 +34,7 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
     private PlannerDashItemListAdapter listAdapter;
     private ProgressView loader;
     private FrameLayout frame;
-    private Toolbar mToolbar;
+    private Toolbar mPlannerToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +54,8 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initialize() {
-        mToolbar = (Toolbar) findViewById(R.id.planner_toolbar);
-        setSupportActionBar(mToolbar);
+        mPlannerToolbar = (Toolbar) findViewById(R.id.planner_toolbar);
+        setSupportActionBar(mPlannerToolbar);
         setUpNavigationDrawer();
         bidList = (ListView) findViewById(R.id.items_list);
         frame = (FrameLayout)findViewById(R.id.frame_loader);
@@ -145,7 +145,7 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
     private void setUpNavigationDrawer() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-            this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            this, drawer, mPlannerToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
