@@ -134,6 +134,7 @@
     <string name="isPlanner_reference">isPlanner</string>
     <string name="resetPasswordErrorToast">Please enter a valid email address</string>
     <string name="resetPasswordSuccessToast">Reset link sent to your email</string>
+    <string name="title_activity_my_bid">My Bids</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_my_bid">MyBidActivity</string>

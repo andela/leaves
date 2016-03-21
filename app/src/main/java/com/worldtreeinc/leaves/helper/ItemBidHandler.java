@@ -98,7 +98,6 @@ public class ItemBidHandler extends Activity {
                     item.setNewBid(amount);
                     item.saveInBackground();
                     text = "You have successfully place your Bid";
-
                     LeavesNotification.sendItemBidNotification(amount, item);
 
                     User.setItemsBiddedOn(item.getObjectId(), new SaveCallback() {
