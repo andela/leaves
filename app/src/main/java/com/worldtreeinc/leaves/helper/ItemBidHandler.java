@@ -10,8 +10,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.model.EventItem;
+import com.worldtreeinc.leaves.model.User;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -95,7 +98,16 @@ public class ItemBidHandler extends Activity {
                     item.setNewBid(amount);
                     item.saveInBackground();
                     text = "You have successfully place your Bid";
+
                     LeavesNotification.sendItemBidNotification(amount, item);
+
+                    User.setItemsBiddedOn(item.getObjectId(), new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+
+                        }
+                    });
+
                 } else if (amount <= bid) {
                     text = "Your bid must be greater than minimum bid";
                 }

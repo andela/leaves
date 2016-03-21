@@ -59,6 +59,8 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
 
         Button browseEvent = (Button) findViewById(R.id.browse_event_btn);
         browseEvent.setOnClickListener(this);
+        Button myBids = (Button) findViewById(R.id.my_bids_btn);
+        myBids.setOnClickListener(this);
         eventList = (ListView) findViewById(R.id.event_list);
         frame = (FrameLayout)findViewById(R.id.frame_loader);
         loader = (ProgressView) this.findViewById(R.id.loading);
@@ -130,6 +132,9 @@ public class BidderDashActivity extends AppCompatActivity implements View.OnClic
         switch(v.getId()){
             case R.id.browse_event_btn :
                 startActivity(new Intent(this, BidderEventListActivity.class));
+                break;
+            case R.id.my_bids_btn:
+                startActivity(new Intent(this, MyBidActivity.class));
                 break;
         }
     }

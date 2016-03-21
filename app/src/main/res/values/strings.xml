@@ -136,6 +136,8 @@
     <string name="resetPasswordSuccessToast">Reset link sent to your email</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_my_bid">MyBidActivity</string>
+
 
 </resources>
 

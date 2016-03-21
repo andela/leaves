@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
@@ -69,11 +68,25 @@
             android:name=".activity.RoleOptionActivity"
             android:label="@string/title_activity_role_option"
             android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WelcomeActivity"
+            android:label="@string/welcome_activity_label"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RoleOptionActivity"
+            android:label="@string/title_activity_role_option"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.BidderDashActivity"
             android:label="@string/title_activity_bidder_dash"
-            android:screenOrientation="portrait"
             android:parentActivityName=".activity.RoleOptionActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeBidder">
         </activity>
         <activity
@@ -131,9 +144,9 @@
         <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
         <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
         <activity
-            tools:replace="android:configChanges"
             android:name="io.card.payment.CardIOActivity"
-            android:configChanges="orientation" />
+            android:configChanges="orientation"
+            tools:replace="android:configChanges" />
         <activity
             android:name="io.card.payment.DataEntryActivity"
             android:configChanges="orientation" />
@@ -180,6 +193,11 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".activity.MyBidActivity"
+            android:label="@string/title_activity_my_bid"
+            android:theme="@style/AppTheme.Base.NoActionBar"></activity>
     </application>
 
 </manifest>
