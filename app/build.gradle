@@ -29,10 +29,26 @@ repositories {
 dependencies {
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:cardview-v7:23.2.0'
+    compile 'com.android.support:design:23.2.0'
+    compile 'com.pkmmte.view:circularimageview:1.1'
+    compile 'com.github.rey5137:material:1.2.2'
+    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     // Unit testing dependencies
     testCompile 'junit:junit:4.12'
     compile files('libs/Parse-1.9.3.jar')
     compile files('libs/ParseFacebookUtilsV4-1.9.4.jar')
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+    androidTestCompile ('com.android.support.test:runner:0.3') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile ('com.android.support.test:rules:0.3') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    compile('com.paypal.sdk:paypal-android-sdk:2.13.1')
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     // Set this dependency if you want to use Mockito
     testCompile 'org.mockito:mockito-core:1.10.19'
     androidTestCompile ('com.android.support.test:runner:0.3')  {

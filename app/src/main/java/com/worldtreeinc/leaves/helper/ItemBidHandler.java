@@ -94,7 +94,7 @@ public class ItemBidHandler extends Activity {
                 String text = null;
                 if (amount > bid) {
                     item = items.get(currentPosition);
-                    item.setPreviousBid(bid);
+                    item.setPreviousBid(get_bid);
                     item.setNewBid(amount);
                     item.saveInBackground();
                     text = "You have successfully place your Bid";
