@@ -40,6 +40,9 @@ public class ItemBidHandler extends Activity {
     }
 
     private void setDialogDetails(TextView minBid, TextView itemName, View view, EditText bidAmount) {
+        if (item.getIncrement() == null) {
+            item.setIncrement(0);
+        }
         minBid.setText(NumberFormat.getCurrencyInstance().format((Integer)item.getNewBid() + (Integer)item.getIncrement()));
         itemName.setText(item.getName());
         showDialog(view, bidAmount);
@@ -92,7 +95,6 @@ public class ItemBidHandler extends Activity {
                     item.setNewBid(amount);
                     item.saveInBackground();
                     text = "You have successfully place your Bid";
-                    // subscribe user to item channel
                     LeavesNotification.sendItemBidNotification(amount, item);
                 } else if (amount <= bid) {
                     text = "Your bid must be greater than minimum bid";
