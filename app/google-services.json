@@ -1,0 +1,75 @@
+{
+  "project_info": {
+    "project_id": "leaves-953d9",
+    "project_number": "49764613160",
+    "name": "leaves"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49764613160:android:c9472b5ce16fbc25",
+        "client_id": "android:com.worldtreeinc.leaves",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.worldtreeinc.leaves",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49764613160:android:eb70feceb951857f",
+        "client_id": "android:com.worldtreeinc.leaves.activity",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.worldtreeinc.leaves.activity",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
