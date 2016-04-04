@@ -1,6 +1,8 @@
 package com.worldtreeinc.leaves.model;
 
 import android.content.Context;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 import com.android.volley.AuthFailureError;
@@ -8,7 +10,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.worldtreeinc.leaves.R;
@@ -17,7 +18,14 @@ import com.worldtreeinc.leaves.utility.ContextProvider;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,8 +63,10 @@ public class PayPalConfirmation {
     }
 
     private void getConfirmationResponse(final ConfirmationCallback callback) {
+        GetData getData = new GetData(REST_API_URL + paymentId);
+        getData.execute();
         // check payment with paypal rest api
-        JsonObjectRequest paymentConfirmationRequest = new JsonObjectRequest(Request.Method.GET,
+       /* JsonObjectRequest paymentConfirmationRequest = new JsonObjectRequest(Request.Method.GET,
                 REST_API_URL + paymentId, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -81,7 +91,7 @@ public class PayPalConfirmation {
         };
 
         requestQueue.add(paymentConfirmationRequest);
-    }
+*/    }
 
     private String getBase64Authorization() {
         try {
@@ -162,4 +172,60 @@ public class PayPalConfirmation {
         void onFailure();
     }
 
+
+    public class GetData extends AsyncTask<String, String, String> {
+        String link;
+        public GetData(String link){
+            this.link = link;
+
+        }
+
+        HttpURLConnection urlConnection;
+
+        @Override
+        protected String doInBackground(String... args) {
+
+            StringBuilder result = new StringBuilder();
+
+            try {
+                Uri uri = Uri.parse(link);
+                URL url = new URL(uri.toString());
+                Log.d("waleola", "doInBackground called and link " + uri.toString());
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setRequestProperty("Authorization","Bearer " + token);
+                urlConnection.connect();
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Log.d("waleola", line);
+                    result.append(line);
+                }
+
+            }catch( Exception e) {
+                Log.d("waleola", "Raised exception " + e.getMessage());
+
+                e.printStackTrace();
+            }
+            finally {
+                urlConnection.disconnect();
+            }
+
+
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            //Do something with the JSON string
+
+        }
+
+    }
 }
