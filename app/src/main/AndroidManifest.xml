@@ -55,19 +55,6 @@
         <activity
             android:name=".activity.GetStartedActivity"
             android:label="@string/title_activity_get_started"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.WelcomeActivity"
-            android:label="@string/welcome_activity_label"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.RoleOptionActivity"
-            android:label="@string/title_activity_role_option"
-            android:screenOrientation="portrait"/>
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WelcomeActivity"
@@ -81,24 +68,34 @@
             android:name=".activity.RoleOptionActivity"
             android:label="@string/title_activity_role_option"
             android:screenOrientation="portrait" />
-
+        android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WelcomeActivity"
+            android:label="@string/welcome_activity_label"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RoleOptionActivity"
+            android:label="@string/title_activity_role_option"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BidderDashActivity"
             android:label="@string/title_activity_bidder_dash"
             android:parentActivityName=".activity.RoleOptionActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeBidder">
-        </activity>
+            android:theme="@style/AppThemeBidder"></activity>
         <activity
             android:name=".activity.PlannerDashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeBidder">
-        </activity>
+            android:theme="@style/AppThemeBidder"></activity>
         <activity
             android:name=".activity.RegisterActivity"
             android:label="@string/title_activity_register"
             android:parentActivityName=".activity.WelcomeActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PlannerEventActivity"
             android:label="@string/title_activity_planner_event"
@@ -186,10 +183,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.RegisterActivity" />
         </activity>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -201,6 +200,12 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.BidderDashActivity" />
+        </activity>
+        <activity android:name=".activity.ViewReportActivity"
+            android:parentActivityName=".activity.PlannerDashActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PlannerDashActivity" />
         </activity>
     </application>
 

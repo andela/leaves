@@ -64,6 +64,8 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
         createEventBtn.setOnClickListener(this);
         Button manageEventBtn = (Button) findViewById(R.id.manage_events_btn);
         manageEventBtn.setOnClickListener(this);
+        Button viewReport = (Button) findViewById(R.id.view_report);
+        viewReport.setOnClickListener(this);
     }
 
     @Override
@@ -136,6 +138,9 @@ public class PlannerDashActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.manage_events_btn:
                 activitySwitch = PlannerEventActivity.class;
+                break;
+            case R.id.view_report:
+                activitySwitch = ViewReportActivity.class;
                 break;
         }
         Intent intent = new Intent(PlannerDashActivity.this, activitySwitch);
