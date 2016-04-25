@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:padding="5dp">
+
+                <com.pkmmte.view.CircularImageView
+                    android:id="@+id/eventBanner"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="15dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/report_eventName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/eventBanner"
+                    android:layout_toRightOf="@+id/eventBanner"
+                    android:ellipsize="end"
+                    android:hint="Event Name"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ed_location_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/report_eventName"
+                    android:layout_marginRight="2dp"
+                    android:layout_toEndOf="@+id/eventBanner"
+                    android:layout_toRightOf="@+id/eventBanner"
+                    android:src="@drawable/entry_fee" />
+
+                <TextView
+                    android:id="@+id/entry_fee_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/report_eventName"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_toEndOf="@+id/ed_location_icon"
+                    android:layout_toRightOf="@+id/ed_location_icon"
+                    android:ellipsize="end"
+                    android:hint="30.00"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/event_entry_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/ed_location_icon"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@+id/eventBanner"
+                    android:layout_toRightOf="@+id/eventBanner"
+                    android:src="@drawable/entries_icon" />
+
+                <TextView
+                    android:id="@+id/number_of_entries_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/entry_fee_text"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@+id/event_entry_icon"
+                    android:ellipsize="end"
+                    android:hint="20"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/entry_total_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_below="@id/report_eventName"
+                    android:layout_marginLeft="10dp"
+
+                    android:layout_toRightOf="@id/entry_fee_text"
+                    android:src="@drawable/report_total_amount" />
+
+                <TextView
+                    android:id="@+id/entry_total_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/report_eventName"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/entry_total_icon"
+                    android:hint="6000.00"
+                    android:maxLines="1"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
