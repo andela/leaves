@@ -32,7 +32,9 @@ public class MyBidActivity extends AppCompatActivity {
 
     private void getItems() {
         List<String> itemsBiddedOn = User.getItemsBiddedOn();
-        items = EventItem.getItemsBiddedOn(itemsBiddedOn);
+        if(itemsBiddedOn != null) {
+            items = EventItem.getItemsBiddedOn(itemsBiddedOn);
+        }
     }
 
     private class ItemAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -54,9 +56,11 @@ public class MyBidActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            MyBidsAdapter bidsAdapter = new MyBidsAdapter(MyBidActivity.this, items);
             ListView listView = (ListView) findViewById(R.id.my_bid_listView);
-            listView.setAdapter(bidsAdapter);
+            if(items != null) {
+                MyBidsAdapter bidsAdapter = new MyBidsAdapter(MyBidActivity.this, items);
+                listView.setAdapter(bidsAdapter);
+            }
             mProgressDialog.dismiss();
         }
     }
