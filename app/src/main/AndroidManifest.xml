@@ -202,7 +202,8 @@
                 android:value=".activity.BidderDashActivity" />
         </activity>
         <activity android:name=".activity.ViewReportActivity"
-            android:parentActivityName=".activity.PlannerDashActivity">
+            android:label="@string/title_view_report_activity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.PlannerDashActivity" />
