@@ -121,6 +121,18 @@
                             android:text="@string/planner_dash_manage_events"
                             android:textColor="#fff"
                             android:textSize="20sp"/>
+                        <Button
+                            android:id="@+id/view_report"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/dash_button_transparent_white_border"
+                            android:drawableTop="@drawable/report_card"
+                            android:padding="15dp"
+                            android:text="@string/planner_dash_view_report"
+                            android:textColor="#fff"
+                            android:textSize="20sp"/>
 
                     </LinearLayout>
 

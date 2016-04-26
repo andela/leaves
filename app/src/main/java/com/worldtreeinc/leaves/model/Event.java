@@ -38,6 +38,10 @@ public class Event extends ParseObject {
         put("eventName", name);
     }
 
+    public String getName() {
+        return getString("eventName");
+    }
+
     public void setCategory(String category) {
         put("eventCategory", category);
     }

@@ -2,53 +2,50 @@ package com.worldtreeinc.leaves.activity;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
+import com.parse.Parse;
+import com.parse.ParseUser;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.adapter.MyBidsAdapter;
+import com.worldtreeinc.leaves.adapter.ReportAdapter;
 import com.worldtreeinc.leaves.helper.MyToolbar;
-import com.worldtreeinc.leaves.model.EventItem;
+import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.model.User;
 
 import java.util.List;
 
-public class MyBidActivity extends AppCompatActivity {
-    private List<EventItem> items;
+public class ViewReportActivity extends AppCompatActivity {
+    private List<Event> allEvent;
     private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_bid);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        setContentView(R.layout.activity_view_report);
         MyToolbar.setToolbar(this);
-        new ItemAsyncTask().execute();
+        new EventsAsyncTask().execute();
     }
 
-    private void getItems() {
-        List<String> itemsBiddedOn = User.getItemsBiddedOn();
-        if(itemsBiddedOn != null) {
-            items = EventItem.getItemsBiddedOn(itemsBiddedOn);
-        }
+    private void getEventsCreated(){
+        String currentUserId = ParseUser.getCurrentUser().getObjectId();
+        allEvent = Event.getAll("userId", currentUserId );
     }
 
-    private class ItemAsyncTask extends AsyncTask<Void, Void, Void> {
-
+    private class EventsAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            getItems();
+            getEventsCreated();
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressDialog = new ProgressDialog(MyBidActivity.this);
+            mProgressDialog = new ProgressDialog(ViewReportActivity.this);
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.show();
@@ -56,13 +53,11 @@ public class MyBidActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            ListView listView = (ListView) findViewById(R.id.my_bid_listView);
-            if(items != null) {
-                MyBidsAdapter bidsAdapter = new MyBidsAdapter(MyBidActivity.this, items);
-                listView.setAdapter(bidsAdapter);
-            }
+            super.onPostExecute(aVoid);
+            ReportAdapter eventAdapter = new ReportAdapter(ViewReportActivity.this, allEvent);
+            ListView listView = (ListView) findViewById(R.id.view_report_listView);
+            listView.setAdapter(eventAdapter);
             mProgressDialog.dismiss();
         }
     }
-
 }

@@ -82,6 +82,8 @@
     //plannerDash
     <string name="planner_dash_create_event">Create Event</string>
     <string name="planner_dash_manage_events">Manage Events</string>
+    <string name="planner_dash_view_report">View Report</string>
+
     <string name="planner_dash_count_default">10</string>
     <string name="planner_dash_content_description">message notification</string>
     <string name="planner_dash_latest_bids">Latest Bid</string>
@@ -137,8 +139,7 @@
     <string name="title_activity_my_bid">My Bids</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_activity_my_bid">MyBidActivity</string>
-
+    <string name="title_view_report_activity">Report</string>
 
 </resources>
 
