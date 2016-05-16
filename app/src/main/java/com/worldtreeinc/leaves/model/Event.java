@@ -129,7 +129,18 @@ public class Event extends ParseObject {
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.orderByDescending("createdAt");
         try {
-            event = query.getFirst();
+           String id = ParseUser.getCurrentUser().getObjectId();
+            List<Event> events = query.find();
+            int increment = 0;
+            for (Event e : events) {
+                if (e.getUserId().equals(id)) {
+                    increment++;
+                } else {
+                    break;
+                }
+            }
+            event = events.get(increment);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
