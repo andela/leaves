@@ -11,8 +11,10 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.worldtreeinc.leaves.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ParseClassName("Events")
@@ -28,6 +30,10 @@ public class Event extends ParseObject {
 
     public ParseFile getBanner() {
         return getParseFile("eventBanner");
+    }
+
+    public String getUserId() {
+        return getString("userId");
     }
 
     public void setBanner(ParseFile banner) {
@@ -102,6 +108,20 @@ public class Event extends ParseObject {
             event = null;
         }
         return event;
+    }
+    public static List<Event> getFilter(String ObjectReference, String column) {
+        return filter(getAll(ObjectReference, column));
+    }
+
+    private static List<Event> filter(List<Event> event) {
+        List<Event> newList = new ArrayList<>();
+        String id = ParseUser.getCurrentUser().getObjectId();
+        for (Event e : event) {
+            if (!e.getUserId().equals(id)) {
+                newList.add(e);
+            }
+        }
+        return newList;
     }
 
     public static Event getFirst() {

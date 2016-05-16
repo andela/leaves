@@ -2,18 +2,14 @@ package com.worldtreeinc.leaves.utility;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.parse.ParseUser;
 import com.worldtreeinc.leaves.R;
-import com.worldtreeinc.leaves.activity.BidderEventListActivity;
 import com.worldtreeinc.leaves.activity.EventDetailsActivity;
 import com.worldtreeinc.leaves.adapter.EventsListAdapter;
 import com.worldtreeinc.leaves.model.Event;
@@ -93,7 +89,11 @@ public class EventLoaderTask {
     private class EventAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            eventsListAdapter.addAll(Event.getAll(objectReferrence, column));
+            if (objectReferrence.equals("userId")) {
+                eventsListAdapter.addAll(Event.getAll(objectReferrence, column));
+            } else {
+                eventsListAdapter.addAll(Event.getFilter(objectReferrence, column));
+            }
             return null;
         }
 
@@ -116,7 +116,7 @@ public class EventLoaderTask {
     }
 
     public void runningSearch(final String query, final String category) {
-        final List<Event> events = Event.getAll(objectReferrence, category);
+        final List<Event> events = Event.getFilter(objectReferrence, category);
         final List<Event> matchedEvents = new ArrayList<Event>();
         for (Event event: events) {
             String name = event.getField("eventName").toLowerCase();
@@ -125,7 +125,6 @@ public class EventLoaderTask {
             }
         }
         eventsListAdapter = new EventsListAdapter(activity,matchedEvents, isPlanner);
-        //listView = (ListView) activity.findViewById(R.id.listView);
         listView.setAdapter(eventsListAdapter);
         eventsListAdapter.notifyDataSetChanged();
     }
