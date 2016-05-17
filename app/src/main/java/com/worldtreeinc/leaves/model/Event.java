@@ -11,8 +11,10 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.worldtreeinc.leaves.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ParseClassName("Events")
@@ -28,6 +30,10 @@ public class Event extends ParseObject {
 
     public ParseFile getBanner() {
         return getParseFile("eventBanner");
+    }
+
+    public String getUserId() {
+        return getString("userId");
     }
 
     public void setBanner(ParseFile banner) {
@@ -103,13 +109,38 @@ public class Event extends ParseObject {
         }
         return event;
     }
+    public static List<Event> getFilter(String ObjectReference, String column) {
+        return filter(getAll(ObjectReference, column));
+    }
+
+    private static List<Event> filter(List<Event> event) {
+        List<Event> newList = new ArrayList<>();
+        String id = ParseUser.getCurrentUser().getObjectId();
+        for (Event e : event) {
+            if (!e.getUserId().equals(id)) {
+                newList.add(e);
+            }
+        }
+        return newList;
+    }
 
     public static Event getFirst() {
         Event event = null;
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.orderByDescending("createdAt");
         try {
-            event = query.getFirst();
+           String id = ParseUser.getCurrentUser().getObjectId();
+            List<Event> events = query.find();
+            int increment = 0;
+            for (Event e : events) {
+                if (e.getUserId().equals(id)) {
+                    increment++;
+                } else {
+                    break;
+                }
+            }
+            event = events.get(increment);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
