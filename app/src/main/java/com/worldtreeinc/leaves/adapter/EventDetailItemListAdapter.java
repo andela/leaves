@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.rey.material.widget.FloatingActionButton;
@@ -21,6 +22,7 @@ import com.worldtreeinc.leaves.fragment.ItemFormFragment;
 import com.worldtreeinc.leaves.helper.ItemBidHandler;
 import com.worldtreeinc.leaves.model.EventItem;
 import com.worldtreeinc.leaves.utility.DialogBox;
+
 import java.lang.reflect.Field;
 import java.util.List;
 public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implements PopupMenu.OnMenuItemClickListener {
@@ -30,7 +32,6 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
     EventItem item;
     FloatingActionButton addItemButton;
     int currentPosition;
-    private TextView itemName;
     ItemFormFragment itemFormFragment;
     Bundle bundle;
     private boolean isPlanner;
@@ -43,6 +44,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         this.isEnteredEvent = isEnteredEvent;
         this.eventName = eventName;
     }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -62,8 +64,10 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         item.getImage().getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] bytes, ParseException e) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                itemImage.setImageBitmap(bitmap);
+                if (bytes  != null){
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    itemImage.setImageBitmap(bitmap);
+                }
             }
         });
         ImageView moreActionButton = (ImageView) convertView.findViewById(R.id.popMenu);
@@ -77,6 +81,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         });
         return convertView;
     }
+
     private void openForm(String itemId) {
         itemFormFragment = new ItemFormFragment();
         addItemButton = (FloatingActionButton) activity.findViewById(R.id.add_item_button);
@@ -95,6 +100,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
                 .addToBackStack(null)
                 .commit();
     }
+
     private void delete(final String itemId) {
         AsyncTask<Void, Void, Void> delete = new AsyncTask<Void, Void, Void>() {
             @Override
@@ -116,6 +122,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         };
         delete.execute();
     }
+
     @Override
     public boolean onMenuItemClick(MenuItem popMenuItem) {
         final String itemId;
@@ -142,6 +149,7 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
                 return false;
         }
     }
+
     public void showMenu(View v) {
         PopupMenu popup = new PopupMenu(activity, v);
         popup.setOnMenuItemClickListener(this);
@@ -150,7 +158,6 @@ public class EventDetailItemListAdapter extends ArrayAdapter<EventItem> implemen
         } else {
             popup.inflate(R.menu.bidder_menu_item_list);
         }
-        // Force icons to show
         Object menuHelper;
         Class[] argTypes;
         try {

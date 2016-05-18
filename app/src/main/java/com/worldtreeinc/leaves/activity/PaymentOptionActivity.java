@@ -2,9 +2,12 @@ package com.worldtreeinc.leaves.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.worldtreeinc.leaves.helper.MyToolbar;
 import com.worldtreeinc.leaves.model.Event;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.fragment.PaymentOptionFragment;
@@ -58,6 +61,8 @@ public class PaymentOptionActivity extends AppCompatActivity {
                 .beginTransaction()
                 .add(R.id.payment_option_container, paymentOptionFragment)
                 .commit();
+
+        MyToolbar.setToolbar(this);
     }
 
     @Override

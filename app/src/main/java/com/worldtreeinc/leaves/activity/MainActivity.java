@@ -12,8 +12,6 @@ import com.worldtreeinc.leaves.model.User;
 
 import org.json.JSONObject;
 
-import org.json.JSONObject;
-
 
 public class MainActivity extends Activity {
 
@@ -48,7 +46,7 @@ public class MainActivity extends Activity {
                 }
 
             }
-        }, 3000);
+        }, 500);
 
     }
 

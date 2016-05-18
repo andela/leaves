@@ -50,12 +50,9 @@ public class EventLoaderTask {
 
     public void updateEventList(final String category) {
         mProgressDialog = new ProgressDialog(activity);
-        // Set progressdialog title
         mProgressDialog.setTitle(category + activity.getString(R.string.bidder_event_list_dialog));
-        // Set progressdialog message
         mProgressDialog.setMessage(activity.getString(R.string.event_list_progress_loading));
         mProgressDialog.setIndeterminate(false);
-        // Show progressdialog
         mProgressDialog.show();
         eventsListAdapter.clear();
         new Thread(new Runnable() {
@@ -75,7 +72,6 @@ public class EventLoaderTask {
 
     }
 
-
     private ListView.OnItemClickListener mMessageClickedHandler = new ListView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             Event event = eventsListAdapter.getCurrentEvent(position);
@@ -93,31 +89,43 @@ public class EventLoaderTask {
     private class EventAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            eventsListAdapter.addAll(Event.getAll(objectReferrence, column));
+            if (objectReferrence.equals("userId")) {
+                eventsListAdapter.addAll(Event.getAll(objectReferrence, column));
+            } else {
+                eventsListAdapter.addAll(Event.getFilter(objectReferrence, column));
+            }
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Create a progressdialog
             mProgressDialog = new ProgressDialog(activity);
-            // Set progressdialog message
             mProgressDialog.setMessage(activity.getString(R.string.event_list_progress_loading));
             mProgressDialog.setIndeterminate(false);
-            // Show progressdialog
             mProgressDialog.show();
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            // Locate the listview in listview_main.xml
             listView = (ListView) activity.findViewById(R.id.listView);
-            // Binds the Adapter to the ListView
             listView.setAdapter(eventsListAdapter);
             listView.setOnItemClickListener(mMessageClickedHandler);
-            // Close the progressdialog
             mProgressDialog.dismiss();
         }
+    }
+
+    public void runningSearch(final String query, final String category) {
+        final List<Event> events = Event.getFilter(objectReferrence, category);
+        final List<Event> matchedEvents = new ArrayList<Event>();
+        for (Event event: events) {
+            String name = event.getField("eventName").toLowerCase();
+            if(name.contains(query.toLowerCase())) {
+                matchedEvents.add(event);
+            }
+        }
+        eventsListAdapter = new EventsListAdapter(activity,matchedEvents, isPlanner);
+        listView.setAdapter(eventsListAdapter);
+        eventsListAdapter.notifyDataSetChanged();
     }
 }

@@ -82,6 +82,8 @@
     //plannerDash
     <string name="planner_dash_create_event">Create Event</string>
     <string name="planner_dash_manage_events">Manage Events</string>
+    <string name="planner_dash_view_report">View Report</string>
+
     <string name="planner_dash_count_default">10</string>
     <string name="planner_dash_content_description">message notification</string>
     <string name="planner_dash_latest_bids">Latest Bid</string>
@@ -108,7 +110,7 @@
     <string name="bidder_event_list_dialog">" events"</string>
     <string name="event_search_hint">Search Events</string>
     <string name="title_activity_bidder_events_tab">Events</string>
-    <string name="bidder_dashboard_title">Dashboard</string>
+    <string name="bidder_dashboard_title">Bidder Dashboard</string>
     <string name="Event_list_progress_dialog">My event list</string>
     <string name="event_list_progress_loading">Loading...</string>
     <string name="event_list_progress_saving">Saving...</string>
@@ -132,8 +134,12 @@
     <string name="is_planner_reference">IS_PLANNER</string>
     <string name="eventId_reference">eventId</string>
     <string name="isPlanner_reference">isPlanner</string>
-    <string name="resetPasswordErrorToast">Something went wrong</string>
+    <string name="resetPasswordErrorToast">Please enter a valid email address</string>
     <string name="resetPasswordSuccessToast">Reset link sent to your email</string>
+    <string name="title_activity_my_bid">My Bids</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_view_report_activity">Report</string>
 
 </resources>
 

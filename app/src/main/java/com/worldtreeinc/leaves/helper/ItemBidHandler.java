@@ -3,14 +3,18 @@ package com.worldtreeinc.leaves.helper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.model.EventItem;
+import com.worldtreeinc.leaves.model.User;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -39,6 +43,9 @@ public class ItemBidHandler extends Activity {
     }
 
     private void setDialogDetails(TextView minBid, TextView itemName, View view, EditText bidAmount) {
+        if (item.getIncrement() == null) {
+            item.setIncrement(0);
+        }
         minBid.setText(NumberFormat.getCurrencyInstance().format((Integer)item.getNewBid() + (Integer)item.getIncrement()));
         itemName.setText(item.getName());
         showDialog(view, bidAmount);
@@ -87,12 +94,19 @@ public class ItemBidHandler extends Activity {
                 String text = null;
                 if (amount > bid) {
                     item = items.get(currentPosition);
-                    item.setPreviousBid(bid);
+                    item.setPreviousBid(get_bid);
                     item.setNewBid(amount);
                     item.saveInBackground();
                     text = "You have successfully place your Bid";
-                    // subscribe user to item channel
                     LeavesNotification.sendItemBidNotification(amount, item);
+
+                    User.setItemsBiddedOn(item.getObjectId(), new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+
+                        }
+                    });
+
                 } else if (amount <= bid) {
                     text = "Your bid must be greater than minimum bid";
                 }
@@ -102,6 +116,14 @@ public class ItemBidHandler extends Activity {
             }
         });
 
+       refreshActivity();
+    }
+
+    private void refreshActivity(){
+        Intent intent = activity.getIntent();
+        activity.finish();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        activity.startActivity(intent);
     }
 
 }
