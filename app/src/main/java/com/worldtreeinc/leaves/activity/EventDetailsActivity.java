@@ -1,6 +1,7 @@
 package com.worldtreeinc.leaves.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +48,7 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
 
     private static int RESULT_LOAD_IMAGE = 1;
     private static int IMAGE_CAPTURE = 3401;
+
 
 
     @Override
@@ -247,6 +249,39 @@ public class EventDetailsActivity extends AppCompatActivity implements View.OnCl
                     EventDetailsActivity.this.recreate();
                 }
             });
+        }
+    }
+
+    private void takePicture(int[] grantResults) {
+        if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            itemFormFragment.form.captureImage();
+        } else {
+            Toast.makeText(this,
+                    "External write permission has not been granted, cannot save image",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void selectFromGallery(int[] grantResults) {
+        if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            itemFormFragment.form.openGallery();
+        } else {
+            Toast.makeText(this,
+                    "External write permission has not been granted, cannot save image",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if(requestCode == 150) {
+            takePicture(grantResults);
+        } else if(requestCode == 180) {
+            selectFromGallery(grantResults);
+        }
+        else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

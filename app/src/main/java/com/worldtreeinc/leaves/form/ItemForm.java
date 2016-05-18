@@ -1,16 +1,16 @@
 package com.worldtreeinc.leaves.form;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,8 +27,7 @@ import com.worldtreeinc.leaves.fragment.ItemListFragment;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.EventItem;
 
-import java.io.File;
-import java.io.IOException;
+
 
 /**
  * Created by andela on 8/24/15.
@@ -58,7 +57,6 @@ public class ItemForm implements View.OnClickListener  {
     public static ParseFile file;
     EventItem item;
     ItemListFragment itemListFragment;
-    Bundle bundle;
     private static int RESULT_LOAD = 1;
     private static int IMAGE_CAPTURE = 3401;
     View view;
@@ -122,14 +120,22 @@ public class ItemForm implements View.OnClickListener  {
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(final View v) {
         switch (v.getId()) {
             case R.id.item_image_select_icon:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                            if (activity.checkSelfPermission(Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED) {
+                                captureImage();
+                            } else {
+                                activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 150);
+                                Toast.makeText(activity,"Your Permission is needed to get access the camera",Toast.LENGTH_LONG).show();
+                            }
+                        } else {
                             captureImage();
-
+                        }
                     }
                 }).start();
                 break;
@@ -137,7 +143,17 @@ public class ItemForm implements View.OnClickListener  {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        openGallery();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                            if (activity.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED) {
+                                openGallery();
+                            } else {
+                                activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE}, 180);
+                                Toast.makeText(activity,"Your Permission is needed to get access the gallery",Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            openGallery();
+                        }
+
                     }
                 }).start();
                 break;
@@ -150,6 +166,7 @@ public class ItemForm implements View.OnClickListener  {
                 break;
         }
     }
+
 
     private void update() {
         getData();
@@ -242,8 +259,9 @@ public class ItemForm implements View.OnClickListener  {
         activity.startActivityForResult(galleryIntent, RESULT_LOAD);
     }
 
-    public void captureImage(){
-        Intent getImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    public void captureImage() {
+        Intent getImage = new Intent();
+        getImage.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
         activity.startActivityForResult(getImage, IMAGE_CAPTURE);
     }
 

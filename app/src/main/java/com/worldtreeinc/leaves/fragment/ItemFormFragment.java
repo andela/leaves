@@ -22,7 +22,7 @@ public class ItemFormFragment extends Fragment {
     View view;
     String eventId;
     String userId;
-    ItemForm form;
+    public ItemForm form;
     String itemId;
     private String eventName;
 
