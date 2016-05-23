@@ -1,16 +1,13 @@
 package com.worldtreeinc.leaves.form;
 
-import android.Manifest;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -21,12 +18,12 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.rey.material.widget.FloatingActionButton;
+import com.worldtreeinc.leaves.helper.CameraPermission;
 import com.worldtreeinc.leaves.helper.LeavesNotification;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.fragment.ItemListFragment;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.EventItem;
-
 
 
 /**
@@ -58,8 +55,9 @@ public class ItemForm implements View.OnClickListener  {
     EventItem item;
     ItemListFragment itemListFragment;
     private static int RESULT_LOAD = 1;
-    private static int IMAGE_CAPTURE = 3401;
+    private CameraPermission cameraPermission;
     View view;
+    private ImageButton itemBannerImageView;
 
     public ItemForm(Activity activity, View view, String eventId, String userId, FloatingActionButton btn, String itemId, String eventName) {
         this.view = view;
@@ -81,14 +79,15 @@ public class ItemForm implements View.OnClickListener  {
         description = (EditText) view.findViewById(R.id.new_item_description);
         startBid = (EditText) view.findViewById(R.id.new_item_start_bid);
         increment = (EditText) view.findViewById(R.id.increment);
-
+        cameraPermission = new CameraPermission(activity);
         confirmAddBtn = (com.rey.material.widget.Button) view.findViewById(R.id.confirm_add_item_button);
         confirmAddBtn.setOnClickListener(this);
         image = (ImageView) view.findViewById(R.id.new_item_image);
         image.setOnClickListener(this);
         imageSelectBtn = (ImageButton) view.findViewById(R.id.item_image_select_icon);
         imageSelectBtn.setOnClickListener(this);
-
+        itemBannerImageView = (ImageButton) view.findViewById(R.id.clear_item_image_select_icon);
+        itemBannerImageView.setOnClickListener(this);
         cancelAddItemButton = (com.rey.material.widget.Button) view.findViewById(R.id.cancel_add_item_button);
         cancelAddItemButton.setOnClickListener(this);
 
@@ -97,7 +96,6 @@ public class ItemForm implements View.OnClickListener  {
     private void setData() {
         EventItem items = EventItem.getOne(itemId);
         eventId = items.getEventId();
-
         name.setText(items.getName());
         description.setText(items.getDescription());
         startBid.setText(items.getPreviousBid().toString());
@@ -126,16 +124,7 @@ public class ItemForm implements View.OnClickListener  {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                            if (activity.checkSelfPermission(Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED) {
-                                captureImage();
-                            } else {
-                                activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 150);
-                                Toast.makeText(activity,"Your Permission is needed to get access the camera",Toast.LENGTH_LONG).show();
-                            }
-                        } else {
-                            captureImage();
-                        }
+                        cameraPermission.getCameraPermission();
                     }
                 }).start();
                 break;
@@ -143,19 +132,12 @@ public class ItemForm implements View.OnClickListener  {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                            if (activity.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED) {
-                                openGallery();
-                            } else {
-                                activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE}, 180);
-                                Toast.makeText(activity,"Your Permission is needed to get access the gallery",Toast.LENGTH_LONG).show();
-                            }
-                        } else {
-                            openGallery();
-                        }
-
+                        openGallery();
                     }
                 }).start();
+                break;
+            case R.id.clear_item_image_select_icon:
+                image.setImageResource(R.drawable.default_image);
                 break;
             case R.id.confirm_add_item_button:
                 update();
@@ -253,17 +235,6 @@ public class ItemForm implements View.OnClickListener  {
         item.setUserId(userId);
     }
 
-    public void openGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        activity.startActivityForResult(galleryIntent, RESULT_LOAD);
-    }
-
-    public void captureImage() {
-        Intent getImage = new Intent();
-        getImage.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-        activity.startActivityForResult(getImage, IMAGE_CAPTURE);
-    }
 
     public boolean isValid() {
         boolean valid = true;
@@ -290,4 +261,12 @@ public class ItemForm implements View.OnClickListener  {
         }
         return valid;
     }
+
+    public void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        activity.startActivityForResult(galleryIntent, RESULT_LOAD);
+
+    }
+
 }

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.rey.material.widget.Button;
+import com.worldtreeinc.leaves.helper.CameraPermission;
 import com.worldtreeinc.leaves.helper.MyToolbar;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.form.EventForm;
@@ -28,6 +29,7 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
     Button eventButton;
     private static int REQUEST_CAMERA = 3401;
     public static final int REQUEST_CAMERA_RESULT =201;
+    private CameraPermission cameraPermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
         setupEdit();
 
         eventButton.setOnClickListener(this);
-
+        cameraPermission = new CameraPermission(this);
         ImageButton openGalleryButton = (ImageButton) findViewById(R.id.banner_select_icon);
         openGalleryButton.setOnClickListener(this);
 
@@ -93,16 +95,7 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                            if (checkSelfPermission(Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED) {
-                                captureImage();
-                            } else {
-                                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA}, REQUEST_CAMERA_RESULT);
-                                Toast.makeText(EventActivity.this, "Your Permission is needed to access the camera", Toast.LENGTH_LONG).show();
-                            }
-                        } else {
-                            captureImage();
-                        }
+                       cameraPermission.getCameraPermission();
                     }
                 }).start();
                 break;
@@ -145,8 +138,6 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if(requestCode == REQUEST_CAMERA_RESULT) {
             captureImage();
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
