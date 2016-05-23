@@ -110,9 +110,10 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
     }
 
     public void captureImage(){
-        Intent getImage = new Intent();
-        getImage.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(getImage, REQUEST_CAMERA);
+        Intent getImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (getImage.resolveActivity(getPackageManager()) != null) {
+             startActivityForResult(getImage, REQUEST_CAMERA);
+                }
     }
 
     @Override

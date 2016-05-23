@@ -24,8 +24,12 @@ public class CameraPermission {
             if (activity.checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 getImage();
             } else {
-                activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 150);
-                Toast.makeText(activity, "Your Permission is needed to access the camera", Toast.LENGTH_LONG).show();
+                try {
+                    activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 150);
+                    Toast.makeText(activity, "Your Permission is needed to access the camera", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } else {
             getImage();
