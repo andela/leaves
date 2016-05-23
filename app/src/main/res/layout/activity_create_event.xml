@@ -184,7 +184,7 @@
                 android:id="@+id/clear_banner_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/cancel_icon_dark"
+                android:src="@drawable/delete_sign"
                 android:background="@android:color/transparent"
                 android:layout_gravity="left|bottom" />
 
