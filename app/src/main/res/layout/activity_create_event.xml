@@ -29,6 +29,7 @@
                 android:layout_weight="1"
                 android:id="@+id/event_name"
                 android:hint="@string/create_event_name"
+                android:inputType="text"
                 android:layout_marginTop="60dp" />
 
             <ImageView
@@ -123,6 +124,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:id="@+id/event_venue"
+                android:inputType="text"
                 android:hint="@string/create_event_venue" />
             <ImageView
                 android:layout_width="wrap_content"
@@ -174,7 +176,7 @@
                 android:id="@+id/banner_select_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/gallery_icon"
+                android:src="@drawable/camera"
                 android:background="@android:color/transparent"
                 android:layout_gravity="right|bottom" />
 
@@ -182,7 +184,7 @@
                 android:id="@+id/clear_banner_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/cancel_icon_dark"
+                android:src="@drawable/delete_sign"
                 android:background="@android:color/transparent"
                 android:layout_gravity="left|bottom" />
 

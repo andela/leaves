@@ -1,16 +1,13 @@
 package com.worldtreeinc.leaves.form;
 
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -21,14 +18,13 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.rey.material.widget.FloatingActionButton;
+import com.worldtreeinc.leaves.helper.CameraPermission;
 import com.worldtreeinc.leaves.helper.LeavesNotification;
 import com.worldtreeinc.leaves.R;
 import com.worldtreeinc.leaves.fragment.ItemListFragment;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.model.EventItem;
 
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by andela on 8/24/15.
@@ -58,10 +54,10 @@ public class ItemForm implements View.OnClickListener  {
     public static ParseFile file;
     EventItem item;
     ItemListFragment itemListFragment;
-    Bundle bundle;
     private static int RESULT_LOAD = 1;
-    private static int IMAGE_CAPTURE = 3401;
+    private CameraPermission cameraPermission;
     View view;
+    private ImageButton itemBannerImageView;
 
     public ItemForm(Activity activity, View view, String eventId, String userId, FloatingActionButton btn, String itemId, String eventName) {
         this.view = view;
@@ -83,14 +79,15 @@ public class ItemForm implements View.OnClickListener  {
         description = (EditText) view.findViewById(R.id.new_item_description);
         startBid = (EditText) view.findViewById(R.id.new_item_start_bid);
         increment = (EditText) view.findViewById(R.id.increment);
-
+        cameraPermission = new CameraPermission(activity);
         confirmAddBtn = (com.rey.material.widget.Button) view.findViewById(R.id.confirm_add_item_button);
         confirmAddBtn.setOnClickListener(this);
         image = (ImageView) view.findViewById(R.id.new_item_image);
         image.setOnClickListener(this);
         imageSelectBtn = (ImageButton) view.findViewById(R.id.item_image_select_icon);
         imageSelectBtn.setOnClickListener(this);
-
+        itemBannerImageView = (ImageButton) view.findViewById(R.id.clear_item_image_select_icon);
+        itemBannerImageView.setOnClickListener(this);
         cancelAddItemButton = (com.rey.material.widget.Button) view.findViewById(R.id.cancel_add_item_button);
         cancelAddItemButton.setOnClickListener(this);
 
@@ -99,7 +96,6 @@ public class ItemForm implements View.OnClickListener  {
     private void setData() {
         EventItem items = EventItem.getOne(itemId);
         eventId = items.getEventId();
-
         name.setText(items.getName());
         description.setText(items.getDescription());
         startBid.setText(items.getPreviousBid().toString());
@@ -122,14 +118,13 @@ public class ItemForm implements View.OnClickListener  {
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(final View v) {
         switch (v.getId()) {
             case R.id.item_image_select_icon:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                            captureImage();
-
+                        cameraPermission.getCameraPermission();
                     }
                 }).start();
                 break;
@@ -141,6 +136,9 @@ public class ItemForm implements View.OnClickListener  {
                     }
                 }).start();
                 break;
+            case R.id.clear_item_image_select_icon:
+                image.setImageResource(R.drawable.default_image);
+                break;
             case R.id.confirm_add_item_button:
                 update();
                 break;
@@ -150,6 +148,7 @@ public class ItemForm implements View.OnClickListener  {
                 break;
         }
     }
+
 
     private void update() {
         getData();
@@ -236,16 +235,6 @@ public class ItemForm implements View.OnClickListener  {
         item.setUserId(userId);
     }
 
-    public void openGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        activity.startActivityForResult(galleryIntent, RESULT_LOAD);
-    }
-
-    public void captureImage(){
-        Intent getImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        activity.startActivityForResult(getImage, IMAGE_CAPTURE);
-    }
 
     public boolean isValid() {
         boolean valid = true;
@@ -272,4 +261,12 @@ public class ItemForm implements View.OnClickListener  {
         }
         return valid;
     }
+
+    public void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        activity.startActivityForResult(galleryIntent, RESULT_LOAD);
+
+    }
+
 }

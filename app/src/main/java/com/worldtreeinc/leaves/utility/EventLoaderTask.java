@@ -58,7 +58,7 @@ public class EventLoaderTask {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final List<Event> events = Event.getAll(objectReferrence, category);
+                final List<Event> events = Event.getFilter(objectReferrence, category);
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

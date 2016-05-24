@@ -1,6 +1,9 @@
 package com.worldtreeinc.leaves.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.rey.material.widget.Button;
+import com.worldtreeinc.leaves.helper.CameraPermission;
 import com.worldtreeinc.leaves.helper.MyToolbar;
 import com.worldtreeinc.leaves.model.Banner;
 import com.worldtreeinc.leaves.form.EventForm;
@@ -23,6 +28,8 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
     String eventId;
     Button eventButton;
     private static int REQUEST_CAMERA = 3401;
+    public static final int REQUEST_CAMERA_RESULT =201;
+    private CameraPermission cameraPermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +41,7 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
         setupEdit();
 
         eventButton.setOnClickListener(this);
-
+        cameraPermission = new CameraPermission(this);
         ImageButton openGalleryButton = (ImageButton) findViewById(R.id.banner_select_icon);
         openGalleryButton.setOnClickListener(this);
 
@@ -88,7 +95,7 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        captureImage();
+                       cameraPermission.getCameraPermission();
                     }
                 }).start();
                 break;
@@ -105,8 +112,8 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
     public void captureImage(){
         Intent getImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (getImage.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(getImage, REQUEST_CAMERA);
-        }
+             startActivityForResult(getImage, REQUEST_CAMERA);
+                }
     }
 
     @Override
@@ -125,6 +132,13 @@ public class EventActivity extends AppCompatActivity  implements View.OnClickLis
         }
         catch (Exception e) {
             eventId = null;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if(requestCode == REQUEST_CAMERA_RESULT) {
+            captureImage();
         }
     }
 }
