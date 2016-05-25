@@ -25,8 +25,6 @@ You'll require two things:
 
 ## Android Studio
 
-http://support.apple.com/kb/DL1572?viewlocale=en_US&locale=en_US
-
 #### Install Java
 
 1) Go [here](http://support.apple.com/kb/DL1572?viewlocale=en_US&locale=en_US) and use the download link to and install Java.
