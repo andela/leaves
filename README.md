@@ -16,25 +16,10 @@ As a Bidder, the user is able to browse, search and bid on items.
 ## Installation
 
 You'll require two things:
-* The java jdk
-* [Android Studio](#mac-os-x)
+* The [Java jdk](http://support.apple.com/kb/DL1572?viewlocale=en_US&locale=en_US)
+* [Android Studio](http://developer.android.com/sdk/index.html)
 * Clone the project
 * Start Android Studio and open the project
-
-===
-
-## Android Studio
-
-#### Install Java
-
-1) Go [here](http://support.apple.com/kb/DL1572?viewlocale=en_US&locale=en_US) and use the download link to and install Java.
-
-#### Install Android Studio
-
-2) Use the [link](http://developer.android.com/sdk/index.html) to install Android Studio
-
-
-===
 
 ##Tests
 Several tests were written to test the functionality of this application and they are located in the test directory.
