@@ -33,9 +33,9 @@ http://support.apple.com/kb/DL1572?viewlocale=en_US&locale=en_US
 
 #### Install Android Studio
 
-2) Use the link below to install Android Studio
+2) Use the [link](http://developer.android.com/sdk/index.html) to install Android Studio
 
-http://developer.android.com/sdk/index.html
+
 ===
 
 ##Tests
