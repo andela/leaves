@@ -26,7 +26,11 @@ Several tests were written to test the functionality of this application and the
 The tests are based on the MOCKITO unit test.
 
 ##License
-**Free Software** 
+
+MIT
+
+**Free Software**
+
 Simply fork this repository, make your changes and send PR to the STAGING branch.
 
 
